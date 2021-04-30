@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.312" height="12.094" viewBox="0 0 17.312 12.094">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="view_копия" data-name="view копия" class="cls-1" d="M392.806,393.04v-5.022H380.7v12.106h12.11v-5.057l5.189,3.31v-8.648Zm-1.73,5.355h-8.65v-8.647h8.65V398.4Zm5.189-3.139-1.925-1.2,1.925-1.2v2.406Z" transform="translate(-380.688 -388.031)"/>
+</svg>

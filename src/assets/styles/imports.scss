@@ -1,0 +1,31 @@
+$color-primary: #3c3c3c;
+$color-green: #04b991;
+$color-lightgreen: #0bcca1;
+$color-yellow: #f6e43e;
+$color-lightyellow: #f8e964;
+$color-pink: #e40175;
+$color-lightpink: #f283bc;
+$color-lightgray: #f3f4f9;
+$color-gray: #e3e5ef;
+$color-lightviolet: #aca8c3;
+
+$container-padding: 10px;
+$container-max-width: 320px;
+$container-max-width-md: 960px;
+$container-max-width-lg: 1280px;
+$container-max-width-xl: 1600px;
+
+$breakpoints: (
+  xs: 375px,
+  sm: 600px,
+  md: 970px,
+  lg: 1290px,
+  xl: 1610px,
+  xxl: 2000px
+);
+
+@mixin media($breakpoint) {
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}

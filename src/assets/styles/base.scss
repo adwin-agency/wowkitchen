@@ -1,0 +1,164 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.2;
+  -webkit-tap-highlight-color: transparent;  
+}
+
+body {
+  margin: 0;
+  color: #3c3c3c;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  span {
+    color: $color-green;
+  }
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 26px;
+  line-height: (38/26);
+
+  @include media(md) {
+    font-size: 36px;
+    line-height: (42/36);
+  }
+
+  @include media(lg) {
+    font-size: 50px;
+    line-height: (72/50);
+  }
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: (22/18);
+
+  @include media(md) {
+    font-size: 24px;
+    line-height: (32/24);
+  }
+
+  @include media(lg) {
+    font-size: 30px;
+    line-height: (38/30);
+  }
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: (22/18);
+
+  @include media(md) {
+    font-size: 24px;
+    line-height: (32/24);
+  }
+}
+
+h4 {
+  font-size: 18px;
+  line-height: (22/18);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+
+input, textarea {
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+  background: none;
+}
+
+textarea {
+  resize: none;
+}
+
+picture, img {
+  display: block;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 $container-padding;
+  width: 100%;
+  max-width: $container-max-width;
+
+  @include media(md) {
+    max-width: $container-max-width-md;
+  }
+
+  @include media(lg) {
+    max-width: $container-max-width-lg;
+  }
+
+  @include media(xl) {
+    max-width: $container-max-width-xl;
+  }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  display: inline-block;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-size: contain;
+  transition: opacity .3s ease;
+  cursor: pointer;
+}
+
+.swiper-button-prev {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyBpZD0iYXJyb3ciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjY2IiBoZWlnaHQ9IjY2IiB2aWV3Qm94PSIwIDAgNjYgNjYiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICMzYzNjM2M7CiAgICAgICAgb3BhY2l0eTogMC4zOwogICAgICB9CgogICAgICAuY2xzLTIgewogICAgICAgIGZpbGw6ICNmM2Y0Zjk7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Y2lyY2xlIGlkPSLQrdC70LvQuNC/0YFfOV/QutC+0L/QuNGPIiBkYXRhLW5hbWU9ItCt0LvQu9C40L/RgSA5INC60L7Qv9C40Y8iIGNsYXNzPSJjbHMtMSIgY3g9IjMzIiBjeT0iMzMiIHI9IjMzIi8+CiAgPHBhdGggaWQ9ImFycm93X3JpZ2h0X9C60L7Qv9C40Y8iIGRhdGEtbmFtZT0iYXJyb3dfcmlnaHQg0LrQvtC/0LjRjyIgY2xhc3M9ImNscy0yIiBkPSJNMTEwNi42NSw1NjQuM2gwYTEuMDU1LDEuMDU1LDAsMCwwLTEuNDYsMGwtOC41Niw4LjI2NWExLjk0OSwxLjk0OSwwLDAsMCwwLDIuODI4bDguNjIsOC4zMjZhMS4wNTgsMS4wNTgsMCwwLDAsMS40NS4wMWgwYTAuOTcsMC45NywwLDAsMCwuMDEtMS40MjRsLTcuODktNy42MTlhMC45ODMsMC45ODMsMCwwLDEsMC0xLjQxNGw3LjgzLTcuNTU4QTAuOTgzLDAuOTgzLDAsMCwwLDExMDYuNjUsNTY0LjNaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTA2OSAtNTQxKSIvPgo8L3N2Zz4K);
+}
+
+.swiper-button-next {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyBpZD0iYXJyb3ciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjY2IiBoZWlnaHQ9IjY2IiB2aWV3Qm94PSIwIDAgNjYgNjYiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICMzYzNjM2M7CiAgICAgICAgb3BhY2l0eTogMC4zOwogICAgICB9CgogICAgICAuY2xzLTIgewogICAgICAgIGZpbGw6ICNmM2Y0Zjk7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Y2lyY2xlIGlkPSLQrdC70LvQuNC/0YFfOV/QutC+0L/QuNGPIiBkYXRhLW5hbWU9ItCt0LvQu9C40L/RgSA5INC60L7Qv9C40Y8iIGNsYXNzPSJjbHMtMSIgY3g9IjMzIiBjeT0iMzMiIHI9IjMzIi8+CiAgPHBhdGggaWQ9ImFycm93X3JpZ2h0X9C60L7Qv9C40Y8iIGRhdGEtbmFtZT0iYXJyb3dfcmlnaHQg0LrQvtC/0LjRjyIgY2xhc3M9ImNscy0yIiBkPSJNMTEwNi42NSw1NjQuM2gwYTEuMDU1LDEuMDU1LDAsMCwwLTEuNDYsMGwtOC41Niw4LjI2NWExLjk0OSwxLjk0OSwwLDAsMCwwLDIuODI4bDguNjIsOC4zMjZhMS4wNTgsMS4wNTgsMCwwLDAsMS40NS4wMWgwYTAuOTcsMC45NywwLDAsMCwuMDEtMS40MjRsLTcuODktNy42MTlhMC45ODMsMC45ODMsMCwwLDEsMC0xLjQxNGw3LjgzLTcuNTU4QTAuOTgzLDAuOTgzLDAsMCwwLDExMDYuNjUsNTY0LjNaIiB0cmFuc2Zvcm09InJvdGF0ZSgxODAgMzMgMzMpIHRyYW5zbGF0ZSgtMTA2OSAtNTQxKSIvPgo8L3N2Zz4K);
+}
+
+.swiper-button-disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.swiper-scrollbar {
+  height: 3px;
+  border-radius: 3px;
+  background-color: #aca8c3;
+}
+
+.swiper-scrollbar-drag {
+  height: 100%;
+  border-radius: inherit;
+  background-color: $color-green;
+}

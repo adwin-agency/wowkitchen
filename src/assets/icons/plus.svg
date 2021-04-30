@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #aca8c3;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="plus_circle" class="cls-1" d="M1038,1531a10,10,0,1,0,10.01,10A10.006,10.006,0,0,0,1038,1531Zm0,18a8,8,0,1,1,8.01-8A8.013,8.013,0,0,1,1038,1549Zm1-9h3v2h-3v3h-2v-3h-3.01v-2H1037v-3h2v3Z" transform="translate(-1028 -1531)"/>
+</svg>

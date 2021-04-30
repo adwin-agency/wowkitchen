@@ -1,0 +1,161 @@
+<template>
+  <component
+    :is="tag"
+    :to="href"
+    :type="!href && 'button'"
+    :class="[
+      'btn',
+      {[`btn_${size}`]: size},
+      {[`btn_${color}`]: color},
+      {'btn_bordered': bordered},
+      {'btn_figure': figure},
+      {'btn_shadow': shadow}
+    ]"
+  >
+    <AppIcon
+      v-if="icon"
+      :name="icon"
+      class="btn__icon"
+    />
+    {{title}}
+  </component>
+</template>
+
+<script>
+import AppIcon from './AppIcon.vue'
+
+export default {
+  name: 'AppButton',
+  components: {
+    AppIcon
+  },
+  props: {
+    href: String,
+    title: String,
+    icon: String,
+    size: String,
+    color: String,
+    bordered: Boolean,
+    figure: Boolean,
+    shadow: Boolean
+  },
+  computed: {
+    tag() {
+      return this.href ? 'router-link' : 'button'
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  min-height: 60px;
+  padding: 12px 24px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+  background-color: $color-green;
+  transition: color .3s ease, background-color .3s ease, box-shadow .3s ease;
+
+  &:hover {
+    background-color: $color-lightgreen;
+  }
+
+  &_small {
+    min-height: 50px;
+    font-size: 12px;
+  }
+
+  &_large {
+    min-height: 70px;
+  }
+
+  &_gray {
+    color: $color-primary;
+    background-color: $color-lightgray;
+
+    &:hover {
+      background-color: $color-gray;
+    }
+  }
+
+  &_yellow {
+    color: $color-primary;
+    background-color: $color-yellow;
+
+    &:hover {
+      background-color: $color-lightyellow;
+    }
+  }
+
+  &_pink {
+    background-color: $color-pink;
+
+    &:hover {
+      background-color: $color-lightpink;
+    }
+  }
+
+  &_white {
+    color: $color-primary;
+    background-color: #fff;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &_bordered {    
+    color: $color-green;
+    background-color: transparent;
+    box-shadow: inset 0 0 0 2px $color-green;
+
+    &:hover {
+      color: #fff;
+      background-color: $color-lightgreen;
+      box-shadow: inset 0 0 0 2px $color-lightgreen;
+    }
+  }
+
+  &_figure {
+    border-radius: 30px 0 30px 0;    
+  }
+
+  &_shadow {
+    position: relative;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: -5px;
+      height: 100%;
+      border-radius: inherit;
+      background-color: inherit;
+      opacity: 0.5;
+      filter: blur(5px);
+      z-index: -1;
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    fill: currentColor;
+  }
+
+  @include media(md) {
+    &_small {
+      min-height: 60px;
+    }
+  }
+}
+</style>
