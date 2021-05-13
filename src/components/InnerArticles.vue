@@ -13,7 +13,7 @@
           :key="index"
           class="inner-articles__slide"
         >
-          <ArticleCard :cardData="card" />
+          <BlogCard :cardData="card" />
         </SwiperSlide>
       </Swiper>
       <div
@@ -25,7 +25,7 @@
           :key="index"
           class="inner-articles__cards-col"
         >
-          <ArticleCard :cardData="card" />
+          <BlogCard :cardData="card" />
         </div>
       </div>
       <div class="inner-articles__footer">
@@ -42,13 +42,13 @@
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppButton from './base/AppButton.vue'
-import ArticleCard from './ArticleCard.vue'
+import BlogCard from './BlogCard.vue'
 
 export default {
   name: 'InnerArticles',
   components: {
     AppButton,
-    ArticleCard,
+    BlogCard,
     Swiper,
     SwiperSlide
   },

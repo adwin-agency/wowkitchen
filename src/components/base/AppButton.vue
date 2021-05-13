@@ -9,7 +9,8 @@
       {[`btn_${color}`]: color},
       {'btn_bordered': bordered},
       {'btn_figure': figure},
-      {'btn_shadow': shadow}
+      {'btn_shadow': shadow},
+      {'btn_show': show}
     ]"
   >
     <AppIcon
@@ -37,7 +38,8 @@ export default {
     color: String,
     bordered: Boolean,
     figure: Boolean,
-    shadow: Boolean
+    shadow: Boolean,
+    show: Boolean
   },
   computed: {
     tag() {
@@ -69,10 +71,6 @@ export default {
   &_small {
     min-height: 50px;
     font-size: 12px;
-  }
-
-  &_large {
-    min-height: 70px;
   }
 
   &_gray {
@@ -143,6 +141,11 @@ export default {
       filter: blur(5px);
       z-index: -1;
     }
+  }
+
+  &_show {
+    min-height: 70px;
+    font-size: 12px;
   }
 
   &__icon {
