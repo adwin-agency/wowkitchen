@@ -1,7 +1,28 @@
 <template>
   <div class="contacts">
     <div class="container">
+      <h2 class="contacts__title">Контакты</h2>
+      <div class="contacts__info-container">
+        <div class="contacts__info-item">
+          <h6 class="contacts__info-title">Адрес</h6>
+          <p class="contacts__info-text">ул.Новорощинская, д.4,  оф. 904-2 (БЦ "Собрание")</p>
+        </div>
+        <div class="contacts__info-item">
+          <h6 class="contacts__info-title">Телефон</h6>
+          <p class="contacts__info-text">+7 (999) 999 - 99 - 99</p>
+        </div>
+        <div class="contacts__info-item">
+          <h6 class="contacts__info-title">Время работы</h6>
+          <p class="contacts__info-text">Ежеднево с 10:00 до 22:00</p>
+        </div>
+        <div class="contacts__info-item">
+          <h6 class="contacts__info-title">Мы в соцсетях</h6>
+          <p class="contacts__info-text"> Иконки</p>
+        </div>
+      </div>
+      <div class="contacts__map">
 
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +35,85 @@ export default {
 
 <style lang="scss">
 .contacts {
+  &__title {
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1.44;
+    margin-top: 20px;
+    margin: 20px 0 0;
 
+    @include media(md){
+      font-size: 30px;
+      margin-top: 36px;
+      margin-bottom: 40px;
+    }
+    @include media(lg){
+      font-size: 50px;
+      margin-top: 46px;
+      margin-bottom: 50px;
+    }
+    @include media(xl){
+      margin-top: 56px;
+      margin-bottom: 62px;;
+    }
+  }
+  &__info {
+
+    &-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+
+      @include media(md){
+        flex-direction: row;
+      }
+    }
+    &-item {
+      max-width: 210px;
+      width: 100%;
+      margin-left: 0px;
+      padding-top: 30px;
+      &:last-child {
+        margin-right: 0;
+      }
+      @include media(md){
+        margin-right: 80px;
+        padding-top: 0px;
+      }
+      @include media(lg){
+        margin-right: 100px;
+      }
+      @include media(xl){
+        margin-right: 150px;
+      }
+    }
+    &-title {
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.222;
+    }
+    &-text {
+      font-size: 14px;
+      line-height: 1.429;
+      padding-top: 8px;
+
+      @include media(md){
+        padding-top: 12px;
+      }
+    }
+  }
+  &__map {
+    height: 470px;
+    // width: 100vw;
+    background-color: rgb(60, 60, 60);
+    margin-top: 45px;
+
+    @include media(md){
+    height: 500px;
+    border-top-right-radius: 120px;
+    width: 100%;
+    }
+  }
 }
 </style>

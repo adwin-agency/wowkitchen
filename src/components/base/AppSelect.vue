@@ -110,6 +110,15 @@ export default {
     }
   }
 
+  &_white {
+    #{$b} {
+      &__box {
+        background-color: #fff;
+        color: $color-green;
+      }
+    }
+  }
+
   &.is-active {
     transition: z-index 0.3s step-start;
     z-index: 10;
