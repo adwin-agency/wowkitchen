@@ -116,14 +116,29 @@ picture, img {
 
   @include media(md) {
     max-width: $container-max-width-md;
+
+    &_side-fixed {
+      margin-left: 0;
+      padding: 0 90px;
+      max-width: 840px;
+    }
   }
 
   @include media(lg) {
     max-width: $container-max-width-lg;
+
+    &_side-fixed {
+      max-width: 1040px;
+    }
   }
 
   @include media(xl) {
     max-width: $container-max-width-xl;
+
+    &_side-fixed {
+      padding: 0 160px;
+      max-width: 1320px;
+    }
   }
 }
 

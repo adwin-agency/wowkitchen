@@ -258,7 +258,9 @@ export default {
 
 <style lang="scss">
 .footer {
+  position: relative;
   background-color: #636363;
+  z-index: 1;
 
   &__main {
     padding: 22px 0 16px;

@@ -14,7 +14,7 @@
     <textarea
       v-if="textarea"
       :placeholder="placeholder"
-      :class="['text-field__input', 'text-field__input_ta', {[`text-field__input_${color}`]: color}]"
+      :class="['text-field__input', 'text-field__input_ta', {[`text-field__input_${color}`]: color}, {[`text-field__input_${size}`]: size}]"
     ></textarea>
     <input
       v-else
@@ -40,6 +40,7 @@ export default {
     label: String,
     placeholder: String,
     color: String,
+    size: String,
     labelColor: String,
     labelSize: String,
     note: String
@@ -49,6 +50,8 @@ export default {
 
 <style lang="scss">
 .text-field {
+  $b: &;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -116,6 +119,14 @@ export default {
   @include media(lg) {
     &__note {
       padding-right: 65px;
+    }
+  }
+
+  @include media(xl) {
+    &__input_ta {
+      &#{$b}__input_big {
+        height: 140px;
+      }
     }
   }
 }
