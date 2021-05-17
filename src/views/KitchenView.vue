@@ -2,7 +2,7 @@
   <div class="v-kitchen">
     <Details />
     <Constructor />
-    <Materials />
+    <Equipment />
     <Design />
     <OtherProducts />
     <Steps />
@@ -13,7 +13,7 @@
 <script>
 import Details from '../components/Details.vue'
 import Constructor from '../components/Constructor.vue'
-import Materials from '../components/Materials.vue'
+import Equipment from '../components/Equipment.vue'
 import Design from '../components/Design.vue'
 import OtherProducts from '../components/OtherProducts.vue'
 import Steps from '../components/Steps.vue'
@@ -24,7 +24,7 @@ export default {
   components: {
     Details,
     Constructor,
-    Materials,
+    Equipment,
     Design,
     OtherProducts,
     Steps,

@@ -313,7 +313,7 @@ export default {
 
     &__desc {
       margin-top: 18px;
-      max-width: 600px;
+      max-width: 620px;
       font-size: 16px;
       line-height: (32/16);
       color: #fff;
@@ -328,7 +328,7 @@ export default {
     }
 
     &__desc {
-      max-width: 800px;
+      max-width: 790px;
     }
   }
 
@@ -344,7 +344,7 @@ export default {
     }
 
     &__desc {
-      max-width: none;
+      max-width: 920px;
     }
   }
 }

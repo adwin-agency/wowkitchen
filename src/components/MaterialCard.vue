@@ -1,221 +1,167 @@
 <template>
-  <div :class="['material-card', {'material-card_lg': lg}, {'is-active': active}]">
-    <div class="material-card__wrapper">
-      <div class="material-card__bg"></div>
-      <div class="material-card__inner">
-        <div class="material-card__features">
-          <p
-            v-for="(feature, index) in cardData.features"
-            :key="index"
-            class="material-card__feature"
-          >
-            <AppIcon class="material-card__feature-icon" :name="feature.icon" />
-            {{feature.title}}
-          </p>
-        </div>
-        <p class="material-card__title">{{cardData.title}}</p>
-        <p v-if="$_windowWidth >= $_breakpoints.md" class="material-card__desc">{{cardData.desc}}</p>
-      </div>      
+  <div class="material-card">
+    <div
+      class="material-card__image"
+      :style="`background-image: url(${require(`@/assets/img/${cardData.image}`)})`"
+    >
+      <p class="material-card__title">{{cardData.title}}</p>
+      <p class="material-card__desc">{{cardData.desc}}</p>
     </div>
-    <p v-if="$_windowWidth < $_breakpoints.md" class="material-card__desc">{{cardData.desc}}</p>
+    <template v-if="cardData.props && cardData.btn">
+      <div class="material-card__props">
+        <div
+          v-for="(prop, index) in cardData.props"
+          :key="index"
+          class="material-card__prop"
+        >
+          <p class="material-card__prop-title">{{prop.title}}</p>
+          <p class="material-card__prop-desc">{{prop.desc}}</p>
+        </div>
+      </div>
+      <AppButton
+        :title="cardData.btn"
+        bordered
+        class="material-card__btn"
+      />
+    </template>
   </div>
 </template>
 
 <script>
-import AppIcon from './base/AppIcon.vue'
+import AppButton from './base/AppButton.vue'
 
 export default {
   name: 'MaterialCard',
   components: {
-    AppIcon
+    AppButton
   },
   props: {
-    active: Boolean,
-    cardData: Object,
-    lg: Boolean
+    cardData: Object
   }
 }
 </script>
 
 <style lang="scss">
 .material-card {
-  $b: &;
-
-  &.is-active {
-    #{$b} {
-      &__inner {
-        opacity: 1;
-      }
-
-      &__desc {
-        opacity: 1;
-      }
-    }
-  }
-
-  &__wrapper {
+  &__image {
     display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     position: relative;
-    padding: 24px 20px 34px;
-    min-height: 260px;
-    z-index: 1;
-  }
-
-  &__bg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    background-image: url('~@/assets/img/materials.jpg');
+    border-radius: 12px;
+    min-height: 230px;
+    padding: 25px 20px;
     background-size: cover;
-    box-shadow: 0px 10px 35px 0px rgba(0, 0, 0, 0.28);
+    background-position: center;
     overflow: hidden;
-    z-index: -1;
 
-    &::after {
+    &::before {
       content: "";
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(0, rgba(#000, .67), transparent);
+      background-image: linear-gradient(0, #12131e 8%, transparent 52%);
+      opacity: 0.6;
+      pointer-events: none;
     }
   }
 
-  &__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    opacity: 0;
-    transition: opacity .3s ease;
-  }
-
-  &__features {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: auto;
-  }
-
-  &__feature {
-    display: flex;
-    align-items: center;
-    border-radius: 30px;
-    padding: 6px 16px;
-    margin-bottom: 3px;
-    font-weight: bold;
-    font-size: 11px;
-    color: $color-lightgray;
-    background-color: rgba(#aca8c3, 0.6);
-  }
-
-  &__feature-icon {
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
-    fill: currentColor;
-  }
-
   &__title {
-    margin-top: 20px;
-    margin-left: 20px;
+    position: relative;
     font-weight: bold;
     font-size: 16px;
+    line-height: (24/16);
     color: #fff;
   }
 
   &__desc {
-    margin-top: 24px;
-    font-size: 12px;
-    line-height: (20/12);
-    opacity: 0;
-    transition: opacity .3s ease;
+    position: relative;
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: (18/13);
+    color: $color-lightgray;
+  }
+
+  &__props {
+    margin-top: 15px;
+  }
+
+  &__prop {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &-title {
+      font-weight: 500;
+      font-size: 14px;
+      color: #000;
+    }
+
+    &-desc {
+      margin-top: 5px;
+      font-size: 12px;
+      line-height: (14/12);
+      color: #8c8c8c;
+    }
+  }
+
+  &__btn {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px 10px;
   }
 
   @include media(md) {
-    display: flex;
-
-    &__wrapper {
-      padding: 24px 40px 28px;
-      min-height: 240px;
+    &__image {
+      min-height: 260px;
+      padding: 35px 30px;
     }
 
-    &__inner {
-      opacity: 1;
+    &__prop {
+      margin-bottom: 20px;
     }
 
-    &__feature {
-      padding: 6px 34px 6px 16px;
-    }
-
-    &__title {
-      margin-left: 0;
-      font-size: 14px;
-    }
-
-    &__desc {
-      margin-top: 2px;
-      color: #fff;
-      opacity: 1;
+    &__btn {
+      width: auto;
+      padding: 12px 30px;
     }
   }
 
   @include media(lg) {
-    &_lg {
-      #{$b} {
-        &__bg {
-          border-radius: 0 50px 50px 0;
-        }
-
-        &__wrapper {
-          padding: 75px 140px 60px 90px;
-        }
-
-        &__feature {
-          margin-bottom: 10px;
-          padding: 7px 34px 7px 23px;
-        }
-
-        &__title {
-          font-size: 24px;
-        }
-
-        &__desc {
-          margin-top: 24px;
-        }
-      }
-    }
-
-    &__wrapper {
-      min-height: 380px;
-      padding: 44px 30px 38px;
+    &__image {
+      min-height: 335px;
     }
 
     &__title {
-      font-size: 18px;
+      font-size: 20px;
+      line-height: (24/20);
     }
 
-    &__desc {
-      margin-top: 12px;
-      min-height: (20/12*3em);
+    &__props {
+      margin-top: 30px;
+    }
+
+    &__prop-desc {
+      max-width: 380px;
+    }
+
+    &__btn {
+      margin-top: 35px;
     }
   }
 
   @include media(xl) {
-    &__wrapper {
-      min-height: 420px;
+    &__image {
+      min-height: 350px;
+      padding: 52px 32px;
     }
 
-    &_lg {
-      #{$b} {
-        &__wrapper {
-          padding: 75px 160px;
-        }
-      }
+    &__props {
+      margin-top: 34px;
     }
   }
 }

@@ -4,7 +4,7 @@
     <Projects />
     <Solutions />
     <Design />
-    <Materials />
+    <Equipment />
     <Steps />
     <InnerReviews />
   </div>
@@ -15,7 +15,7 @@ import Intro from '../components/Intro.vue'
 import Projects from '../components/Projects.vue'
 import Solutions from '../components/Solutions.vue'
 import Design from '../components/Design.vue'
-import Materials from '../components/Materials.vue'
+import Equipment from '../components/Equipment.vue'
 import Steps from '../components/Steps.vue'
 import InnerReviews from '../components/InnerReviews.vue'
 
@@ -26,7 +26,7 @@ export default {
     Projects,
     Solutions,
     Design,
-    Materials,
+    Equipment,
     Steps,
     InnerReviews
   }
