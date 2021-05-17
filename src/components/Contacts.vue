@@ -4,20 +4,31 @@
       <h2 class="contacts__title">Контакты</h2>
       <div class="contacts__info-container">
         <div class="contacts__info-item">
-          <h6 class="contacts__info-title">Адрес</h6>
+          <h3 class="contacts__info-title">Адрес</h3>
           <p class="contacts__info-text">ул.Новорощинская, д.4,  оф. 904-2 (БЦ "Собрание")</p>
         </div>
         <div class="contacts__info-item">
-          <h6 class="contacts__info-title">Телефон</h6>
+          <h3 class="contacts__info-title">Телефон</h3>
           <p class="contacts__info-text">+7 (999) 999 - 99 - 99</p>
         </div>
         <div class="contacts__info-item">
-          <h6 class="contacts__info-title">Время работы</h6>
+          <h3 class="contacts__info-title">Время работы</h3>
           <p class="contacts__info-text">Ежеднево с 10:00 до 22:00</p>
         </div>
         <div class="contacts__info-item">
-          <h6 class="contacts__info-title">Мы в соцсетях</h6>
-          <p class="contacts__info-text"> Иконки</p>
+          <h3 class="contacts__info-title">Мы в соцсетях</h3>
+            <a href="#" class="contacts__info-link">
+              <AppIcon
+                name="insta"
+                class="contacts__info-icon"
+              />
+            </a>
+            <a href="#" class="contacts__info-link">
+              <AppIcon
+                name="vk"
+                class="contacts__info-icon"
+              />
+            </a>
         </div>
       </div>
       <div class="contacts__map">
@@ -28,7 +39,9 @@
 </template>
 
 <script>
+import AppIcon from './base/AppIcon.vue'
 export default {
+  components: { AppIcon },
   name: 'Contacts'
 }
 </script>
@@ -73,13 +86,13 @@ export default {
       max-width: 210px;
       width: 100%;
       margin-left: 0px;
-      padding-top: 30px;
+      margin-top: 30px;
       &:last-child {
         margin-right: 0;
       }
       @include media(md){
         margin-right: 80px;
-        padding-top: 0px;
+        margin-top: 0px;
       }
       @include media(lg){
         margin-right: 100px;
@@ -96,16 +109,34 @@ export default {
     &-text {
       font-size: 14px;
       line-height: 1.429;
-      padding-top: 8px;
+      margin-top: 8px;
 
       @include media(md){
-        padding-top: 12px;
+        margin-top: 12px;
+      }
+    }
+    &-icon {
+      width: 23px;
+      height: 23px;
+      fill: #aca8c3;
+      display: inline;
+    }
+    &-link {
+      display: inline-block;
+      margin-right: 14px;
+      margin-top: 8px;
+
+      @include media(md){
+        margin-top: 12px;
       }
     }
   }
   &__map {
     height: 470px;
-    // width: 100vw;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: rgb(60, 60, 60);
     margin-top: 45px;
 

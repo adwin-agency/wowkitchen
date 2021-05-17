@@ -99,6 +99,7 @@ export default {
     @include media(lg){
       grid-row-gap: 40px;
       padding-bottom: 100px;
+      grid-template-columns: 480px repeat(2, 1fr);
     }
   }
   &__box {
