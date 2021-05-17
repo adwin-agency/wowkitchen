@@ -3,7 +3,7 @@
     <div class="container delivery__container">
       <div class="delivery__discription-container">
         <h2 class="delivery__discription-title">Доставка</h2>
-        <h6 class="delivery__discription-subtitle">В пределах СПб</h6>
+        <h3 class="delivery__discription-subtitle">В пределах СПб</h3>
         <p class="delivery__discription-text">
           Доставка осуществляется с Пн. по Сб. 10:00 до 21:00. Стоимость по Санкт-Петербургу зависит от вашего местонахождения.
       
@@ -12,23 +12,23 @@
          Подробнее узнать о стоимости можно у оператора по телефону:<span class="delivery__discription_accent"> +7 (999) 999 - 99 - 99</span>
         </p>
 
-        <h6 class="delivery__discription-subtitle">В ЛО</h6>
+        <h3 class="delivery__discription-subtitle">В ЛО</h3>
         <p class="delivery__discription-text">
           Доставка за КАД, по Ленинградской области и в другие регионы рассчитывается индивидуально при оформлении заказа или по телефону:<span class="delivery__discription_accent"> +7 (999) 999 - 99 - 99</span>
           <span class="delivery__discription_accent"></span>
         </p>
 
-        <h6 class="delivery__discription-subtitle">Подъём на этаж</h6>
+        <h3 class="delivery__discription-subtitle">Подъём на этаж</h3>
         <p class="delivery__discription-text">
           Подъем в квартиру без лифта - 200 рублей этаж. Подъем в квартиру на лифте - бесплатно.
           <span class="delivery__discription_accent"></span>
         </p>
       </div>
       <form class="delivery__form" action="">
-        <fieldset class="delivery__form-content">
-          <legend class="delivery__form-title">Расчитать стоимость доставки</legend>
+        <div class="delivery__form-content">
+          <h4 class="delivery__form-title">Расчитать стоимость доставки</h4>
           <label class="delivery__form-lable" for="select-city">Укажите адрес и наш оператор свяжется с вами  для обсуждения стоимости.</label>
-          <fieldset class="delivery__form-container">
+          <div class="delivery__form-container">
             <fieldset class="delivery__form-box">
               <AppSelect :options="cities" color="white" class="delivery__form-select-city" />
               <!-- <select class="delivery__form-select-city" name="select-city" id="">
@@ -58,15 +58,15 @@
               <AppButton title="Расчитать" class="delivery__form-button-sb" />
               <!-- <button class="delivery__form-button-sb" type="submith">Расчитать</button> -->
             </fieldset>
-            <fieldset class="delivery__form-map-box">
+            <div class="delivery__form-map-box">
               <div class="delivery__form-map"></div>
-            </fieldset>
-          </fieldset>
+            </div>
+          </div>
           <p class="delivery__form-policy">
             Нажимая кнопку «Рассчитать», вы соглашаетесь c 
             <a class="delivery__form-policy-link" href="#" target="_blank" rel="noopener noreferrer"> Политикой конфиденциальности</a>
           </p>
-        </fieldset>
+        </div>
       </form>
     </div>
   </div>
@@ -94,14 +94,12 @@ export default {
 
 <style lang="scss">
 .delivery {
-
   &__container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding-top: 30px;
-
     @include media(md){
       align-items: unset;
       padding-top: 50px;
@@ -111,7 +109,7 @@ export default {
   }
   &__discription {
     &-container {
-      @include media(sm){
+      @include media(lg){
         flex: 50%;
         padding-right: 80px;
       }
@@ -154,19 +152,19 @@ export default {
     margin-top: 24px;
     padding: 0 18px 20px;
     width: 100vw;
-
+    
     @include media(sm){
       padding: 0 30px 20px;
     }
     @include media(md){
-      width: 420px;
+      margin-left: 20px;
     }
     @include media(lg){
       width: 700px;
-      padding: 0 10px 20px 35px;
+      padding: 0 0px 20px 35px;
     }
     &-content {
-      max-width: 420px;
+      max-width: 320px;
       margin: 0 auto;
 
       @include media(lg) {
@@ -205,6 +203,7 @@ export default {
         max-width: 280px;
         width: auto;
         flex: 1;
+        margin-right: 35px;
       }
     }
     &-select-city {
@@ -226,10 +225,8 @@ export default {
     }
     &-map-box {
       display: none;
-      // width: 325px;
-      width: 487px;
       background-color: #e3e3e3;
-      margin-left: 35px;
+      margin-left: auto;
 
       @include media(lg){
         display: block;

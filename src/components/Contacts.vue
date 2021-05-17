@@ -105,7 +105,10 @@ export default {
   }
   &__map {
     height: 470px;
-    // width: 100vw;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: rgb(60, 60, 60);
     margin-top: 45px;
 
