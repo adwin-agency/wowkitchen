@@ -69,7 +69,7 @@ export default {
   }
 
   &_small {
-    min-height: 50px;
+    min-height: 56px;
     font-size: 12px;
   }
 

@@ -91,10 +91,6 @@ export default {
   created() {
     window.addEventListener('scroll', this.handleScroll)
   },
-  mounted() {
-    const content = this.$refs.content
-    this.isActiveMenu = window.innerHeight < content.getBoundingClientRect().top + content.offsetHeight
-  },
   unmounted() {
     window.removeEventListener('scroll', this.handleScroll)
   },
@@ -251,10 +247,11 @@ export default {
   @include media(md) {
     &__menu {
       position: fixed;
-      top: 223px;
+      top: 50%;
       margin-bottom: 0;
       opacity: 0;
       pointer-events: none;
+      transform: translateY(-50%);
       transition: opacity 0.3s ease;
 
       &.is-active {

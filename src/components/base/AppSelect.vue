@@ -1,5 +1,8 @@
 <template>
-  <div :class="['select', {[`select_${color}`]: color}, {'is-active': isActive}]">
+  <div
+    :class="['select', {[`select_${color}`]: color}, {'is-active': isActive}]"
+    v-outside-click="closeSelect"
+  >
     <select class="select__el">
       <option
         v-for="(option, index) in options"
@@ -8,32 +11,48 @@
         {{option}}
       </option>
     </select>
-    <div
-      class="select__box"
-      @click="toggleSelect"
+    <p
+      v-if="label || sideLabel"
+      :class="[
+        'select__label',
+        {'select__label_side': sideLabel}
+      ]"
     >
-      <span>{{selectedOption}}</span>
-      <AppIcon
-        name="angle-down"
-        class="select__arrow"
-      />
+      {{label || sideLabel}}
+    </p>
+    <div
+      :class="[
+        'select__box',
+        {'select__box_side': sideLabel}
+      ]"
+    >
+      <div
+        class="select__trigger"
+        @click="toggleSelect"
+      >
+        <span>{{selectedOption}}</span>
+        <AppIcon
+          name="angle-down"
+          class="select__arrow"
+        />
+      </div>
+      <div
+        ref="dropdown"
+        class="select__dropdown"
+      >
+        <ul class="select__list">
+          <li
+            v-for="(option, index) in options"
+            :key="index"
+            class="select__item"
+            :class="{'is-active': selectedOption === option}"
+            @click="selectOption(option)"
+          >
+            {{option}}
+          </li>
+        </ul>
+      </div>
     </div>
-    <div
-      ref="dropdown"
-      class="select__dropdown"
-    >
-      <ul class="select__list">
-        <li
-          v-for="(option, index) in options"
-          :key="index"
-          class="select__item"
-          :class="{'is-active': selectedOption === option}"
-          @click="selectOption(option)"
-        >
-          {{option}}
-        </li>
-      </ul>
-    </div>    
   </div>
 </template>
 
@@ -45,7 +64,24 @@ export default {
   components: {
     AppIcon
   },
+  directives: {
+    'outside-click': {
+      created(el, binding) {
+        el.outsideClickEvent = (event) => {
+          if (!(el == event.target || el.contains(event.target))) {
+            binding.value()
+          }
+        }
+        document.addEventListener('click', el.outsideClickEvent)
+      },
+      unmounted(el) {
+        document.removeEventListener('click', el.outsideClickEvent)
+      }
+    }
+  },
   props: {
+    label: String,
+    sideLabel: String,
     color: String,
     options: Array
   },
@@ -57,40 +93,46 @@ export default {
     }
   },
   methods: {
-    toggleSelect() {
+    openSelect() {
       const dropdown = this.$refs.dropdown
-      
-      if (this.isActive) {
-        dropdown.style.height = ''
-      } else {
-        dropdown.style.height = dropdown.scrollHeight + 'px'
-      }
+      dropdown.style.height = dropdown.scrollHeight + 'px'
+      this.isActive = true
+    },
 
-      this.isActive = !this.isActive
+    closeSelect() {
+      const dropdown = this.$refs.dropdown
+      dropdown.style.height = ''
+      this.isActive = false
+    },
+
+    toggleSelect() {
+      this.isActive ? this.closeSelect() : this.openSelect()
     },
 
     selectOption(option) {
       if (this.selectedOption !== option) {
         this.selectedOption = option
       }
-      
-      this.toggleSelect()
+
+      this.closeSelect()
     }
   }
 }
 </script>
 
 <style lang="scss">
-.select  {
+.select {
   $b: &;
 
-  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   transition: z-index 0.3s step-end;
   z-index: 1;
 
   &_green {
     #{$b} {
-      &__box {
+      &__trigger {
         background-color: $color-green;
         color: $color-lightgray;
       }
@@ -112,7 +154,7 @@ export default {
 
   &_white {
     #{$b} {
-      &__box {
+      &__trigger {
         background-color: #fff;
         color: $color-green;
       }
@@ -132,12 +174,31 @@ export default {
     display: none;
   }
 
+  &__label {
+    font-weight: 500;
+    font-size: 13px;
+
+    &_side {
+      min-width: 60px;
+      margin-right: 10px;
+    }
+  }
+
   &__box {
+    position: relative;
+
+    &_side {
+      flex: 1;
+    }
+  }
+
+  &__trigger {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     border-radius: 25px;
+    width: 100%;
     height: 50px;
     padding: 10px 30px;
     font-weight: bold;
@@ -153,7 +214,7 @@ export default {
     height: 7px;
     margin-left: 8px;
     fill: currentColor;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
   }
 
   &__dropdown {
@@ -163,7 +224,7 @@ export default {
     width: 100%;
     height: 0;
     border-radius: 0 0 25px 25px;
-    transition: height .3s ease;
+    transition: height 0.3s ease;
     overflow: hidden;
   }
 
@@ -179,7 +240,7 @@ export default {
     font-size: 13px;
     color: $color-lightgray;
     box-shadow: 0 0 0 5px transparent;
-    transition: background-color .3s ease, box-shadow .3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 
     &:hover {

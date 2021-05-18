@@ -14,19 +14,31 @@
     <textarea
       v-if="textarea"
       :placeholder="placeholder"
-      :class="['text-field__input', 'text-field__input_ta', {[`text-field__input_${color}`]: color}, {[`text-field__input_${size}`]: size}]"
+      :class="[
+        'text-field__input',
+        'text-field__input_ta',
+        {[`text-field__input_${color}`]: color},
+        {[`text-field__input_${size}`]: size}
+      ]"
     ></textarea>
     <input
       v-else
       :type="type"
       :placeholder="placeholder"
-      :class="['text-field__input', {[`text-field__input_${color}`]: color}]"
+      :class="[
+        'text-field__input',
+        {[`text-field__input_${color}`]: color},
+        {[`text-field__input_side`]: sideNote}
+      ]"
     >
     <span
-      v-if="note"
-      class="text-field__note"
+      v-if="note || sideNote"
+      :class="[
+        'text-field__note',
+        {[`text-field__note_side`]: sideNote}
+      ]"
     >
-      {{note}}
+      {{note || sideNote}}
     </span>
   </div>
 </template>
@@ -43,7 +55,8 @@ export default {
     size: String,
     labelColor: String,
     labelSize: String,
-    note: String
+    note: String,
+    sideNote: String
   }
 }
 </script>
@@ -54,23 +67,19 @@ export default {
 
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   position: relative;
 
-  &_note {
-    padding-bottom: 30px;
-  }
-
   &__label {
+    width: 100%;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
 
     &_gray {
       color: #949494;
     }
 
-    &_big {
+    &_small {
       font-size: 13px;
     }
   }
@@ -101,24 +110,45 @@ export default {
     &_ta {
       height: 110px;
       padding: 18px 24px;
+
+      &#{$b}__input_small {
+        height: 56px;
+      }
+    }
+
+    &_side {
+      width: 53%;
     }
   }
 
   &__note {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
+    max-width: 220px;
     margin-top: 5px;
     font-weight: 500;
-    font-size: 10px;
-    line-height: (12/10);
+    font-size: 11px;
+    line-height: (13/11);
     color: $color-lightviolet;
+
+    &_side {
+      flex: 1;
+      margin-left: 18px;
+    }
   }
 
-  @include media(lg) {
+  @include media(md) {
+    &__input {
+      &_side {
+        width: 45%;
+      }
+    }
+
     &__note {
-      padding-right: 65px;
+      font-size: 12px;
+
+      &_side {
+        margin-top: 0;
+        margin-left: 24px;
+      }
     }
   }
 
