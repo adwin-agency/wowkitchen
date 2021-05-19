@@ -32,7 +32,13 @@
       >
         <nav class="side-fixed__menu-list">
           <a
-            v-for="(item, index) in menu"
+            href="#"
+            class="side-fixed__menu-item is-active"
+          >
+            {{activeMenuItem.title}}
+          </a>
+          <a
+            v-for="(item, index) in filteredMenu"
             :key="index"
             href="#"
             class="side-fixed__menu-item"
@@ -76,16 +82,24 @@ export default {
   data() {
     return {
       menu: [
-        { id: 'guarantee', title: 'Гарантия' },
-        { id: 'vacancy', title: 'Вакансии' },
         { id: 'production', title: 'Производство' },
         { id: 'materials', title: 'Материалы' },
         { id: 'team', title: 'Команда' },
-        { id: 'payment', title: 'Оплата' }
+        { id: 'payment', title: 'Оплата' },
+        { id: 'guarantee', title: 'Гарантия' },
+        { id: 'vacancy', title: 'Вакансии' },
       ],
 
       isActiveMenu: false,
       isActiveContent: false
+    }
+  },
+  computed: {
+    activeMenuItem() {
+      return this.menu.find(item => item.id === this.pageData.id)
+    },
+    filteredMenu() {
+      return this.menu.filter(item => item.id !== this.pageData.id)
     }
   },
   created() {

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #aca8c3;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="minus_circle" class="cls-1" d="M1300.01,1151.99A10.01,10.01,0,1,0,1310,1162,10.006,10.006,0,0,0,1300.01,1151.99Zm0,18.02a8.01,8.01,0,1,1,8-8.01A8.013,8.013,0,0,1,1300.01,1170.01Zm4-8.01a1,1,0,0,1-1,1h-6a1,1,0,0,1,0-2h6A1,1,0,0,1,1304.01,1162Z" transform="translate(-1290 -1152)"/>
+</svg>
