@@ -145,9 +145,6 @@ export default {
         line-height: 1.714;
         margin-bottom: 20px;
     }
-    &__text {
-
-    }
     &__btn {
         display: inline-block;
         fill: $color-lightviolet;
@@ -163,7 +160,6 @@ export default {
         margin: 0 -$container-padding;
         padding: 42px 35px;
         @include media (md) {  
-            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -174,9 +170,6 @@ export default {
             justify-content: space-between;
             align-items: center;
             padding: 42px 85px;
-        }
-        &__box {
-
         }
         &__icon {
             width: 70px;
@@ -201,14 +194,11 @@ export default {
 
         }
         &__link {
-            cursor: pointer;
+            color: $color-lightgreen;
         }
         &__text {
             font-size: 13px;
             line-height: 1.692;
-            &_accent {
-                color: $color-lightgreen;
-            }
         }
     }
 }
