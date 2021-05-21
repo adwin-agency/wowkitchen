@@ -20,6 +20,7 @@
         {[`text-field__input_${color}`]: color},
         {[`text-field__input_${size}`]: size}
       ]"
+      @input="$emit('input', $event)"
     ></textarea>
     <input
       v-else
@@ -30,6 +31,7 @@
         {[`text-field__input_${color}`]: color},
         {[`text-field__input_side`]: sideNote}
       ]"
+      @input="$emit('input', $event)"
     >
     <span
       v-if="note || sideNote"
@@ -57,7 +59,8 @@ export default {
     labelSize: String,
     note: String,
     sideNote: String
-  }
+  },
+  emits: ['input']
 }
 </script>
 

@@ -1,24 +1,25 @@
 <template>
-  <div class="radio">
+  <div class="control">
     <p
       v-if="label"
-      class="radio__label"
+      class="control__label"
     >
       {{label}}
     </p>
-    <div class="radio__items">
+    <div class="control__items">
       <label
         v-for="(item, index) in items"
         :key="index"
-        class="radio__item"
+        class="control__item"
       >
         <input
-          type="radio"
+          :type="type"
           :name="name"
-          :checked="index === 0"
-          class="radio__input"
+          :value="item"
+          class="control__input"
+          @change="$emit('change', $event)"
         >
-        <span class="radio__btn">{{item}}</span>
+        <span :class="['control__btn', {[`control__btn_${color}`]: color}]">{{item}}</span>
       </label>
     </div>
   </div>
@@ -26,17 +27,20 @@
 
 <script>
 export default {
-  name: 'AppRadio',
+  name: 'AppControl',
   props: {
     label: String,
+    type: String,
     name: String,
+    color: String,
     items: Array
-  }
+  },
+  emits: ['change']
 }
 </script>
 
 <style lang="scss">
-.radio {
+.control {
   $b: &;
 
   &__label {
@@ -47,7 +51,11 @@ export default {
 
   &__items {
     display: flex;
-    margin-right: -10px;
+    margin-right: -18px;
+  }
+
+  &__item {
+    margin-right: 18px;
   }
 
   &__input {
@@ -61,14 +69,18 @@ export default {
 
   &__btn {
     display: block;
-    margin-right: 18px;
     border-radius: 100px;
-    padding: 12px 22px;
+    padding: 12px 20px;
     font-weight: bold;
     font-size: 13px;
     color: $color-lightviolet;
     background-color: #fff;
-    transition: color .3s ease, background-color .3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+
+    &_gray {
+      background-color: $color-lightgray;
+    }
   }
 }
 </style>

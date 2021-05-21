@@ -6,7 +6,7 @@
     </div>
     <div class="payment-form__main">
       <div class="payment-form__fields">
-        <AppRadio
+        <AppControl
           label="Тип оплаты"
           name="payment"
           :items="['Предоплата', 'Доплата']"
@@ -104,14 +104,14 @@
 <script>
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
-import AppRadio from './base/AppRadio.vue'
+import AppControl from './base/AppControl.vue'
 import AppSelect from './base/AppSelect.vue'
 import AppTextField from './base/AppTextField.vue'
 
 export default {
   name: 'PaymentForm',
   components: {
-    AppRadio,
+    AppControl,
     AppSelect,
     AppButton,
     AppIcon,

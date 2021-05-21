@@ -62,10 +62,16 @@ export default {
   font-size: 14px;
   color: #fff;
   background-color: $color-green;
-  transition: color .3s ease, background-color .3s ease, box-shadow .3s ease;
+  transition: color .3s ease, background-color .3s ease, box-shadow .3s ease, opacity .3s ease;
 
   &:hover {
     background-color: $color-lightgreen;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: auto;
   }
 
   &_small {
@@ -153,12 +159,6 @@ export default {
     height: 20px;
     margin-right: 15px;
     fill: currentColor;
-  }
-
-  @include media(md) {
-    &_small {
-      min-height: 60px;
-    }
   }
 }
 </style>
