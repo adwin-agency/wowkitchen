@@ -9,7 +9,8 @@
             <button
               v-if="$_windowWidth < $_breakpoints.md"
               type="button"
-              class="intro__video-btn">
+              class="intro__video-btn"
+            >
               <AppIcon
                 class="intro__play-icon"
                 name="play"
@@ -28,24 +29,80 @@
             </div>
           </div>
           <div class="intro__video">
-            <AppIcon class="intro__shape intro__shape_1" viewBox="0 0 194.19 194.22" name="shape-1" />
-            <AppIcon class="intro__shape intro__shape_2" viewBox="0 0 22.47 22.85" name="shape-2" />
-            <AppIcon class="intro__shape intro__shape_3" viewBox="0 0 59 54.5" name="shape-3" />
-            <AppIcon class="intro__shape intro__shape_4" viewBox="0 0 56.22 56.22" name="shape-4" />
-            <AppIcon class="intro__shape intro__shape_5" viewBox="0 0 71.32 71.31" name="shape-5" />
-            <AppIcon class="intro__shape intro__shape_6" viewBox="0 0 17.21 17.22" name="shape-6" />
-            <AppIcon class="intro__shape intro__shape_7" viewBox="0 0 57 57.04" name="shape-7" />
-            <AppIcon class="intro__shape intro__shape_8" viewBox="0 0 40.46 70" name="shape-8" />
-            <AppIcon class="intro__shape intro__shape_9" viewBox="0 0 19.62 19.62" name="shape-9" />
-            <AppIcon class="intro__shape intro__shape_10" viewBox="0 0 59.031 57.75" name="shape-10" />
-            <AppIcon class="intro__shape intro__shape_11" viewBox="0 0 20 20" name="shape-11" />
-            <AppIcon class="intro__shape intro__shape_12" viewBox="0 0 81.875 81.87" name="shape-12" />
-            <AppIcon class="intro__shape intro__shape_13" viewBox="0 0 29.688 29.68" name="shape-13" />
-            <video src=""></video>
+            <AppIcon
+              class="intro__shape intro__shape_1"
+              viewBox="0 0 194.19 194.22"
+              name="shape-1"
+            />
+            <video
+              src=""
+              poster="@/assets/img/intro.jpg"
+            ></video>
+            <AppIcon
+              class="intro__shape intro__shape_2"
+              viewBox="0 0 22.47 22.85"
+              name="shape-2"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_3"
+              viewBox="0 0 59 54.5"
+              name="shape-3"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_4"
+              viewBox="0 0 56.22 56.22"
+              name="shape-4"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_5"
+              viewBox="0 0 71.32 71.31"
+              name="shape-5"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_6"
+              viewBox="0 0 17.21 17.22"
+              name="shape-6"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_7"
+              viewBox="0 0 57 57.04"
+              name="shape-7"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_8"
+              viewBox="0 0 40.46 70"
+              name="shape-8"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_9"
+              viewBox="0 0 19.62 19.62"
+              name="shape-9"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_10"
+              viewBox="0 0 59.031 57.75"
+              name="shape-10"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_11"
+              viewBox="0 0 20 20"
+              name="shape-11"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_12"
+              viewBox="0 0 81.875 81.87"
+              name="shape-12"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_13"
+              viewBox="0 0 29.688 29.68"
+              name="shape-13"
+            />
             <button
               v-if="$_windowWidth >= $_breakpoints.md"
               type="button"
-              class="intro__video-btn">
+              class="intro__video-btn"
+            >
               <AppIcon
                 class="intro__play-icon"
                 name="play"
@@ -53,11 +110,11 @@
               Смотреть видео
             </button>
           </div>
-          
+
         </div>
       </div>
     </div>
-    <IntroFeatures class="intro__features" />    
+    <IntroFeatures class="intro__features" />
   </div>
 </template>
 
@@ -77,9 +134,10 @@ export default {
 <style lang="scss">
 .intro {
   padding-bottom: 45px;
-  
+
   &__main {
     position: relative;
+    min-height: calc(100vh - #{$header-bar-height});
     padding: 92px 0 40px;
   }
 
@@ -102,6 +160,30 @@ export default {
     color: $color-lightgray;
   }
 
+  &__video {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(#0d0d0d, 0.47);
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
   &__video-btn {
     display: flex;
     align-items: center;
@@ -116,7 +198,7 @@ export default {
     box-shadow: 0px 5px 5px 0px rgba(53, 53, 53, 0.36);
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 20px;
       top: 50%;
@@ -165,15 +247,6 @@ export default {
     }
   }
 
-  &__video {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(#0d0d0d, .47);
-  }
-
   &__features {
     margin-top: 45px;
   }
@@ -186,6 +259,7 @@ export default {
     padding: 56px 0 68px;
 
     &__main {
+      min-height: auto;
       padding: 0;
     }
 
@@ -198,7 +272,7 @@ export default {
       margin-top: 35px;
       margin-right: 30px;
     }
-    
+
     &__top {
       color: $color-green;
     }
@@ -226,6 +300,15 @@ export default {
       height: 360px;
       border-bottom-right-radius: 100px;
       box-shadow: 0px 16px 38px 0px rgba(0, 0, 0, 0.25);
+
+      &::before {
+        display: none;
+      }
+
+      video {
+        position: relative;
+        border-bottom-right-radius: 100px;
+      }
     }
 
     &__video-btn {
@@ -247,6 +330,7 @@ export default {
         top: -45px;
         right: -120px;
         width: 194px;
+        fill: $color-lightgray;
       }
 
       &_2 {
@@ -307,7 +391,7 @@ export default {
   }
 
   @include media(lg) {
-    padding: 72px 0 84px;
+    padding: 82px 0 84px;
 
     &__content {
       margin-top: 0;

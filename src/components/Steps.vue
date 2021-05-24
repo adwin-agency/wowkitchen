@@ -56,7 +56,7 @@ export default {
 
 <style lang="scss">
 .steps {
-  padding: 40px 0 35px;
+  padding: 80px 0 35px;
 
   &__header {
     margin-bottom: 18px;
@@ -80,7 +80,7 @@ export default {
   }
 
   @include media(md) {
-    padding: 60px 0 100px;
+    padding: 182px 0 90px;
     
     &__inner {
       display: flex;
@@ -126,6 +126,8 @@ export default {
   }
 
   @include media(lg) {
+    padding: 230px 0 90px;
+
     &__header {
       display: flex;
       flex-wrap: wrap;
@@ -157,6 +159,8 @@ export default {
   }
 
   @include media(xl) {
+    padding: 290px 0 90px;
+    
     &__header {
       &::after {
         margin-top: 50px;

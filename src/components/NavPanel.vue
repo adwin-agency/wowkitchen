@@ -226,23 +226,25 @@ export default {
   }
 
   @include media(lg) {
+    display: flex;
+    height: $nav-panel-height-lg;
     padding: 0;
 
     &__row {
       display: flex;
       justify-content: space-between;
+      height: 100%;
     }
 
     &__items {
       flex-direction: row;
-      align-items: center;
+      align-items: stretch;
     }
 
     &__item {
       position: relative;
       margin-right: 23px;
       margin-bottom: 0;
-      padding: 13px 0;
       transition: color .3s ease;
 
       &:last-child {
@@ -300,7 +302,6 @@ export default {
     &__contacts {
       flex-wrap: nowrap;
       margin-top: 0;
-      padding: 7px 0;
     }
 
     &__social {
@@ -318,6 +319,8 @@ export default {
   }
 
   @include media(xl) {
+    height: $nav-panel-height-xl;
+
     &__item {
       margin-right: 36px;
       padding: 16px 0;

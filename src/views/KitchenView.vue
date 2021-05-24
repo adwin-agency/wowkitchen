@@ -6,7 +6,7 @@
     <Design />
     <OtherProducts />
     <Steps />
-    <InnerReviews />
+    <ReviewsSample />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import Equipment from '../components/Equipment.vue'
 import Design from '../components/Design.vue'
 import OtherProducts from '../components/OtherProducts.vue'
 import Steps from '../components/Steps.vue'
-import InnerReviews from '../components/InnerReviews.vue'
+import ReviewsSample from '../components/ReviewsSample.vue'
 
 export default {
   name: 'KitchenView',
@@ -28,7 +28,7 @@ export default {
     Design,
     OtherProducts,
     Steps,
-    InnerReviews
+    ReviewsSample
   }
 }
 </script>

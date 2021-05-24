@@ -151,7 +151,7 @@ export default {
   }
 
   @include media(md) {
-    padding: 80px 0 60px;
+    padding: 45px 0 60px;
     background-color: transparent;
 
     &__row {
@@ -282,6 +282,8 @@ export default {
   }
 
   @include media(lg) {
+    padding: 45px 0 210px;
+
     &__inner {
       margin: 0 auto;
       max-width: 1100px;
@@ -319,6 +321,7 @@ export default {
         top: 27px;
         right: 50px;
         width: 56px;
+        fill: $color-yellow;
       }
 
       &_circle-pink {
@@ -357,6 +360,8 @@ export default {
   }
 
   @include media(xl) {
+    padding: 45px 0 180px;
+    
     &__content {
       margin-top: 55px;
       padding: 60px 80px 65px 325px;

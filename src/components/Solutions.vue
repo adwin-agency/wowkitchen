@@ -37,6 +37,8 @@ export default {
 
 <style lang="scss">
 .solutions {
+  padding: 205px 0 62px;
+
   &__slider {
     margin-top: 24px;
   }
@@ -46,12 +48,16 @@ export default {
   }
 
   @include media(md) {
+    padding: 72px 0 40px;
+
     &__production {
       margin-top: 80px;
     }
   }
 
   @include media(lg) {
+    padding: 60px 0 40px;
+
     &__slider {
       margin-top: 34px;
     }
@@ -62,6 +68,8 @@ export default {
   }
 
   @include media(xl) {
+    padding: 150px 0 65px;
+
     &__slider {
       margin-top: 54px;
     }

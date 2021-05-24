@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Header class="app-header" />
   <RouterView />
   <Footer />
 </template>
@@ -30,6 +30,27 @@ export default {
 
 <style lang="scss">
 .app {
+  padding-top: $header-bar-height;
   overflow: hidden;
+
+  @include media(md) {
+    padding-top: $header-bar-height-md;
+  }
+
+  @include media(lg) {
+    padding-top: $header-bar-height-lg + $nav-panel-height-lg;
+  }
+
+  @include media(xl) {
+    padding-top: $header-bar-height-xl + $nav-panel-height-xl;
+  }
+}
+
+.app-header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 }
 </style>

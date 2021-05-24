@@ -6,7 +6,7 @@
     <Design />
     <Equipment />
     <Steps />
-    <InnerReviews />
+    <ReviewsSample />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import Solutions from '../components/Solutions.vue'
 import Design from '../components/Design.vue'
 import Equipment from '../components/Equipment.vue'
 import Steps from '../components/Steps.vue'
-import InnerReviews from '../components/InnerReviews.vue'
+import ReviewsSample from '../components/ReviewsSample.vue'
 
 export default {
   name: 'MainView',
@@ -28,7 +28,7 @@ export default {
     Design,
     Equipment,
     Steps,
-    InnerReviews
+    ReviewsSample
   }
 }
 </script>

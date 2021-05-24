@@ -10,7 +10,7 @@
     <QuizPreview type="kitchens" />
     <InnerArticles />
     <Steps />
-    <InnerReviews />
+    <ReviewsSample />
   </div>
 </template>
 
@@ -18,7 +18,7 @@
 import CatalogBanners from '../components/CatalogBanners.vue'
 import Catalog from '../components/Catalog.vue'
 import InnerArticles from '../components/InnerArticles.vue'
-import InnerReviews from '../components/InnerReviews.vue'
+import ReviewsSample from '../components/ReviewsSample.vue'
 import QuizPreview from '../components/QuizPreview.vue'
 import Steps from '../components/Steps.vue'
 
@@ -30,7 +30,7 @@ export default {
     QuizPreview,
     InnerArticles,
     Steps,
-    InnerReviews
+    ReviewsSample
   },
   data() {
     return {

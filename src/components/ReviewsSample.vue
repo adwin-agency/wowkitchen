@@ -1,18 +1,18 @@
 <template>
-  <div class="inner-reviews">
+  <div class="reviews-sample">
     <div class="container">
-      <div class="inner-reviews__inner">
-        <div class="inner-reviews__header">
+      <div class="reviews-sample__inner">
+        <div class="reviews-sample__header">
           <AppIcon
             name="quotes"
-            class="inner-reviews__quotes"
+            class="reviews-sample__quotes"
           />
-          <h2 class="inner-reviews__heading">За что любят наши кухни</h2>
-          <p class="inner-reviews__desc">Отзывы довольных клиентов говорят сами за себя.</p>
+          <h2 class="reviews-sample__heading">За что любят наши кухни</h2>
+          <p class="reviews-sample__desc">Отзывы довольных клиентов говорят сами за себя.</p>
           <AppButton
             v-if="$_windowWidth >= $_breakpoints.lg"
             href="/"
-            class="inner-reviews__btn"
+            class="reviews-sample__btn"
             title="Смотреть все отзывы"
           />
         </div>
@@ -29,41 +29,41 @@
                 spaceBetween: 30
               }
             }"
-            class="inner-reviews__slider"
+            class="reviews-sample__slider"
           >
             <SwiperSlide
               v-for="(card, index) in cards"
               :key="index"
-              class="inner-reviews__slide"
+              class="reviews-sample__slide"
             >
               <ReviewCard
-                :image="card.image"
-                :title="card.title"
-                class="inner-reviews__card"
+                :cardData="card"
+                mod="sample"
+                class="reviews-sample__card"
               />
             </SwiperSlide>
           </Swiper>
-          <div class="inner-reviews__footer">
+          <div class="reviews-sample__footer">
             <AppButton
               href="/"
-              class="inner-reviews__btn"
+              class="reviews-sample__btn"
               title="Смотреть все отзывы"
             />
           </div>
         </template>
         <div
           v-else
-          class="inner-reviews__cards"
+          class="reviews-sample__cards"
         >
           <div
             v-for="(card, index) in cards"
             :key="index"
-            class="inner-reviews__cards-col"
+            class="reviews-sample__cards-col"
           >
             <ReviewCard
               :cardData="card"
               mod="sample"
-              class="inner-reviews__card"
+              class="reviews-sample__card"
             />
           </div>
         </div>
@@ -82,7 +82,7 @@ import AppIcon from './base/AppIcon.vue'
 SwiperCore.use([Scrollbar])
 
 export default {
-  name: 'InnerReviews',
+  name: 'ReviewsSample',
   components: {
     Swiper,
     SwiperSlide,
@@ -104,8 +104,10 @@ export default {
 </script>
 
 <style lang="scss">
-.inner-reviews {
+.reviews-sample {
   $b: &;
+
+  padding: 40px 0 50px;
 
   &__header {
     position: relative;
@@ -163,6 +165,8 @@ export default {
   }
 
   @include media(md) {    
+    padding: 40px 0 55px;
+
     &__quotes {
       right: 10px;
     }
@@ -232,6 +236,8 @@ export default {
   }
 
   @include media(lg) {
+    padding: 50px 0 120px;
+
     &__inner {
       display: flex;
     }
@@ -273,6 +279,8 @@ export default {
   }
 
   @include media(xl) {
+    padding: 85px 0 130px;
+
     &__inner {
       max-width: 1500px;
     }

@@ -2,7 +2,7 @@
   <div class="nav-menu">
     <span
       class="nav-menu__back"
-      @click="$emit('close')"
+      @click="$emit('close-submenu')"
     >
       <AppIcon
         class="nav-menu__arrow"
@@ -15,20 +15,29 @@
         <div class="nav-menu__main-col">
           <p class="nav-menu__title">Планировки</p>
           <div class="nav-menu__list">
-            <router-link to="/" class="nav-menu__item">Прямые кухни</router-link>
-            <router-link to="/" class="nav-menu__item">Угловые кухни</router-link>
-            <router-link to="/" class="nav-menu__item">П-образные кухни</router-link>
-            <router-link to="/" class="nav-menu__item">Кухни с барной стойкой</router-link>
-            <router-link to="/" class="nav-menu__item">Кухни с островом</router-link>
+            <router-link
+              v-for="(item, index) in plans"
+              :key="index"
+              :to="{name: 'kitchens'}"
+              class="nav-menu__item"
+              @click="$emit('close-menu')"
+            >
+              {{item}}
+            </router-link>
           </div>
         </div>
         <div class="nav-menu__main-col">
           <p class="nav-menu__title">Стили</p>
           <div class="nav-menu__list">
-            <router-link to="/" class="nav-menu__item">Скандинавский</router-link>
-            <router-link to="/" class="nav-menu__item">Лофт</router-link>
-            <router-link to="/" class="nav-menu__item">Неоклассика</router-link>
-            <router-link to="/" class="nav-menu__item">Минимализм</router-link>
+            <router-link
+              v-for="(item, index) in styles"
+              :key="index"
+              :to="{name: 'kitchens'}"
+              class="nav-menu__item"
+              @click="$emit('close-menu')"
+            >
+              {{item}}
+            </router-link>
           </div>
         </div>
       </div>
@@ -56,6 +65,12 @@ export default {
   },
   props: {
     title: String
+  },
+  data() {
+    return {
+      plans: ['Прямые кухни', 'Угловые кухни', 'П-образные кухни', 'Кухни с барной стойкой', 'Кухни с островом'],
+      styles: ['Скандинавский', 'Лофт', 'Неоклассика', 'Минимализм']
+    }
   }
 }
 </script>
@@ -113,7 +128,7 @@ export default {
     margin-bottom: 14px;
     font-weight: 500;
     font-size: 14px;
-    transition: color .3s ease;
+    transition: color 0.3s ease;
 
     &:last-child {
       margin-bottom: 0;
@@ -137,7 +152,7 @@ export default {
       margin-top: 0;
     }
 
-    &__main{
+    &__main {
       display: flex;
     }
 

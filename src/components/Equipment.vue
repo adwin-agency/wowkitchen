@@ -97,7 +97,7 @@ export default {
 
 <style lang="scss">
 .equipment {
-  padding: 40px 0;
+  padding: 40px 0 30px;
   background-color: $color-lightgray;
 
   &__info {
@@ -173,7 +173,7 @@ export default {
   }
 
   @include media(lg) {
-    padding-top: 34px;
+    padding: 40px 0 0;
 
     .container {
       margin-left: 0;
