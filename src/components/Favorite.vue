@@ -46,7 +46,6 @@ export default {
 .favorite {
   padding: 10px;
   background-color: #fff;
-  z-index: 10;
   text-align: center;
   display: flex;
   flex-direction: column;
