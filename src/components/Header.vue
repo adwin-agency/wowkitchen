@@ -552,6 +552,22 @@ export default {
     display: none;
   }
 
+  &__favorite {
+    // Стили тут
+    position: absolute;
+    right: 50%;
+    transform: translate(50%);
+    max-width: 320px;
+    width: 100%;
+    height: 100vh;
+    top: 100%;
+    @include media(md) {
+      right: 0;
+      transform: translate(0);
+      max-width: 650px;
+    }
+  }
+
   @include media(md) {
     &__mobile-menu-inner {
       padding-top: 102px;
