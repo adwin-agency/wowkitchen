@@ -18,7 +18,7 @@
     <div class="blog-top__main">
       <div class="container">
         <div class="blog-top__row">
-          <BlogCard
+          <ArticleCard
             :cardData="cards.main"
             mod="large"
             class="blog-top__card"
@@ -36,7 +36,7 @@
                 :key="index"
                 class="blog-top__slide"
               >
-                <BlogCard
+                <ArticleCard
                   :cardData="card"
                   mod="small"
                   class="blog-top__side-card"
@@ -56,7 +56,7 @@
               v-else
               class="blog-top__side-cards"
             >
-              <BlogCard
+              <ArticleCard
                 v-for="(card, index) in cards.side.slice(0, 2)"
                 :key="index"
                 :cardData="card"
@@ -82,7 +82,7 @@
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppButton from './base/AppButton.vue'
 import AppTabs from './base/AppTabs.vue'
-import BlogCard from './BlogCard.vue'
+import ArticleCard from './ArticleCard.vue'
 
 export default {
   name: 'BlogTop',
@@ -90,7 +90,7 @@ export default {
     Swiper,
     SwiperSlide,
     AppTabs,
-    BlogCard,
+    ArticleCard,
     AppButton
   },
   data() {

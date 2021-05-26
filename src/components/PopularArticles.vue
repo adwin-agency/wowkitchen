@@ -1,56 +1,68 @@
 <template>
-  <div class="inner-articles">
+  <div class="popular-articles">
     <div class="container">
-      <h2 class="inner-articles__heading">Популярные статьи месяца</h2>
+      <h2 class="popular-articles__heading">Популярные статьи</h2>
       <Swiper
         v-if="$_mobile"
         slides-per-view="auto"
         :spaceBetween="10"
-        class="inner-articles__slider"
+        class="popular-articles__slider"
       >
         <SwiperSlide
           v-for="(card, index) in cards"
           :key="index"
-          class="inner-articles__slide"
+          class="popular-articles__slide"
         >
-          <BlogCard :cardData="card" />
+          <ArticleCard
+            :cardData="card"
+            mod="sample"
+          />
         </SwiperSlide>
       </Swiper>
       <div
         v-else
-        class="inner-articles__cards"
+        class="popular-articles__cards"
       >
         <div
           v-for="(card, index) in cards"
           :key="index"
-          class="inner-articles__cards-col"
+          class="popular-articles__cards-col"
         >
-          <BlogCard :cardData="card" />
+          <ArticleCard
+            :cardData="card"
+            mod="sample"
+          />
         </div>
       </div>
-      <div class="inner-articles__footer">
+      <div
+        v-if="allBtn"
+        class="popular-articles__footer"
+      >
         <AppButton
           bordered
           title="Все статьи"
-          class="inner-articles__btn"
+          class="popular-articles__btn"
         />
       </div>
-    </div> 
+    </div>
   </div>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppButton from './base/AppButton.vue'
-import BlogCard from './BlogCard.vue'
+import ArticleCard from './ArticleCard.vue'
 
 export default {
-  name: 'InnerArticles',
+  name: 'PopularArticles',
   components: {
     AppButton,
-    BlogCard,
+    ArticleCard,
     Swiper,
     SwiperSlide
+  },
+  props: {
+    allBtn: Boolean
   },
   data() {
     return {
@@ -65,13 +77,15 @@ export default {
 </script>
 
 <style lang="scss">
-.inner-articles {
+.popular-articles {
+  padding: 30px 0 50px;
+
   &__slider {
     margin-top: 18px;
     overflow: visible;
 
     &::before {
-      content: "";
+      content: '';
       display: block;
       margin-right: 12px;
       margin-bottom: 20px;

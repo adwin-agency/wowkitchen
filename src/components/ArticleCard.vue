@@ -1,9 +1,9 @@
 <template>
   <div
-    class="blog-card"
-    :class="{ [`blog-card_${mod}`]: mod }"
+    class="article-card"
+    :class="{ [`article-card_${mod}`]: mod }"
   >
-    <div class="blog-card__image">
+    <div class="article-card__image">
       <img
         :src="require(`@/assets/img/${cardData.image}`)"
         alt=""
@@ -11,34 +11,40 @@
       <AppIcon
         v-if="cardData.video && ($_mobile || mod === 'small')"
         name="play"
-        class="blog-card__play-icon"
+        class="article-card__play-icon"
       />
     </div>
-    <div class="blog-card__content">
+    <div class="article-card__content">
       <AppIcon
         v-if="!$_mobile && cardData.video && mod !== 'small'"
         name="play"
-        class="blog-card__play-icon"
+        class="article-card__play-icon"
       />
-      <span class="blog-card__tag">{{cardData.tag}}</span>
-      <p class="blog-card__title">{{cardData.title}}</p>
-      <div class="blog-card__footer">
+      <span class="article-card__tag">{{cardData.tag}}</span>
+      <p class="article-card__title">{{cardData.title}}</p>
+      <div class="article-card__footer">
         <span
           v-if="cardData.author"
-          class="blog-card__author"
-        >{{cardData.author}}</span>
+          class="article-card__author"
+        >
+          {{cardData.author}}
+        </span>
         <span
           v-if="cardData.date"
-          class="blog-card__date"
-        >{{cardData.date}}</span>
+          class="article-card__date"
+        >
+          {{cardData.date}}
+        </span>
         <span
           v-if="cardData.note"
-          class="blog-card__note"
-        >{{cardData.note}}</span>
-        <span class="blog-card__views">
+          class="article-card__note"
+        >
+          {{cardData.note}}
+        </span>
+        <span class="article-card__views">
           <AppIcon
             name="view"
-            class="blog-card__views-icon"
+            class="article-card__views-icon"
           />
           {{cardData.views}}
         </span>
@@ -51,7 +57,7 @@
 import AppIcon from './base/AppIcon.vue'
 
 export default {
-  name: 'BlogCard',
+  name: 'ArticleCard',
   components: {
     AppIcon
   },
@@ -63,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss">
-.blog-card {
+.article-card {
   $b: &;
 
   position: relative;
@@ -199,11 +205,15 @@ export default {
         bottom: 12px;
         width: 42px;
         height: 42px;
+        margin-bottom: 0;
         z-index: 1;
       }
 
       &__content {
         margin-top: 6px;
+        min-height: auto;
+        padding: 0;
+        color: $color-primary;
       }
 
       &__tag {
@@ -211,6 +221,7 @@ export default {
       }
 
       &__title {
+        margin-top: 0;
         font-weight: 500;
         font-size: 13px;
         line-height: (15/13);
@@ -218,6 +229,45 @@ export default {
 
       &__footer {
         display: none;
+      }
+    }
+  }
+
+  &_related {
+    #{$b} {
+      &__image {
+        position: relative;
+        height: 100px;
+      }
+
+      &__content {
+        margin-top: 6px;
+        min-height: auto;
+        padding: 0;
+        color: $color-primary;
+      }
+
+      &__tag {
+        color: $color-lightgray;
+      }
+
+      &__title {
+        margin-top: 3px;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: (15/13);        
+      }
+
+      &__footer {
+        margin-top: 11px;
+      }
+
+      &__date {
+        margin-right: 6px;
+
+        &::after {
+          margin-left: 6px;
+        }
       }
     }
   }

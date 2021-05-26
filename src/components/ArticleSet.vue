@@ -1,32 +1,32 @@
 <template>
-  <div class="blog-selection">
-    <div class="blog-selection__header">
+  <div class="article-set">
+    <div class="article-set__header">
       <div class="container">
-        <h2 class="blog-selection__heading">Подборки статей</h2>
+        <h2 class="article-set__heading">Подборки статей</h2>
       </div>
     </div>
-    <div class="blog-selection__cards">
+    <div class="article-set__cards">
       <div class="container">
         <Swiper
           :slides-per-view="$_media.sm ? 'auto' : 3"
           :space-between="$_media.sm ? 10 : $_media.md ? 20 : $_media.lg ? 30 : 40"
           watch-slides-visibility
           :navigation="!$_media.sm"
-          class="blog-selection__slider"
+          class="article-set__slider"
         >
           <SwiperSlide
             v-for="(card, index) in cards"
             :key="$_media.sm ? index : index + 100"
-            class="blog-selection__slide"
+            class="article-set__slide"
           >
-            <div class="blog-selection__card">
+            <div class="article-set__card">
               <img
                 :src="require(`@/assets/img/${card.image}`)"
                 alt=""
-                class="blog-selection__image"
+                class="article-set__image"
               >
-              <p class="blog-selection__title">{{card.title}}</p>
-              <p class="blog-selection__desc">{{card.desc}}</p>
+              <p class="article-set__title">{{card.title}}</p>
+              <p class="article-set__desc">{{card.desc}}</p>
             </div>
           </SwiperSlide>
         </Swiper>
@@ -42,7 +42,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 SwiperCore.use([Navigation])
 
 export default {
-  name: 'BlogSelection',
+  name: 'ArticleSet',
   components: {
     Swiper,
     SwiperSlide
@@ -63,10 +63,10 @@ export default {
 </script>
 
 <style lang="scss">
-.blog-selection {
+.article-set {
   $b: &;
 
-  padding: 0 0 15px;
+  padding: 50px 0 60px;
 
   &__heading {
     margin: 0 (-$container-padding);

@@ -8,7 +8,7 @@
       :cards="cards"
     />
     <QuizPreview type="kitchens" />
-    <InnerArticles />
+    <PopularArticles />
     <Steps />
     <ReviewsSample />
   </div>
@@ -17,7 +17,7 @@
 <script>
 import CatalogBanners from '../components/CatalogBanners.vue'
 import Catalog from '../components/Catalog.vue'
-import InnerArticles from '../components/InnerArticles.vue'
+import PopularArticles from '../components/PopularArticles.vue'
 import ReviewsSample from '../components/ReviewsSample.vue'
 import QuizPreview from '../components/QuizPreview.vue'
 import Steps from '../components/Steps.vue'
@@ -28,7 +28,7 @@ export default {
     CatalogBanners,
     Catalog,
     QuizPreview,
-    InnerArticles,
+    PopularArticles,
     Steps,
     ReviewsSample
   },

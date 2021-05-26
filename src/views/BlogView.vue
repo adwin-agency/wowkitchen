@@ -8,14 +8,14 @@
       subscribe
       show
     />
-    <BlogSelection />
+    <ArticleSet />
     <QuizPreview type="kitchens" />
   </div>
 </template>
 
 <script>
 import BlogCards from '../components/BlogCards.vue'
-import BlogSelection from '../components/BlogSelection.vue'
+import ArticleSet from '../components/ArticleSet.vue'
 import BlogTop from '../components/BlogTop.vue'
 import DesignCall from '../components/DesignCall.vue'
 import QuizPreview from '../components/QuizPreview.vue'
@@ -26,7 +26,7 @@ export default {
     BlogTop,
     BlogCards,
     DesignCall,
-    BlogSelection,
+    ArticleSet,
     QuizPreview
   },
   data() {

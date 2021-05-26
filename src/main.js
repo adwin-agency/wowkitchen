@@ -16,6 +16,125 @@ app.config.globalProperties.$_breakpoints = {
   xl: 1610
 }
 
+app.directive('intro-effect', {
+  mounted(el) {			
+		// left: 37, up: 38, right: 39, down: 40,
+		// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+		const keys = [32, 37, 38, 39, 40]
+
+		function preventDefault(e) {
+			e = e || window.event
+			
+      if (e.preventDefault) {
+				e.preventDefault()
+      }
+			
+      e.returnValue = false
+		}
+
+		function keydown(e) {
+			for (var i = keys.length; i--;) {
+				if (e.keyCode === keys[i]) {
+					preventDefault(e)
+					return
+				}
+			}
+		}
+
+		function touchmove(e) {
+			preventDefault(e)
+		}
+
+		function wheel() {
+		}
+
+		function disableScroll() {
+			window.onmousewheel = document.onmousewheel = wheel
+			document.onkeydown = keydown
+			document.body.ontouchmove = touchmove
+		}
+
+		function enableScroll() {
+			window.onmousewheel = document.onmousewheel = document.onkeydown = document.body.ontouchmove = null
+		}
+
+		let docElem = window.document.documentElement,
+				scrollVal,
+				isRevealed, 
+				noscroll, 
+				isAnimating
+
+		function scrollY() {
+			return window.pageYOffset || docElem.scrollTop
+		}
+				
+		el.scrollPage = () => {
+			scrollVal = scrollY()
+					
+			if (noscroll) {
+				if (scrollVal < 0) {
+          return false
+        }
+
+				window.scrollTo(0, 0)
+			}
+
+			if (el.classList.contains('no-transition')) {
+        el.classList.remove('no-transition')
+				return false
+			}
+
+			if (isAnimating) {
+				return false
+			}
+					
+			if (scrollVal <= 0 && isRevealed) {
+				toggleReveal(0)
+			} else if (scrollVal > 0 && !isRevealed) {
+				toggleReveal(1)
+			}
+		}
+
+		function toggleReveal(reveal) {
+			isAnimating = true
+					
+			if (reveal) {
+        el.classList.add('is-modified')
+			} else {
+				noscroll = true
+				disableScroll()
+        el.classList.remove('is-modified')
+			}
+
+			setTimeout( function() {
+				isRevealed = !isRevealed
+				isAnimating = false
+				if (reveal) {
+					noscroll = false
+					enableScroll()
+				}
+			}, 1000 )
+		}
+
+		const pageScroll = scrollY()
+		noscroll = pageScroll === 0
+				
+		disableScroll()
+				
+		if (pageScroll) {
+			isRevealed = true
+      el.classList.add('no-transition')
+      el.classList.add('is-modified')
+		}
+				
+		window.addEventListener('scroll', el.scrollPage)
+		
+  },
+  unmounted(el) {
+    window.removeEventListener('scroll', el.scrollPage)
+  }
+})
+
 app.mixin({
   computed: {
     $_windowWidth() {

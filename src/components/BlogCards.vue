@@ -2,7 +2,7 @@
   <div class="blog-cards">
     <div class="container">
       <div class="blog-cards__grid">
-        <BlogCard
+        <ArticleCard
           v-for="(card, index) in cards"
           :key="index"
           :cardData="card"
@@ -28,13 +28,13 @@
 
 <script>
 import AppButton from './base/AppButton.vue'
-import BlogCard from './BlogCard.vue'
+import ArticleCard from './ArticleCard.vue'
 import Subscribe from './Subscribe.vue'
 
 export default {
   name: 'BlogCards',
   components: {
-    BlogCard,
+    ArticleCard,
     Subscribe,
     AppButton
   },
