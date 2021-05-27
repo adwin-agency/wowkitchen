@@ -162,19 +162,6 @@ export default {
 .article-aside {
   $b: &;
 
-  width: 320px;
-  flex-shrink: 0;
-  margin-left: 65px;
-
-  @include media(md) {
-    margin-left: 85px;
-  }
-
-  @include media(xl) {
-    margin-left: 260px;
-    width: 380px;
-  }
-
   &__title {
     position: relative;
     font-size: 20px;

@@ -104,7 +104,7 @@
       <NavPanel class="header__panel" />
     </div>
 
-    <Favorite class="header__favorite" />
+    <Favorite v-if="false" class="header__favorite" />
 
     <NavPanel
       v-if="$_windowWidth >= $_breakpoints.lg"

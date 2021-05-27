@@ -1,7 +1,7 @@
 <template>
   <div
+    ref="article"
     class="article"
-    v-intro-effect
   >
     <div class="article__intro">
       <picture class="article__intro-picture">
@@ -281,7 +281,11 @@
               </div>
             </div>
           </div>
-          <ArticleAside class="article__aside" />
+          <div class="article__aside">
+            <div class="article__aside-inner">
+              <ArticleAside />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -290,11 +294,156 @@
 
 <script>
 import ArticleAside from './ArticleAside.vue'
+import StickySidebar from 'sticky-sidebar'
 
 export default {
   name: 'Article',
   components: {
     ArticleAside
+  },
+  data() {
+    return {
+      scrollPage: null,
+      sidebar: null
+    }
+  },
+  mounted() {
+    // intro-effect
+    const el = this.$refs.article
+    const keys = [32, 37, 38, 39, 40]
+
+    function preventDefault(e) {
+      e = e || window.event
+
+      if (e.preventDefault) {
+        e.preventDefault()
+      }
+
+      e.returnValue = false
+    }
+
+    function keydown(e) {
+      for (var i = keys.length; i--; ) {
+        if (e.keyCode === keys[i]) {
+          preventDefault(e)
+          return
+        }
+      }
+    }
+
+    function touchmove(e) {
+      preventDefault(e)
+    }
+
+    function wheel() {}
+
+    function disableScroll() {
+      window.onmousewheel = document.onmousewheel = wheel
+      document.onkeydown = keydown
+      document.body.ontouchmove = touchmove
+    }
+
+    function enableScroll() {
+      window.onmousewheel = document.onmousewheel = document.onkeydown = document.body.ontouchmove = null
+    }
+
+    let docElem = window.document.documentElement,
+      scrollVal,
+      isRevealed,
+      noscroll,
+      isAnimating
+
+    function scrollY() {
+      return window.pageYOffset || docElem.scrollTop
+    }
+
+    this.scrollPage = () => {
+      scrollVal = scrollY()
+
+      if (noscroll) {
+        if (scrollVal < 0) {
+          return false
+        }
+
+        window.scrollTo(0, 0)
+      }
+
+      if (el.classList.contains('no-transition')) {
+        el.classList.remove('no-transition')
+        return false
+      }
+
+      if (isAnimating) {
+        return false
+      }
+
+      if (scrollVal <= 0 && isRevealed) {
+        toggleReveal(0)
+      } else if (scrollVal > 0 && !isRevealed) {
+        toggleReveal(1)
+      }
+    }
+
+    const toggleReveal = (reveal) => {
+      isAnimating = true
+
+      if (reveal) {
+        el.classList.add('is-modified')
+      } else {
+        noscroll = true
+        disableScroll()
+        el.classList.remove('is-modified')
+      }
+
+      setTimeout(() => {
+        isRevealed = !isRevealed
+        isAnimating = false
+        if (reveal) {
+          noscroll = false
+          enableScroll()
+
+          // sticky-sidebar
+          if (this.sidebar) {
+            this.sidebar.updateSticky()
+          } else {
+            this.sidebar = new StickySidebar('.article__aside', {
+              topSpacing: 120,
+              bottomSpacing: 20,
+              containerSelector: '.article__inner',
+              innerWrapperSelector: '.article__aside-inner'
+            })
+          }
+        }
+      }, 1000)
+    }
+
+    const pageScroll = scrollY()
+    noscroll = pageScroll === 0
+
+    disableScroll()
+
+    if (pageScroll) {
+      isRevealed = true
+      el.classList.add('no-transition')
+      el.classList.add('is-modified')
+
+      // sticky-sidebar
+      setTimeout(() => {
+        this.sidebar = new StickySidebar('.article__aside', {
+          topSpacing: 120,
+          bottomSpacing: 20,
+          containerSelector: '.article__inner',
+          innerWrapperSelector: '.article__aside-inner'
+        })
+      }, 100)
+    }
+
+    window.addEventListener('scroll', this.scrollPage)
+  },
+  unmounted() {
+    this.sidebar.destroy()
+
+    window.removeEventListener('scroll', this.scrollPage)
   }
 }
 </script>
@@ -369,14 +518,9 @@ export default {
   }
 
   &__container {
+    padding-top: 40px;
     opacity: 0;
     transform: translateY(400px);
-  }
-
-  &__inner {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 40px;
 
     @include media(md) {
       padding-top: 50px;
@@ -385,6 +529,12 @@ export default {
     @include media(lg) {
       padding-top: 115px;
     }
+  }
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
   &__stats {
@@ -456,6 +606,21 @@ export default {
     background-color: $color-lightviolet;
     font-size: 14px;
     color: #fff;
+  }
+
+  &__aside {
+    margin-left: 85px;
+    width: 320px;
+    flex-shrink: 0;
+
+    @include media(md) {
+      margin-left: 85px;
+    }
+
+    @include media(xl) {
+      margin-left: 260px;
+      width: 380px;
+    }
   }
 }
 
