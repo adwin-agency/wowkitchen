@@ -27,66 +27,26 @@
       class="article-aside__spacer"
       :class="{'is-active': activeSearch}"
     ></div>
-    <h2 class="article-aside__title">Популярные статьи</h2>
-    <a class="article-aside__video-container">
+    <h2 class="article-aside__heading">Популярные статьи</h2>
+
+    <a
+      v-for="(card, index) in cards"
+      :key="index"
+      href="#"
+      class="article-aside__card"
+    >
       <img
-        class="article-aside__video-preview"
-        src="@/assets/img/articles/sidebar/1-video.png"
+        class="article-aside__img"
+        :src="require(`@/assets/img/${card.image}`)"
         alt="preview-image"
       >
-      <h4 class="article-aside__video-title">Что, где и как: <br> идеи хранения на кухне</h4>
-      <button class="article-aside__video-bt-play">
-        <img
-          class="article-aside__video-icon-play"
-          src="@/assets/img/articles/icons/play.png"
-          alt="play-icon"
-        >
-      </button>
-    </a>
-    <a class="article-aside__video-container">
-      <img
-        class="article-aside__video-preview"
-        src="@/assets/img/articles/sidebar/2-video.png"
-        alt="preview-image"
+      <button
+        v-if="card.video"
+        class="article-aside__play"
       >
-      <h4 class="article-aside__video-title">Какой цвет выбрать для кухни в квартире на северной стороне</h4>
-      <button class="article-aside__video-bt-play">
-        <img
-          class="article-aside__video-icon-play"
-          src="@/assets/img/articles/icons/play.png"
-          alt="play-icon"
-        >
+        <AppIcon name="play" class="article-aside__play-icon" />
       </button>
-    </a>
-    <a class="article-aside__video-container">
-      <img
-        class="article-aside__video-preview"
-        src="@/assets/img/articles/sidebar/3-video.png"
-        alt="preview-image"
-      >
-      <h4 class="article-aside__video-title">Что, где и как: <br> идеи хранения на кухне</h4>
-      <button class="article-aside__video-bt-play">
-        <img
-          class="article-aside__video-icon-play"
-          src="@/assets/img/articles/icons/play.png"
-          alt="play-icon"
-        >
-      </button>
-    </a>
-    <a class="article-aside__video-container">
-      <img
-        class="article-aside__video-preview"
-        src="@/assets/img/articles/sidebar/4-video.png"
-        alt="preview-image"
-      >
-      <h4 class="article-aside__video-title">Какой цвет выбрать для кухни в квартире на северной стороне</h4>
-      <button class="article-aside__video-bt-play">
-        <img
-          class="article-aside__video-icon-play"
-          src="@/assets/img/articles/icons/play.png"
-          alt="play-icon"
-        >
-      </button>
+      <h4 class="article-aside__title">{{card.title}}</h4>
     </a>
     <div class="article-aside__share">
       <p class="article-aside__share-text">Поделиться</p>
@@ -133,6 +93,12 @@ export default {
   },
   data() {
     return {
+      cards: [
+        { image: 'articles/sidebar/1-video.png', title: 'Что, где и как: идеи хранения на кухне', video: true },
+        { image: 'articles/sidebar/2-video.png', title: 'Какой цвет выбрать для кухни в квартире на северной стороне' },
+        { image: 'articles/sidebar/3-video.png', title: 'Что, где и как: идеи хранения на кухне' },
+        { image: 'articles/sidebar/4-video.png', title: 'Какой цвет выбрать для кухни в квартире на северной стороне' }
+      ],
       activeSearch: false
     }
   },
@@ -161,29 +127,6 @@ export default {
 <style lang="scss">
 .article-aside {
   $b: &;
-
-  &__title {
-    position: relative;
-    font-size: 20px;
-    font-weight: bold;
-    padding-top: 40px;
-    padding-bottom: 30px;
-    margin-bottom: 30px;
-
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background-color: $color-lightgray;
-    }
-
-    @include media(lg) {
-      padding-top: 70px;
-    }
-  }
 
   &__search {
     background-color: $color-lightgray;
@@ -236,76 +179,103 @@ export default {
     }
   }
 
-  &__video {
-    &-preview {
+  &__heading {
+    margin-top: 34px;
+    padding-bottom: 26px;
+    border-bottom: 3px solid $color-lightgray;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 26px;
+    min-height: 210px;
+    padding: 34px 34px 24px;
+
+    & + & {
+      margin-top: 20px;
+    }
+  }
+
+  &__img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  &__play {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 20px;
+
+    &-icon {
       width: 100%;
-      cursor: pointer;
+      height: 100%;
     }
+  }
 
-    &-container {
-      display: block;
-      position: relative;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      transition: 0.1s;
-
-      &:hover #{$b}__video-icon-play {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-
-    &-title {
-      color: #fff;
-      position: absolute;
-      bottom: 14%;
-      left: 10%;
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 1.375;
-      max-width: 280px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-
-      @include media(lg) {
-        font-size: 16px;
-        max-width: 290px;
-      }
-    }
-
-    &-icon-play {
-      position: absolute;
-      top: 13%;
-      left: 10%;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.5s;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
+  &__title {
+    margin-top: auto;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: (18/14);
+    color: $color-lightgray;
   }
 
   &__share {
     display: flex;
     align-items: center;
-    margin-top: 65px;
-    padding-left: 40px;
+    margin-top: 30px;
 
     &-text {
-      padding-right: 10px;
+      margin-right: 40px;
       font-size: 13px;
       color: $color-lightviolet;
       font-weight: bold;
-      align-self: start;
     }
 
     &-link {
-      padding-left: 20px;
+      margin-right: 30px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @include media(lg) {
+    &__heading {
+      margin-top: 68px;
+    }
+  }
+
+  @include media(xl) {
+    &__heading {
+      margin-top: 60px;
+      font-size: 24px;
+    }
+
+    &__card {
+      min-height: 250px;
+      padding: 34px 34px 30px;
+    }
+
+    &__title {
+      font-size: 16px;
+      line-height: (22/16);
+    }
+
+    &__share {
+      margin-top: 76px;
+      margin-left: 35px;
     }
   }
 }

@@ -281,7 +281,10 @@
               </div>
             </div>
           </div>
-          <div class="article__aside">
+          <div
+            v-if="!$_media.sm"
+            class="article__aside"
+          >
             <div class="article__aside-inner">
               <ArticleAside />
             </div>
@@ -403,15 +406,17 @@ export default {
           enableScroll()
 
           // sticky-sidebar
-          if (this.sidebar) {
-            this.sidebar.updateSticky()
-          } else {
-            this.sidebar = new StickySidebar('.article__aside', {
-              topSpacing: 120,
-              bottomSpacing: 20,
-              containerSelector: '.article__inner',
-              innerWrapperSelector: '.article__aside-inner'
-            })
+          if (!this.$_media.sm) {
+            if (this.sidebar) {
+              this.sidebar.updateSticky()
+            } else {
+              this.sidebar = new StickySidebar('.article__aside', {
+                topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
+                bottomSpacing: 30,
+                containerSelector: '.article__inner',
+                innerWrapperSelector: '.article__aside-inner'
+              })
+            }
           }
         }
       }, 1000)
@@ -428,22 +433,37 @@ export default {
       el.classList.add('is-modified')
 
       // sticky-sidebar
-      setTimeout(() => {
-        this.sidebar = new StickySidebar('.article__aside', {
-          topSpacing: 120,
-          bottomSpacing: 20,
-          containerSelector: '.article__inner',
-          innerWrapperSelector: '.article__aside-inner'
-        })
-      }, 100)
+      if (!this.$_media.sm) {
+        setTimeout(() => {
+          this.sidebar = new StickySidebar('.article__aside', {
+            topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
+            bottomSpacing: 30,
+            containerSelector: '.article__inner',
+            innerWrapperSelector: '.article__aside-inner'
+          })
+        }, 100)
+      }
     }
 
     window.addEventListener('scroll', this.scrollPage)
+    window.addEventListener('resize', this.handleResize)
   },
   unmounted() {
-    this.sidebar.destroy()
+    if (this.sidebar) {
+      this.sidebar.destroy()
+    }
 
     window.removeEventListener('scroll', this.scrollPage)
+    window.removeEventListener('resize', this.handleResize)
+  },
+  methods: {
+    handleResize() {
+      if (this.$_media.sm) {
+        this.sidebar = null
+      } else {
+        this.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
+      }
+    }
   }
 }
 </script>
@@ -506,14 +526,6 @@ export default {
       font-size: 26px;
       font-weight: bold;
       line-height: 1.44;
-
-      @include media(md) {
-        font-size: 36px;
-      }
-
-      @include media(lg) {
-        font-size: 50px;
-      }
     }
   }
 
@@ -521,20 +533,6 @@ export default {
     padding-top: 40px;
     opacity: 0;
     transform: translateY(400px);
-
-    @include media(md) {
-      padding-top: 50px;
-    }
-
-    @include media(lg) {
-      padding-top: 115px;
-    }
-  }
-
-  &__inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
   }
 
   &__stats {
@@ -544,10 +542,6 @@ export default {
     flex-wrap: wrap;
     max-width: 655px;
     margin-top: 5px;
-
-    @include media(md) {
-      margin-top: 15px;
-    }
 
     &-el {
       font-size: 13px;
@@ -608,16 +602,73 @@ export default {
     color: #fff;
   }
 
-  &__aside {
-    margin-left: 85px;
-    width: 320px;
-    flex-shrink: 0;
-
-    @include media(md) {
-      margin-left: 85px;
+  @include media(md) {
+    &__intro {
+      &-title {
+        font-size: 36px;
+      }
     }
 
-    @include media(xl) {
+    &__container {
+      padding-top: 50px;
+    }
+
+    &__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    &__stats {
+      margin-top: 15px;
+    }
+
+    &__aside {
+      margin-left: 50px;
+      width: 290px;
+      flex-shrink: 0;
+    }
+
+    &__aside-inner {
+      padding-top: 28px;
+    }
+  }
+
+  @include media(lg) {
+    &__intro {
+      &-title {
+        font-size: 50px;
+      }
+    }
+
+    &__container {
+      padding-top: 65px;
+    }
+
+    &__aside {
+      margin-left: 80px;
+      width: 320px;
+    }
+
+    &__aside-inner {
+      padding-top: 18px;
+    }
+  }
+
+  @include media(xl) {
+    &__intro-title {
+      margin-left: 80px;
+    }
+    
+    &__container {
+      padding-top: 95px;
+    }
+
+    &__section-container {
+      margin-left: 80px;
+    }
+
+    &__aside {
       margin-left: 260px;
       width: 380px;
     }

@@ -454,6 +454,41 @@ export default {
       }
     }
 
+    &_related {
+      #{$b} {
+        &__image {
+          position: absolute;
+          height: 100%;
+        }
+
+        &__content {
+          margin-top: 0;
+          min-height: 300px;
+          padding: 38px;
+          color: $color-lightgray;
+        }
+
+        &__title {
+          margin-top: 16px;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: (18/14);
+        }
+
+        &__footer {
+          margin-top: 15px;
+        }
+
+        &__date {
+          margin-right: 12px;
+
+          &::after {
+            margin-left: 12px;
+          }
+        }
+      }
+    }
+
     &__content {
       width: 100%;
       min-height: 300px;
@@ -489,6 +524,19 @@ export default {
 
         &__note {
           margin-right: 70px;
+        }
+      }
+    }
+
+    &_related {
+      #{$b} {
+        &__content {
+          min-height: 315px;
+          padding: 32px 38px;
+        }
+
+        &__title {
+          margin-top: 28px;
         }
       }
     }
@@ -533,6 +581,25 @@ export default {
           max-width: 650px;
           font-size: 24px;
           line-height: (28/24);
+        }
+      }
+    }
+
+    &_related {
+      #{$b} {
+        &__content {
+          min-height: 400px;
+          padding: 38px;
+        }
+
+        &__title {
+          margin-top: 16px;
+          font-size: 18px;
+          line-height: (22/18);
+        }
+
+        &__footer {
+          margin-top: 18px;
         }
       }
     }

@@ -16,7 +16,7 @@
         >
           <SwiperSlide
             v-for="(card, index) in cards"
-            :key="$_media.sm ? index : index + 100"
+            :key="index"
             class="article-set__slide"
           >
             <div class="article-set__card">
@@ -144,7 +144,7 @@ export default {
   }
 
   @include media(md) {
-    padding: 25px 0 75px;
+    padding: 25px 0 55px;
 
     &__heading {
       margin: 0;

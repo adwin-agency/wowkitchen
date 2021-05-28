@@ -62,5 +62,40 @@ export default {
   &__subscribe {
     grid-column: 1 / 3;
   }
+
+  @include media(md) {
+    padding: 40px 0;
+
+    &__grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+      align-items: end;
+      margin-top: 20px;
+    }
+
+    &__subscribe {
+      grid-column: auto;
+    }
+  }
+
+  @include media(lg) {
+    padding: 50px 0;
+
+    &__heading {
+      font-size: 24px;
+    }
+
+    &__grid {
+      grid-gap: 60px;
+    }
+  }
+
+  @include media(xl) {
+    padding: 90px 0;
+
+    &__grid {
+      margin-top: 50px;
+    }
+  }
 }
 </style>

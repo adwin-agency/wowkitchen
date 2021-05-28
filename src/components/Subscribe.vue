@@ -47,7 +47,7 @@ export default {
 <style lang="scss">
 .subscribe {
   position: relative;
-  padding: 125px 30px 30px;
+  padding: 120px 30px 30px;
 
   &__bg {
     position: absolute;
@@ -141,7 +141,7 @@ export default {
   }
 
   @include media(lg) {
-    padding: 132px 40px 25px;
+    padding: 130px 40px 25px;
 
     &__bg {
       &::after {
