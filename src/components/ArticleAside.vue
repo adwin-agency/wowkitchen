@@ -10,7 +10,6 @@
           class="article-aside__form-input"
           type="text"
           required
-          @focus="openSearch"
         >
         <button
           class="article-aside__form-button"

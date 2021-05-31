@@ -8,7 +8,7 @@
       :cards="cards"
     />
     <QuizPreview type="kitchens" />
-    <PopularArticles />
+    <PopularArticles allBtn />
     <Steps />
     <ReviewsSample />
   </div>

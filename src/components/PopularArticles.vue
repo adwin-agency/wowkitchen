@@ -3,7 +3,7 @@
     <div class="container">
       <h2 class="popular-articles__heading">Популярные статьи</h2>
       <Swiper
-        v-if="$_mobile"
+        v-if="$_media.sm"
         slides-per-view="auto"
         :spaceBetween="10"
         class="popular-articles__slider"

@@ -186,8 +186,10 @@ export default {
 
   &__box {
     position: relative;
+    width: 100%;
 
     &_side {
+      width: auto;
       flex: 1;
     }
   }

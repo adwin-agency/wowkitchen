@@ -9,20 +9,28 @@
         alt=""
       >
       <AppIcon
-        v-if="cardData.video && ($_mobile || mod === 'small')"
+        v-if="cardData.video && ($_media.sm || mod === 'small')"
         name="play"
         class="article-card__play-icon"
       />
     </div>
     <div class="article-card__content">
       <AppIcon
-        v-if="!$_mobile && cardData.video && mod !== 'small'"
+        v-if="cardData.video && (!$_media.sm && mod !== 'small')"
         name="play"
         class="article-card__play-icon"
       />
-      <span class="article-card__tag">{{cardData.tag}}</span>
+      <span
+        v-if="!($_media.sm && mod === 'sample')"
+        class="article-card__tag"
+      >
+        {{cardData.tag}}
+      </span>
       <p class="article-card__title">{{cardData.title}}</p>
-      <div class="article-card__footer">
+      <div
+        v-if="!($_media.sm && mod === 'sample')"
+        class="article-card__footer"
+      >
         <span
           v-if="cardData.author"
           class="article-card__author"
@@ -216,19 +224,11 @@ export default {
         color: $color-primary;
       }
 
-      &__tag {
-        display: none;
-      }
-
       &__title {
         margin-top: 0;
         font-weight: 500;
         font-size: 13px;
         line-height: (15/13);
-      }
-
-      &__footer {
-        display: none;
       }
     }
   }
@@ -255,7 +255,7 @@ export default {
         margin-top: 3px;
         font-weight: 500;
         font-size: 13px;
-        line-height: (15/13);        
+        line-height: (15/13);
       }
 
       &__footer {
@@ -489,6 +489,46 @@ export default {
       }
     }
 
+    &_sample {
+      #{$b} {
+        &__image {
+          position: absolute;
+          height: 100%;
+        }
+
+        &__content {
+          margin-top: 0;
+          min-height: 300px;
+          padding: 38px;
+          color: $color-lightgray;
+        }
+
+        &__play-icon {
+          position: static;
+          margin-bottom: 20px;
+        }
+
+        &__title {
+          margin-top: 16px;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: (18/14);
+        }
+
+        &__footer {
+          margin-top: 15px;
+        }
+
+        &__date {
+          margin-right: 12px;
+
+          &::after {
+            margin-left: 12px;
+          }
+        }
+      }
+    }
+
     &__content {
       width: 100%;
       min-height: 300px;
@@ -529,6 +569,19 @@ export default {
     }
 
     &_related {
+      #{$b} {
+        &__content {
+          min-height: 315px;
+          padding: 32px 38px;
+        }
+
+        &__title {
+          margin-top: 28px;
+        }
+      }
+    }
+
+    &_sample {
       #{$b} {
         &__content {
           min-height: 315px;
@@ -603,7 +656,26 @@ export default {
         }
       }
     }
-    
+
+    &_sample {
+      #{$b} {
+        &__content {
+          min-height: 400px;
+          padding: 38px;
+        }
+
+        &__title {
+          margin-top: 16px;
+          font-size: 18px;
+          line-height: (22/18);
+        }
+
+        &__footer {
+          margin-top: 18px;
+        }
+      }
+    }
+
     &__content {
       min-height: 400px;
     }

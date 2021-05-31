@@ -90,7 +90,7 @@ export default {
         { id: 'vacancy', title: 'Вакансии' },
       ],
 
-      isActiveMenu: false,
+      isActiveMenu: true,
       isActiveContent: false
     }
   },
@@ -158,8 +158,7 @@ export default {
 
   &__content {
     position: relative;
-    // padding-top: (calc(100vh - 120px));
-    padding-top: 545px;
+    padding-top: (calc(100vh - #{$header-bar-height + 170px}));
     z-index: 1;
 
     &::before {
@@ -205,6 +204,7 @@ export default {
 
   &__menu {
     margin-bottom: 8px;
+    padding-top: 50px;
     overflow: hidden;
   }
 
@@ -261,7 +261,8 @@ export default {
   @include media(md) {
     &__menu {
       position: fixed;
-      top: 50%;
+      top: calc(50% + #{$header-bar-height-md / 2});
+      padding-top: 0;
       margin-bottom: 0;
       opacity: 0;
       pointer-events: none;
@@ -300,6 +301,7 @@ export default {
     &__content {
       margin-left: auto;
       width: 76.5%;
+      padding-top: calc(100vh - #{$header-bar-height-md + 325px});
 
       &.is-active {
         #{$b} {
@@ -309,6 +311,10 @@ export default {
           }
         }
       }
+    }
+
+    &__header {
+      padding-top: 50px;
     }
 
     &__category {
@@ -334,8 +340,13 @@ export default {
   }
 
   @include media(lg) {
+    &__menu {
+      top: calc(50% + #{($header-bar-height-lg + $nav-panel-height-lg) / 2});
+    }
+
     &__content {
       width: 75%;
+      padding-top: calc(100vh - #{$header-bar-height-lg + $nav-panel-height-lg + 325px});
     }
 
     &__desc {
@@ -344,6 +355,10 @@ export default {
   }
 
   @include media(xl) {
+    &__menu {
+      top: calc(50% + #{($header-bar-height-xl + $nav-panel-height-xl) / 2});
+    }
+
     &__menu-item {
       padding: 20px 50px 20px 40px;
 
@@ -352,6 +367,7 @@ export default {
 
     &__content {
       width: 73.7%;
+      padding-top: calc(100vh - #{$header-bar-height-xl + $nav-panel-height-xl + 445px});
     }
 
     &__desc {
