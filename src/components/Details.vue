@@ -30,7 +30,7 @@
           />
         </Swiper>
         <div
-          v-if="!$_mobile"
+          v-if="!$_media.sm"
           class="details__characteristics"
         >
           <p
@@ -47,7 +47,7 @@
       <div class="container">
         <div class="details__content">
           <div
-            v-if="!$_mobile"
+            v-if="!$_media.sm"
             class="details__info"
           >
             <h2 class="details__title">{{title}}</h2>
@@ -64,7 +64,7 @@
             class="details__card"
           />
           <div
-            v-if="$_mobile"
+            v-if="$_media.sm"
             class="details__items"
           >
             <div class="details__item">
@@ -124,7 +124,7 @@
         </div>
         <Swiper
           slides-per-view="auto"
-          :space-between="$_mobile ? 10 : $_tablet ? 30 : 50"
+          :space-between="$_media.sm ? 10 : $_media.md ? 30 : 50"
           class="details__gallery"
         >
           <SwiperSlide
@@ -226,6 +226,8 @@ export default {
 
 <style lang="scss">
 .details {
+  padding-bottom: 50px;
+
   &__slider {
     position: relative;
     margin: 0 (-$container-padding);
@@ -379,6 +381,8 @@ export default {
   }
 
   @include media(md) {
+    padding-bottom: 60px;
+
     &__top {
       .container {
         max-width: 1120px;
@@ -519,6 +523,8 @@ export default {
   }
 
   @include media(lg) {
+    padding-bottom: 75px;
+
     &__top {
       .container {
         max-width: 1340px;
@@ -588,6 +594,8 @@ export default {
   }
 
   @include media(xl) {
+    padding-bottom: 110px;
+    
     &__top {
       .container {
         max-width: 1620px;

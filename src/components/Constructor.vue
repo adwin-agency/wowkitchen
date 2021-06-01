@@ -14,7 +14,7 @@
             :class="`constructor__setting_${setting.id}`"
           >
             <AppSelect
-              v-if="$_mobile"
+              v-if="$_media.sm"
               color="green"
               :options="setting.options"
               class="constructor__select"
@@ -66,7 +66,7 @@
             class="constructor__img"
           >
           <AppButton
-            v-if="$_tablet"
+            v-if="$_media.md"
             color="yellow"
             icon="edit"
             figure
@@ -77,12 +77,12 @@
             v-for="(item, index) in points"
             :key="index"
             class="constructor__point"
-            :style="!$_mobile && `left: ${item.coords[0]}%; top: ${item.coords[1]}%`"
+            :style="!$_media.sm && `left: ${item.coords[0]}%; top: ${item.coords[1]}%`"
           >
             <span
               class="constructor__circle"
-              :style="$_mobile && `left: ${item.coords[0]}%; top: ${item.coords[1]}%`"
-              @click="$_mobile && openTooltip(item.id)"
+              :style="$_media.sm && `left: ${item.coords[0]}%; top: ${item.coords[1]}%`"
+              @click="$_media.sm && openTooltip(item.id)"
             ></span>
             <div
               class="constructor__tooltip"
@@ -91,7 +91,7 @@
               <p class="constructor__tooltip-title">{{item.title}}</p>
               <p class="constructor__tooltip-desc">{{item.desc}}</p>
               <button
-                v-if="$_mobile"
+                v-if="$_media.sm"
                 type="button"
                 class="constructor__tooltip-close"
                 @click="closeTooltip"
@@ -143,7 +143,7 @@ export default {
   },
   methods: {
     handleResize() {
-      if (!this.$_mobile && this.activeTooltip) {
+      if (!this.$_media.sm && this.activeTooltip) {
         this.activeTooltip = null
       }
     },

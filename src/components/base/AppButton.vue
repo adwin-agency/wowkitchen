@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    :to="href"
+    :href="href"
     :type="!href && 'button'"
     :class="[
       'btn',
@@ -12,6 +12,7 @@
       {'btn_shadow': shadow},
       {'btn_show': show}
     ]"
+    @click="handleClick"
   >
     <AppIcon
       v-if="icon"
@@ -39,11 +40,20 @@ export default {
     bordered: Boolean,
     figure: Boolean,
     shadow: Boolean,
-    show: Boolean
+    show: Boolean,
+    modal: String
   },
   computed: {
     tag() {
-      return this.href ? 'router-link' : 'button'
+      return this.href ? 'a' : 'button'
+    }
+  },
+  methods: {
+    handleClick(e) {
+      if (this.modal) {
+        e.preventDefault()
+        this.$store.commit('setModal', this.modal)
+      }
     }
   }
 }

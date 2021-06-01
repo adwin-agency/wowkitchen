@@ -12,32 +12,21 @@
     </span>
     <div class="nav-menu__row">
       <div class="nav-menu__main">
-        <div class="nav-menu__main-col">
-          <p class="nav-menu__title">Планировки</p>
+        <div
+          v-for="(group, index) in menu"
+          :key="index"
+          class="nav-menu__main-col"
+        >
+          <p class="nav-menu__title">{{group.title}}</p>
           <div class="nav-menu__list">
-            <router-link
-              v-for="(item, index) in plans"
+            <span
+              v-for="(item, index) in group.items"
               :key="index"
-              :to="{name: 'kitchens'}"
               class="nav-menu__item"
               @click="$emit('close-menu')"
             >
-              {{item}}
-            </router-link>
-          </div>
-        </div>
-        <div class="nav-menu__main-col">
-          <p class="nav-menu__title">Стили</p>
-          <div class="nav-menu__list">
-            <router-link
-              v-for="(item, index) in styles"
-              :key="index"
-              :to="{name: 'kitchens'}"
-              class="nav-menu__item"
-              @click="$emit('close-menu')"
-            >
-              {{item}}
-            </router-link>
+              <router-link :to="{name: item.path}">{{item.title}}</router-link>
+            </span>
           </div>
         </div>
       </div>
@@ -64,13 +53,8 @@ export default {
     AppIcon
   },
   props: {
-    title: String
-  },
-  data() {
-    return {
-      plans: ['Прямые кухни', 'Угловые кухни', 'П-образные кухни', 'Кухни с барной стойкой', 'Кухни с островом'],
-      styles: ['Скандинавский', 'Лофт', 'Неоклассика', 'Минимализм']
-    }
+    title: String,
+    menu: Array
   }
 }
 </script>

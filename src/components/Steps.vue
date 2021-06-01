@@ -80,7 +80,7 @@ export default {
   }
 
   @include media(md) {
-    padding: 182px 0 90px;
+    padding: 85px 0 90px;
     
     &__inner {
       display: flex;
@@ -126,7 +126,7 @@ export default {
   }
 
   @include media(lg) {
-    padding: 230px 0 90px;
+    padding: 105px 0 90px;
 
     &__header {
       display: flex;
@@ -159,7 +159,7 @@ export default {
   }
 
   @include media(xl) {
-    padding: 290px 0 90px;
+    padding: 180px 0 90px;
     
     &__header {
       &::after {

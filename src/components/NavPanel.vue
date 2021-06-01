@@ -3,36 +3,61 @@
     <div class="container">
       <div class="nav-panel__row">
         <nav class="nav-panel__items">
-          <div
-            class="nav-panel__item nav-panel__item_dd"
-            :class="{'is-active': activeMenu}"
-            @click="toggleMenu"
+          <template
+            v-for="(item, index) in menu"
+            :key="index"
           >
-            <span>О компании</span>
-            <AppIcon
-              class="nav-panel__arrow"
-              name="angle-down"
-            />
-            <div class="nav-panel__dropdown" ref="dropdown">
-              <div class="nav-panel__dropdown-inner">
-                <router-link to="/" class="nav-panel__dropdown-item">Производство</router-link>
-                <router-link to="/" class="nav-panel__dropdown-item">Материалы</router-link>
-                <router-link to="/" class="nav-panel__dropdown-item">Команда</router-link>
-                <router-link to="/" class="nav-panel__dropdown-item">Оплата</router-link>
-                <router-link to="/" class="nav-panel__dropdown-item">Гарантии</router-link>
-                <router-link to="/" class="nav-panel__dropdown-item">Вакансии</router-link>
+            <div
+              v-if="item.submenu"
+              class="nav-panel__item nav-panel__item_dd"
+              :class="{'is-active': activeSubmenu}"
+            >
+              <span
+                class="nav-panel__dd-expand"
+                @click="toggleSubmenu"
+              >
+                {{item.title}}
+                <AppIcon
+                  class="nav-panel__arrow"
+                  name="angle-down"
+                />
+              </span>
+              <div
+                class="nav-panel__dropdown"
+                ref="dropdown"
+              >
+                <div class="nav-panel__dropdown-inner">
+                  <span
+                    v-for="(subitem, index) in item.submenu"
+                    :key="index"
+                    class="nav-panel__dropdown-item"
+                    @click="handleSubmenuClick"
+                  >
+                    <router-link :to="{ name: subitem.route }">{{subitem.title}}</router-link>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <router-link to="/" class="nav-panel__item">Замер</router-link>
-          <router-link to="/" class="nav-panel__item">Доставка</router-link>
-          <router-link to="/" class="nav-panel__item">Сборка</router-link>
-          <router-link to="/" class="nav-panel__item">Акции</router-link>
-          <router-link to="/" class="nav-panel__item">Контакты</router-link>
+            <span
+              v-else
+              class="nav-panel__item"
+              @click="$emit('close-menu')"
+            >
+              <router-link
+                :to="{ name: item.route }"
+                class="nav-panel__item"
+              >
+                {{item.title}}
+              </router-link>
+            </span>
+          </template>
         </nav>
         <div class="nav-panel__contacts">
           <div class="nav-panel__social">
-            <a href="#" class="nav-panel__social-item">
+            <a
+              href="#"
+              class="nav-panel__social-item"
+            >
               <AppIcon
                 class="nav-panel__social-icon"
                 width="23"
@@ -40,7 +65,10 @@
                 name="vk"
               />
             </a>
-            <a href="#" class="nav-panel__social-item">
+            <a
+              href="#"
+              class="nav-panel__social-item"
+            >
               <AppIcon
                 class="nav-panel__social-icon"
                 width="19"
@@ -66,26 +94,53 @@
 <script>
 import AppIcon from './base/AppIcon.vue'
 
+const menu = [
+  {
+    title: 'О компании',
+    submenu: [
+      { route: 'main', title: 'Производство' },
+      { route: 'materials', title: 'Материалы' },
+      { route: 'team', title: 'Команда' },
+      { route: 'payment', title: 'Оплата' },
+      { route: 'guarantee', title: 'Гарантии' },
+      { route: 'vacancy', title: 'Вакансии' }
+    ]
+  },
+  { route: 'main', title: 'Замер' },
+  { route: 'delivery', title: 'Доставка' },
+  { route: 'main', title: 'Сборка' },
+  { route: 'discount', title: 'Акции' },
+  { route: 'contacts', title: 'Контакты' }
+]
+
 export default {
   name: 'NavPanel',
   components: {
     AppIcon
   },
+  emits: [
+    'close-menu'
+  ],
   data() {
     return {
-      activeMenu: false
+      menu: menu,
+      activeSubmenu: false
     }
   },
   methods: {
-    toggleMenu() {
-      if (window.innerWidth >= this.$_breakpoints.lg) {
+    toggleSubmenu() {
+      if (this.$_desktop) {
         return
       }
 
-      this.activeMenu = !this.activeMenu
-      
+      this.activeSubmenu = !this.activeSubmenu
+
       const dropdown = this.$refs.dropdown
-      dropdown.style.height = this.activeMenu ? dropdown.scrollHeight + 'px' : ''
+      dropdown.style.height = this.activeSubmenu ? dropdown.scrollHeight + 'px' : ''
+    },
+    handleSubmenuClick() {
+      this.toggleSubmenu()
+      this.$emit('close-menu')
     }
   }
 }
@@ -105,10 +160,6 @@ export default {
   }
 
   &__item {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 17px;
     font-weight: 500;
     font-size: 11px;
@@ -133,18 +184,24 @@ export default {
     }
   }
 
+  &__dd-expand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__arrow {
     width: 9px;
     height: 9px;
     margin-right: 18px;
     fill: $color-primary;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
   }
 
   &__dropdown {
     width: 100%;
     height: 0;
-    transition: height .3s ease;
+    transition: height 0.3s ease;
     overflow: hidden;
     cursor: auto;
   }
@@ -242,10 +299,12 @@ export default {
     }
 
     &__item {
+      display: flex;
+      align-items: center;
       position: relative;
       margin-right: 23px;
       margin-bottom: 0;
-      transition: color .3s ease;
+      transition: color 0.3s ease;
 
       &:last-child {
         margin-right: 0;
@@ -281,7 +340,7 @@ export default {
       background-color: #fff;
       box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.06);
       opacity: 0;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
       pointer-events: none;
     }
 
@@ -292,7 +351,7 @@ export default {
     &__dropdown-item {
       font-size: 12px;
       color: $color-primary;
-      transition: color .3s ease;
+      transition: color 0.3s ease;
 
       &:hover {
         color: #aca8c3;

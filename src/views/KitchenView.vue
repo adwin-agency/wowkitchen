@@ -4,7 +4,7 @@
     <Constructor />
     <Equipment />
     <Design />
-    <OtherProducts />
+    <OtherProducts heading="Другие модели" />
     <Steps />
     <ReviewsSample />
   </div>

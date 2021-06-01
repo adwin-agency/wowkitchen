@@ -1,12 +1,14 @@
 <template>
   <header class="header">
+
     <div
       v-if="$_mobile"
       class="header__mobile-menu"
       :class="{'is-active': activeMobileMenu}"
     >
+
       <div
-        v-if="$_windowWidth < $_breakpoints.md"
+        v-if="$_media.sm"
         class="header__nav-wrapper"
       >
         <div class="header__nav-main">
@@ -32,29 +34,33 @@
                   name="angle-down"
                 />
               </span>
-              <router-link
-                to="/"
+              <span
                 class="header__nav-item"
-              >Шкафы-купе</router-link>
-              <router-link
-                to="/"
-                class="header__nav-item is-active"
-              >Подбор кухни</router-link>
-              <router-link
-                to="/"
+                @click="toggleMobileMenu"
+              >
+                <router-link :to="{name: 'wardrobes'}">Шкафы-купе</router-link>
+              </span>
+              <span
                 class="header__nav-item"
-              >Советы и идеи</router-link>
+                @click="toggleMobileMenu"
+              >
+                <router-link :to="{name: 'quiz'}">Подбор кухни</router-link>
+              </span>
+              <span
+                class="header__nav-item"
+                @click="toggleMobileMenu"
+              >
+                <router-link :to="{name: 'blog'}">Советы и идеи</router-link>
+              </span>
             </nav>
-            <button
-              type="button"
+            <AppButton
+              title="Консультация дизайнера"
+              icon="phone"
+              figure
+              shadow
+              modal="designer"
               class="header__call-btn"
-            >
-              <AppIcon
-                class="header__call-icon"
-                name="phone"
-              />
-              Консультация дизайнера
-            </button>
+            />
           </div>
         </div>
         <div
@@ -65,6 +71,7 @@
             <NavMenu
               class="header__nav-menu"
               title="Кухни"
+              :menu="kitchensMenu"
               @close-menu="toggleMobileMenu"
               @close-submenu="toggleNavMenu"
             />
@@ -78,38 +85,46 @@
             <NavMenu
               class="header__nav-menu"
               title="Техника"
-              @close="closeNavMenu"
+              :menu="technicsMenu"
+              @close-menu="toggleMobileMenu"
+              @close-submenu="toggleNavMenu"
             />
           </div>
         </div>
       </div>
 
       <div
-        v-if="$_windowWidth >= $_breakpoints.md && $_windowWidth < $_breakpoints.lg"
+        v-if="$_media.md"
         class="header__mobile-menu-inner"
       >
         <div class="container">
-          <button
-            type="button"
+          <AppButton
+            title="Консультация дизайнера"
+            icon="phone"
+            figure
+            shadow
+            modal="designer"
             class="header__call-btn"
-          >
-            <AppIcon
-              class="header__call-icon"
-              name="phone"
-            />
-            Консультация дизайнера
-          </button>
+          />
         </div>
       </div>
-      <NavPanel class="header__panel" />
+
+      <NavPanel
+        class="header__panel"
+        @close-menu="toggleMobileMenu"
+      />
     </div>
 
-    <Favorite v-if="false" class="header__favorite" />
+    <Favorite
+      class="header__favorite"
+      :class="{'is-active': activeFavorite}"
+    />
 
     <NavPanel
-      v-if="$_windowWidth >= $_breakpoints.lg"
+      v-if="$_desktop"
       class="header__panel"
     />
+
     <div class="header__bar">
       <div class="container">
         <div class="header__row">
@@ -136,8 +151,9 @@
               >
             </picture>
           </router-link>
+
           <nav
-            v-if="$_windowWidth >= $_breakpoints.md"
+            v-if="!$_media.sm"
             class="header__nav"
           >
             <span
@@ -175,18 +191,19 @@
               class="header__nav-item"
             >Советы и идеи</router-link>
           </nav>
+
           <div class="header__side">
-            <button
-              v-if="$_windowWidth >= $_breakpoints.lg"
-              type="button"
+
+            <AppButton
+              v-if="$_desktop"
+              title="Консультация дизайнера"
+              icon="phone"
+              figure
+              shadow
+              modal="designer"
               class="header__call-btn"
-            >
-              <AppIcon
-                class="header__call-icon"
-                name="phone"
-              />
-              Консультация дизайнера
-            </button>
+            />
+
             <a
               href="tel:+79999999999"
               class="header__phone"
@@ -200,6 +217,7 @@
             <button
               class="header__favorites"
               type="button"
+              @click="toggleFavorite"
             >
               <AppIcon
                 class="header__favorites-icon"
@@ -227,7 +245,7 @@
       </div>
     </div>
 
-    <template v-if="$_windowWidth >= $_breakpoints.md">
+    <template v-if="!$_media.sm">
       <div
         class="header__nav-dropdown"
         :class="{'is-active': activeNavMenu === 'kitchens'}"
@@ -256,10 +274,54 @@
 </template>
 
 <script>
+import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import Favorite from './Favorite.vue'
 import NavMenu from './NavMenu.vue'
 import NavPanel from './NavPanel.vue'
+
+const kitchensMenu = [
+  {
+    title: 'Планировки',
+    items: [
+      { path: 'kitchens', title: 'Прямые кухни' },
+      { path: 'kitchens', title: 'Угловые кухни' },
+      { path: 'kitchens', title: 'П-образные кухни' },
+      { path: 'kitchens', title: 'Кухни с барной стойкой' },
+      { path: 'kitchens', title: 'Кухни с островом' }
+    ]
+  },
+  {
+    title: 'Стили',
+    items: [
+      { path: 'kitchens', title: 'Скандинавский' },
+      { path: 'kitchens', title: 'Лофт' },
+      { path: 'kitchens', title: 'Неоклассика' },
+      { path: 'kitchens', title: 'Минимализм' }
+    ]
+  }
+]
+
+const technicsMenu = [
+  {
+    title: 'Категория1',
+    items: [
+      { path: 'technics', title: 'Пункт1' },
+      { path: 'technics', title: 'Пункт2' },
+      { path: 'technics', title: 'Пункт3' },
+      { path: 'technics', title: 'Пункт4' },
+      { path: 'technics', title: 'Пункт5' }
+    ]
+  },
+  {
+    title: 'Категория2',
+    items: [
+      { path: 'technics', title: 'Пункт1' },
+      { path: 'technics', title: 'Пункт2' },
+      { path: 'technics', title: 'Пункт3' }
+    ]
+  }
+]
 
 export default {
   name: 'AppHeader',
@@ -267,12 +329,16 @@ export default {
     AppIcon,
     NavMenu,
     NavPanel,
-    Favorite
+    Favorite,
+    AppButton
   },
   data() {
     return {
+      kitchensMenu: kitchensMenu,
+      technicsMenu: technicsMenu,
       activeMobileMenu: false,
-      activeNavMenu: null
+      activeNavMenu: null,
+      activeFavorite: false
     }
   },
   created() {
@@ -289,8 +355,17 @@ export default {
     },
 
     toggleMobileMenu() {
+      if (this.activeFavorite) {
+        this.toggleFavorite()
+      }
+
       this.activeMobileMenu = !this.activeMobileMenu
-      document.body.style.overflow = this.activeMobileMenu ? 'hidden' : ''
+
+      if (!this.activeMobileMenu) {
+        this.activeNavMenu = false
+      }
+
+      this.$store.commit('setMobileMenu', this.activeMobileMenu)
     },
 
     openNavMenu(menu) {
@@ -303,7 +378,15 @@ export default {
 
     toggleNavMenu(menu) {
       this.activeNavMenu === menu ? this.closeNavMenu() : this.openNavMenu(menu)
-    }
+    },
+
+    toggleFavorite() {
+      if (this.activeMobileMenu) {
+        this.toggleMobileMenu()
+      }
+
+      this.activeFavorite = !this.activeFavorite
+    },
   }
 }
 </script>
@@ -372,7 +455,7 @@ export default {
     line-height: 1;
     cursor: pointer;
 
-    &.is-active {
+    a.is-active {
       color: $color-green;
     }
   }
@@ -386,42 +469,10 @@ export default {
   }
 
   &__call-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
     margin-top: 35px;
     width: 100%;
     max-width: 300px;
-    padding: 20px;
-    border-radius: 30px 0 30px 0;
-    font-weight: bold;
     font-size: 11px;
-    color: #fff;
-    background-color: $color-green;
-    box-shadow: 0 0 0 0 $color-green;
-    z-index: 1;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 9px;
-      right: 8px;
-      bottom: -5px;
-      height: 100%;
-      border-radius: inherit;
-      background-color: inherit;
-      opacity: 0.5;
-      filter: blur(5px);
-      z-index: -1;
-    }
-  }
-
-  &__call-icon {
-    width: 15px;
-    height: 15px;
-    margin-right: 20px;
-    fill: currentColor;
   }
 
   &__row {
@@ -553,18 +604,19 @@ export default {
   }
 
   &__favorite {
-    // Стили тут
     position: absolute;
-    right: 50%;
-    transform: translate(50%);
-    max-width: 320px;
+    left: 100%;
+    top: 0;
     width: 100%;
     height: 100vh;
-    top: 100%;
+    transition: transform .3s ease;
+
+    &.is-active {
+      transform: translateX(-100%);
+    }
+
     @include media(md) {
-      right: 0;
-      transform: translate(0);
-      max-width: 650px;
+      width: 650px;
     }
   }
 
@@ -752,7 +804,6 @@ export default {
     &__call-btn {
       margin-right: 20px;
       margin-bottom: 6px;
-      padding: 22px 28px;
     }
 
     &__phone-num {

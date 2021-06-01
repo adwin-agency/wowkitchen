@@ -42,10 +42,10 @@ export default {
 .design-form {
   padding: 40px 40px 30px;
   border-radius: 50px 0 50px 0;
-  text-align: center;
   background-color: $color-lightgray;
 
   &__title {
+    text-align: center;
     font-weight: bold;
     font-size: 16px;
   }
@@ -69,6 +69,7 @@ export default {
 
   &__note {
     margin-top: 12px;
+    text-align: center;
     font-size: 10px;
     line-height: (13/10);
     color: #aca8c3;

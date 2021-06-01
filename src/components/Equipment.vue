@@ -125,18 +125,22 @@ export default {
   }
 
   @include media(md) {
+    position: relative;
     padding: 26px 0 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      background-color: #fff;
+    }
 
     &__inner {
       margin: 0 auto;
       max-width: 780px;
-
-      &::after {
-        content: "";
-        display: block;
-        height: 1px;
-        margin-top: -100px;
-      }
     }
 
     &__header {
@@ -174,6 +178,10 @@ export default {
 
   @include media(lg) {
     padding: 40px 0 0;
+
+    &::after {
+      height: 130px;
+    }
 
     .container {
       margin-left: 0;
@@ -232,6 +240,10 @@ export default {
 
   @include media(xl) {
     padding-top: 64px;
+
+    &::after {
+      height: 110px;
+    }
 
     .container {
       max-width: calc(50% + #{$container-max-width-xl / 2});

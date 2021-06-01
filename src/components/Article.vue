@@ -461,7 +461,17 @@ export default {
       if (this.$_media.sm) {
         this.sidebar = null
       } else {
-        this.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
+
+        if (this.sidebar) {
+          this.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
+        } else {
+          this.sidebar = new StickySidebar('.article__aside', {
+            topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
+            bottomSpacing: 30,
+            containerSelector: '.article__inner',
+            innerWrapperSelector: '.article__aside-inner'
+          })
+        }        
       }
     }
   }
