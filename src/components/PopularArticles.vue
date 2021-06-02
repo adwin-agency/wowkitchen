@@ -38,11 +38,19 @@
         v-if="allBtn"
         class="popular-articles__footer"
       >
-        <AppButton
-          bordered
-          title="Все статьи"
-          class="popular-articles__btn"
-        />
+        <router-link
+          :to="{name: 'blog'}"
+          custom
+          v-slot="{href, navigate}"
+        >
+          <AppButton
+            :href="href"
+            bordered
+            title="Все статьи"
+            class="popular-articles__btn"
+            @click="navigate"
+          />
+        </router-link>
       </div>
     </div>
   </div>

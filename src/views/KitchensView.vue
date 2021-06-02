@@ -10,7 +10,7 @@
     <QuizPreview type="kitchens" />
     <PopularArticles allBtn />
     <Steps />
-    <ReviewsSample />
+    <RatedReviews />
   </div>
 </template>
 
@@ -18,7 +18,7 @@
 import CatalogBanners from '../components/CatalogBanners.vue'
 import Catalog from '../components/Catalog.vue'
 import PopularArticles from '../components/PopularArticles.vue'
-import ReviewsSample from '../components/ReviewsSample.vue'
+import RatedReviews from '../components/RatedReviews.vue'
 import QuizPreview from '../components/QuizPreview.vue'
 import Steps from '../components/Steps.vue'
 
@@ -30,7 +30,7 @@ export default {
     QuizPreview,
     PopularArticles,
     Steps,
-    ReviewsSample
+    RatedReviews
   },
   data() {
     return {

@@ -97,10 +97,6 @@ export default {
   &__field {
     margin-bottom: 25px;
 
-    &_note {
-      margin-bottom: 55px;
-    }
-
     &:last-child {
       margin-bottom: 0;
     }
@@ -172,12 +168,17 @@ export default {
     &__fields {
       display: flex;
       flex-wrap: wrap;
+      align-items: flex-start;
       margin-top: 12px;
     }
 
     &__field {
       width: calc(50% - 10px);
       margin-bottom: 20px;
+
+      &_note {
+        margin-bottom: 0px;
+      }
 
       &_large {
         width: 100%;
@@ -221,6 +222,10 @@ export default {
     &__field {
       width: calc(50% - 20px);
       margin-bottom: 25px;
+
+      &_note {
+        margin-bottom: 0px;
+      }
 
       &_large {
         width: 100%;

@@ -5,7 +5,14 @@
         <div class="payment__section">
           <h2 class="payment__heading">Оплата наличными</h2>
           <p class="payment__desc">Для вашего удобства, оплата происходит в несколько этапов. Первая оплата производится при заключении договора представителю нашей компании.</p>
-          <p class="payment__desc">Последующие можно произвести как наличными в нашем офисе, так и <a href="#">онлайн на сайте.</a></p>
+          <p class="payment__desc">Последующие можно произвести как наличными в нашем офисе, так и 
+            <a
+              href="#"
+              @click="scrollToForm"
+            >
+              онлайн на сайте.
+            </a>
+          </p>
           <div class="payment__features">
             <div class="payment__feature">
               <span class="payment__feature-num"><sub>от</sub>50<sup>%</sup></span>
@@ -70,7 +77,10 @@
             </div>
           </div>
         </div>
-        <div class="payment__section">
+        <div
+          ref="form"
+          class="payment__section"
+        >
           <h2 class="payment__heading">Оплата онлайн</h2>
           <PaymentForm class="payment__form" />
         </div>
@@ -93,6 +103,34 @@ export default {
     AppButton,
     PaymentForm,
     Interesting
+  },
+  methods: {
+    scrollToForm(e) {
+      e.preventDefault()
+
+      const formOffset = this.$refs.form.getBoundingClientRect().top + window.scrollY
+      const topSpace = document.querySelector('.app-header').clientHeight + 50
+      const scrollTo = formOffset - topSpace
+      const cosParameter = (window.scrollY - scrollTo) / 2
+      let scrollCount = 0,
+        oldTimestamp = null
+
+      function step(newTimestamp) {
+        if (oldTimestamp !== null) {
+          scrollCount += (Math.PI * (newTimestamp - oldTimestamp)) / 500
+          
+          if (scrollCount >= Math.PI) {
+            return
+          }
+
+          window.scrollTo(0, scrollTo + cosParameter + cosParameter * Math.cos(scrollCount))
+        }
+
+        oldTimestamp = newTimestamp
+        window.requestAnimationFrame(step)
+      }
+      window.requestAnimationFrame(step)
+    }
   }
 }
 </script>

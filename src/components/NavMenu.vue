@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="nav-menu__side">
+      <div v-if="$_desktop" class="nav-menu__side">
         <div class="nav-menu__side-col">
           <p class="nav-menu__title">Акции</p>
           <div class="nav-menu__card"></div>
@@ -55,7 +55,11 @@ export default {
   props: {
     title: String,
     menu: Array
-  }
+  },
+  emits: [
+    'close-menu',
+    'close-submenu'
+  ],
 }
 </script>
 
@@ -83,10 +87,6 @@ export default {
 
   &__row {
     margin-top: 34px;
-  }
-
-  &__side {
-    display: none;
   }
 
   &__main-col {
@@ -162,6 +162,34 @@ export default {
 
     &__item {
       margin-bottom: 22px;
+    }
+  }
+
+  @include media(lg) {
+    &__side {
+      display: flex;
+    }
+
+    &__side-col {
+      margin-right: 40px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &__card {
+      margin-top: 20px;
+      width: 300px;
+      padding-top: 73%;
+      border-radius: 4px;
+      background-color: #ccc;
+    }
+  }
+
+  @include media(xl) {
+    &__side {
+      margin-right: 130px;
     }
   }
 }

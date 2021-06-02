@@ -1,5 +1,8 @@
 <template>
-  <div class="intro">
+  <div
+    ref="intro"
+    class="intro"
+  >
     <div class="intro__main">
       <div class="container">
         <div class="intro__row">
@@ -33,6 +36,7 @@
               class="intro__shape intro__shape_1"
               viewBox="0 0 194.19 194.22"
               name="shape-1"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <video
               src=""
@@ -42,64 +46,76 @@
               class="intro__shape intro__shape_2"
               viewBox="0 0 22.47 22.85"
               name="shape-2"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_3"
               viewBox="0 0 59 54.5"
               name="shape-3"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_4"
               viewBox="0 0 56.22 56.22"
               name="shape-4"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_5"
               viewBox="0 0 71.32 71.31"
               name="shape-5"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_6"
               viewBox="0 0 17.21 17.22"
               name="shape-6"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_7"
               viewBox="0 0 57 57.04"
               name="shape-7"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_8"
               viewBox="0 0 40.46 70"
               name="shape-8"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_9"
               viewBox="0 0 19.62 19.62"
               name="shape-9"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_10"
               viewBox="0 0 59.031 57.75"
               name="shape-10"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_11"
               viewBox="0 0 20 20"
               name="shape-11"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_12"
               viewBox="0 0 81.875 81.87"
               name="shape-12"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <AppIcon
               class="intro__shape intro__shape_13"
               viewBox="0 0 29.688 29.68"
               name="shape-13"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
             <button
-              v-if="$_windowWidth >= $_breakpoints.md"
+              v-if="!$_media.sm"
               type="button"
               class="intro__video-btn"
             >
@@ -127,6 +143,28 @@ export default {
   components: {
     AppIcon,
     IntroFeatures
+  },
+  data() {
+    return {
+      shapeBackTranslate: 0,
+      shapeFrontTranslate: 0
+    }
+  },
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      const intro = this.$refs.intro
+      const introOffset = intro.offsetTop
+      const introY = intro.getBoundingClientRect().top
+
+      this.shapeBackTranslate = (introY - introOffset) / 2
+      this.shapeFrontTranslate = (introY - introOffset) / 3
+    }
   }
 }
 </script>

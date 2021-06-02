@@ -48,7 +48,9 @@
         >
           {{cardData.category}}
         </p>
-        <p class="product-card__title">{{cardData.title}}</p>
+        <p class="product-card__title">
+          <router-link :to="{name: 'kitchen'}">{{cardData.title}}</router-link>
+        </p>
         <div
           v-if="cardData.mod !== 'wardrobe'"
           class="product-card__actions"
@@ -107,6 +109,7 @@
         :size="!large ? 'small' : ''"
         :bordered="!large"
         title="Рассчитать проект"
+        modal="calc"
         class="product-card__btn"
       />
     </div>

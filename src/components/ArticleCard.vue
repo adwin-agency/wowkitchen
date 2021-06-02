@@ -1,5 +1,6 @@
 <template>
-  <div
+  <router-link
+    :to="{name: 'article'}"
     class="article-card"
     :class="{ [`article-card_${mod}`]: mod }"
   >
@@ -58,7 +59,7 @@
         </span>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -80,6 +81,7 @@ export default {
 .article-card {
   $b: &;
 
+  display: block;
   position: relative;
 
   &_small {

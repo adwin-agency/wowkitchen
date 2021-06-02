@@ -1,22 +1,29 @@
 <template>
-  <div class="reviews-sample">
+  <div class="rated-reviews">
     <div class="container">
-      <div class="reviews-sample__inner">
-        <div class="reviews-sample__header">
+      <div class="rated-reviews__inner">
+        <div class="rated-reviews__header">
           <AppIcon
             name="quotes"
-            class="reviews-sample__quotes"
+            class="rated-reviews__quotes"
           />
-          <h2 class="reviews-sample__heading">За что любят наши кухни</h2>
-          <p class="reviews-sample__desc">Отзывы довольных клиентов говорят сами за себя.</p>
-          <AppButton
-            v-if="$_windowWidth >= $_breakpoints.lg"
-            href="/"
-            class="reviews-sample__btn"
-            title="Смотреть все отзывы"
-          />
+          <h2 class="rated-reviews__heading">За что любят наши кухни</h2>
+          <p class="rated-reviews__desc">Отзывы довольных клиентов говорят сами за себя.</p>
+          <router-link
+            v-if="$_desktop"
+            :to="{name: 'reviews'}"
+            custom
+            v-slot="{href, navigate}"
+          >
+            <AppButton
+              :href="href"
+              title="Смотреть все отзывы"
+              class="rated-reviews__btn"
+              @click="navigate"
+            />
+          </router-link>
         </div>
-        <template v-if="$_windowWidth < $_breakpoints.lg">
+        <template v-if="!$_desktop">
           <Swiper
             :space-between="10"
             navigation
@@ -29,41 +36,48 @@
                 spaceBetween: 30
               }
             }"
-            class="reviews-sample__slider"
+            class="rated-reviews__slider"
           >
             <SwiperSlide
               v-for="(card, index) in cards"
               :key="index"
-              class="reviews-sample__slide"
+              class="rated-reviews__slide"
             >
               <ReviewCard
                 :cardData="card"
                 mod="sample"
-                class="reviews-sample__card"
+                class="rated-reviews__card"
               />
             </SwiperSlide>
           </Swiper>
-          <div class="reviews-sample__footer">
-            <AppButton
-              href="/"
-              class="reviews-sample__btn"
-              title="Смотреть все отзывы"
-            />
+          <div class="rated-reviews__footer">
+            <router-link
+              :to="{name: 'reviews'}"
+              custom
+              v-slot="{href, navigate}"
+            >
+              <AppButton
+                :href="href"
+                title="Смотреть все отзывы"
+                class="rated-reviews__btn"
+                @click="navigate"
+              />
+            </router-link>
           </div>
         </template>
         <div
           v-else
-          class="reviews-sample__cards"
+          class="rated-reviews__cards"
         >
           <div
             v-for="(card, index) in cards"
             :key="index"
-            class="reviews-sample__cards-col"
+            class="rated-reviews__cards-col"
           >
             <ReviewCard
               :cardData="card"
               mod="sample"
-              class="reviews-sample__card"
+              class="rated-reviews__card"
             />
           </div>
         </div>
@@ -82,7 +96,7 @@ import AppIcon from './base/AppIcon.vue'
 SwiperCore.use([Scrollbar])
 
 export default {
-  name: 'ReviewsSample',
+  name: 'RatedReviews',
   components: {
     Swiper,
     SwiperSlide,
@@ -104,7 +118,7 @@ export default {
 </script>
 
 <style lang="scss">
-.reviews-sample {
+.rated-reviews {
   $b: &;
 
   padding: 40px 0 50px;
@@ -164,7 +178,7 @@ export default {
     width: 100%;
   }
 
-  @include media(md) {    
+  @include media(md) {
     padding: 40px 0 55px;
 
     &__quotes {
@@ -182,12 +196,12 @@ export default {
       border-radius: 8px;
       background-color: #fff;
 
-       #{$b} {
-          &__card {
-            transition: opacity .3s ease;
-            transform: translateZ(0);
-          }
-       }
+      #{$b} {
+        &__card {
+          transition: opacity 0.3s ease;
+          transform: translateZ(0);
+        }
+      }
 
       &:not(.swiper-slide-visible) {
         #{$b} {
@@ -209,7 +223,7 @@ export default {
       border-radius: 50%;
       background-image: url(data:image/svg+xml;base64,PHN2ZyBpZD0iYXJyb3ciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjY2IiBoZWlnaHQ9IjY2IiB2aWV3Qm94PSIwIDAgNjYgNjYiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICMzYzNjM2M7CiAgICAgICAgb3BhY2l0eTogMC4zOwogICAgICB9CgogICAgICAuY2xzLTIgewogICAgICAgIGZpbGw6ICNmM2Y0Zjk7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Y2lyY2xlIGlkPSLQrdC70LvQuNC/0YFfOV/QutC+0L/QuNGPIiBkYXRhLW5hbWU9ItCt0LvQu9C40L/RgSA5INC60L7Qv9C40Y8iIGNsYXNzPSJjbHMtMSIgY3g9IjMzIiBjeT0iMzMiIHI9IjMzIi8+CiAgPHBhdGggaWQ9ImFycm93X3JpZ2h0X9C60L7Qv9C40Y8iIGRhdGEtbmFtZT0iYXJyb3dfcmlnaHQg0LrQvtC/0LjRjyIgY2xhc3M9ImNscy0yIiBkPSJNMTEwNi42NSw1NjQuM2gwYTEuMDU1LDEuMDU1LDAsMCwwLTEuNDYsMGwtOC41Niw4LjI2NWExLjk0OSwxLjk0OSwwLDAsMCwwLDIuODI4bDguNjIsOC4zMjZhMS4wNTgsMS4wNTgsMCwwLDAsMS40NS4wMWgwYTAuOTcsMC45NywwLDAsMCwuMDEtMS40MjRsLTcuODktNy42MTlhMC45ODMsMC45ODMsMCwwLDEsMC0xLjQxNGw3LjgzLTcuNTU4QTAuOTgzLDAuOTgzLDAsMCwwLDExMDYuNjUsNTY0LjNaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTA2OSAtNTQxKSIvPgo8L3N2Zz4K);
       background-size: contain;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
       transform: translateY(-50%) rotate(180deg);
       cursor: pointer;
       z-index: 2;

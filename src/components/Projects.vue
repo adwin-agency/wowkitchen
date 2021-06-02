@@ -107,6 +107,7 @@ export default {
     left: 50%;
     margin-top: -40px;
     margin-left: -80px;
+    z-index: 2;
   }
 
   @include media(md) {

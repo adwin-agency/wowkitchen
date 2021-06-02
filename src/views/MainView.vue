@@ -6,7 +6,7 @@
     <Design />
     <Equipment />
     <Steps />
-    <ReviewsSample />
+    <RatedReviews />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import Solutions from '../components/Solutions.vue'
 import Design from '../components/Design.vue'
 import Equipment from '../components/Equipment.vue'
 import Steps from '../components/Steps.vue'
-import ReviewsSample from '../components/ReviewsSample.vue'
+import RatedReviews from '../components/RatedReviews.vue'
 
 export default {
   name: 'MainView',
@@ -28,7 +28,7 @@ export default {
     Design,
     Equipment,
     Steps,
-    ReviewsSample
+    RatedReviews
   }
 }
 </script>

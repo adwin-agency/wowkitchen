@@ -29,7 +29,7 @@
                   <router-link
                     v-for="(submenuItem, index) in item.submenu"
                     :key="index"
-                    :to="submenuItem.href"
+                    :to="{name: submenuItem.route}"
                     class="footer__submenu-item"
                   >
                     {{submenuItem.title}}
@@ -38,7 +38,7 @@
               </template>
               <router-link
                 v-else
-                :to="item.href"
+                :to="{name: item.route}"
                 class="footer__menu-title"
               >
                 {{item.title}}
@@ -46,7 +46,13 @@
             </div>
           </nav>
           <div class="footer__main-footer">
-            <a href="#" class="footer__policy" target="_blank">Политика конфиденциальности</a>
+            <a
+              href="#"
+              class="footer__policy"
+              target="_blank"
+            >
+              Политика конфиденциальности
+            </a>
             <div class="footer__payment">
               <AppIcon
                 name="visa"
@@ -66,7 +72,7 @@
               />
             </div>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
     <div class="footer__side">
@@ -93,17 +99,24 @@
             title="Консультация дизайнера"
             figure
             shadow
+            modal="designer"
             class="footer__btn"
           />
           <div class="footer__social">
             <p class="footer__social-title">Мы в соцсетях</p>
-            <a href="#" class="footer__social-link">
+            <a
+              href="#"
+              class="footer__social-link"
+            >
               <AppIcon
                 name="insta"
                 class="footer__social-icon"
               />
             </a>
-            <a href="#" class="footer__social-link">
+            <a
+              href="#"
+              class="footer__social-link"
+            >
               <AppIcon
                 name="vk"
                 class="footer__social-icon"
@@ -131,7 +144,7 @@
               ОКТМО 45383000000
             </p>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
   </footer>
@@ -141,6 +154,52 @@
 import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
 
+const menu = [
+  {
+    id: 'kitchens',
+    title: 'Кухни',
+    submenu: [
+      { title: 'Прямые', route: 'kitchens' },
+      { title: 'Угловые', route: 'kitchens' },
+      { title: 'П-образные', route: 'kitchens' },
+      { title: 'С барной стойкой', route: 'kitchens' },
+      { title: 'С островом', route: 'kitchens' }
+    ]
+  },
+  {
+    id: 'closets',
+    title: 'Шкафы-купе',
+    route: 'wardrobes'
+  },
+  {
+    id: 'technics',
+    title: 'Техника',
+    submenu: [
+      { title: 'Плиты', route: 'technics' },
+      { title: 'Варочные панели', route: 'technics' },
+      { title: 'Вытяжки', route: 'technics' },
+      { title: 'Посудомоечные машины', route: 'technics' },
+      { title: 'Мойки', route: 'technics' },
+      { title: 'Смесители', route: 'technics' }
+    ]
+  },
+  {
+    id: 'company',
+    title: 'Компания',
+    submenu: [
+      { title: 'Блог', route: 'blog' },
+      { title: 'О производстве', route: 'main' },
+      { title: 'Вакансии', route: 'vacancy' },
+      { title: 'Доставка', route: 'delivery' },
+      { title: 'Сборка', route: 'main' },
+      { title: 'Гарантия', route: 'guarantee' },
+      { title: 'Материалы', route: 'materials' },
+      { title: 'Подбор кухни', route: 'quiz' },
+      { title: 'Контакты', route: 'contacts' }
+    ]
+  }
+]
+
 export default {
   name: 'Footer',
   components: {
@@ -149,53 +208,9 @@ export default {
   },
   data() {
     return {
+      menu: menu,
       activeSubmenu: null,
-      activeRequisites: false,
-      menu: [
-        {
-          id: 'kitchens',
-          title: 'Кухни',
-          submenu: [
-            { title: 'Прямые', href: '/' },
-            { title: 'Угловые', href: '/' },
-            { title: 'П-образные', href: '/' },
-            { title: 'С барной стойкой', href: '/' },
-            { title: 'С островом', href: '/' }
-          ]
-        },
-        {
-          id: 'closets',
-          title: 'Шкафы-купе',
-          href: '/'
-        },
-        {
-          id: 'technics',
-          title: 'Техника',
-          submenu: [
-            { title: 'Плиты', href: '/' },
-            { title: 'Варочные панели', href: '/' },
-            { title: 'Вытяжки', href: '/' },
-            { title: 'Посудомоечные машины', href: '/' },
-            { title: 'Мойки', href: '/' },
-            { title: 'Смесители', href: '/' }
-          ]
-        },
-        {
-          id: 'company',
-          title: 'Компания',
-          submenu: [
-            { title: 'Блог', href: '/' },
-            { title: 'О производстве', href: '/' },
-            { title: 'Вакансии', href: '/' },
-            { title: 'Доставка', href: '/' },
-            { title: 'Сборка', href: '/' },
-            { title: 'Гарантия', href: '/' },
-            { title: 'Материалы', href: '/' },
-            { title: 'Подбор кухни', href: '/' },
-            { title: 'Контакты', href: '/' }
-          ]
-        }
-      ]
+      activeRequisites: false
     }
   },
   created() {
@@ -211,14 +226,11 @@ export default {
       }
 
       if (this.activeSubmenu === id) {
-
         const closing = this.$refs[id]
         closing.style.height = ''
 
         this.activeSubmenu = null
-
       } else {
-
         if (this.activeSubmenu) {
           const closing = this.$refs[this.activeSubmenu]
           closing.style.height = ''
@@ -297,7 +309,7 @@ export default {
     height: 7px;
     margin-right: 2px;
     fill: currentColor;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
 
     &.is-active {
       transform: rotate(180deg);
@@ -307,7 +319,7 @@ export default {
   &__submenu {
     height: 0;
     padding: 0 10px;
-    transition: height .3s ease;
+    transition: height 0.3s ease;
     overflow: hidden;
   }
 
@@ -431,7 +443,7 @@ export default {
     font-size: 11px;
     line-height: (16/11);
     color: #bcbcbc;
-    transition: height .3s ease;
+    transition: height 0.3s ease;
     overflow: hidden;
   }
 

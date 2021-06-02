@@ -10,15 +10,14 @@
       :class="{'is-active': isActiveMenu}"
     >
       <nav class="side-fixed__menu-list">
-        <a
+        <router-link
           v-for="(item, index) in menu"
           :key="index"
-          href="#"
+          :to="{name: item.route}"
           class="side-fixed__menu-item"
-          :class="{'is-active': pageData.id === item.id}"
         >
           {{item.title}}
-        </a>
+        </router-link>
       </nav>
     </div>
     <div
@@ -31,21 +30,14 @@
         class="side-fixed__menu"
       >
         <nav class="side-fixed__menu-list">
-          <a
-            href="#"
-            class="side-fixed__menu-item is-active"
-          >
-            {{activeMenuItem.title}}
-          </a>
-          <a
-            v-for="(item, index) in filteredMenu"
+          <router-link
+            v-for="(item, index) in menu"
             :key="index"
-            href="#"
+            :to="{name: item.route}"
             class="side-fixed__menu-item"
-            :class="{'is-active': pageData.id === item.id}"
           >
             {{item.title}}
-          </a>
+          </router-link>
         </nav>
       </div>
       <div class="side-fixed__header">
@@ -74,6 +66,15 @@
 </template>
 
 <script>
+const menu = [
+  { title: 'Производство', route: 'main' },
+  { title: 'Материалы', route: 'materials' },
+  { title: 'Команда', route: 'team' },
+  { title: 'Оплата', route: 'payment' },
+  { title: 'Гарантия', route: 'guarantee' },
+  { title: 'Вакансии', route: 'vacancy' }
+]
+
 export default {
   name: 'SideFixed',
   props: {
@@ -81,25 +82,9 @@ export default {
   },
   data() {
     return {
-      menu: [
-        { id: 'production', title: 'Производство' },
-        { id: 'materials', title: 'Материалы' },
-        { id: 'team', title: 'Команда' },
-        { id: 'payment', title: 'Оплата' },
-        { id: 'guarantee', title: 'Гарантия' },
-        { id: 'vacancy', title: 'Вакансии' },
-      ],
-
+      menu: menu,
       isActiveMenu: true,
       isActiveContent: false
-    }
-  },
-  computed: {
-    activeMenuItem() {
-      return this.menu.find(item => item.id === this.pageData.id)
-    },
-    filteredMenu() {
-      return this.menu.filter(item => item.id !== this.pageData.id)
     }
   },
   created() {
@@ -113,7 +98,7 @@ export default {
       const content = this.$refs.content
 
       this.isActiveMenu = window.innerHeight < content.getBoundingClientRect().top + content.offsetHeight
-      this.isActiveContent = window.pageYOffset > 100
+      this.isActiveContent = window.scrollY > 0
     }
   }
 }
@@ -189,6 +174,7 @@ export default {
         &__wrapper {
           opacity: 1;
           transform: none;
+          pointer-events: all;
         }
 
         &__desc {
@@ -220,6 +206,10 @@ export default {
       flex-shrink: 0;
       width: calc(50% - 150px);
     }
+
+    &::before {
+      order: -1;
+    }
   }
 
   &__menu-item {
@@ -230,6 +220,7 @@ export default {
     color: #d8d8d8;
 
     &.is-active {
+      order: -1;
       color: $color-lightgray;
       background-color: $color-lightviolet;
     }
@@ -247,6 +238,7 @@ export default {
     line-height: (30/14);
     opacity: 0;
     transition: opacity 0.5s ease;
+    pointer-events: none;
 
     & + & {
       margin-top: 12px;
@@ -256,6 +248,7 @@ export default {
   &__wrapper {
     opacity: 0;
     transition: opacity 0.5s ease;
+    pointer-events: none;
   }
 
   @include media(md) {
@@ -292,6 +285,7 @@ export default {
         font-size: 14px;
 
         &.is-active {
+          order: 0;
           color: $color-lightgray;
           background-color: rgba($color-lightgray, 0.5);
         }
@@ -336,6 +330,7 @@ export default {
       color: #fff;
       opacity: 1;
       transition: color 0.5s ease 0.5s;
+      pointer-events: all;
     }
   }
 

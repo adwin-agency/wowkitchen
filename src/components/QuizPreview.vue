@@ -1,19 +1,40 @@
 <template>
-  <div class="quiz-preview" :class="{'quiz-preview_mobile-light': type === 'wardrobes'}">
-    <AppIcon class="quiz-preview__bg-pattern" name="wow-pattern" />
+  <div
+    class="quiz-preview"
+    :class="{'quiz-preview_mobile-light': type === 'wardrobes'}"
+  >
+    <AppIcon
+      class="quiz-preview__bg-pattern"
+      name="wow-pattern"
+    />
     <div class="container">
       <div class="quiz-preview__inner">
         <h2 class="quiz-preview__heading">{{preview[type].title}}</h2>
         <p class="quiz-preview__desc">Пройтиде тест из 4 вопросов и получите бесплатный <span>онлайн-рассчёт</span> проекта и{{'\xa0'}}дополнительную скидку 5%</p>
-        <AppButton
-          figure
-          color="yellow"
-          :title="preview[type].btn"
-          class="quiz-preview__btn"
-        />
+        <router-link
+          :to="{name: 'quiz'}"
+          custom
+          v-slot="{href, navigate}"
+        >
+          <AppButton
+            :href="href"
+            figure
+            color="yellow"
+            :title="preview[type].btn"
+            class="quiz-preview__btn"
+            @click="navigate"
+          />
+        </router-link>
         <img
-          :src="require(`@/assets/img/${preview[type].photos}`)" alt="" class="quiz-preview__img quiz-preview__img_photos">
-        <img src="@/assets/img/flower.png" alt="" class="quiz-preview__img quiz-preview__img_flower">
+          :src="require(`@/assets/img/${preview[type].photos}`)"
+          alt=""
+          class="quiz-preview__img quiz-preview__img_photos"
+        >
+        <img
+          src="@/assets/img/flower.png"
+          alt=""
+          class="quiz-preview__img quiz-preview__img_flower"
+        >
       </div>
     </div>
   </div>
@@ -48,7 +69,7 @@ export default {
   $b: &;
 
   position: relative;
-  background-image: linear-gradient(-13deg, rgb(6,160,126) 0%, rgb(4,185,145) 42%);
+  background-image: linear-gradient(-13deg, rgb(6, 160, 126) 0%, rgb(4, 185, 145) 42%);
   overflow: hidden;
 
   &_mobile-light {
@@ -59,7 +80,7 @@ export default {
       &__heading {
         color: $color-primary;
       }
-      
+
       &__bg-pattern {
         fill: $color-lightviolet;
       }
@@ -124,7 +145,7 @@ export default {
 
   @include media(md) {
     &_mobile-light {
-      background-image: linear-gradient(-13deg, rgb(6,160,126) 0%, rgb(4,185,145) 42%);
+      background-image: linear-gradient(-13deg, rgb(6, 160, 126) 0%, rgb(4, 185, 145) 42%);
 
       #{$b} {
         &__bg-pattern {

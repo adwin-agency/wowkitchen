@@ -1,5 +1,9 @@
 <template>
-  <div :class="['step', {'step_accented': accented}]">
+  <component
+    :is="tag"
+    :href="href"
+    :class="['step', {'step_accented': accented}]"
+  >
     <div
       v-if="bg"
       class="step__bg"
@@ -38,7 +42,7 @@
         class="step__view-icon"
       />
     </div>
-  </div>
+  </component>
 </template>
 
 <script>
@@ -55,7 +59,15 @@ export default {
     desc: String,
     view: Boolean,
     bg: String,
-    accented: Boolean
+    accented: Boolean,
+    href: String,
+    modal: String,
+    route: String
+  },
+  computed: {
+    tag() {
+      return this.href ? 'a' : 'div'
+    }
   }
 }
 </script>
@@ -64,6 +76,7 @@ export default {
 .step {
   $b: &;
 
+  display: block;
   border: 1px solid #f3f4f9;
   border-radius: 4px;
   padding: 20px 34px 20px 38px;
@@ -93,7 +106,7 @@ export default {
     margin-top: 2px;
     font-weight: bold;
     font-size: 14px;
-    line-height: (18/14);    
+    line-height: (18/14);
   }
 
   &__title-arrow {
@@ -197,12 +210,12 @@ export default {
     position: relative;
     border-radius: 0;
     padding: 30px 45px 50px 45px;
-    transition: box-shadow .3s ease;
-    
+    transition: box-shadow 0.3s ease;
+
     &:hover {
       #{$b} {
         &__bg {
-          opacity: .2;
+          opacity: 0.2;
         }
       }
     }
@@ -230,9 +243,9 @@ export default {
       top: 0;
       width: 100%;
       height: 100%;
-      background-size: cover;      
+      background-size: cover;
       opacity: 0;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
       z-index: -1;
     }
   }

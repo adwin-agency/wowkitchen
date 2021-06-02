@@ -1,48 +1,59 @@
 <template>
   <div class="favorite">
-    <h2 class="favorite__title">Подборки</h2>
-    <div class="favorite__container">
-      <div class="favorite__element">
-        <img
-          class="favorite__image"
-          src="@/assets/img/favorite/kitchen.jpg"
-          alt="img"
-        >
-        <div class="favorite__box">
-          <p class="favorite__category">Кухня</p>
-          <p class="favorite__name">Уитни Хьюстон</p>
-          <p class="favorite__price">74500</p>
-          <p class="favorite__discount">109000</p>
-          <App-icon
-            name="close"
-            class="favorite__close"
-          />
+    <div class="container">
+      <h2 class="favorite__title">Подборки</h2>
+      <div class="favorite__container">
+        <div class="favorite__element">
+          <img
+            class="favorite__image"
+            src="@/assets/img/favorite/kitchen.jpg"
+            alt="img"
+          >
+          <div class="favorite__box">
+            <p class="favorite__category">Кухня</p>
+            <p class="favorite__name">Уитни Хьюстон</p>
+            <p class="favorite__price">74500</p>
+            <p class="favorite__discount">109000</p>
+            <button
+              type="button"
+              class="favorite__remove"
+            >
+              <AppIcon
+                name="close"
+                class="favorite__remove-icon"
+              />
+            </button>
+          </div>
+        </div>
+        <div class="favorite__element">
+          <img
+            class="favorite__image"
+            src="@/assets/img/favorite/stove.jpg"
+            alt="img"
+          >
+          <div class="favorite__box">
+            <p class="favorite__category">Варочная панель</p>
+            <p class="favorite__name">Candy CVG 64 SGNX</p>
+            <p class="favorite__price">54500</p>
+            <button
+              type="button"
+              class="favorite__remove"
+            >
+              <AppIcon
+                name="close"
+                class="favorite__remove-icon"
+              />
+            </button>
+          </div>
         </div>
       </div>
-
-      <div class="favorite__element">
-        <img
-          class="favorite__image"
-          src="@/assets/img/favorite/stove.jpg"
-          alt="img"
-        >
-        <div class="favorite__box">
-          <p class="favorite__category">Варочная панель</p>
-          <p class="favorite__name">Candy CVG 64 SGNX</p>
-          <p class="favorite__price">54500</p>
-          <App-icon
-            name="close"
-            class="favorite__close"
-          />
-        </div>
-      </div>
+      <p class="favorite__text">Хотите рассчитать стоимость выбранных позиций с учётом габаритов вашего помешения?</p>
+      <p class="favorite__text">Наш менеджер свяжется с вами в ближайшее время.</p>
+      <App-button
+        title="Рассчитать мой проект"
+        class="favorite__button"
+      />
     </div>
-    <p class="favorite__text favorite__text_line">Хотите рассчитать стоимость выбранных позиций с учётом габаритов вашего помешения?</p>
-    <p class="favorite__text">Наш менеджер свяжется с вами в ближайшее время.</p>
-    <App-button
-      title="Рассчитать мой проект"
-      class="favorite__button"
-    />
   </div>
 </template>
 
@@ -57,54 +68,37 @@ export default {
 
 <style lang="scss">
 .favorite {
-  padding: $header-bar-height 10px 10px;
+  padding: $header-bar-height 0 20px;
   background-color: #fff;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
 
   &__title {
-    position: relative;
     font-size: 18px;
     font-weight: bold;
     line-height: 0.778;
-    margin: 35px 0 45px;
-    text-align: start;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 30px;
-      width: 100%;
-      height: 1px;
-      background-color: $color-lightgray;
-    }
+    margin-top: 30px;
   }
 
   &__container {
-    position: relative;
-    height: 100%;
-    margin-bottom: 30px;
-    overflow-y: auto;
+    margin-top: 22px;
+    padding: 32px 0 32px;
+    border-top: 1px solid $color-lightgray;  
+    border-bottom: 1px solid $color-lightgray;  
   }
 
   &__box {
-    margin-left: 30px;
-    padding-top: 12px;
-    text-align: start;
+    margin-left: 18px;
+    padding-top: 10px;
   }
 
   &__element {
     display: flex;
     position: relative;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
   &__image {
-    object-fit: contain;
-    max-width: 105px;
-    max-height: 102px;
+    width: 105px;
+    height: 85px;
   }
 
   &__category {
@@ -114,7 +108,7 @@ export default {
 
   &__name {
     font-size: 13px;
-    margin-bottom: 20px;
+    margin-bottom: 6px;
   }
 
   &__price {
@@ -129,61 +123,88 @@ export default {
   }
 
   &__text {
+    margin-top: 25px;
     font-size: 14px;
     text-align: center;
-    margin: 10px 0;
 
-    &_line {
-      position: relative;
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: -25px;
-        width: 100%;
-        height: 1px;
-        background-color: $color-lightgray;
-      }
+    & + & {
+      margin-top: 14px;
     }
   }
 
   &__button {
-    margin: 10px auto 30%;
+    margin-top: 20px;
+    width: 100%;
   }
 
-  &__close {
-    fill: #ababab;
-    cursor: pointer;
+  &__remove {    
     width: 20px;
     height: 20px;
     position: absolute;
     top: 0;
     right: 0;
-    opacity: 1;
-    transition: 0.4s;
+    transition: opacity 0.3s ease;
 
     &:hover {
       opacity: 0.6;
     }
+
+    &-icon {
+      width: 16px;
+      height: 16px;
+      fill: #ababab;
+    }
   }
 
   @include media(md) {
-    &__container {
-      -ms-overflow-style: none;
+    padding-top: $header-bar-height-md;
 
-      &::-webkit-scrollbar {
-        width: 0;
-      }
+    .container {
+      padding: 0 80px;
+    }
+
+    &__title {
+      margin-top: 45px;
+    }
+
+    &__container {
+      margin-top: 16px;
+      border-top: none;
+      min-height: 400px;
+    }
+
+    &__image {
+      width: 118px;
+      height: 95px;
+    }
+
+    &__box {
+      margin-left: 24px;
     }
 
     &__name {
+      margin-bottom: 12px;
       font-size: 16px;
     }
 
-    &__close {
-      right: 10%;
+    &__remove {
+      right: -4px;
     }
+
+    &__button {
+      display: flex;
+      margin: 15px auto 0;
+      width: auto;
+      min-width: 300px;
+    }
+  }
+
+  @include media(lg) {
+    padding-top: $header-bar-height-lg + $nav-panel-height-lg;
+  }
+
+  @include media(lg) {
+    padding-top: $header-bar-height-xl + $nav-panel-height-xl;
   }
 }
 </style>

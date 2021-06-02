@@ -16,7 +16,7 @@
             <nav class="header__nav-items">
               <span
                 class="header__nav-item"
-                @click="openNavMenu('kitchens')"
+                @click="toggleNavMenu('kitchens')"
               >
                 Кухни
                 <AppIcon
@@ -26,7 +26,7 @@
               </span>
               <span
                 class="header__nav-item"
-                @click="openNavMenu('technics')"
+                @click="toggleNavMenu('technics')"
               >
                 Техника
                 <AppIcon
@@ -179,17 +179,23 @@
               />
             </span>
             <router-link
-              to="/"
+              :to="{name: 'wardrobes'}"
               class="header__nav-item"
-            >Шкафы-купе</router-link>
+            >
+              Шкафы-купе
+            </router-link>
             <router-link
-              to="/"
-              class="header__nav-item is-active"
-            >Подбор кухни</router-link>
-            <router-link
-              to="/"
+              :to="{name: 'quiz'}"
               class="header__nav-item"
-            >Советы и идеи</router-link>
+            >
+              Подбор кухни
+            </router-link>
+            <router-link
+              :to="{name: 'blog'}"
+              class="header__nav-item"
+            >
+              Советы и идеи
+            </router-link>
           </nav>
 
           <div class="header__side">
@@ -253,7 +259,8 @@
         <div class="container">
           <NavMenu
             class="header__nav-menu"
-            title="Кухни"
+            :menu="kitchensMenu"
+            @close-menu="toggleNavMenu"
           />
         </div>
       </div>
@@ -264,7 +271,8 @@
         <div class="container">
           <NavMenu
             class="header__nav-menu"
-            title="Техника"
+            :menu="technicsMenu"
+            @close-menu="toggleNavMenu"
           />
         </div>
       </div>
@@ -355,38 +363,18 @@ export default {
     },
 
     toggleMobileMenu() {
-      if (this.activeFavorite) {
-        this.toggleFavorite()
-      }
-
       this.activeMobileMenu = !this.activeMobileMenu
-
-      if (!this.activeMobileMenu) {
-        this.activeNavMenu = false
-      }
-
       this.$store.commit('setMobileMenu', this.activeMobileMenu)
     },
 
-    openNavMenu(menu) {
-      this.activeNavMenu = menu
-    },
-
-    closeNavMenu() {
-      this.activeNavMenu = null
-    },
-
     toggleNavMenu(menu) {
-      this.activeNavMenu === menu ? this.closeNavMenu() : this.openNavMenu(menu)
+      this.activeNavMenu = this.activeNavMenu === menu ? null : menu
     },
 
     toggleFavorite() {
-      if (this.activeMobileMenu) {
-        this.toggleMobileMenu()
-      }
-
       this.activeFavorite = !this.activeFavorite
-    },
+      this.$store.commit('setFavorite', this.activeFavorite)
+    }
   }
 }
 </script>
@@ -406,7 +394,6 @@ export default {
     background-color: $color-lightgray;
     transition: transform 0.3s ease;
     overflow-y: auto;
-    z-index: 1;
 
     &.is-active {
       transform: translateX(100%);
@@ -609,14 +596,11 @@ export default {
     top: 0;
     width: 100%;
     height: 100vh;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
+    overflow-y: auto;
 
     &.is-active {
       transform: translateX(-100%);
-    }
-
-    @include media(md) {
-      width: 650px;
     }
   }
 
@@ -739,6 +723,11 @@ export default {
         box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.06);
         transform: translateY(100%);
       }
+    }
+
+    &__favorite {
+      width: 730px;
+      box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.06);
     }
   }
 

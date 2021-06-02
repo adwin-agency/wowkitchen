@@ -2,7 +2,7 @@
   <component
     :is="tag"
     :href="href"
-    :type="!href && 'button'"
+    :type="href ? undefined : 'button'"
     :class="[
       'btn',
       {[`btn_${size}`]: size},

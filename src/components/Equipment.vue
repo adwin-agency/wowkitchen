@@ -6,12 +6,19 @@
           <h2 class="equipment__heading">Из чего делается ваша кухня</h2>
           <div class="equipment__info">
             <p class="equipment__desc">Отличное сочетание цены, качества и экологичности в более, чем 200 цветовых вариациях</p>
-            <AppButton
-              class="equipment__btn"
-              href="/"
-              bordered
-              title="Подробнее о материалах"
-            />
+            <router-link
+              :to="{name: 'materials'}"
+              custom
+              v-slot="{href, navigate}"
+            >
+              <AppButton
+                :href="href"
+                bordered
+                title="Подробнее о материалах"
+                class="equipment__btn"
+                @click="navigate"
+              />
+            </router-link>
           </div>
         </div>
         <Swiper
@@ -46,7 +53,7 @@
               :cardData="card"
               :lg="index === 0"
             />
-          </div>          
+          </div>
         </div>
       </div>
     </div>
@@ -70,22 +77,34 @@ export default {
     return {
       cards: [
         {
-          features: [{icon: 'leaf', title: 'Экологичные'}, {icon: 'umbrella', title: 'Водостойкие'}],
+          features: [
+            { icon: 'leaf', title: 'Экологичные' },
+            { icon: 'umbrella', title: 'Водостойкие' }
+          ],
           title: 'Фасады',
           desc: 'Прочные и износостойкие из плит МДФ с ПВХ-плёнкой или пластиком. Обладают повышенными показателями влагостойкости.'
         },
         {
-          features: [{icon: 'star', title: 'Известные бренды'}, {icon: 'clock', title: 'Долговечная'}],
+          features: [
+            { icon: 'star', title: 'Известные бренды' },
+            { icon: 'clock', title: 'Долговечная' }
+          ],
           title: 'Фурнитура',
           desc: 'качественная фурнитура BLUM, Hettich, BOYARD'
         },
         {
-          features: [{icon: 'thermometer', title: 'Жаропрочные'}, {icon: 'texture', title: 'Текстурные'}],
+          features: [
+            { icon: 'thermometer', title: 'Жаропрочные' },
+            { icon: 'texture', title: 'Текстурные' }
+          ],
           title: 'Столешницы',
           desc: 'прочные столешницы из ЛДСП и искуственного камня толщиной до 60 мм'
         },
         {
-          features: [{icon: 'grid', title: 'Широкий выбор'}, {icon: 'clock', title: 'Долговечная'}],
+          features: [
+            { icon: 'grid', title: 'Широкий выбор' },
+            { icon: 'clock', title: 'Долговечная' }
+          ],
           title: 'Техника',
           desc: 'разнообразный выбор от отечественных и зарубежных производителей'
         }
@@ -129,7 +148,7 @@ export default {
     padding: 26px 0 0;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       bottom: 0;

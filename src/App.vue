@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     scrollLock() {
-      return this.$store.state.modal || this.$store.state.mobileMenu
+      return this.$store.state.modal || this.$store.state.mobileMenu || this.$store.state.favorite
     }
   },
   watch: {
@@ -29,14 +29,14 @@ export default {
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth + 'px'
         document.body.style.overflow = 'hidden'
         document.body.style.paddingRight = scrollbarWidth
-        document.querySelector('.app-header').style.paddingRight = scrollbarWidth
+        document.querySelector('.app-header').style.right = scrollbarWidth
 
       } else if (!newStatus) {
 
         setTimeout(() => {
           document.body.style.overflow = ''
           document.body.style.paddingRight = ''
-          document.querySelector('.app-header').style.paddingRight = ''
+          document.querySelector('.app-header').style.right = ''
         }, 300)
 
       }
@@ -78,7 +78,7 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  width: 100%;
+  right: 0;
   z-index: 100;
 }
 </style>

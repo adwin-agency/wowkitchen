@@ -125,7 +125,7 @@ export default {
   }
 
   &__note {
-    max-width: 220px;
+    max-width: 260px;
     margin-top: 5px;
     font-weight: 500;
     font-size: 11px;

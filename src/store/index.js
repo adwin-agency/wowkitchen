@@ -4,8 +4,10 @@ export default createStore({
   state: {
     windowWidth: window.innerWidth,
     modal: null,
-    mobileMenu: false
+    mobileMenu: false,
+    favorite: false
   },
+
   mutations: {
     storeScreen(state, width) {
       state.windowWidth = width
@@ -15,6 +17,9 @@ export default createStore({
     },
     setMobileMenu(state, status) {
       state.mobileMenu = status
+    },
+    setFavorite(state, status) {
+      state.favorite = status
     }
   }
 })

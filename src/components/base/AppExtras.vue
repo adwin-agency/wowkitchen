@@ -143,6 +143,14 @@ export default {
     height: 272px;
     padding: 64px;
 
+    &.is-active {
+      #{$b} {
+        &__expand {
+          transform: translate(-80%, -80%) rotate(45deg);
+        }
+      }
+    }
+
     &__expand {
       left: 10px;
       top: -3px;
@@ -153,6 +161,14 @@ export default {
     width: 362px;
     height: 362px;
     padding: 100px;
+
+    &.is-active {
+      #{$b} {
+        &__expand {
+          transform: translate(-100%, -100%) rotate(45deg);
+        }
+      }
+    }
 
     &__title {
       font-size: 18px;

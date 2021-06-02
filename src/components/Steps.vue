@@ -12,32 +12,65 @@
           :desc="'В удобное вам время \n Бесплатный выезд и замер \n Демонстрация образцов'"
           accented
           class="steps__item steps__item_accented"
+          @click="showModal('designer')"
         />
-        <Step
-          order="Шаг 2"
-          title="Производство"
-          bg="about-step.jpg"
-          view
-          class="steps__item"
-        />
-        <Step
-          order="Шаг 3"
-          title="Доставка"
-          bg="delivery-step.jpg"
-          class="steps__item"
-        />
-        <Step
-          order="Шаг 4"
-          title="Сборка"
-          bg="fixing-step.jpg"
-          class="steps__item"
-        />
-        <Step
-          order="Шаг 5"
-          title="Гарантия"
-          bg="guaranty-step.jpg"
-          class="steps__item"
-        />
+        <router-link
+          :to="{name: 'main'}"
+          custom
+          v-slot="{href, navigate}"
+        >
+          <Step
+            :href="href"
+            order="Шаг 2"
+            title="Производство"
+            bg="about-step.jpg"
+            view
+            class="steps__item"
+            @click="navigate"
+          />
+        </router-link>
+        <router-link
+          :to="{name: 'delivery'}"
+          custom
+          v-slot="{href, navigate}"
+        >
+          <Step
+            :href="href"
+            order="Шаг 3"
+            title="Доставка"
+            bg="delivery-step.jpg"
+            class="steps__item"
+            @click="navigate"
+          />
+        </router-link>
+        <router-link
+          :to="{name: 'main'}"
+          custom
+          v-slot="{href, navigate}"
+        >
+          <Step
+            :href="href"
+            order="Шаг 4"
+            title="Сборка"
+            bg="fixing-step.jpg"
+            class="steps__item"
+            @click="navigate"
+          />
+        </router-link>
+        <router-link
+          :to="{name: 'guarantee'}"
+          custom
+          v-slot="{href, navigate}"
+        >
+          <Step
+            :href="href"
+            order="Шаг 5"
+            title="Гарантия"
+            bg="guaranty-step.jpg"
+            class="steps__item"
+            @click="navigate"
+          />
+        </router-link>
       </div>
     </div>
   </div>
@@ -50,6 +83,11 @@ export default {
   name: 'Steps',
   components: {
     Step
+  },
+  methods: {
+    showModal(modal) {
+      this.$store.commit('setModal', modal)
+    }
   }
 }
 </script>
@@ -81,7 +119,7 @@ export default {
 
   @include media(md) {
     padding: 85px 0 90px;
-    
+
     &__inner {
       display: flex;
       flex-wrap: wrap;
@@ -92,7 +130,7 @@ export default {
       width: 48%;
 
       &::after {
-        content: "";
+        content: '';
         display: block;
         margin-top: 40px;
         width: 210%;
@@ -160,13 +198,13 @@ export default {
 
   @include media(xl) {
     padding: 180px 0 90px;
-    
+
     &__header {
       &::after {
         margin-top: 50px;
       }
     }
-    
+
     &__heading {
       width: 16%;
     }
