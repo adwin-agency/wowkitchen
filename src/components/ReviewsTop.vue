@@ -64,8 +64,6 @@ export default {
 
 <style lang="scss">
 .reviews-top {
-  padding: 20px 0 10px;
-
   &__tabs {
     display: flex;
     margin: 12px (-$container-padding) 0;
@@ -99,8 +97,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 40px 0 55px;
-
     &__tabs {
       margin: 6px 0 0;
       padding: 0;
@@ -135,8 +131,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 40px 0 70px;
-
     &__tabs {
       margin-top: 24px;
     }
@@ -154,8 +148,6 @@ export default {
   }
 
   @include media(xl) {
-    padding: 50px 0 90px;
-
     &__top-cards {
       grid-template-columns: 1fr 40.5%;
       grid-gap: 30px 80px;

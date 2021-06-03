@@ -60,11 +60,22 @@ export default {
 .wardrobe-parts {
   $b: &;
 
+  position: relative;
   padding: 40px 0 10px;
   background-color: $color-lightgray;
 
-  &__inner {
-    margin-bottom: -135px;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 135px;
+    background-color: #fff;
+  }
+
+  .container {
+    position: relative;
   }
 
   &__desc {
@@ -218,8 +229,8 @@ export default {
   @include media(lg) {
     padding-top: 90px;
 
-    &__inner {
-      margin-bottom: -165px;
+    &::before {
+      height: 165px;
     }
 
     &__heading {
@@ -234,8 +245,12 @@ export default {
   @include media(xl) {
     padding-top: 118px;
 
+    &::before {
+      height: 135px;
+    }
+
     &__inner {
-      margin: 0 60px -135px;
+      margin: 0 60px;
     }
 
     &__desc {

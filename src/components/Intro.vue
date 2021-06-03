@@ -171,8 +171,6 @@ export default {
 
 <style lang="scss">
 .intro {
-  padding-bottom: 45px;
-
   &__main {
     position: relative;
     min-height: calc(100vh - #{$header-bar-height});
@@ -294,8 +292,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 56px 0 68px;
-
     &__main {
       min-height: auto;
       padding: 0;
@@ -429,8 +425,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 82px 0 84px;
-
     &__content {
       margin-top: 0;
       margin-right: 70px;
@@ -555,8 +549,6 @@ export default {
   }
 
   @include media(xl) {
-    padding: 62px 0 84px;
-
     &__content {
       margin-top: 54px;
       margin-right: 100px;

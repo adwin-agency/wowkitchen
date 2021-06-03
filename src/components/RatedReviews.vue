@@ -121,8 +121,6 @@ export default {
 .rated-reviews {
   $b: &;
 
-  padding: 40px 0 50px;
-
   &__header {
     position: relative;
   }
@@ -179,8 +177,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 40px 0 55px;
-
     &__quotes {
       right: 10px;
     }
@@ -250,8 +246,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 50px 0 120px;
-
     &__inner {
       display: flex;
     }
@@ -293,8 +287,6 @@ export default {
   }
 
   @include media(xl) {
-    padding: 85px 0 130px;
-
     &__inner {
       max-width: 1500px;
     }

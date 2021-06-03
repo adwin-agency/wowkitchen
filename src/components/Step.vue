@@ -80,6 +80,7 @@ export default {
   border: 1px solid #f3f4f9;
   border-radius: 4px;
   padding: 20px 34px 20px 38px;
+  cursor: pointer;
 
   &_accented {
     padding: 18px 34px 18px 28px;

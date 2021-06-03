@@ -2,13 +2,13 @@
   <div class="technic-details">
     <div class="container">
       <div class="technic-details__inner">
-        <a
+        <router-link
           v-if="$_media.sm"
-          href="#"
+          :to="{name: 'technics'}"
           class="technic-details__link"
         >
           Вернуться в каталог
-        </a>
+        </router-link>
         <div class="technic-details__gallery">
           <div class="technic-details__thumbs">
             <Swiper
@@ -64,13 +64,13 @@
           </Swiper>
         </div>        
         <div class="technic-details__main">
-          <a
+          <router-link
             v-if="!$_media.sm"
-            href="#"
+            :to="{name: 'technics'}"
             class="technic-details__link"
           >
             Вернуться в каталог
-          </a>
+          </router-link>
           <h1 class="technic-details__title">Candy CVG 64 SGNX</h1>
           <div class="technic-details__cost">
             <div class="technic-details__prices">
@@ -202,8 +202,6 @@ export default {
 
 <style lang="scss">
 .technic-details {
-  padding: 20px 0 30px;
-
   &__link {
     font-weight: bold;
     font-size: 14px;
@@ -350,8 +348,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 45px 0 40px;
-
     &__inner {
       display: flex;
       flex-wrap: wrap;
@@ -477,8 +473,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 55px 0 65px;
-
     &__gallery {
       margin-left: 0;
       margin-top: 0;
@@ -534,9 +528,7 @@ export default {
     }
   }
 
-  @include media(xl) {
-    padding: 55px 0 85px;
-    
+  @include media(xl) {    
     &__inner {
       margin: 0 80px;
     }

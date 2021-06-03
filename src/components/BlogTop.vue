@@ -148,8 +148,6 @@ export default {
 
 <style lang="scss">
 .blog-top {
-  padding: 20px 0 0;
-
   &__bar {
     margin-top: 34px;
 
@@ -195,8 +193,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 40px 0 0;
-
     &__bar {
       margin-top: 12px;
 
@@ -250,8 +246,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 25px 0 0;
-
     &__bar {
       margin-top: 0;
 
@@ -283,8 +277,6 @@ export default {
   }
 
   @include media(xl) {
-    padding: 60px 0 0;
-
     &__bar {
       margin-top: 8px;
 

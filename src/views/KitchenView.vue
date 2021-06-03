@@ -32,3 +32,84 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.v-kitchen {
+  .constructor {
+    margin-top: 50px;
+  }
+
+  .steps {
+    margin-top: 60px;
+  }
+
+  .rated-reviews {
+    margin-top: 100px;
+    margin-bottom: 60px;
+  }
+
+  @include media(md) {
+    .constructor {
+      margin-top: 60px;
+    }
+
+    .design {
+      margin-top: 60px;
+    }
+
+    .other-products {
+      margin-top: 85px;
+    }
+
+    .steps {
+      margin-top: 100px;
+    }
+
+    .rated-reviews {
+      margin-top: 140px;
+      margin-bottom: 75px;
+    }
+  }
+
+  @include media(lg) {
+    .constructor {
+      margin-top: 75px;
+    }
+
+    .design {
+      margin-top: 85px;
+    }
+
+    .other-products {
+      margin-top: 70px;
+    }
+
+    .rated-reviews {
+      margin-top: 130px;
+    }
+  }
+
+  @include media(xl) {
+    .constructor {
+      margin-top: 105px;
+    }
+
+    .design {
+      margin-top: 105px;
+    }
+
+    .other-products {
+      margin-top: 120px;
+    }
+
+    .steps {
+      margin-top: 130px;
+    }
+
+    .rated-reviews {
+      margin-top: 140px;
+      margin-bottom: 110px;
+    }
+  }
+}
+</style>

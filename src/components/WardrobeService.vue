@@ -49,7 +49,6 @@ export default {
 .wardrobe-service {
   &__items {
     margin-top: 22px;
-    margin-bottom: -40px;
   }
 
   &__item {
@@ -155,7 +154,7 @@ export default {
     }
   }
 
-  @include media(xl) {
+  @include media(xl) {    
     &__inner {
       margin: 0 80px;
     }

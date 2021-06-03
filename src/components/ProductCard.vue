@@ -1,15 +1,17 @@
 <template>
-  <div
-    :class="[
+  <div :class="[
       'product-card',
       {'product-card_large': large},
       {'product-card_slide': slide},
       {[`product-card_${cardData.type}`]: cardData.type !== 'kitchen'},
       {'is-disabled': disabled}
-    ]"
-  >
+    ]">
     <div class="product-card__img-box">
-      <img :src="require(`@/assets/img/${cardData.image}`)" alt="" class="product-card__img">
+      <img
+        :src="require(`@/assets/img/${cardData.image}`)"
+        alt=""
+        class="product-card__img"
+      >
       <span
         v-if="!large && cardData.discount"
         class="product-card__discount"
@@ -37,7 +39,7 @@
             class="product-card__play-icon"
           />
           <span class="product-card__play-title">{{large ? 'Смотреть видеообзор' : 'Видеообзор'}}</span>
-        </span>        
+        </span>
       </button>
     </div>
     <div class="product-card__content">
@@ -49,10 +51,10 @@
           {{cardData.category}}
         </p>
         <p class="product-card__title">
-          <router-link :to="{name: 'kitchen'}">{{cardData.title}}</router-link>
+          <router-link :to="{name: cardData.type}">{{cardData.title}}</router-link>
         </p>
         <div
-          v-if="cardData.mod !== 'wardrobe'"
+          v-if="cardData.type !== 'wardrobe'"
           class="product-card__actions"
         >
           <button
@@ -75,9 +77,9 @@
             />
           </button>
         </div>
-      </div>      
+      </div>
       <div
-        v-if="$_desktop && !large || cardData.type !== 'kitchen'"
+        v-if="$_desktop && !large || cardData.type === 'technic' || $_media.md && cardData.type === 'wardrobe'"
         class="product-card__props"
       >
         <p
@@ -103,9 +105,9 @@
         >
           {{cardData.discount}}
         </span>
-      </div>      
+      </div>
       <AppButton
-        v-if="cardData.type !== 'technics'"
+        v-if="cardData.type !== 'technic'"
         :size="!large ? 'small' : ''"
         :bordered="!large"
         title="Рассчитать проект"
@@ -157,7 +159,7 @@ export default {
   }
 
   &_wardrobe,
-  &_technics {
+  &_technic {
     #{$b} {
       &__props {
         grid-column: 1 / 3;
@@ -202,7 +204,7 @@ export default {
     }
   }
 
-  &_technics {
+  &_technic {
     #{$b} {
       &__img-box {
         border: 2px solid $color-lightgray;
@@ -346,7 +348,7 @@ export default {
 
   @include media(md) {
     &_slide {
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
 
       #{$b} {
         &__img-box {
@@ -361,11 +363,11 @@ export default {
         &__play {
           left: 30px;
           bottom: 30px;
-          transition: opacity .3s ease;
+          transition: opacity 0.3s ease;
         }
 
         &__content {
-          transition: opacity .3s ease;
+          transition: opacity 0.3s ease;
         }
 
         &__header {
@@ -422,6 +424,7 @@ export default {
 
         &__props {
           grid-column: 1 / 3;
+          grid-row: 3 / 4;
           display: flex;
           justify-content: space-between;
           margin-top: 12px;
@@ -436,7 +439,7 @@ export default {
           color: #949494;
 
           span {
-            display: inline-block;
+            display: block;
             margin-bottom: 2px;
             font-weight: bold;
           }
@@ -444,7 +447,7 @@ export default {
       }
     }
 
-    &_technics {
+    &_technic {
       #{$b} {
         &__img-box {
           height: 310px;
@@ -502,7 +505,7 @@ export default {
         }
       }
     }
-    
+
     &__img-box {
       height: 390px;
     }
@@ -517,10 +520,10 @@ export default {
     &__play {
       left: 40px;
       bottom: 45px;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 21px;
         left: 21px;
@@ -545,7 +548,7 @@ export default {
       transform: translate(-50%, -50%);
       opacity: 0;
       pointer-events: none;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
     }
 
     &__zoom-icon {
@@ -556,7 +559,7 @@ export default {
     &__content {
       margin-top: 12px;
       padding: 0 10px;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
     }
 
     &__header {
@@ -741,9 +744,17 @@ export default {
           width: auto;
         }
       }
+
+      &:hover {
+        #{$b} {
+          &__img-box {
+            box-shadow: none;
+          }
+        }
+      }
     }
 
-    &_technics {
+    &_technic {
       #{$b} {
         &__img-box {
           height: 380px;
@@ -763,11 +774,19 @@ export default {
           min-width: 90px;
         }
       }
+
+      &:hover {
+        #{$b} {
+          &__img-box {
+            box-shadow: none;
+          }
+        }
+      }
     }
 
     &__img-box {
       height: 300px;
-      transition: box-shadow .3s ease;
+      transition: box-shadow 0.3s ease;
     }
 
     &__discount {
@@ -786,7 +805,7 @@ export default {
       max-width: 42px;
       border-radius: 100px;
       background-color: $color-yellow;
-      transition: max-width .3s ease;
+      transition: max-width 0.3s ease;
       overflow: hidden;
     }
 

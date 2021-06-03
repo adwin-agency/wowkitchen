@@ -151,9 +151,6 @@ export default {
 
   &__area {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100%;
   }
 
@@ -233,6 +230,8 @@ export default {
 
   @include media(md) {
     &__area {
+      justify-content: center;
+      align-items: center;
       padding: 50px;
     }
 

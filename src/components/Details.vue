@@ -226,8 +226,6 @@ export default {
 
 <style lang="scss">
 .details {
-  padding-bottom: 50px;
-
   &__slider {
     position: relative;
     margin: 0 (-$container-padding);
@@ -381,8 +379,6 @@ export default {
   }
 
   @include media(md) {
-    padding-bottom: 60px;
-
     &__top {
       .container {
         max-width: 1120px;
@@ -523,8 +519,6 @@ export default {
   }
 
   @include media(lg) {
-    padding-bottom: 75px;
-
     &__top {
       .container {
         max-width: 1340px;
@@ -593,9 +587,7 @@ export default {
     }
   }
 
-  @include media(xl) {
-    padding-bottom: 110px;
-    
+  @include media(xl) {    
     &__top {
       .container {
         max-width: 1620px;

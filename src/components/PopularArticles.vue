@@ -86,8 +86,6 @@ export default {
 
 <style lang="scss">
 .popular-articles {
-  padding: 30px 0 50px;
-
   &__slider {
     margin-top: 18px;
     overflow: visible;

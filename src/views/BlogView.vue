@@ -102,3 +102,92 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.v-blog {
+  .blog-top {
+    margin-top: 25px;
+  }
+
+  .blog-cards {
+    margin-top: 45px;
+  }
+
+  .design-call {
+    margin-top: 55px;
+  }
+
+  .article-set {
+    margin-top: 50px;
+  }
+
+  .quiz-preview {
+    margin-top: 20px;
+  }
+
+  @include media(md) {
+    .blog-top {
+      margin-top: 40px;
+    }
+
+    .blog-cards {
+      margin-top: 30px;
+    }
+
+    .design-call {
+      margin-top: 80px;
+      margin-bottom: 65px;
+    }
+
+    .article-set {
+      margin-top: 80px;
+    }
+
+    .quiz-preview {
+      margin-top: 80px;
+    }
+  }
+
+  @include media(lg) {
+    .blog-top {
+      margin-top: 30px;
+    }
+
+    .blog-cards {
+      margin-top: 55px;
+    }
+
+    .design-call {
+      margin-top: 170px;
+      margin-bottom: 110px;
+    }
+
+    .quiz-preview {
+      margin-top: 95px;
+    }
+  }
+
+  @include media(xl) {
+    .blog-top {
+      margin-top: 60px;
+    }
+
+    .blog-cards {
+      margin-top: 85px;
+    }
+
+    .design-call {
+      margin-top: 160px;
+      margin-bottom: 95px;
+    }
+
+    .article-set {
+      margin-top: 90px;
+    }
+
+    .quiz-preview {
+      margin-top: 125px;
+    }
+  }
+}
+</style>

@@ -2,6 +2,7 @@
   <div class="v-kitchens">
     <CatalogBanners type="kitchens" />
     <Catalog
+      type="kitchens"
       switcher
       :sortOptions="sortOptions"
       :filterGroups="filterGroups"
@@ -10,7 +11,7 @@
     <QuizPreview type="kitchens" />
     <PopularArticles allBtn />
     <Steps />
-    <RatedReviews />
+    <RatedReviews v-if="!$_media.sm" />
   </div>
 </template>
 
@@ -149,3 +150,74 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.v-kitchens {
+  .catalog {
+    margin-top: 20px;
+  }
+
+  .quiz-preview {
+    margin-top: 50px;
+  }
+
+  .popular-articles {
+    margin-top: 50px;
+  }
+
+  .steps {
+    margin-top: 55px;
+    margin-bottom: 55px;
+  }
+
+  @include media(md) {
+    .catalog {
+      margin-top: 0;
+    }
+
+    .quiz-preview {
+      margin-top: 0;
+    }
+
+    .popular-articles {
+      margin-top: 70px;
+    }
+
+    .steps {
+      margin-top: 85px;
+      margin-bottom: 0;
+    }
+
+    .rated-reviews {
+      margin-top: 125px;
+      margin-bottom: 75px;
+    }
+  }
+
+  @include media(lg) {
+    .popular-articles {
+      margin-top: 100px;
+    }
+
+    .steps {
+      margin-top: 75px;
+    }
+
+    .rated-reviews {
+      margin-top: 120px;
+      margin-bottom: 60px;
+    }
+  }
+
+  @include media(xl) {
+    .steps {
+      margin-top: 115px;
+    }
+
+    .rated-reviews {
+      margin-top: 150px;
+      margin-bottom: 100px;
+    }
+  }
+}
+</style>

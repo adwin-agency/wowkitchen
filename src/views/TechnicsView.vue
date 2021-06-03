@@ -80,7 +80,7 @@ export default {
       ],
       cards: [
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-01.jpg',
           title: 'SIMFER H 60 D 17',
           price: '14 500 ₽',
@@ -91,7 +91,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-02.jpg',
           discount: '%',
           title: 'CANDY 640 SGN',
@@ -104,7 +104,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-03.jpg',
           title: 'CANDY PV 640 SN',
           price: '54 500 ₽',
@@ -115,7 +115,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-04.jpg',
           title: 'CANDY CLG 64 SGX',
           price: '20 500 ₽',
@@ -126,7 +126,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-05.jpg',
           title: 'CANDY PL 40 ASX',
           price: '54 500 ₽',
@@ -137,7 +137,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-06.jpg',
           discount: '%',
           title: 'CANDY CI 640 C',
@@ -150,7 +150,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-01.jpg',
           title: 'SIMFER H 60 D 17',
           price: '14 500 ₽',
@@ -161,7 +161,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-02.jpg',
           discount: '%',
           title: 'CANDY 640 SGN',
@@ -174,7 +174,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-03.jpg',
           title: 'CANDY PV 640 SN',
           price: '54 500 ₽',
@@ -185,7 +185,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-04.jpg',
           title: 'CANDY CLG 64 SGX',
           price: '20 500 ₽',
@@ -196,7 +196,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-05.jpg',
           title: 'CANDY PL 40 ASX',
           price: '54 500 ₽',
@@ -207,7 +207,7 @@ export default {
           ],
         },
         {
-          type: 'technics',
+          type: 'technic',
           image: 'technics-card-06.jpg',
           discount: '%',
           title: 'CANDY CI 640 C',
@@ -224,3 +224,56 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.v-technics {
+  .catalog {
+    margin-top: 30px;
+  }
+
+  .design {
+    margin-top: 40px;
+  }
+
+  .steps {
+    margin-top: 45px;
+    margin-bottom: 35px;
+  }
+
+  @include media(md) {
+    .catalog {
+      margin-top: 0;
+    }
+
+    .design {
+      margin-top: 80px;
+    }
+
+    .steps {
+      margin-top: 115px;
+      margin-bottom: 100px;
+    }
+  }
+
+  @include media(lg) {
+    .design {
+      margin-top: 120px;
+    }
+
+    .steps {
+      margin-top: 120px;
+      margin-bottom: 130px;
+    }
+  }
+
+  @include media(xl) {
+    .design {
+      margin-top: 165px;
+    }
+
+    .steps {
+      margin-bottom: 160px;
+    }
+  }
+}
+</style>

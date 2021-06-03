@@ -166,7 +166,7 @@ export default {
   }
 
   @include media(md) {
-    padding: 48px 0 34px;
+    padding: 0;
     background-color: transparent;
 
     &__content {
@@ -270,8 +270,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 120px 0 58px;
-
     &__content {
       padding: 35px 80px 25px 340px;
     }
@@ -328,8 +326,6 @@ export default {
   }
 
   @include media(xl) {
-    padding: 110px 0 75px;
-
     &__content {
       margin: 0 auto;
       max-width: 1420px;

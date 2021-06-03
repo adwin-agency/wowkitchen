@@ -48,8 +48,6 @@ export default {
 
 <style lang="scss">
 .blog-cards {
-  padding: 45px 0 55px;
-
   &__card {
     margin-bottom: 16px;
 
@@ -64,8 +62,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 30px 0 55px;
-
     &__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -86,16 +82,12 @@ export default {
   }
 
   @include media(lg) {
-    padding: 55px 0;
-
     &__grid {
       grid-gap: 70px 60px;
     }
   }
 
   @include media(xl) {
-    padding: 80px 0;
-
     &__grid {
       grid-gap: 80px 70px;
     }

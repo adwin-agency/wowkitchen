@@ -1,7 +1,7 @@
 <template>
   <div
     class="catalog"
-    :class="{[`catalog_${type}`]: type !== 'kitchen'}"
+    :class="{[`catalog_${type}`]: type !== 'kitchens'}"
   >
     <div
       ref="side"
@@ -76,7 +76,6 @@
         <div class="catalog__footer">
           <AppButton
             icon="plus"
-            size="large"
             color="gray"
             title="Показать больше"
             class="catalog__show-btn"
@@ -119,11 +118,9 @@ export default {
   },
   created() {
     window.addEventListener('resize', this.handleResize)
-    // window.addEventListener('scroll', this.handleScroll)
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)
-    // window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     openFilters() {
@@ -150,74 +147,7 @@ export default {
       if (this.$_windowWidth < this.$_breakpoints.lg && this.catalogType === 'list') {
         this.catalogType = 'grid'
       }
-    },
-
-    // handleScroll() {
-    //   if (this.$_windowWidth < this.$_breakpoints.md) {
-    //     return
-    //   }
-
-    //   const side = this.$refs.side
-    //   const filters = this.$refs.filters
-
-    //   const newWindowScroll = window.scrollY
-    //   const sideOffset = side.getBoundingClientRect().top + newWindowScroll
-    //   const filtersOffset = filters.getBoundingClientRect().top + newWindowScroll
-      
-    //   const windowHeight = window.innerHeight
-    //   const sideHeight = side.offsetHeight
-    //   const filtersHeight = filters.offsetHeight
-
-    //   if (windowHeight >= filtersHeight) {
-
-    //     if (newWindowScroll >= sideOffset + sideHeight - filtersHeight) {
-    //       filters.style.cssText = `position: absolute; left: 0; bottom: 0; width: ${side.offsetWidth}px`
-    //     } else if (newWindowScroll >= sideOffset) {
-    //       filters.style.cssText = `position: fixed; left: 0; top: 0; width: ${side.offsetWidth}px`
-    //     } else {
-    //       filters.style.cssText = ''
-    //     }
-
-    //   } else {
-
-    //     if (newWindowScroll > this.windowScroll) {
-
-    //       if (newWindowScroll >= sideOffset + sideHeight - windowHeight) {
-    //         filters.style.cssText = `position: absolute; left: 0; bottom: 0; width: ${side.offsetWidth}px`
-    //       } else if (newWindowScroll >= sideOffset + filtersHeight - windowHeight) {
-
-    //         if (newWindowScroll >= filtersOffset + filtersHeight - windowHeight) {
-    //           filters.style.cssText = `position: fixed; left: 0; bottom: 0; width: ${side.offsetWidth}px`
-    //         } else {              
-    //           filters.style.cssText = `position: absolute; left: 0; top: ${filtersOffset - sideOffset}px; width: ${side.offsetWidth}px`
-    //         }
-            
-    //       } else {
-    //         filters.style.cssText = ''
-    //       }
-
-    //     } else {
-
-    //       if (newWindowScroll >= sideOffset + sideHeight - filtersHeight) {
-    //         filters.style.cssText = `position: absolute; left: 0; bottom: 0; width: ${side.offsetWidth}px`
-    //       } else if (newWindowScroll >= sideOffset) {
-
-    //         if (newWindowScroll > filtersOffset) {
-    //           filters.style.cssText = `position: absolute; left: 0; top: ${filtersOffset - sideOffset}px; width: ${side.offsetWidth}px`
-    //         } else {
-    //           filters.style.cssText = `position: fixed; left: 0; top: 0; width: ${side.offsetWidth}px`
-    //         }
-
-    //       } else {
-    //         filters.style.cssText = ''
-    //       }
-
-    //     }
-
-    //   }
-
-    //   this.windowScroll = newWindowScroll
-    // }
+    }
   }
 }
 </script>
@@ -225,8 +155,6 @@ export default {
 <style lang="scss">
 .catalog {
   $b: &;
-
-  padding-bottom: 40px;
 
   &_technics {
     #{$b} {
@@ -315,9 +243,8 @@ export default {
 
   @include media(md) {
     display: flex;
-    padding-bottom: 0;
 
-    &_cupboards {
+    &_wardrobes {
       #{$b} {
         &__main {
           .container {
@@ -413,7 +340,7 @@ export default {
   }
 
   @include media(lg) {
-    &_cupboards {
+    &_wardrobes {
       #{$b} {
         &__main {
           padding-left: 50px;
@@ -511,7 +438,7 @@ export default {
   }
 
   @include media(xl) {
-    &_cupboards {
+    &_wardrobes {
       #{$b} {
         &__main {
           padding-left: 70px;

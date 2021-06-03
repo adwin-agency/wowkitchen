@@ -50,8 +50,6 @@ export default {
 
 <style lang="scss">
 .related-articles {
-  padding: 30px 0;
-
   &__grid {
     display: grid;
     grid-template-columns: repeat(2, calc(50% - 5px));
@@ -64,8 +62,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 40px 0;
-
     &__grid {
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 20px;
@@ -79,8 +75,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 50px 0;
-
     &__heading {
       font-size: 24px;
     }
@@ -91,8 +85,6 @@ export default {
   }
 
   @include media(xl) {
-    padding: 90px 0;
-
     &__grid {
       margin-top: 50px;
     }

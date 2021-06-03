@@ -280,6 +280,41 @@
                 <span class="article__stats-views-count">1290</span>
               </div>
             </div>
+            <div
+              v-if="$_media.sm"
+              class="article__share"
+            >
+              <p class="article__share-title">Поделиться</p>
+              <div class="article__share-btns">
+                <a
+                  href="#"
+                  class="article__share-btn"
+                >
+                  <AppIcon
+                    name="vk"
+                    class="article__share-icon"
+                  />
+                </a>
+                <a
+                  href="#"
+                  class="article__share-btn"
+                >
+                  <AppIcon
+                    name="facebook"
+                    class="article__share-icon"
+                  />
+                </a>
+                <a
+                  href="#"
+                  class="article__share-btn"
+                >
+                  <AppIcon
+                    name="link"
+                    class="article__share-icon"
+                  />
+                </a>
+              </div>
+            </div>
           </div>
           <div
             v-if="!$_media.sm"
@@ -298,11 +333,13 @@
 <script>
 import ArticleAside from './ArticleAside.vue'
 import StickySidebar from 'sticky-sidebar'
+import AppIcon from './base/AppIcon.vue'
 
 export default {
   name: 'Article',
   components: {
-    ArticleAside
+    ArticleAside,
+    AppIcon
   },
   data() {
     return {
@@ -612,6 +649,36 @@ export default {
     color: #fff;
   }
 
+  &__share {
+    display: flex;
+    align-items: center;
+    color: $color-lightviolet;
+
+    &-title {
+      margin-right: 40px;
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    &-btns {
+      display: flex;
+    }
+
+    &-btn {
+      margin-right: 22px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &-icon {
+      width: 25px;
+      height: 25px;
+      fill: currentColor;
+    }
+  }
+
   @include media(md) {
     &__intro {
       &-title {
@@ -669,7 +736,7 @@ export default {
     &__intro-title {
       margin-left: 80px;
     }
-    
+
     &__container {
       padding-top: 95px;
     }

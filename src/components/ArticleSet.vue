@@ -66,8 +66,6 @@ export default {
 .article-set {
   $b: &;
 
-  padding: 50px 0 60px;
-
   &__heading {
     margin: 0 (-$container-padding);
     padding: 0 $container-padding 16px;
@@ -144,8 +142,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 25px 0 55px;
-
     &__heading {
       margin: 0;
       padding: 0 0 24px;
@@ -193,8 +189,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 30px 0 90px;
-
     &__heading {
       font-size: 24px;
     }
@@ -213,8 +207,6 @@ export default {
   }
 
   @include media(xl) {
-    padding: 10px 0 120px;
-
     &__cards {
       margin-top: 46px;
 

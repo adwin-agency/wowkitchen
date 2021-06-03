@@ -23,7 +23,6 @@
           >
             <ProductCard
               :cardData="item"
-              wardrobe
               :disabled="!isVisible"
             />
           </SwiperSlide>
@@ -51,6 +50,7 @@ export default {
     return {
       cards: [
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -63,6 +63,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -75,6 +76,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -87,6 +89,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -99,6 +102,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -111,6 +115,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -123,6 +128,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -135,6 +141,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -147,6 +154,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -159,6 +167,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -171,6 +180,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -183,6 +193,7 @@ export default {
           oldPrice: '109 000 ₽'
         },
         {
+          type: 'wardrobe',
           image: 'cupboard-card.jpg',
           discount: '-50%',
           title: 'УитниХьюстон',
@@ -202,8 +213,6 @@ export default {
 
 <style lang="scss">
 .other-wardrobes {
-  padding: 40px 0 55px;
-
   &__cards {
     margin-top: 30px;
   }
@@ -227,8 +236,6 @@ export default {
   }
 
   @include media(md) {
-    padding: 75px 0 65px;
-
     &__cards {
       .container {
         margin-right: 0;
@@ -268,8 +275,6 @@ export default {
   }
 
   @include media(lg) {
-    padding: 110px 0 65px;
-
     &__cards {
       margin-top: 40px;
 
@@ -284,8 +289,6 @@ export default {
   }
 
   @include media(xl) {
-    padding: 135px 0 100px;
-
     &__cards {
       margin-top: 70px;
 
