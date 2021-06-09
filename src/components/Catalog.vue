@@ -3,10 +3,7 @@
     class="catalog"
     :class="{[`catalog_${type}`]: type !== 'kitchens'}"
   >
-    <div
-      ref="side"
-      class="catalog__side"
-    >
+    <div class="catalog__side">
       <div
         ref="filters"
         class="catalog__filters"
@@ -24,7 +21,7 @@
         <div class="catalog__controls">
           <div class="catalog__select">
             <AppSelect :options="sortOptions" />
-          </div>          
+          </div>
           <button
             type="button"
             class="catalog__filters-btn"
@@ -81,7 +78,7 @@
             class="catalog__show-btn"
           />
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 </template>
@@ -92,6 +89,7 @@ import AppIcon from './base/AppIcon.vue'
 import AppSelect from './base/AppSelect.vue'
 import Filters from './Filters.vue'
 import ProductCard from './ProductCard.vue'
+import StickySidebar from 'sticky-sidebar'
 
 export default {
   name: 'Catalog',
@@ -112,14 +110,24 @@ export default {
   },
   data() {
     return {
-       activeFilters: false,
-       catalogType: 'grid'
+      activeFilters: false,
+      catalogType: 'grid'
     }
   },
   created() {
     window.addEventListener('resize', this.handleResize)
   },
+  mounted() {
+    if (!this.$_media.sm) {
+      this.initSidebar()
+    }
+  },
   unmounted() {
+    if (window.sidebar) {
+      window.sidebar.destroy()
+      window.sidebar = null
+    }
+
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
@@ -139,13 +147,35 @@ export default {
       this.catalogType = type
     },
 
+    initSidebar() {
+      window.sidebar = new StickySidebar('.catalog__side', {
+        topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
+        bottomSpacing: 0,
+        containerSelector: '.catalog',
+        innerWrapperSelector: '.catalog__filters'
+      })
+    },
+
     handleResize() {
-      if (this.$_windowWidth >= this.$_breakpoints.md && this.activeFilters) {
+      if (!this.$_media.sm && this.activeFilters) {
         this.activeFilters = false
       }
 
-      if (this.$_windowWidth < this.$_breakpoints.lg && this.catalogType === 'list') {
+      if (this.$_mobile && this.catalogType === 'list') {
         this.catalogType = 'grid'
+      }
+
+      if (!this.$_media.sm && !this.sidebar) {
+        this.initSidebar()
+      }
+
+      if (!this.$_media.sm && this.sidebar) {
+        window.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
+      }
+
+      if (this.$_media.sm && this.sidebar) {
+        window.sidebar.destroy()
+        window.sidebar = null
       }
     }
   }
@@ -172,7 +202,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: $color-lightgray;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
     overflow-y: auto;
     z-index: 100;
 
@@ -237,7 +267,7 @@ export default {
     text-align: center;
   }
 
-  &__show-btn {    
+  &__show-btn {
     width: 100%;
   }
 
@@ -400,7 +430,7 @@ export default {
       border-radius: 2px;
       background-color: $color-lightgray;
       fill: $color-green;
-      transition: background-color .3s ease, fill .3s ease;
+      transition: background-color 0.3s ease, fill 0.3s ease;
 
       &:last-child {
         margin-right: 0;

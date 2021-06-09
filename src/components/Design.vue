@@ -275,7 +275,7 @@ export default {
 
     &__feature {
       margin-top: 4px;
-      font-weight: 500;
+      font-weight: 600;
       font-size: 13px;
       line-height: (20/13);
     }
