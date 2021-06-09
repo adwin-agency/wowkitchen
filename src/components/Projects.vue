@@ -1,6 +1,9 @@
 <template>
   <div class="projects">
-    <AppIcon class="projects__bg-pattern" name="wow-pattern" />
+    <AppIcon
+      class="projects__bg-pattern"
+      name="wow-pattern"
+    />
     <div class="projects__heading">
       <div class="container">
         <h2>Индивидуальные проекты <br><span>для любых планировок</span></h2>
@@ -12,18 +15,25 @@
     />
     <div class="projects__content">
       <div class="container">
-        <p class="projects__desc">
+        <p
+          ref="desc"
+          class="projects__desc"
+        >
           Мы создаём законченные проекты с нуля <span>по{{'\xa0'}}индивидуальным дизайн-проектам</span>, используя лишь экологичные материалы
-          <AppIcon class="projects__desc-icon" name="leaf-filled" />
+          <AppIcon
+            class="projects__desc-icon"
+            :class="{'is-active': activeLeaf}"
+            name="leaf-filled"
+          />
         </p>
-      </div>      
+      </div>
     </div>
     <div class="projects__extras">
       <AppExtras
         title="Бесплатный замер у вас дома"
-        desc="Бесплатный замер у вас дома"
+        desc="Наш специалист поможет не потеряться в многообразии материалов, подскажет верную планировку и сделает расчёт проекта. Бесплатно. Совершенно бесплатно."
       />
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -31,6 +41,12 @@
 import AppExtras from './base/AppExtras.vue'
 import AppIcon from './base/AppIcon.vue'
 import CardSlider from './CardSlider.vue'
+
+const cards = [
+  { title: 'Угловые кухни', icon: 'kit1' },
+  { title: 'Прямые кухни', icon: 'kit2' },
+  { title: 'П-образные', icon: 'kit3' }
+]
 
 export default {
   name: 'Projects',
@@ -41,11 +57,22 @@ export default {
   },
   data() {
     return {
-      cards: [
-        {title: 'Угловые кухни', icon: 'kit1'},
-        {title: 'Прямые кухни', icon: 'kit2'},
-        {title: 'П-образные', icon: 'kit3'}
-      ]
+      cards: cards,
+      activeLeaf: false
+    }
+  },
+  created() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+      if (this.$refs.desc.getBoundingClientRect().top < window.innerHeight / 2) {
+        this.activeLeaf = true
+        window.removeEventListener('scroll', this.handleScroll)
+      }
     }
   }
 }
@@ -81,6 +108,18 @@ export default {
     }
   }
 
+  @keyframes projects-leaf {
+    0% {
+      transform: rotate(0);
+    }
+    50% {
+      transform: rotate(30deg);
+    }
+    100% {
+      transform: rotate(0);
+    }
+  }
+
   &__desc-icon {
     display: inline;
     margin-left: -5px;
@@ -88,6 +127,10 @@ export default {
     width: 16px;
     height: 16px;
     fill: #17ba95;
+
+    &.is-active {
+      animation: projects-leaf .5s 3;
+    }
   }
 
   &__bg-pattern {

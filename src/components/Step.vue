@@ -76,6 +76,15 @@ export default {
 .step {
   $b: &;
 
+  &:hover {
+    #{$b} {
+      &__title-arrow,
+      &__details-arrow {
+        transform: translateX(10px);
+      }
+    }
+  }
+
   display: block;
   border: 1px solid #f3f4f9;
   border-radius: 4px;
@@ -145,6 +154,11 @@ export default {
 
   &__details {
     display: none;
+  }
+
+  &__title-arrow,
+  &__details-arrow {
+    transition: transform 0.3s ease;
   }
 
   &__bg {

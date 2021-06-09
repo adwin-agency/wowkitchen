@@ -4,17 +4,19 @@
     :class="{'is-active': isActive}"
   >
     <div class="extras__circle"></div>
-    <p class="extras__title">{{title}}</p>
-    <p class="extras__desc">
-      {{desc}}
-      <br><br>
-      <router-link
-        to="/"
-        class="extras__link"
-      >
-        Ещё
-      </router-link>
-    </p>
+    <div class="extras__box">
+      <p class="extras__title">{{title}}</p>
+      <p class="extras__desc">
+        {{desc}}
+        <br><br>
+        <router-link
+          to="/"
+          class="extras__link"
+        >
+          Расскажите по-подробнее
+        </router-link>
+      </p>
+    </div>
     <div
       class="extras__expand"
       @click="toggleExtras"
@@ -48,15 +50,10 @@ export default {
 .extras {
   $b: &;
 
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: relative;
   width: 208px;
   height: 208px;
   text-align: center;
-  
 
   &.is-active {
     #{$b} {
@@ -65,7 +62,7 @@ export default {
       }
 
       &__title {
-        transform: translateY(-150%) scale(0.875);
+        transform: translateY(0) scale(0.85);
       }
 
       &__desc {
@@ -88,37 +85,51 @@ export default {
     height: 100%;
     border-radius: 50%;
     background-color: #cfd2e5;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
+  }
+
+  &__box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 200px;
+    height: 260px;
   }
 
   &__title {
-    position: absolute;
-    top: 50%;
-    width: 148px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: auto;
+    width: 148px;
+    height: 60px;
     font-weight: bold;
     font-size: 16px;
     line-height: (20/16);
-    transform: translateY(-50%);
-    transition: transform .3s ease;
+    transform: translateY(100px);
+    transition: transform 0.3s ease;
   }
 
   &__desc {
-    position: absolute;
-    top: 50%;
-    width: 202px;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 13px;
     line-height: (22/17);
     opacity: 0;
     transform: scale(0);
     pointer-events: none;
-    transition: opacity .3s ease, transform .3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
   &__link {
-    font-size: 14px;
+    font-size: 13px;
     color: $color-green;
   }
 
@@ -135,25 +146,47 @@ export default {
     font-weight: 300;
     font-size: 35px;
     background-color: $color-yellow;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
+    cursor: pointer;
   }
 
   @include media(md) {
     width: 272px;
     height: 272px;
-    padding: 64px;
 
     &.is-active {
       #{$b} {
         &__expand {
-          transform: translate(-80%, -80%) rotate(45deg);
+          transform: translate(-80%, -80%) rotate(45deg) scale(1.15);
         }
       }
+    }
+
+    &__box {
+      width: 250px;
+      height: 300px;
+    }
+
+    &__title {
+      transform: translateY(120px);
+    }
+
+    &__desc {
+      height: 240px;
+      font-size: 16px;
+    }
+
+    &__link {
+      font-size: 14px;
     }
 
     &__expand {
       left: 10px;
       top: -3px;
+
+      &:hover {
+        transform: scale(1.15);
+      }
     }
   }
 
@@ -165,7 +198,7 @@ export default {
     &.is-active {
       #{$b} {
         &__expand {
-          transform: translate(-100%, -100%) rotate(45deg);
+          transform: translate(-100%, -100%) rotate(45deg) scale(1.15);
         }
       }
     }

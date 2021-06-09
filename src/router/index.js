@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import MainView from '@/views/MainView.vue'
 
 const routes = [
@@ -100,7 +100,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  // history: createWebHistory('/wow-build/'),
+  history: createWebHashHistory('/wow-build/'),
   routes,
   linkActiveClass: 'is-active',
   scrollBehavior(to, from, savedPosition) {

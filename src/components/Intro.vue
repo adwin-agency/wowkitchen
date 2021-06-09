@@ -9,17 +9,10 @@
           <div class="intro__content">
             <p class="intro__top">Новая кухня: с нами - легко!</p>
             <h1 class="intro__heading">Кухни и{{'\xa0'}}мебель на заказ</h1>
-            <button
-              v-if="$_windowWidth < $_breakpoints.md"
-              type="button"
+            <AppVideoButton
+              v-if="$_media.sm"
               class="intro__video-btn"
-            >
-              <AppIcon
-                class="intro__play-icon"
-                name="play"
-              />
-              Смотреть видео
-            </button>
+            />
             <div class="intro__tags">
               <span class="intro__tag intro__tag_gray">Прямые кухни</span>
               <span class="intro__tag intro__tag_gray">Угловые кухни</span>
@@ -114,19 +107,11 @@
               name="shape-13"
               :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
-            <button
+            <AppVideoButton
               v-if="!$_media.sm"
-              type="button"
               class="intro__video-btn"
-            >
-              <AppIcon
-                class="intro__play-icon"
-                name="play"
-              />
-              Смотреть видео
-            </button>
+            />
           </div>
-
         </div>
       </div>
     </div>
@@ -137,12 +122,14 @@
 <script>
 import IntroFeatures from './IntroFeatures.vue'
 import AppIcon from './base/AppIcon.vue'
+import AppVideoButton from './base/AppVideoButton.vue'
 
 export default {
   name: 'Intro',
   components: {
     AppIcon,
-    IntroFeatures
+    IntroFeatures,
+    AppVideoButton
   },
   data() {
     return {
@@ -232,6 +219,7 @@ export default {
     font-size: 11px;
     background-color: $color-yellow;
     box-shadow: 0px 5px 5px 0px rgba(53, 53, 53, 0.36);
+    z-index: 1;
 
     &::before {
       content: '';
@@ -244,14 +232,17 @@ export default {
       border-radius: 50%;
       opacity: 0.3;
       transform: translate(-50%, -50%);
+      pointer-events: none;
       z-index: -1;
     }
   }
 
   &__play-icon {
+    position: relative;
     width: 40px;
     height: 40px;
     margin-right: 7px;
+    z-index: 1;
   }
 
   &__tags {

@@ -76,13 +76,13 @@ export default {
   &__label {
     width: 100%;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
 
     &_gray {
       color: #949494;
     }
 
-    &_small {
+    &_lg {
       font-size: 13px;
     }
   }

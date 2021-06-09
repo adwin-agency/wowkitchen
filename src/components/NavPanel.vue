@@ -243,9 +243,14 @@ export default {
     width: 23px;
     height: 23px;
     margin-right: 18px;
+    transition: opacity .3s ease;
 
     &:last-child {
       margin-right: 0;
+    }
+
+    &:hover {
+      opacity: 0.9;
     }
   }
 

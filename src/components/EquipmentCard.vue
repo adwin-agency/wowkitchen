@@ -14,10 +14,14 @@
           </p>
         </div>
         <p class="equipment-card__title">{{cardData.title}}</p>
-        <p v-if="$_windowWidth >= $_breakpoints.md" class="equipment-card__desc">{{cardData.desc}}</p>
+        <p v-if="!$_media.sm && cardData.company" class="equipment-card__company">
+          <span class="equipment-card__flag"></span>
+          {{cardData.company}}
+        </p>
+        <p v-if="!$_media.sm" class="equipment-card__desc">{{cardData.desc}}</p>
       </div>      
     </div>
-    <p v-if="$_windowWidth < $_breakpoints.md" class="equipment-card__desc">{{cardData.desc}}</p>
+    <p v-if="$_media.sm" class="equipment-card__desc">{{cardData.desc}}</p>
   </div>
 </template>
 
@@ -128,6 +132,26 @@ export default {
     color: #fff;
   }
 
+  &__company {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    font-weight: 500;
+    font-size: 12px;
+    color: $color-lightviolet;
+  }
+
+  &__flag {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid $color-lightviolet;
+    background-image: linear-gradient(#ed2939 6px, #fff 6px, #fff 12px, #ed2939 12px);
+  }
+
   &__desc {
     margin-top: 24px;
     font-size: 12px;
@@ -158,7 +182,7 @@ export default {
     }
 
     &__desc {
-      margin-top: 2px;
+      margin-top: 5px;
       color: #fff;
       opacity: 1;
     }
@@ -183,10 +207,6 @@ export default {
         &__title {
           font-size: 24px;
         }
-
-        &__desc {
-          margin-top: 24px;
-        }
       }
     }
 
@@ -197,6 +217,10 @@ export default {
 
     &__title {
       font-size: 18px;
+    }
+
+    &__company {
+      margin-top: 10px;
     }
 
     &__desc {

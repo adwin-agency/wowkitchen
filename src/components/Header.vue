@@ -1,5 +1,16 @@
 <template>
-  <header class="header">
+  <header
+    class="header"
+    :class="{'is-short': isShort}"
+  >
+
+    <transition name="fade">
+      <div
+        v-if="activeFavorite"
+        class="header__overlay"
+        @click="toggleFavorite"
+      ></div>
+    </transition>
 
     <div
       v-if="$_mobile"
@@ -235,7 +246,10 @@
         </div>
       </div>
     </div>
-    <div class="header__line">
+    <div
+      v-if="!$_media.sm && activeBreadCrumbs"
+      class="header__line"
+    >
       <div class="container">
         <div class="header__breadcrumbs">
           <div class="header__breadcrumb">
@@ -346,20 +360,34 @@ export default {
       technicsMenu: technicsMenu,
       activeMobileMenu: false,
       activeNavMenu: null,
-      activeFavorite: false
+      activeFavorite: false,
+      scrollY: window.scrollY,
+      isShort: false
+    }
+  },
+  computed: {
+    activeBreadCrumbs() {
+      return this.$route.name !== 'main'
     }
   },
   created() {
     window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     handleResize() {
       if (this.$_desktop && this.activeMobileMenu) {
         this.toggleMobileMenu()
       }
+    },
+
+    handleScroll() {
+      this.isShort = window.scrollY > this.scrollY
+      this.scrollY = window.scrollY
     },
 
     toggleMobileMenu() {
@@ -590,6 +618,25 @@ export default {
     display: none;
   }
 
+  &__overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(#000, 0.5);
+
+    &.fade-enter-active,
+    &.fade-leave-active {
+      transition: opacity 0.3s ease;
+    }
+
+    &.fade-enter-from,
+    &.fade-leave-to {
+      opacity: 0;
+    }
+  }
+
   &__favorite {
     position: absolute;
     left: 100%;
@@ -624,7 +671,6 @@ export default {
     }
 
     &__nav-item {
-      align-items: flex-end;
       margin-right: 28px;
       padding: 0;
       border-bottom: none;
@@ -732,6 +778,19 @@ export default {
   }
 
   @include media(lg) {
+    transition: transform 0.3s ease;
+
+    &.is-short {
+      transform: translateY(-$nav-panel-height-lg);
+
+      #{$b} {
+        &__overlay,
+        &__favorite {
+          top: $nav-panel-height-lg;
+        }
+      }
+    }
+
     &__panel {
       position: relative;
       z-index: 2;
@@ -777,6 +836,17 @@ export default {
   }
 
   @include media(xl) {
+    &.is-short {
+      transform: translateY(-$nav-panel-height-xl);
+
+      #{$b} {
+        &__overlay,
+        &__favorite {
+          top: $nav-panel-height-xl;
+        }
+      }
+    }
+
     &__bar {
       height: $header-bar-height-xl;
     }

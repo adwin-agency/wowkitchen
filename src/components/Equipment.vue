@@ -65,6 +65,43 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import EquipmentCard from './EquipmentCard.vue'
 import AppButton from './base/AppButton.vue'
 
+const cards = [
+  {
+    features: [
+      { icon: 'leaf', title: 'Экологичные' },
+      { icon: 'umbrella', title: 'Водостойкие' }
+    ],
+    title: 'Фасады',
+    company: 'Австрия, Egger',
+    desc: 'Прочные и износостойкие из плит МДФ с ПВХ-плёнкой или пластиком от компании EGGER. Обладают повышенными показателями влагостойкости.'
+  },
+  {
+    features: [
+      { icon: 'star', title: 'Известные бренды' },
+      { icon: 'clock', title: 'Долговечная' }
+    ],
+    title: 'Фурнитура',
+    desc: 'от лидеров отечественного и мирового рынков: Blum, Hettich, Boyard'
+  },
+  {
+    features: [
+      { icon: 'thermometer', title: 'Жаропрочные' },
+      { icon: 'texture', title: 'Текстурные' }
+    ],
+    title: 'Столешницы',
+    company: 'Австрия, Kronospan',
+    desc: 'прочные столешницы из ЛДСП и искуственного камня толщиной до 60 мм'
+  },
+  {
+    features: [
+      { icon: 'grid', title: 'Широкий выбор' },
+      { icon: 'clock', title: 'Долговечная' }
+    ],
+    title: 'Техника',
+    desc: 'разнообразный выбор от отечественных и зарубежных производителей'
+  }
+]
+
 export default {
   name: 'Equipment',
   components: {
@@ -75,40 +112,7 @@ export default {
   },
   data() {
     return {
-      cards: [
-        {
-          features: [
-            { icon: 'leaf', title: 'Экологичные' },
-            { icon: 'umbrella', title: 'Водостойкие' }
-          ],
-          title: 'Фасады',
-          desc: 'Прочные и износостойкие из плит МДФ с ПВХ-плёнкой или пластиком. Обладают повышенными показателями влагостойкости.'
-        },
-        {
-          features: [
-            { icon: 'star', title: 'Известные бренды' },
-            { icon: 'clock', title: 'Долговечная' }
-          ],
-          title: 'Фурнитура',
-          desc: 'качественная фурнитура BLUM, Hettich, BOYARD'
-        },
-        {
-          features: [
-            { icon: 'thermometer', title: 'Жаропрочные' },
-            { icon: 'texture', title: 'Текстурные' }
-          ],
-          title: 'Столешницы',
-          desc: 'прочные столешницы из ЛДСП и искуственного камня толщиной до 60 мм'
-        },
-        {
-          features: [
-            { icon: 'grid', title: 'Широкий выбор' },
-            { icon: 'clock', title: 'Долговечная' }
-          ],
-          title: 'Техника',
-          desc: 'разнообразный выбор от отечественных и зарубежных производителей'
-        }
-      ]
+      cards: cards
     }
   }
 }

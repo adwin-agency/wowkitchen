@@ -1,29 +1,38 @@
 <template>
-  <div class="review-card" :class="{ [`review-card_${mod}`]: mod }">
+  <div
+    class="review-card"
+    :class="{ [`review-card_${mod}`]: mod }"
+  >
     <div
       class="review-card__image"
       :style="`background-image: url(${require(`@/assets/img/${cardData.image}`)})`"
     >
-      <AppIcon
+      <span
         v-if="!$_media.sm && mod === 'small'"
-        name="play"
         class="review-card__play"
-      />
+      >
+        <AppIcon
+          name="play"
+          class="review-card__play-icon"
+        />
+      </span>
     </div>
     <div class="review-card__content">
-      <AppIcon
+      <span
         v-if="$_media.sm || mod !== 'small'"
-        name="play"
         class="review-card__play"
-      />
+      >
+        <AppIcon
+          name="play"
+          class="review-card__play-icon"
+        />
+      </span>
       <p class="review-card__category">Кухня</p>
       <p class="review-card__title">{{ cardData.title }}</p>
       <div class="review-card__footer">
         <p class="review-card__author">Владелец: Эрнест</p>
         <div class="review-card__watch">
-          <span v-if="!$_media.sm && (mod === 'big' || mod === 'small')"
-            >Смотреть отзыв</span
-          >
+          <span v-if="!$_media.sm && (mod === 'big' || mod === 'small')">Смотреть отзыв</span>
           <AppIcon
             v-if="mod !== 'sample'"
             name="long-arrow"
@@ -126,6 +135,18 @@ export default {
   &__play {
     width: 42px;
     height: 42px;
+    border-radius: 50%;
+    background-color: $color-yellow;
+
+    &:hover &-icon {
+      transform: scale(1.15);
+    }
+
+    &-icon {
+      width: 100%;
+      height: 100%;
+      transition: transform .3s ease;
+    }
   }
 
   &__category {
@@ -371,7 +392,7 @@ export default {
           min-height: 300px;
           padding: 35px 40px;
         }
-      }      
+      }
     }
 
     &__content {

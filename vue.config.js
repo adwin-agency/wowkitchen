@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  publicPath: '/wow-build/',
   pluginOptions: {
     'style-resources-loader': {
       'preProcessor': 'scss',

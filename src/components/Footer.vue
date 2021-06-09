@@ -31,6 +31,7 @@
                     :key="index"
                     :to="{name: submenuItem.route}"
                     class="footer__submenu-item"
+                    :class="{'footer__submenu-item_accented': submenuItem.accented}"
                   >
                     {{submenuItem.title}}
                   </router-link>
@@ -194,7 +195,7 @@ const menu = [
       { title: 'Сборка', route: 'main' },
       { title: 'Гарантия', route: 'guarantee' },
       { title: 'Материалы', route: 'materials' },
-      { title: 'Подбор кухни', route: 'quiz' },
+      { title: 'Подбор кухни', route: 'quiz', accented: true },
       { title: 'Контакты', route: 'contacts' }
     ]
   }
@@ -331,6 +332,15 @@ export default {
     font-size: 13px;
     color: #dedede;
     white-space: nowrap;
+    transition: color .3s ease;
+
+    &:hover {
+      color: $color-lightviolet;
+    }
+
+    &_accented {
+      font-weight: bold;
+    }
   }
 
   &__policy {
@@ -414,9 +424,14 @@ export default {
 
   &__social-link {
     margin-right: 17px;
+    transition: opacity .3s ease;
 
     &:last-child {
       margin-right: 0;
+    }
+
+    &:hover {
+      opacity: 0.9;
     }
   }
 
