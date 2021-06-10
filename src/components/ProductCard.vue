@@ -8,15 +8,15 @@
     ]">
     <div class="product-card__img-box">
       <img
-        :src="require(`@/assets/img/${cardData.image}`)"
-        alt=""
+        :src="`http://wowkitchen.beget.tech${cardData.pictures[0].preview.path}`"
+        alt
         class="product-card__img"
       >
       <span
         v-if="!large && cardData.discount"
         class="product-card__discount"
       >
-        {{cardData.discount}}
+        -{{cardData.discount}}%
       </span>
       <button
         v-if="cardData.type === 'kitchen'"
@@ -48,13 +48,13 @@
           v-if="large"
           class="product-card__category"
         >
-          {{cardData.category}}
+          {{cardData.category_rus}}
         </p>
         <p class="product-card__title">
-          <router-link :to="{name: cardData.type}">{{cardData.title}}</router-link>
+          <router-link :to="{name: cardType, params: {kitchen: cardData.url}}">{{cardData.name}}</router-link>
         </p>
         <div
-          v-if="cardData.type !== 'wardrobe'"
+          v-if="cardType !== 'wardrobe'"
           class="product-card__actions"
         >
           <button
@@ -79,7 +79,7 @@
         </div>
       </div>
       <div
-        v-if="$_desktop && !large || cardData.type === 'technic' || $_media.md && cardData.type === 'wardrobe'"
+        v-if="$_desktop && !large || cardType === 'technic' || $_media.md && cardType === 'wardrobe'"
         class="product-card__props"
       >
         <p
@@ -92,22 +92,22 @@
         </p>
       </div>
       <div class="product-card__prices">
-        <p class="product-card__price">{{cardData.price}}</p>
+        <p class="product-card__price">{{cardData.price}} ₽</p>
         <p
-          v-if="cardData.oldPrice"
+          v-if="cardData.old_price"
           class="product-card__old-price"
         >
-          {{cardData.oldPrice}}
+          {{cardData.old_price}} ₽
         </p>
         <span
           v-if="large && cardData.discount"
           class="product-card__discount"
         >
-          {{cardData.discount}}
+          -{{cardData.discount}}%
         </span>
       </div>
       <AppButton
-        v-if="cardData.type !== 'technic'"
+        v-if="cardType !== 'technic'"
         :size="!large ? 'small' : ''"
         :bordered="!large"
         title="Рассчитать проект"
@@ -130,6 +130,7 @@ export default {
   },
   props: {
     cardData: Object,
+    cardType: String,
     large: Boolean,
     slide: Boolean,
     disabled: Boolean

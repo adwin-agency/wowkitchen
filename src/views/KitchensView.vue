@@ -3,6 +3,7 @@
     <CatalogBanners type="kitchens" />
     <Catalog
       type="kitchens"
+      cardType="kitchen"
       switcher
       :sortOptions="sortOptions"
       :filterGroups="filterGroups"
@@ -59,78 +60,78 @@ const filterGroups = [
   }
 ]
 
-const cards = [
-  {
-    type: 'kitchen',
-    image: 'catalog-card-01.jpg',
-    discount: '-50%',
-    category: 'Гарнитур',
-    title: 'ХайдиКлум',
-    props: [
-      { title: 'Фасад', value: 'Эмаль' },
-      { title: 'Стиль', value: 'Прованс' }
-    ],
-    price: '54 500 ₽',
-    oldPrice: '109 000 ₽',
-    video: true
-  },
-  {
-    type: 'kitchen',
-    image: 'catalog-card-02.jpg',
-    discount: '-50%',
-    category: 'Гарнитур',
-    title: 'ТайраБэнкс',
-    props: [
-      { title: 'Фасад', value: 'Эмаль' },
-      { title: 'Стиль', value: 'Прованс' }
-    ],
-    price: '54 500 ₽',
-    oldPrice: '109 000 ₽',
-    video: true
-  },
-  {
-    type: 'kitchen',
-    image: 'catalog-card-03.jpg',
-    discount: '-50%',
-    category: 'Гарнитур',
-    title: 'ТайраБэнкс',
-    props: [
-      { title: 'Фасад', value: 'Эмаль' },
-      { title: 'Стиль', value: 'Прованс' }
-    ],
-    price: '54 500 ₽',
-    oldPrice: '109 000 ₽',
-    video: true
-  },
-  {
-    type: 'kitchen',
-    image: 'catalog-card-04.jpg',
-    discount: '-50%',
-    category: 'Гарнитур',
-    title: 'ТайраБэнкс',
-    props: [
-      { title: 'Фасад', value: 'Эмаль' },
-      { title: 'Стиль', value: 'Прованс' }
-    ],
-    price: '54 500 ₽',
-    oldPrice: '109 000 ₽',
-    video: true
-  },
-  {
-    type: 'kitchen',
-    image: 'catalog-card-05.jpg',
-    discount: '-50%',
-    category: 'Гарнитур',
-    title: 'ТайраБэнкс',
-    props: [
-      { title: 'Фасад', value: 'Эмаль' },
-      { title: 'Стиль', value: 'Прованс' }
-    ],
-    price: '54 500 ₽',
-    oldPrice: '109 000 ₽',
-    video: true
-  }
-]
+// const cards = [
+//   {
+//     type: 'kitchen',
+//     image: 'catalog-card-01.jpg',
+//     discount: '-50%',
+//     category: 'Гарнитур',
+//     title: 'ХайдиКлум',
+//     props: [
+//       { title: 'Фасад', value: 'Эмаль' },
+//       { title: 'Стиль', value: 'Прованс' }
+//     ],
+//     price: '54 500 ₽',
+//     oldPrice: '109 000 ₽',
+//     video: true
+//   },
+//   {
+//     type: 'kitchen',
+//     image: 'catalog-card-02.jpg',
+//     discount: '-50%',
+//     category: 'Гарнитур',
+//     title: 'ТайраБэнкс',
+//     props: [
+//       { title: 'Фасад', value: 'Эмаль' },
+//       { title: 'Стиль', value: 'Прованс' }
+//     ],
+//     price: '54 500 ₽',
+//     oldPrice: '109 000 ₽',
+//     video: true
+//   },
+//   {
+//     type: 'kitchen',
+//     image: 'catalog-card-03.jpg',
+//     discount: '-50%',
+//     category: 'Гарнитур',
+//     title: 'ТайраБэнкс',
+//     props: [
+//       { title: 'Фасад', value: 'Эмаль' },
+//       { title: 'Стиль', value: 'Прованс' }
+//     ],
+//     price: '54 500 ₽',
+//     oldPrice: '109 000 ₽',
+//     video: true
+//   },
+//   {
+//     type: 'kitchen',
+//     image: 'catalog-card-04.jpg',
+//     discount: '-50%',
+//     category: 'Гарнитур',
+//     title: 'ТайраБэнкс',
+//     props: [
+//       { title: 'Фасад', value: 'Эмаль' },
+//       { title: 'Стиль', value: 'Прованс' }
+//     ],
+//     price: '54 500 ₽',
+//     oldPrice: '109 000 ₽',
+//     video: true
+//   },
+//   {
+//     type: 'kitchen',
+//     image: 'catalog-card-05.jpg',
+//     discount: '-50%',
+//     category: 'Гарнитур',
+//     title: 'ТайраБэнкс',
+//     props: [
+//       { title: 'Фасад', value: 'Эмаль' },
+//       { title: 'Стиль', value: 'Прованс' }
+//     ],
+//     price: '54 500 ₽',
+//     oldPrice: '109 000 ₽',
+//     video: true
+//   }
+// ]
 
 export default {
   name: 'KitchensView',
@@ -146,7 +147,7 @@ export default {
     return {
       sortOptions: sortOptions,
       filterGroups: filterGroups,
-      cards: cards
+      cards: []
     }
   },
   async created() {
@@ -154,7 +155,7 @@ export default {
     const responseJson = await response.json()
 
     console.log(responseJson)
-    // this.cards = responseJson.goods
+    this.cards = responseJson.goods
   }
 }
 </script>

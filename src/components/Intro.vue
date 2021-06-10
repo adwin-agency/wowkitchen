@@ -14,14 +14,38 @@
               class="intro__video-btn"
             />
             <div class="intro__tags">
-              <span class="intro__tag intro__tag_gray">Прямые кухни</span>
-              <span class="intro__tag intro__tag_gray">Угловые кухни</span>
-              <span class="intro__tag intro__tag_green">Кухни лофт</span>
-              <span class="intro__tag intro__tag_red">Шкафы-купе</span>
-              <span class="intro__tag intro__tag_green">Скандинавский стиль</span>
-              <span class="intro__tag intro__tag_gray">С барной стойкой</span>
-              <span class="intro__tag intro__tag_green">Стиль минимализм</span>
-              <span class="intro__tag intro__tag_green">Современная классика</span>
+              <router-link
+                :to="{name: 'kitchens'}"
+                class="intro__tag intro__tag_gray"
+              >Прямые кухни</router-link>
+              <router-link
+                :to="{name: 'kitchens'}"
+                class="intro__tag intro__tag_gray"
+              >Угловые кухни</router-link>
+              <router-link
+                :to="{name: 'kitchens'}"
+                class="intro__tag intro__tag_green"
+              >Кухни лофт</router-link>
+              <router-link
+                :to="{name: 'wardrobes'}"
+                class="intro__tag intro__tag_red"
+              >Шкафы-купе</router-link>
+              <router-link
+                :to="{name: 'kitchens'}"
+                class="intro__tag intro__tag_green"
+              >Скандинавский стиль</router-link>
+              <router-link
+                :to="{name: 'kitchens'}"
+                class="intro__tag intro__tag_gray"
+              >С барной стойкой</router-link>
+              <router-link
+                :to="{name: 'kitchens'}"
+                class="intro__tag intro__tag_green"
+              >Стиль минимализм</router-link>
+              <router-link
+                :to="{name: 'kitchens'}"
+                class="intro__tag intro__tag_green"
+              >Современная классика</router-link>
             </div>
           </div>
           <div class="intro__video">
@@ -260,6 +284,7 @@ export default {
     font-weight: 600;
     font-size: 10px;
     color: #949494;
+    transition: opacity 0.3s ease;
 
     &_gray {
       background-color: $color-lightgray;
@@ -271,6 +296,10 @@ export default {
 
     &_red {
       background-color: #f8eceb;
+    }
+
+    &:hover {
+      opacity: 0.75;
     }
   }
 

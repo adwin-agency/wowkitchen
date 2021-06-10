@@ -66,6 +66,7 @@
             v-for="(card, index) in cards"
             :key="index"
             :cardData="card"
+            :cardType="cardType"
             :large="catalogType === 'list'"
             class="catalog__card"
           />
@@ -102,6 +103,7 @@ export default {
   },
   props: {
     type: String,
+    cardType: String,
     switcher: Boolean,
     sortOptions: Array,
     filterCategories: Array,
@@ -165,15 +167,15 @@ export default {
         this.catalogType = 'grid'
       }
 
-      if (!this.$_media.sm && !this.sidebar) {
+      if (!this.$_media.sm && !window.sidebar) {
         this.initSidebar()
       }
 
-      if (!this.$_media.sm && this.sidebar) {
+      if (!this.$_media.sm && window.sidebar) {
         window.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
       }
 
-      if (this.$_media.sm && this.sidebar) {
+      if (this.$_media.sm && window.sidebar) {
         window.sidebar.destroy()
         window.sidebar = null
       }
