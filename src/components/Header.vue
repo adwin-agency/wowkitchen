@@ -2,6 +2,7 @@
   <header
     class="header"
     :class="{'is-short': isShort}"
+    v-outside-click="closeNavMenu"
   >
 
     <transition name="fade">
@@ -170,7 +171,9 @@
             <span
               class="header__nav-item"
               :class="{'is-menu-active': activeNavMenu === 'kitchens'}"
-              @click="toggleNavMenu('kitchens')"
+              @touchend.prevent="toggleNavMenu('kitchens')"
+              @mouseenter="openNavMenu('kitchens')"
+              @click="navigate('kitchens')"
             >
               Кухни
               <AppIcon
@@ -181,7 +184,9 @@
             <span
               class="header__nav-item"
               :class="{'is-menu-active': activeNavMenu === 'technics'}"
-              @click="toggleNavMenu('technics')"
+              @touchend.prevent="toggleNavMenu('technics')"
+              @mouseenter="openNavMenu('technics')"
+              @click="navigate('technics')"
             >
               Техника
               <AppIcon
@@ -269,6 +274,7 @@
       <div
         class="header__nav-dropdown"
         :class="{'is-active': activeNavMenu === 'kitchens'}"
+        @mouseleave="closeNavMenu"
       >
         <div class="container">
           <NavMenu
@@ -281,6 +287,7 @@
       <div
         class="header__nav-dropdown"
         :class="{'is-active': activeNavMenu === 'technics'}"
+        @mouseleave="closeNavMenu"
       >
         <div class="container">
           <NavMenu
@@ -359,6 +366,7 @@ export default {
       kitchensMenu: kitchensMenu,
       technicsMenu: technicsMenu,
       activeMobileMenu: false,
+      hoverNavItem: null,
       activeNavMenu: null,
       activeFavorite: false,
       scrollY: window.scrollY,
@@ -368,6 +376,12 @@ export default {
   computed: {
     activeBreadCrumbs() {
       return this.$route.name !== 'main'
+    }
+  },
+  watch: {
+    $route() {
+      this.activeFavorite = false
+      this.$store.commit('setFavorite', false)
     }
   },
   created() {
@@ -395,8 +409,21 @@ export default {
       this.$store.commit('setMobileMenu', this.activeMobileMenu)
     },
 
+    navigate(item) {
+      this.$router.push({name: item})
+      this.closeNavMenu()
+    },
+
+    openNavMenu(menu) {
+      this.activeNavMenu = menu
+    },
+
+    closeNavMenu() {
+      this.activeNavMenu = null
+    },
+
     toggleNavMenu(menu) {
-      this.activeNavMenu = this.activeNavMenu === menu ? null : menu
+      this.activeNavMenu === menu ? this.closeNavMenu() : this.openNavMenu(menu)
     },
 
     toggleFavorite() {
@@ -652,6 +679,14 @@ export default {
   }
 
   @include media(md) {
+    &.is-short {
+      #{$b} {
+        &__line {
+          transform: translateY(-100%);
+        }
+      }
+    }
+
     &__mobile-menu-inner {
       padding-top: 102px;
       padding-bottom: 30px;
@@ -712,6 +747,7 @@ export default {
       top: 100%;
       width: 100%;
       padding: 7px 0;
+      transition: transform .3s ease;
 
       &::before {
         content: '';
@@ -772,6 +808,7 @@ export default {
     }
 
     &__favorite {
+      margin-left: 1px;
       width: 730px;
       box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.06);
     }

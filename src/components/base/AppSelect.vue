@@ -64,21 +64,6 @@ export default {
   components: {
     AppIcon
   },
-  directives: {
-    'outside-click': {
-      created(el, binding) {
-        el.outsideClickEvent = (event) => {
-          if (!(el == event.target || el.contains(event.target))) {
-            binding.value()
-          }
-        }
-        document.addEventListener('click', el.outsideClickEvent)
-      },
-      unmounted(el) {
-        document.removeEventListener('click', el.outsideClickEvent)
-      }
-    }
-  },
   props: {
     label: String,
     sideLabel: String,
