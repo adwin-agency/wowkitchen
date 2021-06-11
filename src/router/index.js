@@ -105,7 +105,7 @@ const router = createRouter({
   routes,
   linkActiveClass: 'is-active',
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
+    if (savedPosition || to.name === from.name) {
       return savedPosition
     } else {
       return { top: 0 }

@@ -12,6 +12,7 @@
         <Filters
           :categories="filterCategories"
           :groups="filterGroups"
+          @apply="applyFilters($event)"
           @close="closeFilters"
         />
       </div>
@@ -28,7 +29,12 @@
             @click="openFilters"
           >
             <AppIcon name="filters" />
-            <span class="catalog__filters-badge">1</span>
+            <span
+              v-if="filtersLength"
+              class="catalog__filters-badge"
+            >
+              {{filtersLength}}
+            </span>
           </button>
           <div
             v-if="switcher"
@@ -113,10 +119,13 @@ export default {
   data() {
     return {
       activeFilters: false,
+      filtersLength: null,
       catalogType: 'grid'
     }
   },
   created() {
+    this.filtersLength = Object.keys(this.$route.query).length
+
     window.addEventListener('resize', this.handleResize)
   },
   mounted() {
@@ -139,6 +148,10 @@ export default {
 
     closeFilters() {
       this.activeFilters = false
+    },
+
+    applyFilters(length) {
+      this.filtersLength = length
     },
 
     changeCatalogType(type) {

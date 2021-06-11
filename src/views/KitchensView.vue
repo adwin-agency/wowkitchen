@@ -28,34 +28,35 @@ const sortOptions = ['Сначала дешёвые', 'Сначала попул
 
 const filterGroups = [
   {
-    id: 'plan',
+    id: 'category',
     title: 'Планировка',
     items: [
-      { title: 'Угловая', value: 'Угловая', icon: 'kit1' },
-      { title: 'Прямая', value: 'Прямая', icon: 'kit2' },
-      { title: 'П-образная', value: 'П-образная', icon: 'kit3' },
-      { title: 'С барной стойкой', value: 'С барной стойкой' },
-      { title: 'С островом', value: 'С островом' }
+      { title: 'Угловая', value: 'uglovye', icon: 'kit1' },
+      { title: 'Прямая', value: 'pryamye', icon: 'kit2' },
+      { title: 'П-образная', value: 'p-obraznye', icon: 'kit3' },
+      { title: 'С барной стойкой', value: 's-barnoy-stoykoy' },
+      { title: 'С островом', value: 's-ostrovom' }
     ]
   },
   {
     id: 'style',
     title: 'Стиль',
     items: [
-      { title: 'Лофт', value: 'Лофт' },
-      { title: 'Скандинавия', value: 'Скандинавия' },
-      { title: 'Минимализм', value: 'Минимализм' },
-      { title: 'Классика', value: 'Классика' }
+      { title: 'Скандинавия', value: 'scandinaviya' },
+      { title: 'Неоклассика', value: 'neoklassika' },
+      { title: 'Минимализм', value: 'minimalizm' },
+      { title: 'Лофт', value: 'loft' },
+      { title: 'Современный', value: 'sovremenniy' }
     ]
   },
   {
     id: 'facade',
     title: 'Фасад',
     items: [
-      { title: 'Эмаль', value: 'Эмаль' },
-      { title: 'Пластик', value: 'Пластик' },
-      { title: 'Плёнка+МДФ', value: 'Плёнка+МДФ' },
-      { title: 'Акрил', value: 'Акрил' }
+      { title: 'Эмаль', value: 'emal' },
+      { title: 'Пластик', value: 'plastik' },
+      { title: 'Плёнка+МДФ', value: 'plenka_mdf' },
+      { title: 'Акрил', value: 'akril' }
     ]
   }
 ]
@@ -150,12 +151,36 @@ export default {
       cards: []
     }
   },
-  async created() {
-    const response = await fetch('http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php')
-    const responseJson = await response.json()
+  created() {
+    this.loadKitchens(this.$route)
+  },
+  beforeRouteUpdate(to) {
+    this.loadKitchens(to)
+  },
+  methods: {
+    async loadKitchens(route) {
+      const query = route.query
+      let search = []
 
-    console.log(responseJson)
-    this.cards = responseJson.goods
+      for (let key in query) {
+        search.push(`${key}=${query[key]}`)
+      }
+
+      search = search.join('&')
+
+      if (search) {
+        search = '?' + search
+      }
+
+      const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php${search}`)
+      const responseJson = await response.json()
+
+      this.cards = responseJson.goods
+
+      if (window.sidebar) {
+        window.sidebar.updateSticky()
+      }
+    }
   }
 }
 </script>

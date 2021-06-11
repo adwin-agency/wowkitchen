@@ -31,9 +31,9 @@
           :key="index"
           type="button"
           class="filters__tag is-active"
-          @click="removeTag(item)"
+          @click="removeTag(item.group)"
         >
-          {{item}}
+          {{item.title}}
           <span class="filters__tag-remove"></span>
         </button>
         <button
@@ -60,10 +60,10 @@
             :class="[
               'filters__tag',
               {'filters__tag_color': item.color},
-              {'is-active': item.all ? !activeOptions[group.id].length : activeOptions[group.id] && activeOptions[group.id].find(i => i === item.value)}
+              {'is-active': activeOptions[group.id] === item.value}
             ]"
             :style="item.color && `background-color: ${item.value}`"
-            @click="toggleTag(group.id, item.value, item.all, item.color)"
+            @click="toggleTag(group.id, item.value)"
           >
             <AppIcon
               v-if="item.icon"
@@ -76,20 +76,21 @@
               class="filters__tag-remove"
             ></span>
           </button>
-        </div>      
+        </div>
       </div>
     </div>
     <div class="filters__footer">
       <AppButton
-        title="Показать результаты (N)"
+        :title="`Показать результаты${resultLength !== null ? ` (${resultLength})` : ''}`"
         class="filters__btn"
+        @click="applyTags"
       />
     </div>
     <button
       v-if="$_media.sm"
       type="button"
       class="filters__close"
-      @click="$emit('close')"
+      @click="closeFilters"
     >
     </button>
   </div>
@@ -109,63 +110,101 @@ export default {
     categories: Array,
     groups: Array
   },
+  emits: [
+    'apply',
+    'close'
+  ],
   data() {
     return {
       activeCategory: 'Варочые панели',
-      selection: [],
-      activeOptions: {}
+      initOptions: {},
+      activeOptions: {},
+      resultLength: null
+    }
+  },
+  computed: {
+    selection() {
+      const arr = []
+
+      for (let key in this.activeOptions) {
+        const groupItems = this.groups.find((item) => item.id === key).items
+        const title = groupItems.find((item) => item.value === this.activeOptions[key]).title
+
+        arr.push({ group: key, title: title })
+      }
+
+      return arr
     }
   },
   created() {
-    this.groups.forEach(item => this.activeOptions[item.id] = [])
+    const query = this.$route.query
+
+    for (let key in query) {
+      this.initOptions[key] = query[key]
+      this.activeOptions[key] = query[key]
+    }
   },
   methods: {
     setCategory(category) {
       this.activeCategory = category
     },
 
-    setSelection() {
-      let selection = []
+    async getResultLength() {
+      const query = { ...this.activeOptions }
+      let search = []
 
-      for (let key in this.activeOptions) {
-        selection = selection.concat(this.activeOptions[key])
+      for (let key in query) {
+        search.push(`${key}=${query[key]}`)
       }
 
-      this.selection = selection
+      search = search.join('&')
+
+      if (search) {
+        search = '?' + search
+      }
+
+      const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php${search}`)
+      const responseJson = await response.json()
+
+      this.resultLength = responseJson.goods.length
     },
 
-    toggleTag(groupId, value, isAll, isColor) {
-      if (isAll) {
-        this.activeOptions[groupId] = []
+    toggleTag(group, value) {
+      if (this.activeOptions[group] === value) {
+        delete this.activeOptions[group]
       } else {
-        if (this.activeOptions[groupId].find(item => item === value)) {
-          this.activeOptions[groupId] = this.activeOptions[groupId].filter(item => item !== value)
-        } else {
-          this.activeOptions[groupId].push(value)
-        }
+        this.activeOptions[group] = value
       }
 
-      if (isColor) {
+      if (this.$_media.sm) {
+        this.getResultLength()
         return
       }
 
-      this.setSelection()
+      this.applyTags()
     },
 
-    removeTag(value) {
-      for (let key in this.activeOptions) {
-        this.activeOptions[key] = this.activeOptions[key].filter(item => item !== value)
-      }
+    removeTag(group) {
+      delete this.activeOptions[group]
+    },
 
-      this.setSelection()
+    applyTags() {
+      const query = { ...this.activeOptions }
+
+      this.$router.push({ name: this.$route.name, query: query })
+      this.initOptions = { ...this.activeOptions }
+      this.$emit('apply', Object.keys(this.activeOptions).length)
+      this.$emit('close')
     },
 
     resetTags() {
-      for (let key in this.activeOptions) {
-        this.activeOptions[key] = []
-      }
+      this.activeOptions = {}
+      this.getResultLength()
+    },
 
-      this.selection = []
+    closeFilters() {
+      this.activeOptions = { ...this.initOptions }
+      this.$emit('close')
     }
   }
 }
@@ -296,7 +335,7 @@ export default {
 
     &::before,
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -311,7 +350,7 @@ export default {
     &::before {
       transform: rotate(-45deg);
     }
-    
+
     &::after {
       transform: rotate(45deg);
     }
@@ -324,7 +363,7 @@ export default {
   &__btn {
     width: 100%;
   }
-  
+
   &__close {
     position: absolute;
     top: 26px;
@@ -334,7 +373,7 @@ export default {
 
     &::before,
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -349,7 +388,7 @@ export default {
     &::before {
       transform: rotate(-45deg);
     }
-    
+
     &::after {
       transform: rotate(45deg);
     }
