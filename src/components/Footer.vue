@@ -100,7 +100,7 @@
             title="Консультация дизайнера"
             figure
             shadow
-            modal="designer"
+            modalName="designer"
             class="footer__btn"
           />
           <div class="footer__social">

@@ -4,6 +4,7 @@ export default createStore({
   state: {
     windowWidth: window.innerWidth,
     modal: null,
+    modalData: null,
     mobileMenu: false,
     favorite: false
   },
@@ -14,6 +15,9 @@ export default createStore({
     },
     setModal(state, modal) {
       state.modal = modal
+    },
+    setModalData(state, data) {
+      state.modalData = data
     },
     setMobileMenu(state, status) {
       state.mobileMenu = status

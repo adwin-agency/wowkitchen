@@ -48,7 +48,7 @@
           v-if="$_media.sm"
           title="Отправить заявку"
           color="yellow"
-          modal="designer"
+          modalName="designer"
           class="design-call__btn"
         />
         <form

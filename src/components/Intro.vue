@@ -11,6 +11,7 @@
             <h1 class="intro__heading">Кухни и{{'\xa0'}}мебель на заказ</h1>
             <AppVideoButton
               v-if="$_media.sm"
+              title="Смотреть видео"
               class="intro__video-btn"
             />
             <div class="intro__tags">
@@ -133,6 +134,7 @@
             />
             <AppVideoButton
               v-if="!$_media.sm"
+              title="Смотреть видео"
               class="intro__video-btn"
             />
           </div>
@@ -237,7 +239,6 @@ export default {
     position: relative;
     margin-top: 36px;
     margin-left: 18px;
-    padding-right: 22px;
     border-radius: 100px;
     font-weight: bold;
     font-size: 11px;

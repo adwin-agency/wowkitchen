@@ -1,13 +1,19 @@
 <template>
   <button
     type="button"
-    class="video-btn"
+    :class="[
+      'video-btn',
+      {'video-btn_expand': expand}
+    ]"
+    @click="openModal"
   >
-    <AppIcon
-      name="play"
-      class="video-btn__icon"
-    />
-    Смотреть видео
+    <span class="video-btn__box">
+      <AppIcon
+        name="play"
+        class="video-btn__icon"
+      />
+      {{title}}
+    </span>
   </button>
 </template>
 
@@ -18,6 +24,17 @@ export default {
   name: 'AppVideoButton',
   components: {
     AppIcon
+  },
+  props: {
+    expand: Boolean,
+    title: String,
+    video: String
+  },
+  methods: {
+    openModal() {
+      this.$store.commit('setModal', 'video')
+      this.$store.commit('setModalData', { video: this.video })
+    }
   }
 }
 </script>
@@ -26,12 +43,7 @@ export default {
 .video-btn {
   $b: &;
 
-  display: flex;
-  align-items: center;
   position: relative;
-  margin-top: 36px;
-  margin-left: 18px;
-  padding-right: 22px;
   border-radius: 100px;
   font-weight: bold;
   font-size: 11px;
@@ -41,14 +53,14 @@ export default {
 
   &:hover {
     #{$b}__icon {
-      transform: scale(1.2);
+      transform: scale(1.1);
     }
   }
 
   &::before {
     content: '';
     position: absolute;
-    left: 20px;
+    left: 21px;
     top: 50%;
     width: 74px;
     height: 74px;
@@ -60,11 +72,52 @@ export default {
     z-index: -1;
   }
 
+  &_expand {
+    &::before {
+      display: none;
+    }
+
+    #{$b} {
+      &__box {
+        max-width: 42px;
+        transition: max-width .3s ease;
+        overflow: hidden;
+      }
+    }
+  }
+
+  &__box {
+    display: flex;
+    align-items: center;
+    padding-right: 22px;
+  }
+
   &__icon {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     margin-right: 7px;
-    transition: transform .3s ease;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  @include media(md) {
+    &_expand {
+      &::before {
+        display: block;
+      }
+    }
+  }
+
+  @include media(lg) {
+    &_expand {
+      &.is-active {
+        #{$b} {
+          &__box {
+            max-width: 145px;
+          }
+        }
+      }
+    }
   }
 }
 </style>

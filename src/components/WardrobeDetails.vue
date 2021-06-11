@@ -122,13 +122,13 @@
           <div class="wardrobe-details__btns">
             <AppButton
               title="Рассчитать проект"
-              modal="calc"
+              modalName="calc"
               class="wardrobe-details__btn"
             />
             <AppButton
               bordered
               title="Вызвать дизайнера"
-              modal="designer"
+              modalName="designer"
               class="wardrobe-details__btn"
             />
           </div>

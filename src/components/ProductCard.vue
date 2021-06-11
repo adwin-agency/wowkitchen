@@ -3,9 +3,12 @@
       'product-card',
       {'product-card_large': large},
       {'product-card_slide': slide},
-      {[`product-card_${cardData.type}`]: cardData.type !== 'kitchen'},
+      {[`product-card_${cardType}`]: cardType !== 'kitchen'},
       {'is-disabled': disabled}
-    ]">
+    ]"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+  >
     <div class="product-card__img-box">
       <img
         :src="`http://wowkitchen.beget.tech${cardData.pictures[0].preview.path}`"
@@ -19,28 +22,24 @@
         -{{cardData.discount}}%
       </span>
       <button
-        v-if="cardData.type === 'kitchen'"
+        v-if="cardType === 'kitchen'"
         type="button"
         class="product-card__zoom-btn"
+        @click="openModalImage"
       >
         <AppIcon
           name="zoom"
           class="product-card__zoom-icon"
         />
       </button>
-      <button
+      <AppVideoButton
         v-if="cardData.video"
-        type="button"
-        class="product-card__play"
-      >
-        <span class="product-card__play-inner">
-          <AppIcon
-            name="play"
-            class="product-card__play-icon"
-          />
-          <span class="product-card__play-title">{{large ? 'Смотреть видеообзор' : 'Видеообзор'}}</span>
-        </span>
-      </button>
+        :expand="!large"
+        :title="large ? 'Смотреть видеообзор' : 'Видеообзор'"
+        :video="$_mobile ? cardData.video.mobile : cardData.video.desktop"
+        class="product-card__video-btn"
+        :class="{'is-active': !large && hover}"
+      />
     </div>
     <div class="product-card__content">
       <div class="product-card__header">
@@ -83,12 +82,12 @@
         class="product-card__props"
       >
         <p
-          v-for="(prop, index) in cardData.props"
+          v-for="(feature, index) in Object.values(cardData.features)"
           :key="index"
           class="product-card__prop"
         >
-          <span>{{prop.title}}</span>
-          {{prop.value}}
+          <span>{{feature.title}}</span>
+          {{feature.value}}
         </p>
       </div>
       <div class="product-card__prices">
@@ -111,7 +110,7 @@
         :size="!large ? 'small' : ''"
         :bordered="!large"
         title="Рассчитать проект"
-        modal="calc"
+        modalName="calc"
         class="product-card__btn"
       />
     </div>
@@ -121,19 +120,39 @@
 <script>
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
+import AppVideoButton from './base/AppVideoButton.vue'
 
 export default {
   name: 'ProductCard',
   components: {
     AppButton,
-    AppIcon
+    AppIcon,
+    AppVideoButton
   },
   props: {
     cardData: Object,
     cardType: String,
     large: Boolean,
     slide: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+  },
+  data() {
+    return {
+      hover: false
+    }
+  },
+  methods: {
+    handleMouseEnter() {
+      this.hover = true
+    },
+    handleMouseLeave() {
+      this.hover = false
+    },
+    openModalImage() {
+      const imagePath = `${this.$_mobile ? this.cardData.pictures[0].mobile.path : this.cardData.pictures[0].desktop.path}`
+      this.$store.commit('setModal', 'image')
+      this.$store.commit('setModalData', { image: imagePath })
+    }
   }
 }
 </script>
@@ -148,7 +167,7 @@ export default {
         height: 186px;
       }
 
-      &__play {
+      &__video-btn {
         left: 10px;
         bottom: 10px;
       }
@@ -272,19 +291,10 @@ export default {
     color: $color-lightgray;
   }
 
-  &__play {
+  &__video-btn {
     position: absolute;
     left: 20px;
     bottom: 15px;
-  }
-
-  &__play-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  &__play-title {
-    display: none;
   }
 
   &__zoom-btn {
@@ -361,10 +371,9 @@ export default {
           right: 5px;
         }
 
-        &__play {
+        &__video-btn {
           left: 30px;
           bottom: 30px;
-          transition: opacity 0.3s ease;
         }
 
         &__content {
@@ -495,7 +504,7 @@ export default {
 
     &.is-disabled {
       #{$b} {
-        &__play {
+        &__video-btn {
           opacity: 0;
           pointer-events: none;
         }
@@ -518,24 +527,9 @@ export default {
       font-size: 18px;
     }
 
-    &__play {
+    &__video-btn {
       left: 40px;
       bottom: 45px;
-      transition: opacity 0.3s ease;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 21px;
-        left: 21px;
-        width: 74px;
-        height: 74px;
-        border-radius: 50%;
-        border: 1px solid $color-yellow;
-        opacity: 0.3;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-      }
     }
 
     &__zoom-btn {
@@ -601,21 +595,11 @@ export default {
           opacity: 1;
           pointer-events: all;
         }
-
-        &__play-inner {
-          max-width: 150px;
-        }
       }
     }
 
     &_large {
       position: relative;
-
-      &:hover {
-        #{$b}__play-inner {
-          max-width: none;
-        }
-      }
 
       #{$b} {
         &__img-box {
@@ -623,18 +607,9 @@ export default {
           border-radius: 0 0 100px 0;
         }
 
-        &__play {
+        &__video-btn {
           left: 38px;
           bottom: 34px;
-        }
-
-        &__play-inner {
-          max-width: none;
-        }
-
-        &__play-title {
-          padding: 10px 5px;
-          padding-right: 25px;
         }
 
         &__content {
@@ -714,7 +689,7 @@ export default {
           right: 64px;
         }
 
-        &__play {
+        &__video-btn {
           left: 40px;
           bottom: 40px;
         }
@@ -795,32 +770,9 @@ export default {
       right: 20px;
     }
 
-    &__play {
+    &__video-btn {
       left: 40px;
       bottom: 28px;
-    }
-
-    &__play-inner {
-      display: flex;
-      align-items: center;
-      max-width: 42px;
-      border-radius: 100px;
-      background-color: $color-yellow;
-      transition: max-width 0.3s ease;
-      overflow: hidden;
-    }
-
-    &__play-icon {
-      flex-shrink: 0;
-    }
-
-    &__play-title {
-      display: inline-block;
-      padding: 10px;
-      padding-right: 20px;
-      font-weight: bold;
-      font-size: 11px;
-      white-space: nowrap;
     }
 
     &__content {
@@ -861,6 +813,10 @@ export default {
       font-size: 11px;
       opacity: 0.5;
 
+      span {
+        font-weight: 500;
+      }
+
       &:last-child {
         margin-right: 0;
       }
@@ -888,7 +844,7 @@ export default {
           height: 660px;
         }
 
-        &__play {
+        &__video-btn {
           left: 68px;
           bottom: 55px;
         }
@@ -962,7 +918,7 @@ export default {
       right: 40px;
     }
 
-    &__play {
+    &__video-btn {
       bottom: 38px;
     }
 

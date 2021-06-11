@@ -41,7 +41,7 @@ export default {
     figure: Boolean,
     shadow: Boolean,
     show: Boolean,
-    modal: String
+    modalName: String
   },
   computed: {
     tag() {
@@ -50,9 +50,9 @@ export default {
   },
   methods: {
     handleClick(e) {
-      if (this.modal) {
+      if (this.modalName) {
         e.preventDefault()
-        this.$store.commit('setModal', this.modal)
+        this.$store.commit('setModal', this.modalName)
       }
     }
   }

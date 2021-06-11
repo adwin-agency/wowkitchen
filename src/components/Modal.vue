@@ -4,89 +4,117 @@
       v-if="modal"
       class="modal"
     >
-      <div
-        class="modal__area"
-        @click="closeModal"
-      >
+      <div class="modal__area">
         <div
-          class="modal__window"
-          @click.stop
+          class="modal__overlay"
+          @click="closeModal"
+        ></div>
+
+        <form
+          v-if="modal === 'designer'"
+          class="modal__form"
         >
-
-          <form
-            v-if="modal === 'designer'"
-            class="modal__form"
+          <AppIcon
+            name="group"
+            class="modal__icon"
+          />
+          <p class="modal__title">Пригласить дизайнера</p>
+          <p class="modal__desc">Замеры производятся БЕСПЛАТНО <br>ежедневно с 9.00 до 21.00.</p>
+          <div class="modal__fields">
+            <AppTextField
+              type="text"
+              label="Ваше имя"
+              placeholder="Как к вам обращаться?"
+              class="modal__field"
+            />
+            <AppTextField
+              type="tel"
+              label="Контактный телефон"
+              placeholder="Как к вам обращаться?"
+              class="modal__field"
+            />
+            <AppTextField
+              type="text"
+              label="Адрес"
+              placeholder="Как к вам обращаться?"
+              class="modal__field"
+            />
+            <AppTextField
+              type="text"
+              label="Предпочитаемое время"
+              placeholder="Как к вам обращаться?"
+              class="modal__field"
+            />
+          </div>
+          <AppButton
+            title="Отправить"
+            class="modal__btn"
+          />
+          <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="">Полиикой конфиденциальности</a></p>
+          <button
+            type="button"
+            class="modal__close"
+            @click="closeModal"
           >
             <AppIcon
-              name="group"
-              class="modal__icon"
+              name="close"
+              class="modal__close-icon"
             />
-            <p class="modal__title">Пригласить дизайнера</p>
-            <p class="modal__desc">Замеры производятся БЕСПЛАТНО <br>ежедневно с 9.00 до 21.00.</p>
-            <div class="modal__fields">
-              <AppTextField
-                type="text"
-                label="Ваше имя"
-                placeholder="Как к вам обращаться?"
-                class="modal__field"
-              />
-              <AppTextField
-                type="tel"
-                label="Контактный телефон"
-                placeholder="Как к вам обращаться?"
-                class="modal__field"
-              />
-              <AppTextField
-                type="text"
-                label="Адрес"
-                placeholder="Как к вам обращаться?"
-                class="modal__field"
-              />
-              <AppTextField
-                type="text"
-                label="Предпочитаемое время"
-                placeholder="Как к вам обращаться?"
-                class="modal__field"
-              />
-            </div>
-            <AppButton
-              title="Отправить"
-              class="modal__btn"
-            />
-            <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="">Полиикой конфиденциальности</a></p>
-          </form>
+          </button>
+        </form>
 
-          <form
-            v-if="modal === 'calc'"
-            class="modal__form"
+        <form
+          v-if="modal === 'calc'"
+          class="modal__form"
+        >
+          <AppIcon
+            name="live-chat"
+            class="modal__icon"
+          />
+          <p class="modal__title">Рассчитать мой проект</p>
+          <p class="modal__desc">Наш менеджер свяжется с вами в ближайшее время, уточнит детали и проконсультирует по всем вопросам</p>
+          <div class="modal__fields">
+            <AppTextField
+              type="text"
+              label="Ваше имя"
+              placeholder="Как к вам обращаться?"
+              class="modal__field"
+            />
+            <AppTextField
+              type="tel"
+              label="Контактный телефон"
+              placeholder="Как к вам обращаться?"
+              class="modal__field"
+            />
+          </div>
+          <AppButton
+            title="Отправить"
+            class="modal__btn"
+          />
+          <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="">Полиикой конфиденциальности</a></p>
+          <button
+            type="button"
+            class="modal__close"
+            @click="closeModal"
           >
             <AppIcon
-              name="live-chat"
-              class="modal__icon"
+              name="close"
+              class="modal__close-icon"
             />
-            <p class="modal__title">Рассчитать мой проект</p>
-            <p class="modal__desc">Наш менеджер свяжется с вами в ближайшее время, уточнит детали и проконсультирует по всем вопросам</p>
-            <div class="modal__fields">
-              <AppTextField
-                type="text"
-                label="Ваше имя"
-                placeholder="Как к вам обращаться?"
-                class="modal__field"
-              />
-              <AppTextField
-                type="tel"
-                label="Контактный телефон"
-                placeholder="Как к вам обращаться?"
-                class="modal__field"
-              />
-            </div>
-            <AppButton
-              title="Отправить"
-              class="modal__btn"
-            />
-            <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="">Полиикой конфиденциальности</a></p>
-          </form>
+          </button>
+        </form>
 
+        <div
+          v-if="modal === 'video'"
+          class="modal__media"
+        >
+          <video
+            ref="video"
+            :src="`http://wowkitchen.beget.tech${modalData.video}`"
+            autoplay
+            controls
+            controlsList="nodownload"
+          ></video>
           <button
             type="button"
             class="modal__close"
@@ -98,6 +126,27 @@
             />
           </button>
         </div>
+
+        <div
+          v-if="modal === 'image'"
+          class="modal__media"
+        >
+          <img
+            :src="`http://wowkitchen.beget.tech${modalData.image}`"
+            alt
+          >
+          <button
+            type="button"
+            class="modal__close"
+            @click="closeModal"
+          >
+            <AppIcon
+              name="close"
+              class="modal__close-icon"
+            />
+          </button>
+        </div>
+
       </div>
     </div>
   </transition>
@@ -118,11 +167,15 @@ export default {
   computed: {
     modal() {
       return this.$store.state.modal
+    },
+    modalData() {
+      return this.$store.state.modalData
     }
   },
   methods: {
     closeModal() {
       this.$store.commit('setModal', null)
+      this.$store.commit('setModalData', null)
     }
   }
 }
@@ -135,7 +188,6 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(#000, 0.3);
   overflow-y: auto;
   z-index: 1000;
 
@@ -151,10 +203,22 @@ export default {
 
   &__area {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     min-height: 100%;
   }
 
-  &__window {
+  &__overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.3);
+  }
+
+  &__form {
     position: relative;
     width: 100%;
     min-height: 100%;
@@ -205,9 +269,20 @@ export default {
     font-size: 10px;
     line-height: (15/10);
     color: #ababab;
-    
+
     a {
       text-decoration: underline;
+    }
+  }
+
+  &__media {
+    position: relative;
+    width: calc(100vw - 40px);
+    overflow: hidden;
+
+    video, img {
+      width: 100.1%;
+      object-fit: cover;
     }
   }
 
@@ -235,12 +310,15 @@ export default {
       padding: 50px;
     }
 
-    &__window {
+    &__form {
       width: 500px;
       min-height: auto;
       border-radius: 8px;
-      padding: 30px 100px;
       box-shadow: 0px 19px 26px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    &__media {
+      width: 1280px;
     }
   }
 }

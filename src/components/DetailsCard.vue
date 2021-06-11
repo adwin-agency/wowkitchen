@@ -35,13 +35,13 @@
       <div class="details-card__btns">
         <AppButton
           title="Рассчитать проект"
-          modal="calc"
+          modalName="calc"
           class="details-card__btn"
         />
         <AppButton
           color="gray"
           title="Вызвать дизайнера"
-          modal="designer"
+          modalName="designer"
           class="details-card__btn details-card__btn_add"
         />
         <button

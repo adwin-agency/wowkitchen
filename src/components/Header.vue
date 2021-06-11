@@ -70,7 +70,7 @@
               icon="phone"
               figure
               shadow
-              modal="designer"
+              modalName="designer"
               class="header__call-btn"
             />
           </div>
@@ -115,7 +115,7 @@
             icon="phone"
             figure
             shadow
-            modal="designer"
+            modalName="designer"
             class="header__call-btn"
           />
         </div>
@@ -222,7 +222,7 @@
               icon="phone"
               figure
               shadow
-              modal="designer"
+              modalName="designer"
               class="header__call-btn"
             />
 
