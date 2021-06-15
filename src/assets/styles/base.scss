@@ -122,6 +122,12 @@ picture, img {
       padding: 0 90px;
       max-width: 900px;
     }
+
+    &_slider {
+      margin-right: 0;
+      padding-right: 0;
+      max-width: calc(50% + #{$container-max-width-md / 2});
+    }
   }
 
   @include media(lg) {
@@ -129,6 +135,10 @@ picture, img {
 
     &_side-fixed {
       max-width: 1120px;
+    }
+
+    &_slider {
+      max-width: calc(50% + #{$container-max-width-lg / 2});
     }
   }
 
@@ -138,6 +148,10 @@ picture, img {
     &_side-fixed {
       padding: 0 160px;
       max-width: 1320px;
+    }
+
+    &_slider {
+      max-width: calc(50% + #{$container-max-width-xl / 2});
     }
   }
 }

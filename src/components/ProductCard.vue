@@ -47,7 +47,7 @@
           v-if="large"
           class="product-card__category"
         >
-          {{cardData.category_rus}}
+          Гарнитур
         </p>
         <p class="product-card__title">
           <router-link :to="{name: cardType, params: {kitchen: cardData.url}}">{{cardData.name}}</router-link>

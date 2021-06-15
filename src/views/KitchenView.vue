@@ -1,10 +1,13 @@
 <template>
-  <div class="v-kitchen">
-    <Details />
+  <div
+    v-if="info"
+    class="v-kitchen"
+  >
+    <Details :info="info" />
     <Constructor />
     <Equipment />
     <Design />
-    <OtherProducts heading="Другие модели" />
+    <!-- <OtherProducts heading="Другие модели" /> -->
     <Steps />
     <RatedReviews />
   </div>
@@ -15,7 +18,7 @@ import Details from '../components/Details.vue'
 import Constructor from '../components/Constructor.vue'
 import Equipment from '../components/Equipment.vue'
 import Design from '../components/Design.vue'
-import OtherProducts from '../components/OtherProducts.vue'
+// import OtherProducts from '../components/OtherProducts.vue'
 import Steps from '../components/Steps.vue'
 import RatedReviews from '../components/RatedReviews.vue'
 
@@ -26,9 +29,25 @@ export default {
     Constructor,
     Equipment,
     Design,
-    OtherProducts,
+    // OtherProducts,
     Steps,
     RatedReviews
+  },
+  data() {
+    return {
+      info: null
+    }
+  },
+  async created() {
+    const name = this.$route.params.kitchen
+    const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php?url=${name}`)
+    const responseJson = await response.json()
+
+    console.log(responseJson.info)
+
+    this.info = responseJson.info
+
+    // this.cards = responseJson.goods
   }
 }
 </script>

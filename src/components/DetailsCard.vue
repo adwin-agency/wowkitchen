@@ -1,9 +1,9 @@
 <template>
   <div class="details-card">
     <div class="details-card__box">
-      <p class="details-card__type">{{cardData.type}}</p>
+      <p class="details-card__type">Гарнитур</p>
       <p class="details-card__title">
-        {{cardData.title}}
+        {{title}}
         <button
           v-if="$_mobile"
           type="button"
@@ -17,19 +17,19 @@
       </p>
       <div class="details-card__cost">
         <div class="details-card__prices">
-          <p class="details-card__price">{{cardData.price}}</p>
+          <p class="details-card__price">{{price}} ₽</p>
           <p
-            v-if="cardData.oldPrice"
+            v-if="oldPrice"
             class="details-card__old-price"
           >
-            {{cardData.oldPrice}}
+            {{oldPrice}} ₽
           </p>
         </div>
         <span
-          v-if="cardData.discount"
+          v-if="discount"
           class="details-card__discount"
         >
-          {{cardData.discount}}
+          -{{discount}}%
         </span>
       </div>
       <div class="details-card__btns">
@@ -96,7 +96,10 @@ export default {
     AppIcon
   },
   props: {
-    cardData: Object
+    title: String,
+    price: String,
+    oldPrice: String,
+    discount: String,
   }
 }
 </script>

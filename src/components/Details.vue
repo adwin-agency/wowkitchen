@@ -5,25 +5,32 @@
         <Swiper
           :scrollbar="{ hide: false }"
           navigation
+          :lazy="{ loadPrevNext: true }"
           class="details__slider"
         >
           <SwiperSlide
-            v-for="n in 3"
-            :key="n"
+            v-for="(picture, index) in info.pictures"
+            :key="index"
             class="details__slide"
           >
-            <img src="@/assets/img/details-slide.jpg" alt="">
+            <img
+              v-if="index === 0"
+              :src="`http://wowkitchen.beget.tech${$_mobile ? picture.tablet.path : picture.desktop.path}`"
+              alt
+            >
+            <img
+              v-else
+              :data-src="`http://wowkitchen.beget.tech${$_mobile ? picture.tablet.path : picture.desktop.path}`"
+              alt
+              class="swiper-lazy"
+            >
           </SwiperSlide>
-          <button
-            type="button"
-            class="details__video"
-          >
-            <AppIcon
-              name="play"
-              class="details__video-icon"
-            />
-            <span class="details__video-title">Видеообзор проекта</span>
-          </button>
+          <AppVideoButton
+            title="Видеообзор проекта"
+            :video="$_mobile ? info.video.mobile : info.video.desktop"
+            size="large"
+            class="details__video-btn"
+          />
           <AppIcon
             name="wow-pattern"
             class="details__pattern"
@@ -34,11 +41,11 @@
           class="details__characteristics"
         >
           <p
-            v-for="(item, index) in characteristics"
+            v-for="(feature, index) in info.features"
             :key="index"
             class="details__characteristic"
           >
-            <span>{{item[0]}}</span>{{item[1]}}
+            <span>{{feature.title}}</span>{{feature.value}}
           </p>
         </div>
       </div>
@@ -50,17 +57,14 @@
             v-if="!$_media.sm"
             class="details__info"
           >
-            <h2 class="details__title">{{title}}</h2>
-            <p
-              v-for="(item, index) in desc"
-              :key="index"
-              class="details__desc"
-            >
-              {{item}}
-            </p>
+            <h2 class="details__title">О модели</h2>
+            <p class="details__desc">{{info.description}}</p>
           </div>
           <DetailsCard
-            :cardData="card"
+            :title="info.name"
+            :price="info.price"
+            :oldPrice="info.old_price"
+            :discount="info.discount"
             class="details__card"
           />
           <div
@@ -84,14 +88,14 @@
               >
                 <div class="details__characteristics">
                   <p
-                    v-for="(item, index) in characteristics"
+                    v-for="(feature, index) in info.features"
                     :key="index"
                     class="details__characteristic"
                   >
-                    <span>{{item[0]}}</span>{{item[1]}}
+                    <span>{{feature.title}}</span>{{feature.value}}
                   </p>
                 </div>
-              </div>              
+              </div>
             </div>
             <div class="details__item">
               <p
@@ -109,33 +113,65 @@
                 class="details__hidden"
               >
                 <div class="details__info">
-                  <h2 class="details__title">{{title}}</h2>
-                  <p
-                    v-for="(item, index) in desc"
-                    :key="index"
-                    class="details__desc"
-                  >
-                    {{item}}
-                  </p>
+                  <h2 class="details__title">О модели</h2>
+                  <p class="details__desc">{{info.description}}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="details__gallery">
+      <div class="container container_slider">
         <Swiper
-          slides-per-view="auto"
+          :slides-per-view="$_media.sm ? 'auto' : 1"
           :space-between="$_media.sm ? 10 : $_media.md ? 30 : 50"
-          class="details__gallery"
+          watch-slides-visibility
+          navigation
+          :lazy="{ loadPrevNext: true, loadPrevNextAmount: 2 }"
+          class="details__gallery-slider"
         >
           <SwiperSlide
-            v-for="n in 3"
-            :key="n"
+            v-if="info.video_customer"
             class="details__gallery-item"
           >
-            <img src="@/assets/img/details-gallery.jpg" alt="">
+            <video
+              ref="video"
+              :src="`http://wowkitchen.beget.tech${$_mobile ? info.video_customer.mobile : info.video_customer.desktop}`"
+            ></video>
+            <button
+              v-if="!activeVideo"
+              type="button"
+              class="details__gallery-play"
+              @click="playVideo"
+            >
+              <AppIcon name="play" />
+            </button>
+          </SwiperSlide>
+          <SwiperSlide
+            v-for="(picture, index) in info.second_pictures"
+            :key="index"
+            class="details__gallery-item"
+          >
+            <img
+              v-if="index === 0"
+              :src="`http://wowkitchen.beget.tech${$_mobile ? picture.tablet.path : picture.desktop.path}`"
+              alt
+            >
+            <img
+              v-else
+              :data-src="`http://wowkitchen.beget.tech${$_mobile ? picture.tablet.path : picture.desktop.path}`"
+              alt
+              class="swiper-lazy"
+            >
           </SwiperSlide>
         </Swiper>
-        <div class="details__features">
+      </div>
+    </div>
+    <div class="details__features">
+      <div class="container">
+        <div class="details__features-list">
           <div class="details__feature">
             <p class="details__feature-title">0%</p>
             <p>рассрочка на 6 месяцев</p>
@@ -155,12 +191,13 @@
 </template>
 
 <script>
-import SwiperCore, { Navigation, Scrollbar } from 'swiper'
+import SwiperCore, { Navigation, Scrollbar, Lazy } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppIcon from './base/AppIcon.vue'
 import DetailsCard from './DetailsCard.vue'
+import AppVideoButton from './base/AppVideoButton.vue'
 
-SwiperCore.use([Navigation, Scrollbar])
+SwiperCore.use([Navigation, Scrollbar, Lazy])
 
 export default {
   name: 'Details',
@@ -168,30 +205,17 @@ export default {
     AppIcon,
     DetailsCard,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    AppVideoButton
+  },
+  props: {
+    info: Object
   },
   data() {
     return {
-      card: {
-        type: 'Гарнитур',
-        title: 'АдрианаЛима',
-        price: '78 900 ₽',
-        oldPrice: '157 800 ₽',
-        discount: '-50%'
-      },
-      characteristics: [
-        ['Стиль', 'Минимализм'],
-        ['Фасад', 'Эмаль'],
-        ['Фурнитура', 'Blum']
-      ],
-      title: 'О модели',
-      desc: [
-        'Сочетание древесины и насыщенного графитового цвета — залог стильной кухни! А если к правильной цветовой гамме добавить необычное решение по зонированию, то двойной эффект гарантирован.',
-        'В нашем случае угловой гарнитур дополнен барной стойкой, которая за счет удачного расположения может быть задействована с двух сторон.'
-      ],
-
       activeExpand: null,
-      expandTimeout: null
+      expandTimeout: null,
+      activeVideo: false
     }
   },
   methods: {
@@ -219,6 +243,11 @@ export default {
       } else {
         this.activeExpand = null
       }
+    },
+
+    playVideo() {
+      this.activeVideo = true
+      this.$refs.video.play()
     }
   }
 }
@@ -253,21 +282,11 @@ export default {
       object-fit: cover;
     }
   }
-  
-  &__video {
+
+  &__video-btn {
     position: absolute;
     left: 30px;
     bottom: 30px;
-    z-index: 1;
-
-    &-icon {
-      width: 42px;
-      height: 42px;
-    }
-
-    &-title {
-      display: none;
-    }
   }
 
   &__pattern {
@@ -303,7 +322,7 @@ export default {
 
   &__hidden {
     height: 0;
-    transition: height .3s ease;
+    transition: height 0.3s ease;
     overflow: hidden;
   }
 
@@ -344,16 +363,49 @@ export default {
 
   &__gallery {
     margin: 25px (-$container-padding) 0;
-    overflow: visible;
+
+    &-slider {
+      overflow: visible;
+
+      .swiper-button-prev,
+      .swiper-button-next {
+        display: none;
+      }
+    }
 
     &-item {
+      position: relative;
       width: calc(100% - 20px);
       height: 200px;
 
-      img {
+      img,
+      video {
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+    }
+
+    &-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 59px;
+      height: 59px;
+      border-radius: 50%;
+      background-color: $color-yellow;
+      transform: translate(-50%, -50%);
+
+      &:hover {
+        svg {
+          transform: scale(1.1);
+        }
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+        transition: transform .3s ease;
       }
     }
   }
@@ -398,8 +450,8 @@ export default {
         transform: translateY(-50%);
         z-index: 2;
       }
-      
-      .swiper-button-prev {        
+
+      .swiper-button-prev {
         left: 80px;
       }
 
@@ -416,36 +468,9 @@ export default {
       height: 480px;
     }
 
-    &__video {
-      display: flex;
-      align-items: center;
+    &__video-btn {
       left: 95px;
       bottom: 40px;
-      border-radius: 100px;
-      padding: 9px;
-      background-color: $color-yellow;
-
-      &::before {
-        content: "";
-        position: absolute;
-        left: 30px;
-        top: 50%;
-        width: 86px;
-        height: 86px;
-        border-radius: 50%;
-        border: 1px solid $color-yellow;
-        opacity: 0.3;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-      }
-
-      &-title {
-        display: inline-block;
-        padding: 0 15px;
-        padding-right: 25px;
-        font-weight: bold;
-        font-size: 12px;
-      }
     }
 
     &__pattern {
@@ -498,13 +523,37 @@ export default {
     &__gallery {
       margin-top: 60px;
 
+      &-slider {
+        padding-right: 320px;
+
+        .swiper-button-next {
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: 170px;
+          z-index: 2;
+          transform: translateY(-50%);
+        }
+      }
+
       &-item {
-        width: calc(100% - 160px);
+        width: auto;
         height: 400px;
+        transition: opacity .3s ease;
+
+        &:not(.swiper-slide-visible) {
+          opacity: 0.2;
+          pointer-events: none;
+        }
+      }
+
+      &-play {
+        width: 83px;
+        height: 83px;
       }
     }
 
-    &__features {
+    &__features-list {
       display: flex;
       justify-content: space-around;
     }
@@ -539,7 +588,7 @@ export default {
       height: 580px;
     }
 
-    &__video {
+    &__video-btn {
       left: 30px;
     }
 
@@ -575,6 +624,14 @@ export default {
     &__gallery {
       margin-top: 75px;
 
+      &-slider {
+        padding-right: 300px;
+
+        .swiper-button-next {
+          right: 160px;
+        }
+      }
+
       &-item {
         width: calc(100% - 140px);
         height: 570px;
@@ -587,7 +644,7 @@ export default {
     }
   }
 
-  @include media(xl) {    
+  @include media(xl) {
     &__top {
       .container {
         max-width: 1620px;
@@ -608,7 +665,7 @@ export default {
       height: 700px;
     }
 
-    &__video {
+    &__video-btn {
       left: 70px;
       bottom: 65px;
     }
@@ -644,6 +701,14 @@ export default {
 
     &__gallery {
       margin-top: 105px;
+
+      &-slider {
+        padding-right: 450px;
+
+        .swiper-button-next {
+          right: 220px;
+        }
+      }
 
       &-item {
         width: calc(100% - 300px);

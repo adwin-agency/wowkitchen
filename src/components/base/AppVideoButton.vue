@@ -3,7 +3,8 @@
     type="button"
     :class="[
       'video-btn',
-      {'video-btn_expand': expand}
+      {'video-btn_expand': expand},
+      {[`video-btn_${size}`]: size}
     ]"
     @click="openModal"
   >
@@ -28,7 +29,8 @@ export default {
   props: {
     expand: Boolean,
     title: String,
-    video: String
+    video: String,
+    size: String
   },
   methods: {
     openModal() {
@@ -80,7 +82,20 @@ export default {
     #{$b} {
       &__box {
         max-width: 42px;
-        transition: max-width .3s ease;
+        transition: max-width 0.3s ease;
+        overflow: hidden;
+      }
+    }
+  }
+
+  &_large {
+    &::before {
+      display: none;
+    }
+
+    #{$b} {
+      &__box {
+        width: 42px;
         overflow: hidden;
       }
     }
@@ -104,6 +119,28 @@ export default {
     &_expand {
       &::before {
         display: block;
+      }
+    }
+
+    &_large {
+      padding: 9px;
+      font-size: 12px;
+
+      &::before {
+        display: block;
+        left: 30px;
+        width: 86px;
+        height: 86px;
+      }
+
+      #{$b} {
+        &__box {
+          width: auto;
+        }
+
+        &__icon {
+          margin-right: 15px;
+        }
       }
     }
   }
