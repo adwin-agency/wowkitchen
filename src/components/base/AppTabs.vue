@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="tabs__line"></div>
-    <form
+    <!-- <form
       v-if="search"
       class="tabs__search"
     >
@@ -29,17 +29,17 @@
           class="tabs__search-icon"
         />
       </button>
-    </form>
+    </form> -->
   </div>
 </template>
 
 <script>
-import AppIcon from './AppIcon.vue'
+// import AppIcon from './AppIcon.vue'
 
 export default {
   name: 'AppTabs',
   components: {
-    AppIcon
+    // AppIcon
   },
   props: {
     tabs: Array,

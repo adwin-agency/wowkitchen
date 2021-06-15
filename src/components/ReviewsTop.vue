@@ -15,9 +15,9 @@
       </div>
       <div class="reviews-top__top-cards">
         <ReviewCard
-          v-for="(card, index) in cards.slice(0, 3)"
+          v-for="(review, index) in reviews.slice(0, 3)"
           :key="index"
-          :cardData="card"
+          :cardData="review"
           :mod="index === 0 ? 'big' : 'small'"
           class="reviews-top__card"
           :class="[
@@ -28,9 +28,9 @@
       </div>
       <div class="reviews-top__bottom-cards">
         <ReviewCard
-          v-for="(card, index) in cards.slice(3)"
+          v-for="(review, index) in reviews.slice(3)"
           :key="index"
-          :cardData="card"
+          :cardData="review"
           class="reviews-top__card"
         />
       </div>
@@ -46,17 +46,12 @@ export default {
   components: {
     ReviewCard
   },
+  props: {
+    reviews: Array
+  },
   data() {
     return {
-      tabs: ['Все отзывы', 'Кухни', 'Шкафы'],
-      cards: [
-        { image: 'review-card-01.jpg', title: 'ХайдиКлум' },
-        { image: 'review-card-02.jpg', title: 'ТайраБэнкс' },
-        { image: 'review-card-03.jpg', title: 'ЖизельБундхен' },
-        { image: 'review-card-04.jpg', title: 'АдрианаЛима' },
-        { image: 'review-card-01.jpg', title: 'ХайдиКлум' },
-        { image: 'review-card-02.jpg', title: 'ТайраБэнкс' }
-      ]
+      tabs: ['Все отзывы', 'Кухни', 'Шкафы']
     }
   }
 }

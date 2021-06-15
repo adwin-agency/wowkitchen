@@ -16,6 +16,8 @@ app.config.globalProperties.$_breakpoints = {
   xl: 1610
 }
 
+app.config.globalProperties.$_basepath = 'http://wowkitchen.beget.tech'
+
 app.directive('intro-effect', {
   mounted(el) {			
 		// left: 37, up: 38, right: 39, down: 40,

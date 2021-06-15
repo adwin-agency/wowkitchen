@@ -7,7 +7,11 @@
     <Constructor />
     <Equipment />
     <Design />
-    <!-- <OtherProducts heading="Другие модели" /> -->
+    <OtherProducts
+      v-if="similars"
+      heading="Другие модели"
+      :products="similars"
+    />
     <Steps />
     <RatedReviews />
   </div>
@@ -18,7 +22,7 @@ import Details from '../components/Details.vue'
 import Constructor from '../components/Constructor.vue'
 import Equipment from '../components/Equipment.vue'
 import Design from '../components/Design.vue'
-// import OtherProducts from '../components/OtherProducts.vue'
+import OtherProducts from '../components/OtherProducts.vue'
 import Steps from '../components/Steps.vue'
 import RatedReviews from '../components/RatedReviews.vue'
 
@@ -29,13 +33,14 @@ export default {
     Constructor,
     Equipment,
     Design,
-    // OtherProducts,
+    OtherProducts,
     Steps,
     RatedReviews
   },
   data() {
     return {
-      info: null
+      info: null,
+      similars: null
     }
   },
   async created() {
@@ -43,11 +48,8 @@ export default {
     const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php?url=${name}`)
     const responseJson = await response.json()
 
-    console.log(responseJson.info)
-
     this.info = responseJson.info
-
-    // this.cards = responseJson.goods
+    this.similars = responseJson.similars
   }
 }
 </script>

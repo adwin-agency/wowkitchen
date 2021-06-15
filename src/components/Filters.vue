@@ -60,7 +60,7 @@
             :class="[
               'filters__tag',
               {'filters__tag_color': item.color},
-              {'is-active': activeOptions[group.id] === item.value}
+              {'is-active': item.value === 'all' ? !activeOptions[group.id] : activeOptions[group.id] === item.value}
             ]"
             :style="item.color && `background-color: ${item.value}`"
             @click="toggleTag(group.id, item.value)"
@@ -72,7 +72,7 @@
             />
             {{item.title}}
             <span
-              v-if="!item.all"
+              v-if="item.value !== 'all'"
               class="filters__tag-remove"
             ></span>
           </button>
@@ -141,8 +141,9 @@ export default {
 
     for (let key in query) {
       this.initOptions[key] = query[key]
-      this.activeOptions[key] = query[key]
     }
+
+    this.activeOptions = { ...this.initOptions }
   },
   methods: {
     setCategory(category) {
@@ -163,14 +164,24 @@ export default {
         search = '?' + search
       }
 
-      const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php${search}`)
+      let routeName = this.$route.name
+
+      if (routeName === 'wardrobes') {
+        routeName = 'closets'
+      }
+
+      const response = await fetch(`${this.$_basepath}/local/templates/wow/api/${routeName}.php${search}`)
       const responseJson = await response.json()
 
       this.resultLength = responseJson.goods.length
     },
 
     toggleTag(group, value) {
-      if (this.activeOptions[group] === value) {
+      if (!this.activeOptions[group] && value === 'all') {
+        return
+      }
+
+      if (this.activeOptions[group] === value || value === 'all') {
         delete this.activeOptions[group]
       } else {
         this.activeOptions[group] = value

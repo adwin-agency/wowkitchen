@@ -1,7 +1,7 @@
 <template>
   <div class="v-reviews">
-    <ReviewsTop />
-    <ReviewsMain />
+    <ReviewsTop :reviews="reviews" />
+    <ReviewsMain :reviews="reviews" />
     <Design />
   </div>
 </template>
@@ -17,6 +17,19 @@ export default {
     ReviewsTop,
     ReviewsMain,
     Design
+  },
+  data() {
+    return {
+      reviews: []
+    }
+  },
+  async created() {
+    const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/reviews.php`)
+    const responseJson = await response.json()
+
+    this.reviews = responseJson.reviews
+
+    console.log(responseJson.reviews)
   }
 }
 </script>

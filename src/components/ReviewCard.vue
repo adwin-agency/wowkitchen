@@ -2,10 +2,11 @@
   <div
     class="review-card"
     :class="{ [`review-card_${mod}`]: mod }"
+    @click="openModal"
   >
     <div
       class="review-card__image"
-      :style="`background-image: url(${require(`@/assets/img/${cardData.image}`)})`"
+      :style="cardData.preview_image && `background-image: url(http://wowkitchen.beget.tech${cardData.preview_image})`"
     >
       <span
         v-if="!$_media.sm && mod === 'small'"
@@ -28,9 +29,9 @@
         />
       </span>
       <p class="review-card__category">Кухня</p>
-      <p class="review-card__title">{{ cardData.title }}</p>
+      <p class="review-card__title">{{ cardData.element_name }}</p>
       <div class="review-card__footer">
-        <p class="review-card__author">Владелец: Эрнест</p>
+        <p class="review-card__author">Владелец: {{cardData.customer}}</p>
         <div class="review-card__watch">
           <span v-if="!$_media.sm && (mod === 'big' || mod === 'small')">Смотреть отзыв</span>
           <AppIcon
@@ -55,6 +56,12 @@ export default {
   props: {
     mod: String,
     cardData: Object
+  },
+  methods: {
+    openModal() {
+      this.$store.commit('setModal', 'video')
+      this.$store.commit('setModalData', { video: this.$_mobile ? this.cardData.video_customer.mobile : this.cardData.video_customer.desktop })
+    }
   }
 }
 </script>
@@ -64,6 +71,7 @@ export default {
   $b: &;
 
   position: relative;
+  cursor: pointer;
 
   &_sample {
     #{$b} {

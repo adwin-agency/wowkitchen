@@ -160,6 +160,10 @@ export default {
       }
 
       this.catalogType = type
+
+      if (window.sidebar) {
+        window.sidebar.updateSticky()
+      }
     },
 
     initSidebar() {

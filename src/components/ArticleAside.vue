@@ -1,6 +1,6 @@
 <template>
   <aside class="article-aside">
-    <div
+    <!-- <div
       ref="search"
       class="article-aside__search"
       :class="{'is-active': activeSearch}"
@@ -21,11 +21,11 @@
           />
         </button>
       </form>
-    </div>
-    <div
+    </div> -->
+    <!-- <div
       class="article-aside__spacer"
       :class="{'is-active': activeSearch}"
-    ></div>
+    ></div> -->
     <h2 class="article-aside__heading">Популярные статьи</h2>
 
     <a
@@ -179,7 +179,7 @@ export default {
   }
 
   &__heading {
-    margin-top: 34px;
+    // margin-top: 34px;
     padding-bottom: 26px;
     border-bottom: 3px solid $color-lightgray;
     font-size: 20px;
@@ -250,15 +250,15 @@ export default {
     }
   }
 
-  @include media(lg) {
-    &__heading {
-      margin-top: 68px;
-    }
-  }
+  // @include media(lg) {
+  //   &__heading {
+  //     margin-top: 68px;
+  //   }
+  // }
 
   @include media(xl) {
     &__heading {
-      margin-top: 60px;
+      // margin-top: 60px;
       font-size: 24px;
     }
 

@@ -11,7 +11,7 @@
   >
     <div class="product-card__img-box">
       <img
-        :src="`http://wowkitchen.beget.tech${cardData.pictures[0].preview.path}`"
+        :src="$_basepath + ($_mobile ? cardData.pictures[0].small.path : cardData.pictures[0].medium.path)"
         alt
         class="product-card__img"
       >
@@ -50,7 +50,7 @@
           Гарнитур
         </p>
         <p class="product-card__title">
-          <router-link :to="{name: cardType, params: {kitchen: cardData.url}}">{{cardData.name}}</router-link>
+          <router-link :to="{name: cardType, params: {product: cardData.url}}">{{cardData.name}}</router-link>
         </p>
         <div
           v-if="cardType !== 'wardrobe'"

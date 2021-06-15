@@ -17,7 +17,7 @@
           class="other-products__slider"
         >
           <SwiperSlide
-            v-for="(card, index) in cards"
+            v-for="(product, index) in products"
             :key="index"
             v-slot="{ isVisible }"
             class="other-products__slide"
@@ -25,7 +25,7 @@
             <ProductCard
              slide
              :disabled="!isVisible"
-             :cardData="card"
+             :cardData="product"
             />
           </SwiperSlide>
         </Swiper>
@@ -49,78 +49,8 @@ export default {
     ProductCard,
   },
   props: {
-    heading: String
-  },
-  data() {
-    return {
-      cards: [
-        {
-          type: 'kitchen',
-          image: 'catalog-card-01.jpg',
-          discount: '-50%',
-          category: 'Гарнитур',
-          title: 'АнджелинаДжоли',
-          props: [
-            {title: 'Фасад', value: 'Эмаль'},
-            {title: 'Стиль', value: 'Прованс'}
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'kitchen',
-          image: 'catalog-card-02.jpg',
-          discount: '-50%',
-          category: 'Гарнитур',
-          title: 'ТайраБэнкс',
-          props: [
-            {title: 'Фасад', value: 'Эмаль'},
-            {title: 'Стиль', value: 'Прованс'}
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'kitchen',
-          image: 'catalog-card-03.jpg',
-          discount: '-50%',
-          category: 'Гарнитур',
-          title: 'ТайраБэнкс',
-          props: [
-            {title: 'Фасад', value: 'Эмаль'},
-            {title: 'Стиль', value: 'Прованс'}
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'kitchen',
-          image: 'catalog-card-04.jpg',
-          discount: '-50%',
-          category: 'Гарнитур',
-          title: 'ТайраБэнкс',
-          props: [
-            {title: 'Фасад', value: 'Эмаль'},
-            {title: 'Стиль', value: 'Прованс'}
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'kitchen',
-          image: 'catalog-card-05.jpg',
-          discount: '-50%',
-          category: 'Гарнитур',
-          title: 'ТайраБэнкс',
-          props: [
-            {title: 'Фасад', value: 'Эмаль'},
-            {title: 'Стиль', value: 'Прованс'}
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        }
-      ]
-    }
+    heading: String,
+    products: Array
   }
 }
 </script>

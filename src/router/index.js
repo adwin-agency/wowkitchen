@@ -43,7 +43,7 @@ const routes = [
     component: () => import('@/views/KitchensView.vue')
   },
   {
-    path: '/kitchens/:kitchen',
+    path: '/kitchens/:product',
     name: 'kitchen',
     component: () => import('@/views/KitchenView.vue')
   },
@@ -105,7 +105,7 @@ const router = createRouter({
   routes,
   linkActiveClass: 'is-active',
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition || to.name === from.name) {
+    if (savedPosition || from.name === to.name && !from.params.product) {
       return savedPosition
     } else {
       return { top: 0 }
