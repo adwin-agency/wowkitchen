@@ -3,12 +3,8 @@
     <div class="container">
       <div class="nav-panel__row">
         <nav class="nav-panel__items">
-          <template
-            v-for="(item, index) in menu"
-            :key="index"
-          >
+          <div class="nav-panel__items-group">
             <div
-              v-if="item.submenu"
               class="nav-panel__item nav-panel__item_dd"
               :class="{'is-active': activeSubmenu}"
             >
@@ -16,8 +12,9 @@
                 class="nav-panel__dd-expand"
                 @click="toggleSubmenu"
               >
-                {{item.title}}
+                {{menu[0].title}}
                 <AppIcon
+                  v-if="!$_media.md"
                   class="nav-panel__arrow"
                   name="angle-down"
                 />
@@ -28,7 +25,7 @@
               >
                 <div class="nav-panel__dropdown-inner">
                   <span
-                    v-for="(subitem, index) in item.submenu"
+                    v-for="(subitem, index) in menu[0].submenu"
                     :key="index"
                     class="nav-panel__dropdown-item"
                     @click="handleSubmenuClick"
@@ -38,8 +35,11 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="nav-panel__items-group">
             <span
-              v-else
+              v-for="(item, index) in menu.slice(1)"
+              :key="index"
               class="nav-panel__item"
               @click="$emit('close-menu')"
             >
@@ -50,7 +50,7 @@
                 {{item.title}}
               </router-link>
             </span>
-          </template>
+          </div>
         </nav>
         <div class="nav-panel__contacts">
           <div class="nav-panel__social">
@@ -118,9 +118,7 @@ export default {
   components: {
     AppIcon
   },
-  emits: [
-    'close-menu'
-  ],
+  emits: ['close-menu'],
   data() {
     return {
       menu: menu,
@@ -153,16 +151,17 @@ export default {
   padding: 35px 0 28px;
   background-color: $color-lightgray;
 
-  &__items {
+  &__items-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 17px;
   }
 
   &__item {
     margin-bottom: 17px;
     font-weight: 500;
-    font-size: 11px;
+    font-size: 12px;
     text-transform: uppercase;
     color: #7f7f7f;
     cursor: pointer;
@@ -243,7 +242,7 @@ export default {
     width: 23px;
     height: 23px;
     margin-right: 18px;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
 
     &:last-child {
       margin-right: 0;
@@ -287,20 +286,87 @@ export default {
     color: #989898;
   }
 
-  @include media(lg) {
+  @include media(md) {
     display: flex;
-    height: $nav-panel-height-lg;
-    padding: 0;
+    padding: 65px 0;
+
+    .container {
+      margin-left: 0;
+      max-width: 570px;
+    }
 
     &__row {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       height: 100%;
+      padding: 0 55px;
     }
 
     &__items {
+      display: flex;
+      margin-bottom: auto;
+    }
+
+    &__items-group {
+      margin-right: 160px;
+      margin-bottom: 0;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &__item {
+      margin-bottom: 36px;
+    }
+
+    &__dropdown {
+      height: auto;
+
+      &-inner {
+        padding: 32px 0 0;
+      }
+
+      &-item {
+        margin-bottom: 20px;
+      }
+    }
+
+    &__social {
+      width: auto;
+      margin-right: 50px;
+    }
+
+    &__city,
+    &__time {
+      margin-top: 0;
+    }
+  }
+
+  @include media(lg) {
+    display: flex;
+    padding: 0;
+
+    .container {
+      margin-left: auto;
+      max-width: $container-max-width-lg;
+    }
+
+    &__row {
+      flex-direction: row;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0;
+    }
+
+    &__items {
+      margin-bottom: 0;
+    }
+
+    &__items-group {
       flex-direction: row;
       align-items: stretch;
+      margin-right: 23px;
     }
 
     &__item {
@@ -309,6 +375,7 @@ export default {
       position: relative;
       margin-right: 23px;
       margin-bottom: 0;
+      font-size: 11px;
       transition: color 0.3s ease;
 
       &:last-child {
@@ -383,7 +450,10 @@ export default {
   }
 
   @include media(xl) {
-    height: $nav-panel-height-xl;
+    .container {
+      margin-left: auto;
+      max-width: $container-max-width-xl;
+    }
 
     &__item {
       margin-right: 36px;

@@ -202,7 +202,7 @@ export default {
         return
       }
 
-      this.applyTags()
+      this.applyFilters()
     },
 
     removeTag(group) {

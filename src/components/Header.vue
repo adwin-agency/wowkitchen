@@ -20,7 +20,7 @@
     >
 
       <div
-        v-if="$_media.sm"
+        v-if="$_mobile"
         class="header__nav-wrapper"
       >
         <div class="header__nav-main">
@@ -66,6 +66,7 @@
               </span>
             </nav>
             <AppButton
+              v-if="$_media.sm"
               title="Консультация дизайнера"
               icon="phone"
               figure
@@ -102,22 +103,6 @@
               @close-submenu="toggleNavMenu"
             />
           </div>
-        </div>
-      </div>
-
-      <div
-        v-if="$_media.md"
-        class="header__mobile-menu-inner"
-      >
-        <div class="container">
-          <AppButton
-            title="Консультация дизайнера"
-            icon="phone"
-            figure
-            shadow
-            modalName="designer"
-            class="header__call-btn"
-          />
         </div>
       </div>
 
@@ -165,7 +150,7 @@
           </router-link>
 
           <nav
-            v-if="!$_media.sm"
+            v-if="$_desktop"
             class="header__nav"
           >
             <span
@@ -217,7 +202,7 @@
           <div class="header__side">
 
             <AppButton
-              v-if="$_desktop"
+              v-if="!$_media.sm"
               title="Консультация дизайнера"
               icon="phone"
               figure
@@ -231,10 +216,14 @@
               class="header__phone"
             >
               <AppIcon
+                v-if="$_media.sm"
                 class="header__phone-icon"
                 name="phone"
               />
-              <span class="header__phone-num">+7 (999) 999 99 99</span>
+              <span
+                v-else
+                class="header__phone-num"
+              >+7 (999) 999 99 99</span>
             </a>
             <button
               class="header__favorites"
@@ -270,7 +259,7 @@
       </div>
     </div>
 
-    <template v-if="!$_media.sm">
+    <template v-if="$_desktop">
       <div
         class="header__nav-dropdown"
         :class="{'is-active': activeNavMenu === 'kitchens'}"
@@ -380,8 +369,17 @@ export default {
   },
   watch: {
     $route() {
-      this.activeFavorite = false
-      this.$store.commit('setFavorite', false)
+      if (this.activeMobileMenu) {
+        this.toggleMobileMenu()
+      }
+
+      if (this.activeNavMenu) {
+        this.closeNavMenu()
+      }
+
+      if (this.activeFavorite) {
+        this.toggleFavorite()
+      }
     }
   },
   created() {
@@ -405,12 +403,16 @@ export default {
     },
 
     toggleMobileMenu() {
+      if (this.activeFavorite) {
+        this.toggleFavorite()
+      }
+
       this.activeMobileMenu = !this.activeMobileMenu
       this.$store.commit('setMobileMenu', this.activeMobileMenu)
     },
 
     navigate(item) {
-      this.$router.push({name: item})
+      this.$router.push({ name: item })
       this.closeNavMenu()
     },
 
@@ -427,6 +429,10 @@ export default {
     },
 
     toggleFavorite() {
+      if (this.activeMobileMenu) {
+        this.toggleMobileMenu()
+      }
+
       this.activeFavorite = !this.activeFavorite
       this.$store.commit('setFavorite', this.activeFavorite)
     }
@@ -446,6 +452,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100vh;
+    padding-top: $header-bar-height;
     background-color: $color-lightgray;
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -457,7 +464,6 @@ export default {
 
   &__nav-wrapper {
     display: grid;
-    padding-top: 68px;
     padding-bottom: 15px;
     background-color: #fff;
     overflow: hidden;
@@ -613,10 +619,6 @@ export default {
     fill: #aca8c3;
   }
 
-  &__phone-num {
-    display: none;
-  }
-
   &__favorites {
     position: relative;
     margin-right: 10px;
@@ -687,14 +689,62 @@ export default {
       }
     }
 
-    &__mobile-menu-inner {
-      padding-top: 102px;
-      padding-bottom: 30px;
-      background-color: #fff;
+    &__mobile-menu {
+      display: flex;
+      align-items: flex-start;
+      padding-top: $header-bar-height-md;
+    }
+
+    &__nav-wrapper {
+      width: calc(50% - 90px);
+      min-height: 100%;
+    }
+
+    &__nav-main,
+    &__nav-side {
+      padding: 38px 0;
+
+      .container {
+        margin-right: 0;
+        max-width: 390px;
+      }
+    }
+
+    &__nav-items {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__nav-item {
+      padding: 19px 0;
+      border-bottom: none;
+    }
+
+    &__nav-arrow {
+      margin-left: 12px;
+      margin-right: 0;
+    }
+
+    &__panel {
+      flex: 1;
+      height: 100%;
     }
 
     &__call-btn {
       margin-top: 0;
+      margin-right: 30px;
+    }
+
+    &__phone {
+      flex-shrink: 0;
+      margin-right: 22px;
+    }
+
+    &__phone-num {
+      display: inline;
+      font-weight: bold;
+      font-size: 15px;
     }
 
     &__bar {
@@ -705,41 +755,6 @@ export default {
       display: flex;
     }
 
-    &__nav-item {
-      margin-right: 28px;
-      padding: 0;
-      border-bottom: none;
-      font-size: 12px;
-      transition: color 0.3s ease;
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &:hover {
-        color: #aca8c3;
-      }
-
-      &.is-menu-active {
-        color: #aca8c3;
-
-        #{$b}__nav-arrow {
-          transform: rotate(180deg);
-        }
-      }
-
-      &.is-active {
-        color: $color-green;
-      }
-    }
-
-    &__nav-arrow {
-      margin-left: 5px;
-      margin-right: 0;
-      transform: none;
-      transition: transform 0.3s ease;
-    }
-
     &__line {
       display: block;
       position: absolute;
@@ -747,7 +762,7 @@ export default {
       top: 100%;
       width: 100%;
       padding: 7px 0;
-      transition: transform .3s ease;
+      transition: transform 0.3s ease;
 
       &::before {
         content: '';
@@ -830,6 +845,7 @@ export default {
 
     &__panel {
       position: relative;
+      height: $nav-panel-height-lg;
       z-index: 2;
     }
 
@@ -847,28 +863,43 @@ export default {
 
     &__nav-item {
       margin-right: 25px;
+      padding: 0;
+      border-bottom: none;
       font-size: 14px;
+      transition: color 0.3s ease;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        color: #aca8c3;
+      }
+
+      &.is-menu-active {
+        color: #aca8c3;
+
+        #{$b}__nav-arrow {
+          transform: rotate(180deg);
+        }
+      }
+
+      &.is-active {
+        color: $color-green;
+      }
+    }
+
+    &__nav-arrow {
+      margin-left: 5px;
+      margin-right: 0;
+      transform: none;
+      transition: transform 0.3s ease;
     }
 
     &__call-btn {
       margin-right: 22px;
       margin-bottom: 10px;
       width: auto;
-    }
-
-    &__phone {
-      flex-shrink: 0;
-      margin-right: 22px;
-    }
-
-    &__phone-icon {
-      display: none;
-    }
-
-    &__phone-num {
-      display: inline;
-      font-weight: bold;
-      font-size: 15px;
     }
   }
 
@@ -882,6 +913,10 @@ export default {
           top: $nav-panel-height-xl;
         }
       }
+    }
+
+    &__panel {
+      height: $nav-panel-height-xl;
     }
 
     &__bar {

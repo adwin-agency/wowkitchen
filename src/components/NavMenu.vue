@@ -1,6 +1,7 @@
 <template>
   <div class="nav-menu">
     <span
+      v-if="$_mobile"
       class="nav-menu__back"
       @click="$emit('close-submenu')"
     >
@@ -30,7 +31,10 @@
           </div>
         </div>
       </div>
-      <div v-if="$_desktop" class="nav-menu__side">
+      <div
+        v-if="$_desktop"
+        class="nav-menu__side"
+      >
         <div class="nav-menu__side-col">
           <p class="nav-menu__title">Акции</p>
           <div class="nav-menu__card"></div>
@@ -56,10 +60,7 @@ export default {
     title: String,
     menu: Array
   },
-  emits: [
-    'close-menu',
-    'close-submenu'
-  ],
+  emits: ['close-menu', 'close-submenu']
 }
 </script>
 
@@ -68,9 +69,8 @@ export default {
   &__back {
     display: flex;
     align-items: center;
-    margin-bottom: 34px;
     padding: 18px 0;
-    border-bottom: 1px solid $color-lightgray;
+
     font-weight: 600;
     font-size: 18px;
     line-height: 1;
@@ -86,7 +86,8 @@ export default {
   }
 
   &__row {
-    margin-top: 34px;
+    border-top: 1px solid $color-lightgray;
+    padding-top: 34px;
   }
 
   &__main-col {
@@ -123,11 +124,11 @@ export default {
     }
   }
 
-  @include media(md) {
+  @include media(lg) {
     padding: 45px 0 60px;
 
     &__back {
-      display: none;
+      display: inline-flex;
     }
 
     &__row {
@@ -163,9 +164,7 @@ export default {
     &__item {
       margin-bottom: 22px;
     }
-  }
 
-  @include media(lg) {
     &__side {
       display: flex;
     }
