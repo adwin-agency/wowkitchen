@@ -751,7 +751,11 @@ export default {
     }
   }
 }
-
+// DEVELOPE CODE (REMOVE)
+img {
+  display: none;
+}
+// ------
 .article__section {
   h2 {
     font-weight: bold;
@@ -766,7 +770,7 @@ export default {
 
     @include media(lg) {
       font-size: 50px;
-      margin-bottom: 80px;
+      margin-bottom: 65px;
     }
   }
 
@@ -783,8 +787,8 @@ export default {
     }
 
     @include media(lg) {
-      margin-top: 90px;
-      margin-bottom: 50px;
+      margin-top: 80px;
+      // margin-bottom: 50px;
     }
   }
 
@@ -792,15 +796,15 @@ export default {
     font-size: 18px;
     font-weight: bold;
     line-height: 1.889;
-    margin-top: 50px;
     margin-bottom: 20px;
 
     @include media(md) {
+      margin-top: 50px;
       margin-bottom: 32px;
     }
     @include media(lg) {
-      margin-top: 80px;
-      margin-bottom: 50px;
+      margin-top: 70px;
+      // margin-bottom: 50px;
     }
   }
 
@@ -826,7 +830,7 @@ export default {
   ol {
     list-style-type: none;
     counter-reset: num;
-    margin: 0;
+    margin: 0 0 0 38px;
 
     & li {
       position: relative;
@@ -875,6 +879,7 @@ export default {
     & h4 {
       margin-right: auto;
       margin-bottom: 0;
+      margin-top: 0;
       padding: 40px 0 20px 0;
 
       @include media(md) {
@@ -890,10 +895,11 @@ export default {
     }
 
     & h5 {
-      margin-left: -40px;
       padding-top: 20px;
       padding-bottom: 15px;
+      margin-right: 40px;
       @include media(md) {
+        margin-left: -40px;
         margin-left: auto;
         padding: 27px 0 27px 20px;
       }
@@ -906,13 +912,20 @@ export default {
     & > h4 + ol {
       padding: 0;
       margin-left: 15px;
-
+      &:last-child {
+        margin-bottom: 25px;
+      }
       @include media(md) {
-        padding: 35px 0 35px 70px;
+        &:last-child {
+        margin-bottom: 0;
+        }
+      }
+      @include media(md) {
+        padding: 35px 0 35px 55px;
       }
 
       @include media(lg) {
-        padding: 55px 0 55px 70px;
+        padding: 55px 0 55px 55px;
       }
 
       margin-right: auto;
@@ -935,7 +948,6 @@ export default {
           border-bottom-right-radius: 80px;
         }
       }
-
       & li {
         padding-bottom: 10px;
         margin: 0;
@@ -943,14 +955,9 @@ export default {
         color: $color-lightgreen;
         list-style-type: decimal;
 
-        @include media(md) {
+        @include media(lg) {
           padding-bottom: 15px;
         }
-
-        @include media(lg) {
-          padding-bottom: 25px;
-        }
-
         &::before {
           display: none;
         }
@@ -961,25 +968,18 @@ export default {
       }
     }
 
-    & img {
-      width: 100%;
-      height: auto;
-      margin: 0;
-
-      @include media(md) {
-        width: auto;
-      }
-    }
 
     // Рамка (прямоугольная)
     & > h5 + a {
-      margin-left: -40px;
-      max-width: 300px;
       font-size: 14px;
       line-height: 1.286;
       text-decoration: underline;
       color: $color-lightgreen;
       padding-bottom: 20px;
+
+      @include media(sm) {
+        max-width: 300px;
+      }
 
       @include media(md) {
         margin-left: 0px;
@@ -1006,6 +1006,14 @@ export default {
           width: auto;
           left: 0;
         }
+      }
+    }
+    & img {
+      width: 100%;
+      height: auto;
+      margin: 0;
+      @include media(md) {
+        width: auto;
       }
     }
   }
