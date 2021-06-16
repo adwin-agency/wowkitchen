@@ -106,13 +106,11 @@
                 <li>
                   <b>Нейтралитет.</b> Зеленый цвет отлично сочетается практически со всеми цветами радуги. В случае с кухней, это несомненный плюс.
                 </li>
-
-                <img
-                  src="@/assets/img/articles/article-img/46.jpg"
-                  width="550"
-                  alt="image"
-                >
               </ol>
+              <img
+                src="@/assets/img/articles/article-img/46.jpg"
+                alt="image"
+              >
               <h3>Возможные сложности</h3>
               <ol>
                 <li>
@@ -133,7 +131,6 @@
                 </li>
                 <img
                   src="@/assets/img/articles/article-img/49.jpg"
-                  width="550"
                   alt="image"
                 >
                 <li>
@@ -348,6 +345,30 @@ export default {
     }
   },
   mounted() {
+    // START DEVELOPE CODE
+    const container = document.querySelector('.article__section')
+    const images = container.getElementsByTagName('img')
+    const blocks = container.getElementsByTagName('div')
+    images.forEach(element => {
+      element.addEventListener('load', function(){ 
+        if (this.naturalWidth <  this.naturalHeight) {
+          element.classList.add('article__section-vertical')
+        } else {
+          element.classList.add('article__section-horizontal')
+        }
+        }); 
+    });
+    blocks.forEach(element => {
+      const tags = element.childNodes
+      for (let tag of tags) {
+        if (tag.tagName === 'IMG') {
+          element.classList.add('article__section-grid')
+        }
+      }
+    });
+    // END DEVELOPE CODE
+
+
     // intro-effect
     const el = this.$refs.article
     const keys = [32, 37, 38, 39, 40]
@@ -751,12 +772,8 @@ export default {
     }
   }
 }
-// DEVELOPE CODE (REMOVE)
-img {
-  display: none;
-}
-// ------
 .article__section {
+  margin-bottom: 15px;
   h2 {
     font-weight: bold;
     line-height: 1.44;
@@ -831,7 +848,14 @@ img {
     list-style-type: none;
     counter-reset: num;
     margin: 0 0 0 38px;
-
+    & img {
+      transform: translateX(-38px);
+      width: calc(100% - -38px);
+    }
+    & div {
+      transform: translateX(-38px);
+       width: calc(100% - -38px);
+    }
     & li {
       position: relative;
       margin: 20px 0 30px;
@@ -1008,26 +1032,48 @@ img {
         }
       }
     }
-    & img {
-      width: 100%;
-      height: auto;
-      margin: 0;
-      @include media(md) {
-        width: auto;
-      }
-    }
   }
-
-  img {
-    margin: 0 auto;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
   @include media(md) {
     &__intro {
+      width: auto;
       padding: 70px 0;
+    }
+  }
+  //article__section-vertical
+  &-vertical {
+    width: 100%;
+    height: auto;
+    max-width: 550px;
+    max-height: 785px;
+    object-fit: cover;
+    margin: 15px auto;
+  }
+    &-horizontal {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin: 15px auto;
+  }
+  //article__section-grid
+  &-grid {
+    display: grid !important;
+    // grid-template-columns: minmax(min-content , auto) minmax(min-content, auto);
+    grid-gap: 15px;
+    margin: 0 auto !important;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(min-content , auto) minmax(min-content, auto);
+
+    @include media(xs) {
+      grid-template-columns: minmax(min-content , auto) minmax(min-content, auto);
+      grid-template-rows: 1fr;
+    }
+    & img {
+      width: 100% !important;
+      height: 100%;
+      transform: translateX(0) !important;
+      margin: 0;
+      max-width: none;
+      max-height: 550px;
     }
   }
 }
