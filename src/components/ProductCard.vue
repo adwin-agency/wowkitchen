@@ -149,7 +149,7 @@ export default {
       this.hover = false
     },
     openModalImage() {
-      const imagePath = `${this.$_mobile ? this.cardData.pictures[0].mobile.path : this.cardData.pictures[0].desktop.path}`
+      const imagePath = `${this.$_mobile ? this.cardData.pictures[0].medium.path : this.cardData.pictures[0].large.path}`
       this.$store.commit('setModal', 'image')
       this.$store.commit('setModalData', { image: imagePath })
     }
