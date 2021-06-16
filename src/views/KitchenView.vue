@@ -1,9 +1,9 @@
 <template>
-  <div
-    v-if="info"
-    class="v-kitchen"
-  >
-    <Details :info="info" />
+  <div class="v-kitchen">
+    <Details
+      v-if="info"
+      :info="info"
+    />
     <Constructor />
     <Equipment />
     <Design />

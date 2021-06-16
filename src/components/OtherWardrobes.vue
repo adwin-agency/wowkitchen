@@ -16,13 +16,14 @@
           class="other-wardrobes__slider"
         >
           <SwiperSlide
-            v-for="(item, index) in cards"
+            v-for="(wardrobe, index) in wardrobes"
             :key="index"
             v-slot="{ isVisible }"
             class="other-wardrobes__slide"
           >
             <ProductCard
-              :cardData="item"
+              :cardData="wardrobe"
+              cardType="wardrobe"
               :disabled="!isVisible"
             />
           </SwiperSlide>
@@ -46,167 +47,8 @@ export default {
     SwiperSlide,
     ProductCard
   },
-  data() {
-    return {
-      cards: [
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        },
-        {
-          type: 'wardrobe',
-          image: 'cupboard-card.jpg',
-          discount: '-50%',
-          title: 'УитниХьюстон',
-          props: [
-            {title: 'Планировка', value: 'Встроенный'},
-            {title: 'Фасад', value: 'ЛДСП + Зеркало'},
-            {title: 'Корпус', value: 'ЛДСП'},
-          ],
-          price: '54 500 ₽',
-          oldPrice: '109 000 ₽'
-        }
-      ]
-    }
+  props: {
+    wardrobes: Array
   }
 }
 </script>

@@ -7,34 +7,33 @@
             <Swiper
               direction="vertical"
               :slides-per-view="$_media.md ? 3 : $_media.lg ? 4 : 5"
-              :space-between="$_media.md ? 5 : 8"              
+              :space-between="$_media.md ? 5 : 8"
               watch-slides-visibility
               watch-slides-progress
               @swiper="setThumbsSwiper"
               class="wardrobe-details__thumbs-slider"
             >
               <SwiperSlide
-                v-for="(slide, index) in slides"
+                v-for="(picture, index) in info.pictures"
                 :key="index"
                 class="wardrobe-details__thumbs-slide"
-                :class="{'wardrobe-details__thumb_video': slide.video}"
               >
                 <img
-                  :src="require(`@/assets/img/${slide.image || slide.video}`)"
-                  alt=""
+                  :src="$_basepath + picture.small.path"
+                  alt
                 >
-                <AppIcon
+                <!-- <AppIcon
                   v-if="slide.video"
                   name="play"
                   class="wardrobe-details__play-icon"
-                />
+                /> -->
               </SwiperSlide>
             </Swiper>
             <AppIcon
               name="long-arrow"
               class="wardrobe-details__thumbs-arrow"
             />
-          </div>          
+          </div>
           <Swiper
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
@@ -42,23 +41,22 @@
             class="wardrobe-details__slider"
           >
             <SwiperSlide
-              v-for="(slide, index) in slides"
+              v-for="(picture, index) in info.pictures"
               :key="index"
               class="wardrobe-details__slide"
             >
               <img
-                v-if="slide.image"
-                :src="require(`@/assets/img/${slide.image}`)"
-                alt=""
+                :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
+                alt
               >
-              <template v-if="slide.video">
+              <!-- <template v-if="slide.video">
                 <video
                   src=""
                   :poster="require(`@/assets/img/${slide.video}`)"
                 ></video>
-              </template>          
+              </template>           -->
             </SwiperSlide>
-            <button
+            <!-- <button
               v-if="$_media.sm && slides.find(i => i.video)"
               type="button"
               class="wardrobe-details__play"
@@ -67,17 +65,23 @@
                 name="play"
                 class="wardrobe-details__play-icon"
               />
-            </button>
+            </button> -->
           </Swiper>
-        </div>        
+        </div>
         <div class="wardrobe-details__main">
-          <h1 class="wardrobe-details__title">УитниХьюстон</h1>
+          <h1 class="wardrobe-details__title">{{info.name}}</h1>
           <div class="wardrobe-details__cost">
             <div class="wardrobe-details__prices">
-              <p class="wardrobe-details__price">54 500 ₽</p>
-              <p class="wardrobe-details__old-price">109 000 ₽</p>
+              <p class="wardrobe-details__price">{{info.price}} ₽</p>
+              <p
+                v-if="info.old_price"
+                class="wardrobe-details__old-price"
+              >{{info.old_price}} ₽</p>
             </div>
-            <span class="wardrobe-details__discount">-50%</span>
+            <span
+              v-if="info.discount"
+              class="wardrobe-details__discount"
+            >-{{info.discount}}%</span>
           </div>
           <p
             v-if="$_media.sm"
@@ -94,7 +98,7 @@
             ref="desc"
             class="wardrobe-details__desc"
           >
-            <p>Функциональным и вместительным хочется видеть шкаф в прихожей.  Эта модель результат зрелых размышлений и многолетнего опыта наших специалистов с учётом всех пожеланий клиента.</p>
+            <p>{{info.description}}</p>
           </div>
           <p
             v-if="$_media.sm"
@@ -112,11 +116,11 @@
             class="wardrobe-details__props"
           >
             <p
-              v-for="(prop, index) in props"
-              :key="index"
+              v-for="(feature, name) in info.features"
+              :key="name"
               class="wardrobe-details__prop"
             >
-              <span>{{prop.title}}</span>{{prop.desc}}
+              <span>{{feature.title}}</span>{{feature.value}}
             </p>
           </div>
           <div class="wardrobe-details__btns">
@@ -149,7 +153,7 @@
 
 <script>
 import SwiperCore, { Scrollbar, Thumbs } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/vue' 
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
 
@@ -163,26 +167,21 @@ export default {
     AppIcon,
     AppButton
   },
+  props: {
+    info: Object
+  },
   data() {
     return {
-      slides: [
-        { image: 'wardrobe-details-slide.jpg' },
-        { image: 'wardrobe-details-slide.jpg' },
-        { video: 'wardrobe-details-slide.jpg' },
-        { image: 'wardrobe-details-slide.jpg' },
-        { image: 'wardrobe-details-slide.jpg' },
-        { image: 'wardrobe-details-slide.jpg' },
-      ],
       props: [
         { title: 'Планировка', desc: 'Встроенный' },
         { title: 'Фасад', desc: 'ЛДСП + Зеркало' },
-        { title: 'Корпус', desc: 'ЛДСП' },
+        { title: 'Корпус', desc: 'ЛДСП' }
       ],
       features: [
         { title: 'от 3 дней', desc: 'срок производства' },
         { title: '3000+', desc: 'вариантов комбинаций' },
         { title: '2 года', desc: 'гарантия на материалы' },
-        { title: '3 часа', desc: 'на монтаж' },
+        { title: '3 часа', desc: 'на монтаж' }
       ],
 
       thumbsSwiper: null,
@@ -192,7 +191,7 @@ export default {
   },
   methods: {
     setThumbsSwiper(swiper) {
-      this.thumbsSwiper = swiper;
+      this.thumbsSwiper = swiper
     },
 
     toggleInfo(ref) {
@@ -200,7 +199,7 @@ export default {
       const opening = this.activeInfo !== ref ? this.$refs[ref] : null
 
       clearTimeout(this.infoTimeout)
-      
+
       if (closing) {
         closing.style.height = `${closing.scrollHeight}px`
 
@@ -245,7 +244,8 @@ export default {
   &__slide {
     height: 260px;
 
-    img, video {
+    img,
+    video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -322,7 +322,7 @@ export default {
   &__desc,
   &__props {
     height: 0;
-    transition: height .3s ease;
+    transition: height 0.3s ease;
     overflow: hidden;
   }
 
@@ -408,14 +408,14 @@ export default {
 
     &__thumbs-slide {
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         border: 5px solid transparent;
-        transition: border-color .3s ease;
+        transition: border-color 0.3s ease;
       }
 
       img {
@@ -430,7 +430,7 @@ export default {
 
       &_video {
         &::before {
-          content: "";
+          content: '';
           position: absolute;
           left: 0;
           top: 0;

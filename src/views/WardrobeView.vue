@@ -1,12 +1,18 @@
 <template>
   <div class="v-wardrobe">
-    <WardrobeDetails />
+    <WardrobeDetails
+      v-if="info"
+      :info="info"
+    />
     <WardrobeParts />
     <WardrobeMaterials />
     <WardrobeFeatures />
     <WardrobeService />
     <QuizPreview type="wardrobes" />
-    <!-- <OtherWardrobes /> -->
+    <OtherWardrobes
+      v-if="similars"
+      :wardrobes="similars"
+    />
   </div>
 </template>
 
@@ -17,7 +23,7 @@ import WardrobeMaterials from '../components/WardrobeMaterials.vue'
 import WardrobeFeatures from '../components/WardrobeFeatures.vue'
 import WardrobeService from '../components/WardrobeService.vue'
 import QuizPreview from '../components/QuizPreview.vue'
-// import OtherWardrobes from '../components/OtherWardrobes.vue'
+import OtherWardrobes from '../components/OtherWardrobes.vue'
 
 export default {
   name: 'WardrobeView',
@@ -28,8 +34,22 @@ export default {
     WardrobeFeatures,
     WardrobeService,
     QuizPreview,
-    // OtherWardrobes
-  }  
+    OtherWardrobes
+  },
+  data() {
+    return {
+      info: null,
+      similars: null
+    }
+  },
+  async created() {
+    const name = this.$route.params.product
+    const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/closets.php?url=${name}`)
+    const responseJson = await response.json()
+
+    this.info = responseJson.info
+    this.similars = responseJson.similars
+  }
 }
 </script>
 
