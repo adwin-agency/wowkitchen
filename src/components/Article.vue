@@ -1059,7 +1059,7 @@ export default {
     display: grid !important;
     // grid-template-columns: minmax(min-content , auto) minmax(min-content, auto);
     grid-gap: 15px;
-    margin: 0 auto !important;
+    margin: 15px auto !important;
     grid-template-columns: 1fr;
     grid-template-rows: minmax(min-content , auto) minmax(min-content, auto);
 
