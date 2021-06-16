@@ -6,7 +6,7 @@
     <WardrobeFeatures />
     <WardrobeService />
     <QuizPreview type="wardrobes" />
-    <OtherWardrobes />
+    <!-- <OtherWardrobes /> -->
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import WardrobeMaterials from '../components/WardrobeMaterials.vue'
 import WardrobeFeatures from '../components/WardrobeFeatures.vue'
 import WardrobeService from '../components/WardrobeService.vue'
 import QuizPreview from '../components/QuizPreview.vue'
-import OtherWardrobes from '../components/OtherWardrobes.vue'
+// import OtherWardrobes from '../components/OtherWardrobes.vue'
 
 export default {
   name: 'WardrobeView',
@@ -28,7 +28,7 @@ export default {
     WardrobeFeatures,
     WardrobeService,
     QuizPreview,
-    OtherWardrobes
+    // OtherWardrobes
   }  
 }
 </script>

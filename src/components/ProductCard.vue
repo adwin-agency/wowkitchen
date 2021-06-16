@@ -78,7 +78,7 @@
         </div>
       </div>
       <div
-        v-if="$_desktop && !large || cardType === 'technic' || $_media.md && cardType === 'wardrobe'"
+        v-if="cardData.features && ($_desktop && !large || cardType === 'technic' || $_media.md && cardType === 'wardrobe')"
         class="product-card__props"
       >
         <p

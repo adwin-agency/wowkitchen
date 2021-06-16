@@ -16,10 +16,10 @@
           :key="index"
           type="button"
           class="filters__category"
-          :class="{'is-active': activeCategory === category}"
-          @click="setCategory(category)"
+          :class="{'is-active': activeOptions.category === category.value}"
+          @click="toggleCategory(category.value)"
         >
-          {{category}}
+          {{category.title}}
         </button>
       </div>
       <div
@@ -83,7 +83,7 @@
       <AppButton
         :title="`Показать результаты${resultLength !== null ? ` (${resultLength})` : ''}`"
         class="filters__btn"
-        @click="applyTags"
+        @click="applyFilters"
       />
     </div>
     <button
@@ -116,7 +116,6 @@ export default {
   ],
   data() {
     return {
-      activeCategory: 'Варочые панели',
       initOptions: {},
       activeOptions: {},
       resultLength: null
@@ -146,8 +145,19 @@ export default {
     this.activeOptions = { ...this.initOptions }
   },
   methods: {
-    setCategory(category) {
-      this.activeCategory = category
+    toggleCategory(category) {
+      if (this.activeOptions.category === category) {
+        delete this.activeOptions.category
+      } else {
+        this.activeOptions.category = category
+      }
+
+      if (this.$_media.sm) {
+        this.getResultLength()
+        return
+      }
+
+      this.applyFilters()
     },
 
     async getResultLength() {
@@ -197,20 +207,20 @@ export default {
 
     removeTag(group) {
       delete this.activeOptions[group]
+    },    
+
+    resetTags() {
+      this.activeOptions = {}
+      this.getResultLength()
     },
 
-    applyTags() {
-      const query = { ...this.activeOptions }
+    applyFilters() {
+      const query = { category: this.activeCategory, ...this.activeOptions }
 
       this.$router.push({ name: this.$route.name, query: query })
       this.initOptions = { ...this.activeOptions }
       this.$emit('apply', Object.keys(this.activeOptions).length)
       this.$emit('close')
-    },
-
-    resetTags() {
-      this.activeOptions = {}
-      this.getResultLength()
     },
 
     closeFilters() {

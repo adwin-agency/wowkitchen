@@ -101,7 +101,8 @@ const routes = [
 
 const router = createRouter({
   // history: createWebHistory('/wow-build/'),
-  history: createWebHashHistory('/wow-build/'),
+  // history: createWebHashHistory('/wow-build/'),
+  history: createWebHashHistory(),
   routes,
   linkActiveClass: 'is-active',
   scrollBehavior(to, from, savedPosition) {

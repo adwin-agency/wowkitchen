@@ -44,7 +44,7 @@ export default {
     }
   },
   async created() {
-    const name = this.$route.params.kitchen
+    const name = this.$route.params.product
     const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php?url=${name}`)
     const responseJson = await response.json()
 
