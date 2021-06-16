@@ -106,13 +106,11 @@
                 <li>
                   <b>Нейтралитет.</b> Зеленый цвет отлично сочетается практически со всеми цветами радуги. В случае с кухней, это несомненный плюс.
                 </li>
-
-                <img
-                  src="@/assets/img/articles/article-img/46.jpg"
-                  width="550"
-                  alt="image"
-                >
               </ol>
+              <img
+                src="@/assets/img/articles/article-img/46.jpg"
+                alt="image"
+              >
               <h3>Возможные сложности</h3>
               <ol>
                 <li>
@@ -133,7 +131,6 @@
                 </li>
                 <img
                   src="@/assets/img/articles/article-img/49.jpg"
-                  width="550"
                   alt="image"
                 >
                 <li>
@@ -348,6 +345,30 @@ export default {
     }
   },
   mounted() {
+    // START DEVELOPE CODE
+    const container = document.querySelector('.article__section')
+    const images = container.getElementsByTagName('img')
+    const blocks = container.getElementsByTagName('div')
+    images.forEach(element => {
+      element.addEventListener('load', function(){ 
+        if (this.naturalWidth <  this.naturalHeight) {
+          element.classList.add('article__section-vertical')
+        } else {
+          element.classList.add('article__section-horizontal')
+        }
+        }); 
+    });
+    blocks.forEach(element => {
+      const tags = element.childNodes
+      for (let tag of tags) {
+        if (tag.tagName === 'IMG') {
+          element.classList.add('article__section-grid')
+        }
+      }
+    });
+    // END DEVELOPE CODE
+
+
     // intro-effect
     const el = this.$refs.article
     const keys = [32, 37, 38, 39, 40]
@@ -751,8 +772,8 @@ export default {
     }
   }
 }
-
 .article__section {
+  margin-bottom: 15px;
   h2 {
     font-weight: bold;
     line-height: 1.44;
@@ -766,7 +787,7 @@ export default {
 
     @include media(lg) {
       font-size: 50px;
-      margin-bottom: 80px;
+      margin-bottom: 65px;
     }
   }
 
@@ -783,8 +804,8 @@ export default {
     }
 
     @include media(lg) {
-      margin-top: 90px;
-      margin-bottom: 50px;
+      margin-top: 80px;
+      // margin-bottom: 50px;
     }
   }
 
@@ -792,15 +813,15 @@ export default {
     font-size: 18px;
     font-weight: bold;
     line-height: 1.889;
-    margin-top: 50px;
     margin-bottom: 20px;
 
     @include media(md) {
+      margin-top: 50px;
       margin-bottom: 32px;
     }
     @include media(lg) {
-      margin-top: 80px;
-      margin-bottom: 50px;
+      margin-top: 70px;
+      // margin-bottom: 50px;
     }
   }
 
@@ -826,8 +847,15 @@ export default {
   ol {
     list-style-type: none;
     counter-reset: num;
-    margin: 0;
-
+    margin: 0 0 0 38px;
+    & img {
+      transform: translateX(-38px);
+      width: calc(100% - -38px);
+    }
+    & div {
+      transform: translateX(-38px);
+       width: calc(100% - -38px);
+    }
     & li {
       position: relative;
       margin: 20px 0 30px;
@@ -875,6 +903,7 @@ export default {
     & h4 {
       margin-right: auto;
       margin-bottom: 0;
+      margin-top: 0;
       padding: 40px 0 20px 0;
 
       @include media(md) {
@@ -890,10 +919,11 @@ export default {
     }
 
     & h5 {
-      margin-left: -40px;
       padding-top: 20px;
       padding-bottom: 15px;
+      margin-right: 40px;
       @include media(md) {
+        margin-left: -40px;
         margin-left: auto;
         padding: 27px 0 27px 20px;
       }
@@ -906,13 +936,20 @@ export default {
     & > h4 + ol {
       padding: 0;
       margin-left: 15px;
-
+      &:last-child {
+        margin-bottom: 25px;
+      }
       @include media(md) {
-        padding: 35px 0 35px 70px;
+        &:last-child {
+        margin-bottom: 0;
+        }
+      }
+      @include media(md) {
+        padding: 35px 0 35px 55px;
       }
 
       @include media(lg) {
-        padding: 55px 0 55px 70px;
+        padding: 55px 0 55px 55px;
       }
 
       margin-right: auto;
@@ -935,7 +972,6 @@ export default {
           border-bottom-right-radius: 80px;
         }
       }
-
       & li {
         padding-bottom: 10px;
         margin: 0;
@@ -943,14 +979,9 @@ export default {
         color: $color-lightgreen;
         list-style-type: decimal;
 
-        @include media(md) {
+        @include media(lg) {
           padding-bottom: 15px;
         }
-
-        @include media(lg) {
-          padding-bottom: 25px;
-        }
-
         &::before {
           display: none;
         }
@@ -961,25 +992,18 @@ export default {
       }
     }
 
-    & img {
-      width: 100%;
-      height: auto;
-      margin: 0;
-
-      @include media(md) {
-        width: auto;
-      }
-    }
 
     // Рамка (прямоугольная)
     & > h5 + a {
-      margin-left: -40px;
-      max-width: 300px;
       font-size: 14px;
       line-height: 1.286;
       text-decoration: underline;
       color: $color-lightgreen;
       padding-bottom: 20px;
+
+      @include media(sm) {
+        max-width: 300px;
+      }
 
       @include media(md) {
         margin-left: 0px;
@@ -1009,17 +1033,47 @@ export default {
       }
     }
   }
-
-  img {
-    margin: 0 auto;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
   @include media(md) {
     &__intro {
+      width: auto;
       padding: 70px 0;
+    }
+  }
+  //article__section-vertical
+  &-vertical {
+    width: 100%;
+    height: auto;
+    max-width: 550px;
+    max-height: 785px;
+    object-fit: cover;
+    margin: 15px auto;
+  }
+    &-horizontal {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin: 15px auto;
+  }
+  //article__section-grid
+  &-grid {
+    display: grid !important;
+    // grid-template-columns: minmax(min-content , auto) minmax(min-content, auto);
+    grid-gap: 15px;
+    margin: 0 auto !important;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(min-content , auto) minmax(min-content, auto);
+
+    @include media(xs) {
+      grid-template-columns: minmax(min-content , auto) minmax(min-content, auto);
+      grid-template-rows: 1fr;
+    }
+    & img {
+      width: 100% !important;
+      height: 100%;
+      transform: translateX(0) !important;
+      margin: 0;
+      max-width: none;
+      max-height: 550px;
     }
   }
 }
