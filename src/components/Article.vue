@@ -27,7 +27,7 @@
         >
       </picture>
       <div class="container">
-        <h1 class="article__intro-title">Зеленый свет вашей кухне!</h1>
+        <h1 class="article__intro-title">{{info.name}}</h1>
       </div>
     </div>
     <div class="article__container">
@@ -36,28 +36,23 @@
           <div class="article__section-container">
             <article class="article__section">
 
-              <h2>Зеленый свет вашей кухне!</h2>
-              <p>
-                Кухня в зеленых тонах — отличный выбор для людей, которые в цветовых решениях ищут компромисс между спокойными оттенками и сочными акцентами.
-                На такой кухне можно в субботу шумно отпраздновать День Святого Патрика, а в воскресенье устроить тихий семейный ужин - спасибо универсальности зеленого цвета!
-              </p>
-              <p>
-                Кухонная обстановка может быть достаточно неординарной и вписаться в разные интерьеры и стили. В этой статье расскажем вам о плюсах и минусах зелёных кухонь,
-                а также рассмотрим наиболее популярные оттенки этого цвета.
-              </p>
+              <h2>{{info.name}}</h2>
+
+              <div v-html="info.previews_text"></div>
+
               <div>
                 <h4>Содержание</h4>
                 <ol>
-                  <li><a href="#">Преимущества этой цветовой гаммы</a></li>
-                  <li><a href="#">Возможные сложности</a></li>
-                  <li><a href="#">Разнообразие оттенков и как с ними совладать</a></li>
+                  <li
+                    v-for="(item, index) in info.content"
+                    :key="index"
+                  >
+                    <a :href="`#`">{{item}}</a>
+                  </li>
                 </ol>
               </div>
 
-              <p>
-                В последнее время кухни зеленого цвета стали очень популярны. Психологи считают, что подобный цвет отлично подойдет для оформления различных
-                интерьеров: зеленый цвет благоприятно влияет на эмоциональное состояние человека, помогая успокоиться и снять стресс.
-              </p>
+              <div v-html="info.description_text"></div>
 
               <img
                 src="@/assets/img/articles/article-img/37.jpg"
@@ -318,7 +313,7 @@
             class="article__aside"
           >
             <div class="article__aside-inner">
-              <ArticleAside />
+              <ArticleAside :cards="cards" />
             </div>
           </div>
         </div>
@@ -338,6 +333,10 @@ export default {
     ArticleAside,
     AppIcon
   },
+  props: {
+    info: Object,
+    cards: Array
+  },
   data() {
     return {
       scrollPage: null,
@@ -349,25 +348,24 @@ export default {
     const container = document.querySelector('.article__section')
     const images = container.getElementsByTagName('img')
     const blocks = container.getElementsByTagName('div')
-    images.forEach(element => {
-      element.addEventListener('load', function(){ 
-        if (this.naturalWidth <  this.naturalHeight) {
+    images.forEach((element) => {
+      element.addEventListener('load', function () {
+        if (this.naturalWidth < this.naturalHeight) {
           element.classList.add('article__section-vertical')
         } else {
           element.classList.add('article__section-horizontal')
         }
-        }); 
-    });
-    blocks.forEach(element => {
+      })
+    })
+    blocks.forEach((element) => {
       const tags = element.childNodes
       for (let tag of tags) {
         if (tag.tagName === 'IMG') {
           element.classList.add('article__section-grid')
         }
       }
-    });
+    })
     // END DEVELOPE CODE
-
 
     // intro-effect
     const el = this.$refs.article
@@ -519,7 +517,6 @@ export default {
       if (this.$_media.sm) {
         this.sidebar = null
       } else {
-
         if (this.sidebar) {
           this.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
         } else {
@@ -529,7 +526,7 @@ export default {
             containerSelector: '.article__inner',
             innerWrapperSelector: '.article__aside-inner'
           })
-        }        
+        }
       }
     }
   }
@@ -854,7 +851,7 @@ export default {
     }
     & div {
       transform: translateX(-38px);
-       width: calc(100% - -38px);
+      width: calc(100% - -38px);
     }
     & li {
       position: relative;
@@ -941,7 +938,7 @@ export default {
       }
       @include media(md) {
         &:last-child {
-        margin-bottom: 0;
+          margin-bottom: 0;
         }
       }
       @include media(md) {
@@ -991,7 +988,6 @@ export default {
         }
       }
     }
-
 
     // Рамка (прямоугольная)
     & > h5 + a {
@@ -1048,7 +1044,7 @@ export default {
     object-fit: cover;
     margin: 15px auto;
   }
-    &-horizontal {
+  &-horizontal {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -1061,10 +1057,10 @@ export default {
     grid-gap: 15px;
     margin: 15px auto !important;
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(min-content , auto) minmax(min-content, auto);
+    grid-template-rows: minmax(min-content, auto) minmax(min-content, auto);
 
     @include media(xs) {
-      grid-template-columns: minmax(min-content , auto) minmax(min-content, auto);
+      grid-template-columns: minmax(min-content, auto) minmax(min-content, auto);
       grid-template-rows: 1fr;
     }
     & img {

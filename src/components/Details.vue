@@ -27,7 +27,7 @@
           </SwiperSlide>
           <AppVideoButton
             title="Видеообзор проекта"
-            :video="$_mobile ? info.video.mobile : info.video.desktop"
+            :video="$_mobile ? info.video?.mobile : info.video?.desktop"
             size="large"
             class="details__video-btn"
           />
@@ -41,8 +41,8 @@
           class="details__characteristics"
         >
           <p
-            v-for="(feature, index) in info.features"
-            :key="index"
+            v-for="(feature, name) in info.features"
+            :key="name"
             class="details__characteristic"
           >
             <span>{{feature.title}}</span>{{feature.value}}

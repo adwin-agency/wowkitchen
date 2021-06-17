@@ -8,7 +8,7 @@ const routes = [
     component: MainView
   },
   {
-    path: '/article',
+    path: '/blog/:code',
     name: 'article',
     component: () => import('@/views/ArticleView.vue')
   },
@@ -43,7 +43,7 @@ const routes = [
     component: () => import('@/views/KitchensView.vue')
   },
   {
-    path: '/kitchens/:product',
+    path: '/kitchens/:code',
     name: 'kitchen',
     component: () => import('@/views/KitchenView.vue')
   },
@@ -78,7 +78,7 @@ const routes = [
     component: () => import('@/views/TechnicsView.vue')
   },
   {
-    path: '/technic',
+    path: '/technics/:code',
     name: 'technic',
     component: () => import('@/views/TechnicView.vue')
   },
@@ -93,7 +93,7 @@ const routes = [
     component: () => import('@/views/WardrobesView.vue')
   },
   {
-    path: '/wardrobes/:product',
+    path: '/wardrobes/:code',
     name: 'wardrobe',
     component: () => import('@/views/WardrobeView.vue')
   }

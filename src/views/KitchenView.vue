@@ -1,16 +1,12 @@
 <template>
   <div class="v-kitchen">
-    <Details
-      v-if="info"
-      :info="info"
-    />
+    <Details :info="details.info" />
     <Constructor />
     <Equipment />
     <Design />
     <OtherProducts
-      v-if="similars"
       heading="Другие модели"
-      :products="similars"
+      :products="details.similars"
     />
     <Steps />
     <RatedReviews />
@@ -25,6 +21,7 @@ import Design from '../components/Design.vue'
 import OtherProducts from '../components/OtherProducts.vue'
 import Steps from '../components/Steps.vue'
 import RatedReviews from '../components/RatedReviews.vue'
+import api from '../api'
 
 export default {
   name: 'KitchenView',
@@ -39,17 +36,14 @@ export default {
   },
   data() {
     return {
-      info: null,
-      similars: null
+      details: {
+        info: {},
+        similars: []
+      }
     }
   },
   async created() {
-    const name = this.$route.params.product
-    const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php?url=${name}`)
-    const responseJson = await response.json()
-
-    this.info = responseJson.info
-    this.similars = responseJson.similars
+    this.details = await api.loadDetails(this.$route)
   }
 }
 </script>

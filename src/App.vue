@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     scrollLock() {
-      return !!this.$store.state.modal || this.$store.state.mobileMenu || this.$store.state.favorite
+      return !!this.$store.state.modal || this.$store.state.mobileMenu || this.$store.state.activeFavorites
     }
   },
   watch: {

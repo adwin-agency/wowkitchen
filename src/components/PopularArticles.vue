@@ -70,16 +70,8 @@ export default {
     SwiperSlide
   },
   props: {
+    cards: Array,
     allBtn: Boolean
-  },
-  data() {
-    return {
-      cards: [
-        { image: 'article-01.jpg', tag: 'От эксперта', title: 'Что, где и как: идеи хранения на кухне', date: '20 сентября', views: '2071', video: true },
-        { image: 'article-02.jpg', tag: 'От эксперта', title: 'Какой цвет выбрать для кухни в квартире на северной стороне', date: '26 сентября', views: '1843' },
-        { image: 'article-03.jpg', tag: 'От эксперта', title: 'Что, где и как: идеи хранения на кухне', date: '15 ноября', views: '1843' }
-      ]
-    }
   }
 }
 </script>

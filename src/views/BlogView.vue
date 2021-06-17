@@ -1,10 +1,10 @@
 <template>
   <div class="v-blog">
-    <BlogTop />
-    <BlogCards :cards="cards.slice(0, 5)" />
+    <BlogTop :cards="cards.slice(0, 3)" />
+    <BlogCards :cards="cards.slice(3, 8)" />
     <DesignCall />
     <BlogCards
-      :cards="cards.slice(5)"
+      :cards="cards.slice(8)"
       subscribe
       show
     />
@@ -19,6 +19,7 @@ import ArticleSet from '../components/ArticleSet.vue'
 import BlogTop from '../components/BlogTop.vue'
 import DesignCall from '../components/DesignCall.vue'
 import QuizPreview from '../components/QuizPreview.vue'
+import api from '../api'
 
 export default {
   name: 'BlogView.vue',
@@ -31,74 +32,11 @@ export default {
   },
   data() {
     return {
-      cards: [
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Что, где и как: идеи хранения на кухне',
-          date: '20 сентября',
-          views: 2071
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Какой цвет выбрать для кухни в квартире на северной стороне',
-          date: '26 сентября',
-          views: 1843
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Из чего будем строить: гайд по выбору материала',
-          date: '15 ноября',
-          views: 1843
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Что, где и как: идеи хранения на кухне',
-          date: '20 сентября',
-          views: 2071
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Какой цвет выбрать для кухни в квартире на северной стороне',
-          date: '26 сентября',
-          views: 1843,
-          wide: true
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Что, где и как: идеи хранения на кухне',
-          date: '20 сентября',
-          views: 2071
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Какой цвет выбрать для кухни в квартире на северной стороне',
-          date: '26 сентября',
-          views: 1843
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Из чего будем строить: гайд по выбору материала',
-          date: '15 ноября',
-          views: 1843
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Какой цвет выбрать для кухни в квартире на северной стороне',
-          date: '26 сентября',
-          views: 1843,
-          wide: true
-        }
-      ]
+      cards: []
     }
+  },
+  async created() {
+    this.cards = await api.loadCards(this.$route)
   }
 }
 </script>

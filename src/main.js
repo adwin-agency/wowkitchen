@@ -16,7 +16,7 @@ app.config.globalProperties.$_breakpoints = {
   xl: 1610
 }
 
-app.config.globalProperties.$_basepath = 'http://wowkitchen.beget.tech'
+app.config.globalProperties.$_basepath = process.env.NODE_ENV === 'production' ? '' : 'http://wowkitchen.beget.tech'
 
 app.directive('intro-effect', {
   mounted(el) {			

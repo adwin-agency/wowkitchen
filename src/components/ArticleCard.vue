@@ -1,13 +1,13 @@
 <template>
   <router-link
-    :to="{name: 'article'}"
+    :to="{name: 'article', params: {code: cardData.url}}"
     class="article-card"
     :class="{ [`article-card_${mod}`]: mod }"
   >
     <div class="article-card__image">
       <img
-        :src="require(`@/assets/img/${cardData.image}`)"
-        alt=""
+        :src="$_basepath + cardData.image"
+        alt
       >
       <AppIcon
         v-if="cardData.video && ($_media.sm || mod === 'small')"

@@ -112,7 +112,7 @@
       />
     </div>
 
-    <Favorite
+    <Favorites
       class="header__favorite"
       :class="{'is-active': activeFavorite}"
     />
@@ -234,7 +234,10 @@
                 class="header__favorites-icon"
                 name="bookmark"
               />
-              <span class="header__favorites-count">2</span>
+              <span
+                v-if="favoritesLength"
+                class="header__favorites-count"
+              >{{favoritesLength}}</span>
             </button>
           </div>
         </div>
@@ -294,7 +297,7 @@
 <script>
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
-import Favorite from './Favorite.vue'
+import Favorites from './Favorites.vue'
 import NavMenu from './NavMenu.vue'
 import NavPanel from './NavPanel.vue'
 
@@ -347,7 +350,7 @@ export default {
     AppIcon,
     NavMenu,
     NavPanel,
-    Favorite,
+    Favorites,
     AppButton
   },
   data() {
@@ -365,6 +368,9 @@ export default {
   computed: {
     activeBreadCrumbs() {
       return this.$route.name !== 'main'
+    },
+    favoritesLength() {
+      return this.$store.state.favoriteItems.length
     }
   },
   watch: {
@@ -434,7 +440,7 @@ export default {
       }
 
       this.activeFavorite = !this.activeFavorite
-      this.$store.commit('setFavorite', this.activeFavorite)
+      this.$store.commit('setActiveFavorites', this.activeFavorite)
     }
   }
 }

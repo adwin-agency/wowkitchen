@@ -19,7 +19,8 @@
       <div class="container">
         <div class="blog-top__row">
           <ArticleCard
-            :cardData="cards.main"
+            v-if="cards[0]"
+            :cardData="cards[0]"
             mod="large"
             class="blog-top__card"
           />
@@ -32,7 +33,7 @@
               class="blog-top__slider"
             >
               <SwiperSlide
-                v-for="(card, index) in cards.side"
+                v-for="(card, index) in cards.slice(1)"
                 :key="index"
                 class="blog-top__slide"
               >
@@ -57,7 +58,7 @@
               class="blog-top__side-cards"
             >
               <ArticleCard
-                v-for="(card, index) in cards.side.slice(0, 2)"
+                v-for="(card, index) in cards.slice(1)"
                 :key="index"
                 :cardData="card"
                 mod="small"
@@ -93,6 +94,9 @@ export default {
     ArticleCard,
     AppButton
   },
+  props: {
+    cards: Array
+  },
   data() {
     return {
       tabs: [
@@ -105,42 +109,7 @@ export default {
         { title: 'Видео', bold: true },
         { title: 'Популярное', bold: true }
       ],
-      activeTab: 'Все статьи',
-
-      cards: {
-        main: {
-          image: 'article-01.jpg',
-          tag: 'От эксперта',
-          title: 'Рекомендации дизайнера: как сочетать фасады, фартук, стены и пол',
-          author: 'Альфред Абрикосов',
-          date: '26 сентября',
-          note: '5 минут на прочтение',
-          views: 1843
-        },
-        side: [
-          {
-            image: 'article-02.jpg',
-            video: true,
-            tag: 'Спорные вопросы',
-            title: 'Заблуждения и мифы о кухнях',
-            views: 1843
-          },
-          {
-            image: 'article-02.jpg',
-            video: true,
-            tag: 'От эксперта',
-            title: 'Тест-драйв материалов: какая столешница переживёт удар кувалдой',
-            views: 1843
-          },
-          {
-            image: 'article-02.jpg',
-            video: true,
-            tag: 'Спорные вопросы',
-            title: 'Заблуждения и мифы о кухнях',
-            views: 1843
-          }
-        ]
-      }
+      activeTab: 'Все статьи'
     }
   }
 }

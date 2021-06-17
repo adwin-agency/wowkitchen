@@ -1,57 +1,44 @@
 <template>
-  <div class="favorite">
+  <div class="favorites">
     <div class="container">
-      <h2 class="favorite__title">Подборки</h2>
-      <div class="favorite__container">
-        <div class="favorite__element">
+      <h2 class="favorites__title">Подборки</h2>
+      <div class="favorites__container">
+        <div
+          v-for="(item, index) in items"
+          :key="index"
+          class="favorites__element"
+        >
           <img
-            class="favorite__image"
-            src="@/assets/img/favorite/kitchen.jpg"
-            alt="img"
+            class="favorites__image"
+            :src="$_basepath + item.image"
+            alt
           >
-          <div class="favorite__box">
-            <p class="favorite__category">Кухня</p>
-            <p class="favorite__name">Уитни Хьюстон</p>
-            <p class="favorite__price">74500</p>
-            <p class="favorite__discount">109000</p>
+          <div class="favorites__box">
+            <p class="favorites__category">{{item.type}}</p>
+            <p class="favorites__name">{{item.name}}</p>
+            <p class="favorites__price">{{item.price}}</p>
+            <p
+              v-if="item.oldPrice"
+              class="favorites__discount"
+            >{{item.oldPrice}}</p>
             <button
               type="button"
-              class="favorite__remove"
+              class="favorites__remove"
+              @click="removeFavorite(item)"
             >
               <AppIcon
                 name="close"
-                class="favorite__remove-icon"
-              />
-            </button>
-          </div>
-        </div>
-        <div class="favorite__element">
-          <img
-            class="favorite__image"
-            src="@/assets/img/favorite/stove.jpg"
-            alt="img"
-          >
-          <div class="favorite__box">
-            <p class="favorite__category">Варочная панель</p>
-            <p class="favorite__name">Candy CVG 64 SGNX</p>
-            <p class="favorite__price">54500</p>
-            <button
-              type="button"
-              class="favorite__remove"
-            >
-              <AppIcon
-                name="close"
-                class="favorite__remove-icon"
+                class="favorites__remove-icon"
               />
             </button>
           </div>
         </div>
       </div>
-      <p class="favorite__text">Хотите рассчитать стоимость выбранных позиций с учётом габаритов вашего помещения?</p>
-      <p class="favorite__text">Наш менеджер свяжется с вами в ближайшее время.</p>
+      <p class="favorites__text">Хотите рассчитать стоимость выбранных позиций с учётом габаритов вашего помещения?</p>
+      <p class="favorites__text">Наш менеджер свяжется с вами в ближайшее время.</p>
       <App-button
         title="Рассчитать мой проект"
-        class="favorite__button"
+        class="favorites__button"
       />
     </div>
   </div>
@@ -60,14 +47,28 @@
 <script>
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
+
 export default {
-  components: { AppButton, AppIcon },
-  name: 'Favorite'
+  name: 'Favorites',
+  components: {
+    AppButton,
+    AppIcon
+  },
+  computed: {
+    items() {
+      return this.$store.state.favoriteItems
+    }
+  },
+  methods: {
+    removeFavorite(item) {
+      this.$store.commit('setFavoriteItem', item)
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-.favorite {
+.favorites {
   padding: $header-bar-height 0 20px;
   background-color: #fff;
 
@@ -81,8 +82,8 @@ export default {
   &__container {
     margin-top: 22px;
     padding: 32px 0 32px;
-    border-top: 1px solid $color-lightgray;  
-    border-bottom: 1px solid $color-lightgray;  
+    border-top: 1px solid $color-lightgray;
+    border-bottom: 1px solid $color-lightgray;
   }
 
   &__box {
@@ -137,7 +138,7 @@ export default {
     width: 100%;
   }
 
-  &__remove {    
+  &__remove {
     width: 20px;
     height: 20px;
     position: absolute;

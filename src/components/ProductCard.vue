@@ -1,5 +1,6 @@
 <template>
-  <div :class="[
+  <div
+    :class="[
       'product-card',
       {'product-card_large': large},
       {'product-card_slide': slide},
@@ -50,7 +51,7 @@
           Гарнитур
         </p>
         <p class="product-card__title">
-          <router-link :to="{name: cardType, params: {product: cardData.url}}">{{cardData.name}}</router-link>
+          <router-link :to="{name: cardType, params: {code: cardData.url}}">{{cardData.name}}</router-link>
         </p>
         <div
           v-if="cardType !== 'wardrobe'"
@@ -59,6 +60,8 @@
           <button
             type="button"
             class="product-card__action"
+            :class="{'is-active': isFavorite}"
+            @click="toggleFavorite(cardData)"
           >
             <AppIcon
               name="bookmark-l"
@@ -134,11 +137,16 @@ export default {
     cardType: String,
     large: Boolean,
     slide: Boolean,
-    disabled: Boolean,
+    disabled: Boolean
   },
   data() {
     return {
       hover: false
+    }
+  },
+  computed: {
+    isFavorite() {
+      return this.$store.state.favoriteItems.find(i => i.id === this.cardData.id)
     }
   },
   methods: {
@@ -148,10 +156,24 @@ export default {
     handleMouseLeave() {
       this.hover = false
     },
+
     openModalImage() {
       const imagePath = `${this.$_mobile ? this.cardData.pictures[0].medium.path : this.cardData.pictures[0].large.path}`
       this.$store.commit('setModal', 'image')
       this.$store.commit('setModalData', { image: imagePath })
+    },
+
+    toggleFavorite(data) {
+      const item = {
+        id: data.id,
+        image: data.pictures[0].small.path,
+        type: data.product_type,
+        name: data.name,
+        price: data.price,
+        oldPrice: data.old_price
+      }
+
+      this.$store.commit('setFavoriteItem', item)
     }
   }
 }
@@ -328,10 +350,17 @@ export default {
     margin-left: 6px;
   }
 
+  &__action {
+    fill: $color-lightviolet;
+
+    &.is-active {
+      fill: black;
+    }
+  }
+
   &__action-icon {
     width: 20px;
     height: 20px;
-    fill: $color-lightviolet;
   }
 
   &__desc {

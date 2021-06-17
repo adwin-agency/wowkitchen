@@ -90,16 +90,8 @@ export default {
   components: {
     AppIcon
   },
-  data() {
-    return {
-      cards: [
-        { image: 'articles/sidebar/1-video.png', title: 'Что, где и как: идеи хранения на кухне', video: true },
-        { image: 'articles/sidebar/2-video.png', title: 'Какой цвет выбрать для кухни в квартире на северной стороне' },
-        { image: 'articles/sidebar/3-video.png', title: 'Что, где и как: идеи хранения на кухне' },
-        { image: 'articles/sidebar/4-video.png', title: 'Какой цвет выбрать для кухни в квартире на северной стороне' }
-      ],
-      activeSearch: false
-    }
+  props: {
+    cards: Array
   },
   methods: {
     openSearch() {

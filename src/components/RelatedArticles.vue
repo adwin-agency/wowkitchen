@@ -25,25 +25,8 @@ export default {
     ArticleCard,
     Subscribe
   },
-  data() {
-    return {
-      cards: [
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Что, где и как: идеи хранения на кухне',
-          date: '20 сентября',
-          views: 2071
-        },
-        {
-          image: 'article-02.jpg',
-          tag: 'От эксперта',
-          title: 'Какой цвет выбрать для кухни в квартире на северной стороне',
-          date: '26 сентября',
-          views: 1843
-        }
-      ]
-    }
+  props: {
+    cards: Array
   }
 }
 </script>

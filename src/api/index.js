@@ -1,18 +1,18 @@
-const dataUrl = process.env.NODE_ENV === 'production' ? '/local/templates/wow/api' : 'http://wowkitchen.beget.tech/local/templates/wow/api'
+const dataPath = process.env.NODE_ENV === 'production' ? '/local/templates/wow/api' : 'http://wowkitchen.beget.tech/local/templates/wow/api'
 
 const api = {
-  async loadProducts(route) {
+  async loadCards(route) {
     const fileNames = {
       kitchens: 'kitchens',
       wardrobes: 'closets',
-      technics: 'technics'
+      technics: 'technics',
+      blog: 'blog'
     }
 
-    const query = route.query
     let search = []
 
-    for (let key in query) {
-      search.push(`${key}=${query[key]}`)
+    for (let key in route.query) {
+      search.push(`${key}=${route.query[key]}`)
     }
 
     search = search.join('&')
@@ -21,10 +21,25 @@ const api = {
       search = '?' + search
     }
 
-    const response = await fetch(`${dataUrl}/${fileNames[route.name]}.php${search}`)
+    const response = await fetch(`${dataPath}/${fileNames[route.name]}.php${search}`)
     const responseJson = await response.json()
 
     return responseJson.goods
+  },
+
+  async loadDetails(route) {
+    const fileNames = {
+      kitchen: 'kitchens',
+      wardrobe: 'closets',
+      technic: 'technics',
+      article: 'blog'
+    }
+
+    const code = route.params.code
+    const response = await fetch(`${dataPath}/${fileNames[route.name]}.php?url=${code}`)
+    const responseJson = await response.json()
+
+    return responseJson
   }
 }
 

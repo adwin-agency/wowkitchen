@@ -1,8 +1,14 @@
 <template>
   <div class="v-article">
-    <Article />
-    <RelatedArticles />
-    <PopularArticles v-if="$_media.sm" />
+    <Article
+      :info="details.info"
+      :cards="details.popular"
+    />
+    <RelatedArticles :cards="details.similars" />
+    <PopularArticles
+      v-if="$_media.sm"
+      :cards="details.popular"
+    />
     <DesignCall />
     <ArticleSet />
   </div>
@@ -14,6 +20,7 @@ import ArticleSet from '../components/ArticleSet.vue'
 import DesignCall from '../components/DesignCall.vue'
 import PopularArticles from '../components/PopularArticles.vue'
 import RelatedArticles from '../components/RelatedArticles.vue'
+import api from '../api'
 
 export default {
   name: 'ArticleView',
@@ -23,6 +30,18 @@ export default {
     PopularArticles,
     DesignCall,
     ArticleSet
+  },
+  data() {
+    return {
+      details: {
+        info: {},
+        similars: [],
+        popular: []
+      }
+    }
+  },
+  async created() {
+    this.details = await api.loadDetails(this.$route)
   }
 }
 </script>

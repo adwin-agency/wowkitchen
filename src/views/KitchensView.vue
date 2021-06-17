@@ -23,6 +23,7 @@ import PopularArticles from '../components/PopularArticles.vue'
 import RatedReviews from '../components/RatedReviews.vue'
 import QuizPreview from '../components/QuizPreview.vue'
 import Steps from '../components/Steps.vue'
+import api from '../api'
 
 const sortOptions = ['Сначала дешёвые', 'Сначала популярные', 'Сначала дорогие', 'Сначала новые']
 
@@ -78,36 +79,13 @@ export default {
       cards: []
     }
   },
-  created() {
-    this.loadKitchens(this.$route)
+  async created() {
+    this.cards = await api.loadCards(this.$route)
+    window.sidebar && window.sidebar.updateSticky()
   },
-  beforeRouteUpdate(to) {
-    this.loadKitchens(to)
-  },
-  methods: {
-    async loadKitchens(route) {
-      const query = route.query
-      let search = []
-
-      for (let key in query) {
-        search.push(`${key}=${query[key]}`)
-      }
-
-      search = search.join('&')
-
-      if (search) {
-        search = '?' + search
-      }
-
-      const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/kitchens.php${search}`)
-      const responseJson = await response.json()
-
-      this.cards = responseJson.goods
-
-      if (window.sidebar) {
-        window.sidebar.updateSticky()
-      }
-    }
+  async beforeRouteUpdate(to) {
+    this.cards = await api.loadCards(to)
+    window.sidebar && window.sidebar.updateSticky()
   }
 }
 </script>

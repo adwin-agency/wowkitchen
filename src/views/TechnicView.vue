@@ -1,7 +1,10 @@
 <template>
   <div class="v-technic">
-    <TechnicDetails />
-    <OtherProducts heading="Отлично подойдёт для этих кухонь" />
+    <TechnicDetails :info="details.info" />
+    <OtherProducts
+      heading="Отлично подойдёт для этих кухонь"
+      :products="details.similars"
+    />
     <Steps />
   </div>
 </template>
@@ -10,6 +13,7 @@
 import TechnicDetails from '../components/TechnicDetails.vue'
 import OtherProducts from '../components/OtherProducts.vue'
 import Steps from '../components/Steps.vue'
+import api from '../api'
 
 export default {
   name: 'TechnicView',
@@ -17,6 +21,17 @@ export default {
     TechnicDetails,
     OtherProducts,
     Steps
+  },
+  data() {
+    return {
+      details: {
+        info: {},
+        similars: []
+      }
+    }
+  },
+  async created() {
+    this.details = await api.loadDetails(this.$route)
   }
 }
 </script>
