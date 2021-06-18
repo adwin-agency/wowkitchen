@@ -1,6 +1,13 @@
 const dataPath = process.env.NODE_ENV === 'production' ? '/local/templates/wow/api' : 'http://wowkitchen.beget.tech/local/templates/wow/api'
 
 const api = {
+  async loadMain() {
+    const response = await fetch(`${dataPath}/main.php`)
+    const responseJson = await response.json()
+
+    return responseJson
+  },
+
   async loadCards(route) {
     const fileNames = {
       kitchens: 'kitchens',

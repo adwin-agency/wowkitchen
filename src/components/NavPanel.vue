@@ -78,11 +78,22 @@
             </a>
           </div>
           <div class="nav-panel__city">
-            <AppIcon
-              class="nav-panel__city-icon"
-              name="pin"
+            <button
+              type="button"
+              class="nav-panel__city-btn"
+              @click="toggleCityBox"
+            >
+              <AppIcon
+                class="nav-panel__city-icon"
+                name="pin"
+              />
+              {{cityName}}
+            </button>
+            <AppCity
+              class="nav-panel__city-box"
+              :class="{'is-active': detectedCity || activeCityBox}"
+              @apply="applyCity"
             />
-            <a href="#">Санкт-Петербург</a>
           </div>
           <p class="nav-panel__time">Ежедневно с 10 до 22</p>
         </div>
@@ -92,6 +103,7 @@
 </template>
 
 <script>
+import AppCity from './base/AppCity.vue'
 import AppIcon from './base/AppIcon.vue'
 
 const menu = [
@@ -116,13 +128,23 @@ const menu = [
 export default {
   name: 'NavPanel',
   components: {
-    AppIcon
+    AppIcon,
+    AppCity
   },
   emits: ['close-menu'],
   data() {
     return {
       menu: menu,
-      activeSubmenu: false
+      activeSubmenu: false,
+      activeCityBox: false
+    }
+  },
+  computed: {
+    cityName() {
+      return this.$store.getters.cityName
+    },
+    detectedCity() {
+      return this.$store.state.detectedCity
     }
   },
   methods: {
@@ -139,6 +161,14 @@ export default {
     handleSubmenuClick() {
       this.toggleSubmenu()
       this.$emit('close-menu')
+    },
+
+    toggleCityBox() {
+      this.activeCityBox = !this.activeCityBox
+    },
+
+    applyCity() {
+      this.activeCityBox = false
     }
   }
 }
@@ -263,6 +293,10 @@ export default {
   }
 
   &__city {
+    position: relative;
+  }
+
+  &__city-btn {
     display: flex;
     align-items: center;
     margin-right: 28px;
@@ -277,6 +311,21 @@ export default {
     margin-right: 8px;
     fill: currentColor;
     fill-rule: evenodd;
+  }
+
+  &__city-box {
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    margin-bottom: 10px;
+    width: 290px;
+    opacity: 0;
+    pointer-events: none;
+
+    &.is-active {
+      opacity: 1;
+      pointer-events: all;
+    }
   }
 
   &__time {
@@ -442,6 +491,15 @@ export default {
 
     &__city {
       margin-top: 0;
+    }
+
+    &__city-box {
+      left: -100px;
+      top: 100%;
+      bottom: auto;
+      margin-top: 10px;
+      width: 380px;
+      margin-bottom: 0;
     }
 
     &__time {

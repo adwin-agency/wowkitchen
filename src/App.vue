@@ -9,6 +9,7 @@
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import Modal from './components/Modal.vue'
+import api from './api'
 
 export default {
   name: 'App',
@@ -25,30 +26,45 @@ export default {
   watch: {
     scrollLock(newStatus, status) {
       if (newStatus && newStatus !== status) {
-
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth + 'px'
         document.body.style.overflow = 'hidden'
         document.body.style.paddingRight = scrollbarWidth
         document.querySelector('.app-header').style.right = scrollbarWidth
-
       } else if (!newStatus) {
-
         setTimeout(() => {
           document.body.style.overflow = ''
           document.body.style.paddingRight = ''
           document.querySelector('.app-header').style.right = ''
         }, 300)
-
       }
     }
   },
-  created() {
+  async created() {
+    // document.cookie = 'city='
     window.addEventListener('resize', this.handleResize)
+
+    const main = await api.loadMain()
+    const cities = main.cities
+    const detectedCity = main.detected_city
+    const selectedCity = this.getCookie('city')
+
+    this.$store.commit('setCities', cities)
+
+    if (selectedCity) {
+      this.$store.commit('setSelectedCity', selectedCity)
+    } else {
+      this.$store.commit('setDetectedCity', detectedCity)
+    }
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    getCookie(name) {
+      let matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)'))
+      return matches ? decodeURIComponent(matches[1]) : undefined
+    },
+
     handleResize() {
       this.$store.commit('storeScreen', window.innerWidth)
     }

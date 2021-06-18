@@ -42,7 +42,7 @@
         />
         <AppSelect
           :sideLabel="!$_media.sm && 'Город'"
-          :options="['Санкт-Петербург', 'Москва']"
+          :options="[{ title: 'Санкт-Петербург' }, { title: 'Москва' }]"
           color="white"
           class="payment-form__field payment-form__field_select"
         />

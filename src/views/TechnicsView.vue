@@ -20,7 +20,10 @@ import Design from '../components/Design.vue'
 import Steps from '../components/Steps.vue'
 import api from '../api'
 
-const sortOptions = ['По популярности', 'По цене']
+const sortOptions = [
+  { title: 'По популярности' },
+  { title: 'По цене' }
+]
 
 const filterCategories = [
   { title:'Варочые панели', value: 'varochnye-paneli' },

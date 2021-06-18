@@ -15,22 +15,35 @@ export default createStore({
     modalData: null,
     mobileMenu: false,
     activeFavorites: false,
-    favoriteItems: favorites
+    favoriteItems: favorites,
+    cities: [],
+    detectedCity: null,
+    selectedCity: null
+  },
+
+  getters: {
+    cityName(state) {
+      const city = state.selectedCity || state.detectedCity
+      return state.cities.find(i => i.code === city)?.name
+    }
   },
 
   mutations: {
     storeScreen(state, width) {
       state.windowWidth = width
     },
+    
     setModal(state, modal) {
       state.modal = modal
     },
     setModalData(state, data) {
       state.modalData = data
     },
+
     setMobileMenu(state, status) {
       state.mobileMenu = status
     },
+
     setActiveFavorites(state, status) {
       state.activeFavorites = status
     },
@@ -44,6 +57,16 @@ export default createStore({
       }
 
       localStorage.setItem('favorites', JSON.stringify(state.favoriteItems))
+    },
+
+    setCities(state, cities) {
+      state.cities = cities
+    },
+    setDetectedCity(state, city) {
+      state.detectedCity = city
+    },
+    setSelectedCity(state, city) {
+      state.selectedCity = city
     }
   }
 })

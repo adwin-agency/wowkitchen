@@ -25,7 +25,12 @@ import QuizPreview from '../components/QuizPreview.vue'
 import Steps from '../components/Steps.vue'
 import api from '../api'
 
-const sortOptions = ['Сначала дешёвые', 'Сначала популярные', 'Сначала дорогие', 'Сначала новые']
+const sortOptions = [
+  { title: 'Сначала дешёвые' },
+  { title: 'Сначала популярные' },
+  { title: 'Сначала дорогие' },
+  { title: 'Сначала новые' }
+]
 
 const filterGroups = [
   {

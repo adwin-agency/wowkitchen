@@ -25,7 +25,10 @@ import QuizPreview from '../components/QuizPreview.vue'
 import WardrobeMaterials from '../components/WardrobeMaterials.vue'
 import api from '../api'
 
-const sortOptions = ['По популярности', 'По цене']
+const sortOptions = [
+  { title: 'По популярности' },
+  { title: 'По цене' }
+]
 
 const filterGroups = [
   {

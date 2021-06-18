@@ -1,14 +1,20 @@
 <template>
   <div
-    :class="['select', {[`select_${color}`]: color}, {'is-active': isActive}]"
+    :class="[
+      'select',
+      {[`select_${color}`]: color},
+      {'select_up': up},
+      {'is-active': isActive}
+    ]"
     v-outside-click="closeSelect"
   >
     <select class="select__el">
       <option
         v-for="(option, index) in options"
         :key="index"
+        :disabled="option.disabled"
       >
-        {{option}}
+        {{option.title}}
       </option>
     </select>
     <p
@@ -20,12 +26,10 @@
     >
       {{label || sideLabel}}
     </p>
-    <div
-      :class="[
+    <div :class="[
         'select__box',
         {'select__box_side': sideLabel}
-      ]"
-    >
+      ]">
       <div
         class="select__trigger"
         @click="toggleSelect"
@@ -43,12 +47,13 @@
         <ul class="select__list">
           <li
             v-for="(option, index) in options"
+            v-show="!option.disabled"
             :key="index"
             class="select__item"
-            :class="{'is-active': selectedOption === option}"
-            @click="selectOption(option)"
+            :class="{'is-active': selectedOption === option.title}"
+            @click="selectOption(option.title)"
           >
-            {{option}}
+            {{option.title}}
           </li>
         </ul>
       </div>
@@ -68,13 +73,14 @@ export default {
     label: String,
     sideLabel: String,
     color: String,
+    up: Boolean,
     options: Array
   },
   data() {
     return {
       isActive: false,
       isArrowActive: false,
-      selectedOption: this.options[0]
+      selectedOption: this.options[0].title
     }
   },
   methods: {
@@ -146,6 +152,20 @@ export default {
     }
   }
 
+  &_up {
+    #{$b} {
+      &__dropdown {
+        top: auto;
+        bottom: 50%;
+        border-radius: 25px 25px 0 0;
+      }
+
+      &__list {
+        padding: 15px 10px 35px;
+      }
+    }
+  }
+
   &.is-active {
     transition: z-index 0.3s step-start;
     z-index: 10;
@@ -207,7 +227,7 @@ export default {
   &__dropdown {
     position: absolute;
     left: 0;
-    top: 25px;
+    top: 50%;
     width: 100%;
     height: 0;
     border-radius: 0 0 25px 25px;
