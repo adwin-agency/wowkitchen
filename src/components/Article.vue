@@ -1057,7 +1057,6 @@ export default {
   //article__section-grid
   &-grid {
     display: grid !important;
-    // grid-template-columns: minmax(min-content , auto) minmax(min-content, auto);
     grid-gap: 15px;
     margin: 15px auto !important;
     grid-template-columns: 1fr;
