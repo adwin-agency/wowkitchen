@@ -16,12 +16,14 @@
           label="Имя и фамилия"
           placeholder="Как к вам обращаться?"
           color="white"
+          bordered
           class="payment-form__field"
         />
         <AppTextField
           label="Номер договора"
           placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
           color="white"
+          bordered
           class="payment-form__field payment-form__field_small"
         />
         <AppTextField
@@ -29,6 +31,7 @@
           label="Контактный телефон"
           placeholder="+7 (999) 999 - 99 - 99"
           color="white"
+          bordered
           class="payment-form__field payment-form__field_small"
         />
         <AppTextField
@@ -38,6 +41,7 @@
           :note="$_media.sm ? 'На него будет выслана квитанция после прохождения оплаты' : ''"
           :sideNote="!$_media.sm ? 'На него будет выслана квитанция после прохождения оплаты' : ''"
           color="white"
+          bordered
           class="payment-form__field"
         />
         <AppSelect
@@ -49,12 +53,14 @@
         <AppTextField
           label="Адрес (как в договоре)"
           color="white"
+          bordered
           class="payment-form__field"
         />
         <AppTextField
           label="Сумма, ₽"
           sideNote="Важно: минимальная сумма предоплаты 1000 ₽"
           color="white"
+          bordered
           class="payment-form__field"
         />
         <AppTextField
@@ -62,6 +68,7 @@
           label="Комментарий (необязательно)"
           size="small"
           color="white"
+          bordered
           class="payment-form__field"
         />
         <div class="payment-form__fields-footer">
@@ -172,10 +179,6 @@ export default {
 
   &__field {
     margin-bottom: 18px;
-
-    &_select {
-      width: 93%;
-    }
   }
 
   &__btn {
@@ -219,12 +222,14 @@ export default {
 
     &_visa {
       width: 50px;
+      height: 24px;
     }
 
     &_maestro,
     &_mastercard {
       margin-bottom: -4px;
       width: 36px;
+      height: 28px;
     }
 
     &_mir {

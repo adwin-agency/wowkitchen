@@ -326,8 +326,8 @@ export default {
 
   &__submenu-item {
     display: inline-block;
-    margin-right: 26px;
-    margin-bottom: 10px;
+    margin-right: 30px;
+    margin-bottom: 15px;
     font-weight: 500;
     font-size: 13px;
     color: #dedede;
@@ -406,6 +406,7 @@ export default {
 
   &__btn {
     margin-top: 15px;
+    width: 100%;
     min-width: 255px;
   }
 
@@ -542,6 +543,10 @@ export default {
 
     &__requisites-desc {
       height: auto;
+    }
+
+    &__btn {
+      width: auto;
     }
   }
 

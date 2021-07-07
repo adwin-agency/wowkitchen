@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     scrollLock() {
-      return !!this.$store.state.modal || this.$store.state.mobileMenu || this.$store.state.activeFavorites
+      return this.$store.getters.scrollLock || this.$store.state.introEffect
     }
   },
   watch: {
@@ -30,11 +30,23 @@ export default {
         document.body.style.overflow = 'hidden'
         document.body.style.paddingRight = scrollbarWidth
         document.querySelector('.app-header').style.right = scrollbarWidth
+
+        const sideFixedImg = document.querySelector('.side-fixed__img')
+        
+        if (sideFixedImg) {
+          sideFixedImg.style.right = scrollbarWidth
+        }
       } else if (!newStatus) {
         setTimeout(() => {
           document.body.style.overflow = ''
           document.body.style.paddingRight = ''
           document.querySelector('.app-header').style.right = ''
+
+          const sideFixedImg = document.querySelector('.side-fixed__img')
+        
+          if (sideFixedImg) {
+            sideFixedImg.style.right = ''
+          }
         }, 300)
       }
     }

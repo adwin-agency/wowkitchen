@@ -25,8 +25,8 @@
           Удобно
         </p>
       </div>
-      <img src="@/assets/img/catalog-side-banner.png" alt="Работник" class="catalog-side-banner__img">
     </div>
+    <img src="@/assets/img/catalog-side-banner.png" alt="Работник" class="catalog-side-banner__img">
   </div>
 </template>
 
@@ -43,43 +43,30 @@ export default {
 
 <style lang="scss">
 .catalog-side-banner {
+  display: flex;
+  align-items: center;
   position: relative;
-  background-color: #f3f4f9;
+  max-height: 350px;
+  background-image: url('~@/assets/img/catalog-side-banner-bg.jpg');
+  background-size: cover;
+  background-position: bottom;
   overflow: hidden;
 
-  &::before,
-  &::after {
+  &:before {
     content: "";
-    position: absolute;
-  }
-
-  &::before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 116px;
-    height: 100%;
-    background-color: #e5e5ee;
-  }
-
-  &::after {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    border: solid transparent;
-    border-width: 38px 116px;
-    border-bottom-color: #ececf3;
+    padding-top: 60%;
   }
 
   &__inner {
     position: relative;
-    padding: 22px 110px 22px 36px;
+    width: 100%;
+    padding: 22px 40% 22px 7%;
     z-index: 1;
   }
 
   &__title {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 18px;
     line-height: (18/14);
   }
 
@@ -97,7 +84,7 @@ export default {
     border-radius: 100px;
     padding: 5px 25px 5px 15px;
     font-weight: bold;
-    font-size: 9px;
+    font-size: 12px;
     text-transform: uppercase;
     background-color: $color-green;
     color: #fff;
@@ -105,29 +92,26 @@ export default {
 
   &__feature-icon {
     flex-shrink: 0;
-    width: 8px;
-    height: 8px;
+    width: 11px;
+    height: 11px;
     margin-right: 12px;
     fill: currentColor;
   }
 
   &__img {
     position: absolute;
-    right: 15px;
+    left: calc(50% + 20px);
     bottom: 0;
-    width: 110px;
+    width: 37%;
+    max-width: 220px;
   }
 
   @include media(md) {
-    display: flex;
-
+    max-height: none;
+    
     &::before {
-      width: 146px;
-    }
-
-    &::after {
-      border-width: 60px 146px;
-    }
+      display: none;
+    } 
 
     &__inner {
       width: 100%;
@@ -156,20 +140,13 @@ export default {
     }
 
     &__img {
+      left: auto;
       right: 10px;
       width: 206px;
     }
   }
 
   @include media(lg) {
-    &::before {
-      width: 168px;
-    }
-
-    &::after {
-      border-width: 80px 168px;
-    }
-
     &__inner {
       padding: 85px 200px 70px 56px;
     }

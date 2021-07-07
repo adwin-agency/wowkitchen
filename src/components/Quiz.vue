@@ -738,10 +738,6 @@ export default {
       }
     }
 
-    &__control {
-      margin-top: 0;
-    }
-
     &__result {
       margin-top: 0;
       margin-right: 20px;

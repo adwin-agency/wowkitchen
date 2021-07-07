@@ -2,12 +2,12 @@
   <div class="v-article">
     <Article
       :info="details.info"
-      :cards="details.popular"
+      :cards="details.populars"
     />
     <RelatedArticles :cards="details.similars" />
     <PopularArticles
       v-if="$_media.sm"
-      :cards="details.popular"
+      :cards="details.populars"
     />
     <DesignCall />
     <ArticleSet />
@@ -36,7 +36,7 @@ export default {
       details: {
         info: {},
         similars: [],
-        popular: []
+        populars: []
       }
     }
   },

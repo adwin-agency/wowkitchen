@@ -286,8 +286,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 17px 0;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 16px;
 
     &-icon {
       margin-right: 10px;
@@ -338,6 +338,11 @@ export default {
     font-weight: 500;
     font-size: 12px;
     color: $color-lightviolet;
+    transition: opacity .3s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
 
     &-icon {
       width: 20px;

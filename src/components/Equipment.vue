@@ -135,7 +135,6 @@ export default {
   &__btn {
     margin-top: 12px;
     width: 100%;
-    max-width: 280px;
   }
 
   &__slider {
@@ -196,6 +195,11 @@ export default {
       width: 50%;
       padding: 0 10px;
       margin-bottom: 20px;
+    }
+
+    &__btn {
+      width: auto;
+      min-width: 280px;
     }
   }
 

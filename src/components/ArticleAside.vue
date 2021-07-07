@@ -36,7 +36,7 @@
     >
       <img
         class="article-aside__img"
-        :src="require(`@/assets/img/${card.image}`)"
+        :src="$_basepath + card.pictures[0]?.small"
         alt="preview-image"
       >
       <button
@@ -45,7 +45,7 @@
       >
         <AppIcon name="play" class="article-aside__play-icon" />
       </button>
-      <h4 class="article-aside__title">{{card.title}}</h4>
+      <h4 class="article-aside__title">{{card.name}}</h4>
     </a>
     <div class="article-aside__share">
       <p class="article-aside__share-text">Поделиться</p>
@@ -185,6 +185,20 @@ export default {
     margin-top: 26px;
     min-height: 210px;
     padding: 34px 34px 24px;
+    border-radius: 12px;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(0deg, #12131e, transparent 61%);
+      opacity: 0.57;
+      z-index: 1;
+    }
 
     & + & {
       margin-top: 20px;
@@ -197,9 +211,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
     object-fit: cover;
-    z-index: -1;
   }
 
   &__play {
@@ -214,11 +226,13 @@ export default {
   }
 
   &__title {
+    position: relative;
     margin-top: auto;
     font-weight: bold;
     font-size: 14px;
     line-height: (18/14);
     color: $color-lightgray;
+    z-index: 1;
   }
 
   &__share {

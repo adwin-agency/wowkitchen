@@ -308,8 +308,8 @@ export default {
     align-items: center;
     border-top: 1px solid $color-lightgray;
     padding: 17px 0;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 16px;
 
     &-icon {
       margin-right: 10px;

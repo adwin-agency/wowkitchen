@@ -18,7 +18,8 @@
         'text-field__input',
         'text-field__input_ta',
         {[`text-field__input_${color}`]: color},
-        {[`text-field__input_${size}`]: size}
+        {[`text-field__input_${size}`]: size},
+        {[`text-field__input_bordered`]: bordered},
       ]"
       @input="$emit('input', $event)"
     ></textarea>
@@ -29,6 +30,7 @@
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
+        {[`text-field__input_bordered`]: bordered},
         {[`text-field__input_side`]: sideNote}
       ]"
       @input="$emit('input', $event)"
@@ -54,6 +56,7 @@ export default {
     label: String,
     placeholder: String,
     color: String,
+    bordered: Boolean,
     size: String,
     labelColor: String,
     labelSize: String,
@@ -121,6 +124,10 @@ export default {
 
     &_side {
       width: 53%;
+    }
+
+    &_bordered {
+      border: 1px solid #e8e9f0;
     }
   }
 

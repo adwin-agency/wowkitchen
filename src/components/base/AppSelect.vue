@@ -118,6 +118,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  position: relative;
   transition: z-index 0.3s step-end;
   z-index: 1;
 

@@ -27,10 +27,10 @@
                   :key="index"
                   type="button"
                   class="constructor__option"
-                  :class="{'is-active': activeSettings[setting.id].value === option}"
-                  @click="setOption(setting.id, option)"
+                  :class="{'is-active': activeSettings[setting.id].value === option.title}"
+                  @click="setOption(setting.id, option.title)"
                 >
-                  {{option}}
+                  {{option.title}}
                 </button>
               </div>
             </template>
@@ -56,6 +56,7 @@
             icon="edit"
             figure
             title="Рассчитать этот проект"
+            modalName="calc"
             class="constructor__btn"
           />
         </div>
@@ -71,6 +72,7 @@
             icon="edit"
             figure
             title="Рассчитать этот проект"
+            modalName="calc"
             class="constructor__btn"
           />
           <div
@@ -99,6 +101,15 @@
             </div>
           </div>
         </div>
+        <AppButton
+          v-if="$_media.sm"
+          color="yellow"
+          icon="edit"
+          figure
+          title="Рассчитать этот проект"
+          modalName="calc"
+          class="constructor__btn"
+        />
       </div>
     </div>
   </div>
@@ -118,7 +129,7 @@ export default {
     return {
       settings: [
         { id: 'styles', title: 'Стиль', options: [{ title: 'Минимализм' }, { title: 'Неоклассика' }, { title: 'Хай-тек' }, { title: 'Скандинавский' }] },
-        { id: 'composition', title: 'Компоновка', options: ['Прямая', 'Угловая', 'П-образная'], additions: ['Барная стойка', 'Остров'] },
+        { id: 'composition', title: 'Компоновка', options: [{ title: 'Прямая' }, {title: 'Угловая' }, {title: 'П-образная' }], additions: ['Барная стойка', 'Остров'] },
         { id: 'colors', title: 'Цвет', options: [{ title: 'Светлые тона' }, { title: 'Тёмные тона' }] },
       ],
       points: [
@@ -135,9 +146,9 @@ export default {
     }
   },
   created() {
-    this.activeSettings.styles.value = this.settings.find(item => item.id === 'styles').options[0]
-    this.activeSettings.composition.value = this.settings.find(item => item.id === 'composition').options[0]
-    this.activeSettings.colors.value = this.settings.find(item => item.id === 'colors').options[0]
+    this.activeSettings.styles.value = this.settings.find(item => item.id === 'styles').options[0].title
+    this.activeSettings.composition.value = this.settings.find(item => item.id === 'composition').options[0].title
+    this.activeSettings.colors.value = this.settings.find(item => item.id === 'colors').options[0].title
 
     window.addEventListener('resize', this.handleResize)
   },
@@ -168,7 +179,7 @@ export default {
 .constructor {
   $b: &;
   
-  padding: 35px 0 130px;
+  padding: 35px 0;
   background-color: $color-lightgray;
 
   &__desc {
@@ -307,6 +318,11 @@ export default {
     }
   }
 
+  &__btn {
+    margin-top: 30px;
+    width: 100%;
+  }
+
   @include media(md) {
     padding: 72px 0;
 
@@ -407,6 +423,8 @@ export default {
       position: absolute;
       right: 30px;
       bottom: 26px;
+      margin-top: 0;
+      width: auto;
       min-width: 270px;
       font-size: 13px;
     }

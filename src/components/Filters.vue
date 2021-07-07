@@ -1,98 +1,99 @@
 <template>
   <div class="filters">
-    <div class="filters__header">
-      <p
-        v-if="$_media.sm"
-        class="filters__heading"
-      >
-        Фильтры
-      </p>
-      <div
-        v-if="categories"
-        class="filters__categories"
-      >
-        <button
-          v-for="(category, index) in categories"
-          :key="index"
-          type="button"
-          class="filters__category"
-          :class="{'is-active': activeOptions.category === category.value}"
-          @click="toggleCategory(category.value)"
+    <div class="filters__inner">
+      <div class="filters__header">
+        <p
+          v-if="$_media.sm"
+          class="filters__heading"
         >
-          {{category.title}}
-        </button>
-      </div>
-      <div
-        v-if="$_media.sm && selection.length"
-        class="filters__selection"
-      >
-        <button
-          v-for="(item, index) in selection"
-          :key="index"
-          type="button"
-          class="filters__tag is-active"
-          @click="removeTag(item.group)"
+          Фильтры
+        </p>
+        <div
+          v-if="categories"
+          class="filters__categories"
         >
-          {{item.title}}
-          <span class="filters__tag-remove"></span>
-        </button>
-        <button
-          type="button"
-          class="filters__tag filters__tag_reset"
-          @click="resetTags"
-        >
-          Сбросить всё
-        </button>
-      </div>
-    </div>
-    <div class="filters__groups">
-      <div
-        v-for="(group, index) in groups"
-        :key="index"
-        class="filters__group"
-      >
-        <p class="filters__title">{{group.title}}</p>
-        <div class="filters__tags">
           <button
-            v-for="(item, index) in group.items"
+            v-for="(category, index) in categories"
             :key="index"
             type="button"
-            :class="[
-              'filters__tag',
-              {'filters__tag_color': item.color},
-              {'is-active': item.value === 'all' ? !activeOptions[group.id] : activeOptions[group.id] === item.value}
-            ]"
-            :style="item.color && `background-color: ${item.value}`"
-            @click="toggleTag(group.id, item.value)"
+            class="filters__category"
+            :class="{'is-active': activeOptions.category === category.value}"
+            @click="toggleCategory(category.value)"
           >
-            <AppIcon
-              v-if="item.icon"
-              :name="item.icon"
-              class="filters__tag-icon"
-            />
+            {{category.title}}
+          </button>
+        </div>
+        <div
+          v-if="$_media.sm && selection.length"
+          class="filters__selection"
+        >
+          <button
+            v-for="(item, index) in selection"
+            :key="index"
+            type="button"
+            class="filters__tag is-active"
+            @click="removeTag(item.group)"
+          >
             {{item.title}}
-            <span
-              v-if="item.value !== 'all'"
-              class="filters__tag-remove"
-            ></span>
+            <span class="filters__tag-remove"></span>
+          </button>
+          <button
+            type="button"
+            class="filters__tag filters__tag_reset"
+            @click="resetTags"
+          >
+            Сбросить всё
           </button>
         </div>
       </div>
+      <div class="filters__groups">
+        <div
+          v-for="(group, index) in groups"
+          :key="index"
+          class="filters__group"
+        >
+          <p class="filters__title">{{group.title}}</p>
+          <div class="filters__tags">
+            <button
+              v-for="(item, index) in group.items"
+              :key="index"
+              type="button"
+              :class="[
+                'filters__tag',
+                {'filters__tag_color': item.color},
+                {'is-active': item.value === 'all' ? !activeOptions[group.id] : activeOptions[group.id] === item.value}
+              ]"
+              :style="item.color && `background-color: ${item.value}`"
+              @click="toggleTag(group.id, item.value)"
+            >
+              <AppIcon
+                v-if="item.icon"
+                :name="item.icon"
+                class="filters__tag-icon"
+              />
+              {{item.title}}
+              <span
+                v-if="item.value !== 'all'"
+                class="filters__tag-remove"
+              ></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        v-if="$_media.sm"
+        type="button"
+        class="filters__close"
+        @click="closeFilters"
+      >
+      </button>
     </div>
-    <div class="filters__footer">
-      <AppButton
-        :title="`Показать результаты${resultLength !== null ? ` (${resultLength})` : ''}`"
-        class="filters__btn"
-        @click="applyFilters"
-      />
-    </div>
-    <button
+    <AppButton
       v-if="$_media.sm"
-      type="button"
-      class="filters__close"
-      @click="closeFilters"
-    >
-    </button>
+      :title="`Показать результаты${resultLength !== null ? ` (${resultLength})` : ''}`"
+      class="filters__btn"
+      @click="applyFilters"
+    />
   </div>
 </template>
 
@@ -234,6 +235,13 @@ export default {
 <style lang="scss">
 .filters {
   $b: &;
+
+  &__inner {
+    position: relative;
+    height: 100%;
+    padding-bottom: 70px;
+    overflow-y: auto;
+  }
 
   &__header {
     padding: 25px 40px 15px;
@@ -377,12 +385,11 @@ export default {
     }
   }
 
-  &__footer {
-    padding: 0 40px 10px;
-  }
-
   &__btn {
-    width: 100%;
+    position: absolute;
+    left: 40px;
+    bottom: 10px;
+    width: calc(100% - 80px);
   }
 
   &__close {
@@ -417,6 +424,10 @@ export default {
 
   @include media(md) {
     padding: 40px;
+
+    &__inner {
+      padding-bottom: 0;
+    }
 
     &__header {
       padding: 0;
@@ -464,14 +475,6 @@ export default {
 
     &__tag-remove {
       margin-left: 6px;
-    }
-
-    &__footer {
-      display: none;
-    }
-
-    &__close {
-      display: none;
     }
   }
 }

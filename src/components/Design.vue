@@ -55,7 +55,7 @@ export default {
 
 <style lang="scss">
 .design {
-  padding: 30px 0;
+  padding: 50px 0;
   background-color: $color-green;
   overflow: hidden;
 
@@ -135,7 +135,6 @@ export default {
     display: block;
     margin: 40px auto 0;
     width: 100%;
-    max-width: 300px;
   }
 
   &__image {

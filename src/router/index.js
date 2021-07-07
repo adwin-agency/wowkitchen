@@ -10,6 +10,7 @@ const routes = [
   {
     path: '/blog/:code',
     name: 'article',
+    meta: { introEffect: true },
     component: () => import('@/views/ArticleView.vue')
   },
   {
@@ -35,6 +36,7 @@ const routes = [
   {
     path: '/guarantee',
     name: 'guarantee',
+    meta: { introEffect: true },
     component: () => import('@/views/GuaranteeView.vue')
   },
   {
@@ -50,11 +52,13 @@ const routes = [
   {
     path: '/materials',
     name: 'materials',
+    meta: { introEffect: true },
     component: () => import('@/views/MaterialsView.vue')
   },
   {
     path: '/payment',
     name: 'payment',
+    meta: { introEffect: true },
     component: () => import('@/views/PaymentView.vue')
   },
   {
@@ -70,6 +74,7 @@ const routes = [
   {
     path: '/team',
     name: 'team',
+    meta: { introEffect: true },
     component: () => import('@/views/TeamView.vue')
   },
   {
@@ -85,6 +90,7 @@ const routes = [
   {
     path: '/vacancy',
     name: 'vacancy',
+    meta: { introEffect: true },
     component: () => import('@/views/VacancyView.vue')
   },
   {
@@ -106,7 +112,11 @@ const router = createRouter({
   routes,
   linkActiveClass: 'is-active',
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition || from.name === to.name && !from.params.product) {
+    if (to.meta.introEffect) {
+      return { top: 0 }
+    }
+
+    if (savedPosition) {
       return savedPosition
     } else {
       return { top: 0 }

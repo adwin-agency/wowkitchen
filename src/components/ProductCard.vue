@@ -16,6 +16,7 @@
         alt
         class="product-card__img"
       >
+      <router-link :to="{name: cardType, params: {code: cardData.url}}"></router-link>
       <span
         v-if="!large && cardData.discount"
         class="product-card__discount"
@@ -186,7 +187,21 @@ export default {
   &_slide {
     #{$b} {
       &__img-box {
-        height: 186px;
+        height: auto;
+        max-height: 400px;
+        overflow: hidden;
+
+        &::before {
+          content: "";
+          display: block;
+          padding-top: 75%;
+        }
+      }
+
+      &__img {
+        position: absolute;
+        left: 0;
+        top: 0;
       }
 
       &__video-btn {
@@ -260,7 +275,6 @@ export default {
       }
 
       &__discount {
-        right: -12px;
         border-radius: 15px 0 15px 0;
         font-size: 17px;
       }
@@ -291,6 +305,14 @@ export default {
     border-radius: 12px;
     height: 250px;
     overflow: hidden;
+
+    a {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &__img {
@@ -352,6 +374,11 @@ export default {
 
   &__action {
     fill: $color-lightviolet;
+    transition: opacity .3s ease, fill .3s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
 
     &.is-active {
       fill: black;
@@ -393,6 +420,11 @@ export default {
       #{$b} {
         &__img-box {
           height: 250px;
+          max-height: none;
+
+          &::before {
+            display: none;
+          }
         }
 
         &__discount {
@@ -569,6 +601,7 @@ export default {
       width: 60px;
       height: 60px;
       border-radius: 50%;
+      background-color: rgba(#fff, .5);
       transform: translate(-50%, -50%);
       opacity: 0;
       pointer-events: none;
@@ -576,6 +609,7 @@ export default {
     }
 
     &__zoom-icon {
+      margin: 1px 0 0 2px;
       width: 100%;
       height: 100%;
     }

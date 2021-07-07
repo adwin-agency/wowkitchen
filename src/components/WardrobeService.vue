@@ -15,13 +15,29 @@
               v-html="item.desc"
               class="wardrobe-service__desc"
             ></p>
-            <a
+            <button
+              v-if="item.modal"
+              type="button"
+              class="wardrobe-service__link"
+              @click="openModal(item.modal.name)"
+            >
+              {{item.modal.title}}
+              <AppIcon
+                name="long-arrow"
+                class="wardrobe-service__arrow"
+              />
+            </button>
+            <router-link
               v-if="item.link"
-              href=""
+              :to="item.link.to"
               class="wardrobe-service__link"
             >
-              {{item.link}}
-            </a>
+              {{item.link.title}}
+              <AppIcon
+                name="long-arrow"
+                class="wardrobe-service__arrow"
+              />
+            </router-link>
           </div>
         </div>
       </div>
@@ -30,16 +46,28 @@
 </template>
 
 <script>
+import AppIcon from './base/AppIcon.vue'
+
+const items = [
+  { num: '01', title: 'Бесплатный вызов дизайнера', desc: 'Вы познакомитесь с выполненными проектами, а дизайнер подберёт лучшие фасады, цвета и конструктив, составит и рассчитает проект вашей мечты <span>бесплатно</span>.', modal: { name: 'designer', title: 'Пригласить дизайнера' } },
+  { num: '02', title: 'Безопасность и экологичность конструкции', desc: 'Материалы от наших поставщиков соответствуют классам эмиссии Е0,5 и Е1. Что допустимо даже для использования в детских и медицинских учреждениях.' },
+  { num: '03', title: 'Индивидуальный дизайн', desc: 'Мы создаем мебель на заказ и часто разрабатываем уникальные интерьерные решения, подчёркивающие индивидуальность владельца.' },
+  { num: '04', title: 'Гарантия на шкафы 2 года', desc: 'Мы не только берём на себя всю работу от создания макетов до финальной сборки на объекте, но и предоставляем гарантийное обслуживание на целых 24 месяца.', link: { to: { name: 'main' }, title: 'Подробнее о производстве' } },
+]
+
 export default {
   name: 'WardrobeService',
+  components: {
+    AppIcon
+  },
   data() {
     return {
-      items: [
-        { num: '01', title: 'Бесплатный вызов дизайнера', desc: 'Пригласив к себе нашего дизайнера, вы получите точные замеры на месте и полноценную консультацию по конструктиву и стилю шкафа. <br><span>Это абсолютно бесплатно!</span>', link: 'Пригласить дизайнера' },
-        { num: '02', title: 'Безопасность и экологичность конструкции', desc: 'Материалы соответствуют международным стандартам ISO и могут быть использованы даже в медицинских и детских учереждениях' },
-        { num: '03', title: 'Индивидуальный дизайн', desc: 'Вы можете выбрать модель из представленных на сайте за основу или создать проект с нуля исходя из своих потребностей и предпочтений. А наши дизайнеры с удовольствием вам помогут.' },
-        { num: '04', title: 'Гарантия на шкафы 2 года', desc: 'Собственное производство и проверенные производители материалов дают возможность давать гарантию на продукцию.', link: 'Подробнее о производстве' },
-      ]
+      items: items
+    }
+  },
+  methods: {
+    openModal(name) {
+      this.$store.commit('setModal', name)
     }
   }
 }
@@ -47,6 +75,8 @@ export default {
 
 <style lang="scss">
 .wardrobe-service {
+  $b: &;
+  
   &__items {
     margin-top: 22px;
   }
@@ -75,7 +105,7 @@ export default {
   &__desc {
     margin-top: 6px;
     font-weight: 300;
-    font-size: 12px;
+    font-size: 14px;
     line-height: (20/12);
 
     span {
@@ -84,11 +114,27 @@ export default {
   }
 
   &__link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     margin-top: 10px;
     font-weight: bold;
     font-size: 13px;
     color: $color-green;
+
+    &:hover {
+      #{$b}__arrow {
+        transform: translateX(10px);
+      }
+    }
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    margin-left: 12px;
+    width: 43px;
+    height: 11px;
+    fill: #04b991;
+    transition: transform .3s ease;
   }
 
   @include media(md) {

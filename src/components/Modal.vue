@@ -30,19 +30,19 @@
             <AppTextField
               type="tel"
               label="Контактный телефон"
-              placeholder="Как к вам обращаться?"
+              placeholder="+7 (999) 999 - 99 - 99"
               class="modal__field"
             />
             <AppTextField
               type="text"
               label="Адрес"
-              placeholder="Как к вам обращаться?"
+              placeholder="Адрес"
               class="modal__field"
             />
             <AppTextField
               type="text"
               label="Предпочитаемое время"
-              placeholder="Как к вам обращаться?"
+              placeholder="Время"
               class="modal__field"
             />
           </div>

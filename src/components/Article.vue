@@ -2,30 +2,14 @@
   <div
     ref="article"
     class="article"
+    :class="{'is-active': isActiveContent}"
   >
     <div class="article__intro">
-      <picture class="article__intro-picture">
-        <source
-          srcset="@/assets/img/articles/banner_1920.jpg"
-          media="(min-width: 1290px)"
-          type="image/png"
-        >
-        <source
-          srcset="@/assets/img/articles/banner_1280.jpg"
-          media="(min-width: 960px)"
-          type="image/png"
-        >
-        <source
-          srcset="@/assets/img/articles/banner_960.jpg"
-          media="(min-width: 0px)"
-          type="image/png"
-        >
-        <img
-          class="article__intro-img"
-          src="@/assets/img/articles/banner_1920.jpg"
-          alt="intro-banner"
-        >
-      </picture>
+      <img
+        :src="info.pictures && $_basepath + info.pictures[0].large"
+        alt
+        class="article__intro-img"
+      >
       <div class="container">
         <h1 class="article__intro-title">{{info.name}}</h1>
       </div>
@@ -339,8 +323,21 @@ export default {
   },
   data() {
     return {
-      scrollPage: null,
-      sidebar: null
+      // scrollPage: null,
+      sidebar: null,
+      isActiveContent: false,
+      isAnim: false,
+      touchY: null
+    }
+  },
+  computed: {
+    scrollLock() {
+      return this.$store.getters.scrollLock
+    }
+  },
+  watch: {
+    info() {
+      this.sidebar?.updateSticky()
     }
   },
   mounted() {
@@ -367,152 +364,56 @@ export default {
     })
     // END DEVELOPE CODE
 
-    // intro-effect
-    const el = this.$refs.article
-    const keys = [32, 37, 38, 39, 40]
-
-    function preventDefault(e) {
-      e = e || window.event
-
-      if (e.preventDefault) {
-        e.preventDefault()
-      }
-
-      e.returnValue = false
-    }
-
-    function keydown(e) {
-      for (var i = keys.length; i--; ) {
-        if (e.keyCode === keys[i]) {
-          preventDefault(e)
-          return
-        }
-      }
-    }
-
-    function touchmove(e) {
-      preventDefault(e)
-    }
-
-    function wheel() {}
-
-    function disableScroll() {
-      window.onmousewheel = document.onmousewheel = wheel
-      document.onkeydown = keydown
-      document.body.ontouchmove = touchmove
-    }
-
-    function enableScroll() {
-      window.onmousewheel = document.onmousewheel = document.onkeydown = document.body.ontouchmove = null
-    }
-
-    let docElem = window.document.documentElement,
-      scrollVal,
-      isRevealed,
-      noscroll,
-      isAnimating
-
-    function scrollY() {
-      return window.pageYOffset || docElem.scrollTop
-    }
-
-    this.scrollPage = () => {
-      scrollVal = scrollY()
-
-      if (noscroll) {
-        if (scrollVal < 0) {
-          return false
-        }
-
-        window.scrollTo(0, 0)
-      }
-
-      if (el.classList.contains('no-transition')) {
-        el.classList.remove('no-transition')
-        return false
-      }
-
-      if (isAnimating) {
-        return false
-      }
-
-      if (scrollVal <= 0 && isRevealed) {
-        toggleReveal(0)
-      } else if (scrollVal > 0 && !isRevealed) {
-        toggleReveal(1)
-      }
-    }
-
-    const toggleReveal = (reveal) => {
-      isAnimating = true
-
-      if (reveal) {
-        el.classList.add('is-modified')
-      } else {
-        noscroll = true
-        disableScroll()
-        el.classList.remove('is-modified')
-      }
-
-      setTimeout(() => {
-        isRevealed = !isRevealed
-        isAnimating = false
-        if (reveal) {
-          noscroll = false
-          enableScroll()
-
-          // sticky-sidebar
-          if (!this.$_media.sm) {
-            if (this.sidebar) {
-              this.sidebar.updateSticky()
-            } else {
-              this.sidebar = new StickySidebar('.article__aside', {
-                topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
-                bottomSpacing: 30,
-                containerSelector: '.article__inner',
-                innerWrapperSelector: '.article__aside-inner'
-              })
-            }
-          }
-        }
-      }, 1000)
-    }
-
-    const pageScroll = scrollY()
-    noscroll = pageScroll === 0
-
-    disableScroll()
-
-    if (pageScroll) {
-      isRevealed = true
-      el.classList.add('no-transition')
-      el.classList.add('is-modified')
-
-      // sticky-sidebar
-      if (!this.$_media.sm) {
-        setTimeout(() => {
-          this.sidebar = new StickySidebar('.article__aside', {
-            topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
-            bottomSpacing: 30,
-            containerSelector: '.article__inner',
-            innerWrapperSelector: '.article__aside-inner'
-          })
-        }, 100)
-      }
-    }
-
-    window.addEventListener('scroll', this.scrollPage)
+    this.$store.commit('setIntroEffect', true)
     window.addEventListener('resize', this.handleResize)
+    window.addEventListener('wheel', this.handleWheel)
+    window.addEventListener('touchstart', this.handleTouchstart)
+    window.addEventListener('touchend', this.handleTouchend)
+
+    this.initSidebar()
   },
   unmounted() {
     if (this.sidebar) {
       this.sidebar.destroy()
     }
 
-    window.removeEventListener('scroll', this.scrollPage)
+    this.$store.commit('setIntroEffect', false)
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('wheel', this.handleWheel)
+    window.removeEventListener('touchstart', this.handleTouchstart)
+    window.removeEventListener('touchend', this.handleTouchend)
+    
   },
   methods: {
+    disableContent() {
+      this.isAnim = true        
+      this.$store.commit('setIntroEffect', true)
+      this.isActiveContent = false
+
+      setTimeout(() => {
+        this.isAnim = false
+      }, 500)
+    },
+
+    enableContent() {
+      this.isAnim = true
+      this.isActiveContent = true
+
+      setTimeout(() => {
+        this.isAnim = false
+        this.$store.commit('setIntroEffect', false)
+      }, 500)
+    },
+
+    initSidebar() {
+      this.sidebar = new StickySidebar('.article__aside', {
+        topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
+        bottomSpacing: 30,
+        containerSelector: '.article__inner',
+        innerWrapperSelector: '.article__aside-inner'
+      })
+    },
+
     handleResize() {
       if (this.$_media.sm) {
         this.sidebar = null
@@ -520,13 +421,38 @@ export default {
         if (this.sidebar) {
           this.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
         } else {
-          this.sidebar = new StickySidebar('.article__aside', {
-            topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
-            bottomSpacing: 30,
-            containerSelector: '.article__inner',
-            innerWrapperSelector: '.article__aside-inner'
-          })
+          this.initSidebar()
         }
+      }
+    },
+
+    handleTouchstart(e) {
+      this.touchY = e.touches[0].clientY
+    },
+
+    handleTouchend(e) {
+      if (this.isAnim || this.scrollLock) {
+        return
+      }
+
+      const deltaY = e.changedTouches[0].clientY - this.touchY
+
+      if (deltaY < 0 && !this.isActiveContent) {
+        this.enableContent()
+      } else if (deltaY > 0 && window.scrollY < 50 && this.isActiveContent) {
+        this.disableContent()
+      }
+    },
+
+    handleWheel(e) {
+      if (this.isAnim || this.scrollLock) {
+        return
+      }
+
+      if (e.deltaY > 0 && !this.isActiveContent) {
+        this.enableContent()
+      } else if (e.deltaY < 0 && window.scrollY < 50 && this.isActiveContent) {
+        this.disableContent()
       }
     }
   }
@@ -537,16 +463,7 @@ export default {
 .article {
   $b: &;
 
-  &:not(.no-transition) {
-    #{$b} {
-      &__intro,
-      &__container {
-        transition: opacity 1s cubic-bezier(0.7, 0, 0.3, 1), transform 1s cubic-bezier(0.7, 0, 0.3, 1);
-      }
-    }
-  }
-
-  &.is-modified {
+  &.is-active {
     #{$b} {
       &__intro {
         opacity: 0;
@@ -569,20 +486,16 @@ export default {
     width: 100%;
     height: 100vh;
     padding: 40px 0;
+    transition: opacity .5s ease, transform .5s ease;
     z-index: 1;
 
-    &-picture {
+    &-img {
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+      object-fit: cover;
     }
 
     &-title {
@@ -598,6 +511,7 @@ export default {
     padding-top: 40px;
     opacity: 0;
     transform: translateY(400px);
+    transition: opacity .5s ease, transform .5s ease;
   }
 
   &__stats {

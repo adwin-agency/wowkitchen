@@ -51,11 +51,14 @@ export default {
 
   &__items {
     display: flex;
+    flex-wrap: wrap;
     margin-right: -18px;
+    margin-bottom: -12px;
   }
 
   &__item {
     margin-right: 18px;
+    margin-bottom: 12px;
   }
 
   &__input {

@@ -6,7 +6,7 @@
   >
     <div class="article-card__image">
       <img
-        :src="$_basepath + cardData.image"
+        :src="$_basepath + cardData.pictures[0]?.medium"
         alt
       >
       <AppIcon
@@ -25,9 +25,9 @@
         v-if="!($_media.sm && mod === 'sample')"
         class="article-card__tag"
       >
-        {{cardData.tag}}
+        {{cardData.category_rus}}
       </span>
-      <p class="article-card__title">{{cardData.title}}</p>
+      <p class="article-card__title">{{cardData.name}}</p>
       <div
         v-if="!($_media.sm && mod === 'sample')"
         class="article-card__footer"

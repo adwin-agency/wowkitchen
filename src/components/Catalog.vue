@@ -4,14 +4,12 @@
     :class="{[`catalog_${type}`]: type !== 'kitchens'}"
   >
     <div class="catalog__side">
-      <div
-        ref="filters"
-        class="catalog__filters"
-        :class="{'is-active': activeFilters}"
-      >
+      <div class="catalog__side-inner">
         <Filters
           :categories="filterCategories"
           :groups="filterGroups"
+          class="catalog__filters"
+          :class="{'is-active': activeFilters}"
           @apply="applyFilters($event)"
           @close="closeFilters"
         />
@@ -144,10 +142,12 @@ export default {
   methods: {
     openFilters() {
       this.activeFilters = true
+      this.$store.commit('setActiveFilters', true)
     },
 
     closeFilters() {
       this.activeFilters = false
+      this.$store.commit('setActiveFilters', false)
     },
 
     applyFilters(length) {
@@ -171,13 +171,13 @@ export default {
         topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
         bottomSpacing: 0,
         containerSelector: '.catalog',
-        innerWrapperSelector: '.catalog__filters'
+        innerWrapperSelector: '.catalog__side-inner'
       })
     },
 
     handleResize() {
       if (!this.$_media.sm && this.activeFilters) {
-        this.activeFilters = false
+        this.closeFilters()
       }
 
       if (this.$_mobile && this.catalogType === 'list') {
@@ -222,7 +222,6 @@ export default {
     height: 100%;
     background-color: $color-lightgray;
     transition: transform 0.3s ease;
-    overflow-y: auto;
     z-index: 100;
 
     &.is-active {
@@ -308,7 +307,7 @@ export default {
         }
 
         &__card {
-          width: calc(50% - 30px);
+          width: calc(50% - 20px);
           margin-bottom: 70px;
         }
       }

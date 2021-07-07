@@ -36,9 +36,14 @@
       </div>
       <p class="favorites__text">Хотите рассчитать стоимость выбранных позиций с учётом габаритов вашего помещения?</p>
       <p class="favorites__text">Наш менеджер свяжется с вами в ближайшее время.</p>
-      <App-button
+      <AppButton
         title="Рассчитать мой проект"
         class="favorites__button"
+      />
+      <AppButton
+        title="Продолжить просмотр"
+        class="favorites__button"
+        @click="$emit('close')"
       />
     </div>
   </div>
@@ -54,6 +59,7 @@ export default {
     AppButton,
     AppIcon
   },
+  emits: ['close'],
   computed: {
     items() {
       return this.$store.state.favoriteItems

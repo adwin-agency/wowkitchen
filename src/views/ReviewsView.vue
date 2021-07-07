@@ -28,8 +28,6 @@ export default {
     const responseJson = await response.json()
 
     this.reviews = responseJson.reviews
-
-    console.log(responseJson.reviews)
   }
 }
 </script>

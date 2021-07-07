@@ -18,11 +18,11 @@
         <p
           ref="desc"
           class="projects__desc"
+          :class="{'is-active': activeDesc}"
         >
-          Мы создаём законченные проекты с нуля <span>по{{'\xa0'}}индивидуальным дизайн-проектам</span>, используя лишь экологичные материалы
+          Мы создаём законченные проекты с нуля <span>по{{'\xa0'}}индивидуальным дизайн-проектам,</span> используя лишь экологичные материалы
           <AppIcon
             class="projects__desc-icon"
-            :class="{'is-active': activeLeaf}"
             name="leaf-filled"
           />
         </p>
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       cards: cards,
-      activeLeaf: false
+      activeDesc: false
     }
   },
   created() {
@@ -69,8 +69,8 @@ export default {
   },
   methods: {
     handleScroll() {
-      if (this.$refs.desc.getBoundingClientRect().top < window.innerHeight / 2) {
-        this.activeLeaf = true
+      if (this.$refs.desc.getBoundingClientRect().top < window.innerHeight * 0.75) {
+        this.activeDesc = true
         window.removeEventListener('scroll', this.handleScroll)
       }
     }
@@ -80,6 +80,8 @@ export default {
 
 <style lang="scss">
 .projects {
+  $b: &;
+
   position: relative;
   padding: 34px 0 94px;
   background-color: #eaebf1;
@@ -103,20 +105,8 @@ export default {
     line-height: (42/20);
 
     span {
+      padding: 5px;
       background-color: #fde93d;
-      box-shadow: 0 0 0 7px #fde93d;
-    }
-  }
-
-  @keyframes projects-leaf {
-    0% {
-      transform: rotate(0);
-    }
-    50% {
-      transform: rotate(30deg);
-    }
-    100% {
-      transform: rotate(0);
     }
   }
 
@@ -127,10 +117,6 @@ export default {
     width: 16px;
     height: 16px;
     fill: #17ba95;
-
-    &.is-active {
-      animation: projects-leaf .5s 3;
-    }
   }
 
   &__bg-pattern {
@@ -163,6 +149,57 @@ export default {
     &__desc {
       max-width: 520px;
       text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+      transition: opacity .5s ease, transform .5s ease;
+
+      @keyframes projects-leaf {
+        0% {
+          transform: rotate(0);
+        }
+        25% {
+          transform: rotate(15deg);
+        }
+        50% {
+          transform: rotate(0);
+        }
+        75% {
+          transform: rotate(30deg);
+        }
+        100% {
+          transform: rotate(0);
+        }
+      }
+
+      &-icon {
+        opacity: 0;
+        transform-origin: left bottom;
+        transition: opacity .5s ease 1s;
+      }
+
+      span {
+        background-color: transparent;
+        background-image: linear-gradient(90deg, #fde93d 50%, transparent 50%);
+        background-position: 100% 0;
+        background-size: 200% 100%;
+        transition: background-position .5s ease .5s;
+      }
+
+      &.is-active {
+        opacity: 1;
+        pointer-events: all;
+        transform: none;
+
+        #{$b}__desc-icon {
+          opacity: 1;
+          animation: projects-leaf 1s ease 1.25s;
+        }
+
+        span {
+          background-position: 0 0;
+        }        
+      }
     }
 
     &__desc-icon {

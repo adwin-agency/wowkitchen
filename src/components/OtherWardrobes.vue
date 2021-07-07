@@ -11,7 +11,7 @@
           scrollbar
           navigation
           :slides-per-view="$_media.sm ? 1 : $_media.md ? 2 : 3"
-          :space-between="$_media.sm ? 20 : $_media.md ? 95 : 50"
+          :space-between="$_media.sm ? 20 : 50"
           watch-slides-visibility
           class="other-wardrobes__slider"
         >

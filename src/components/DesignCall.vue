@@ -146,6 +146,7 @@ export default {
   }
 
   &__heading {
+    position: relative;
     padding: 0 10px;
     font-size: 24px;
     line-height: (32/24);
@@ -153,6 +154,7 @@ export default {
   }
 
   &__desc {
+    position: relative;
     margin-top: 30px;
     padding: 0 10px;
     font-size: 16px;

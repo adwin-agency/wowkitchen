@@ -9,7 +9,7 @@
     <div class="other-products__cards">
       <div class="container">
         <Swiper
-          :slides-per-view="$_mobile ? 1 : 2"
+          :slides-per-view="$_media.sm ? 1 : 2"
           :space-between="$_mobile ? 30 : $_media.lg ? 40 : 50"
           scrollbar
           navigation

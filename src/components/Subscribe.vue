@@ -112,7 +112,6 @@ export default {
   &__field {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-top: 16px;
     border: 1px solid #f2f2f2;
     border-radius: 4px;

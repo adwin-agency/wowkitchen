@@ -141,6 +141,7 @@ export default {
 
   &__main {
     padding-top: 45px;
+    border-bottom: 2px solid #fff;
   }
 
   &__section {
@@ -259,6 +260,7 @@ export default {
   @include media(md) {
     &__main {
       padding: 35px 0 85px;
+      border-bottom: none;
     }
 
     &__section {

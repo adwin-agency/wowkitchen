@@ -11,7 +11,7 @@
           :slides-per-view="$_media.sm ? 'auto' : 2"
           :space-between="$_mobile ? 20 : $_media.lg ? 40 : 60"
           watch-slides-visibility
-          :navigation="!$_media.sm"
+          navigation
           class="interesting__slider"
         >
           <SwiperSlide
@@ -70,6 +70,11 @@ export default {
 
   &__slider {
     overflow: visible;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
   }
 
   &__slide {
@@ -121,11 +126,8 @@ export default {
     &__slider {
       padding-right: 270px;
 
-      .swiper-button-prev {
-        display: none;
-      }
-
       .swiper-button-next {
+        display: block;
         position: absolute;
         top: 50%;
         right: 140px;

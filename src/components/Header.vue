@@ -115,6 +115,7 @@
     <Favorites
       class="header__favorite"
       :class="{'is-active': activeFavorite}"
+      @close="toggleFavorite"
     />
 
     <NavPanel
@@ -525,7 +526,6 @@ export default {
   &__call-btn {
     margin-top: 35px;
     width: 100%;
-    max-width: 300px;
     font-size: 11px;
   }
 
@@ -740,6 +740,7 @@ export default {
     &__call-btn {
       margin-top: 0;
       margin-right: 30px;
+      width: auto;
     }
 
     &__phone {
@@ -829,7 +830,7 @@ export default {
     }
 
     &__favorite {
-      margin-left: 1px;
+      margin-right: -1px;
       width: 730px;
       box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.06);
     }

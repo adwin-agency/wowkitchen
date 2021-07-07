@@ -19,7 +19,10 @@
             :key="index"
             class="article-set__slide"
           >
-            <div class="article-set__card">
+            <router-link
+              :to="{ name: 'blog' }"
+              class="article-set__card"
+            >
               <img
                 :src="require(`@/assets/img/${card.image}`)"
                 alt=""
@@ -27,7 +30,7 @@
               >
               <p class="article-set__title">{{card.title}}</p>
               <p class="article-set__desc">{{card.desc}}</p>
-            </div>
+            </router-link>
           </SwiperSlide>
         </Swiper>
       </div>
@@ -86,6 +89,7 @@ export default {
 
     &:not(.swiper-slide-visible) {
       opacity: 0.2;
+      pointer-events: none;
 
       #{$b} {
         &__title,

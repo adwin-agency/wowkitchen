@@ -84,21 +84,85 @@ export default {
     return {
       menu: menu,
       isActiveMenu: true,
-      isActiveContent: false
+      isActiveContent: false,
+      isAnim: false,
+      touchY: null
     }
   },
-  created() {
+  computed: {
+    scrollLock() {
+      return this.$store.getters.scrollLock
+    }
+  },
+  mounted() {
+    this.$store.commit('setIntroEffect', true)
     window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('wheel', this.handleWheel)
+    window.addEventListener('touchstart', this.handleTouchstart)
+    window.addEventListener('touchend', this.handleTouchend)
   },
   unmounted() {
+    this.$store.commit('setIntroEffect', false)
     window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('wheel', this.handleWheel)
+    window.removeEventListener('touchstart', this.handleTouchstart)
+    window.removeEventListener('touchend', this.handleTouchend)
   },
   methods: {
+    disableContent() {
+      this.isAnim = true        
+      this.$store.commit('setIntroEffect', true)
+      this.isActiveContent = false
+
+      setTimeout(() => {
+        this.isAnim = false
+      }, 500)
+    },
+
+    enableContent() {
+      this.isAnim = true
+      this.isActiveContent = true
+
+      setTimeout(() => {
+        this.isAnim = false
+        this.$store.commit('setIntroEffect', false)
+      }, 500)
+    },
+
     handleScroll() {
       const content = this.$refs.content
 
       this.isActiveMenu = window.innerHeight < content.getBoundingClientRect().top + content.offsetHeight
-      this.isActiveContent = window.scrollY > 0
+    },
+
+    handleTouchstart(e) {
+      this.touchY = e.touches[0].clientY
+    },
+
+    handleTouchend(e) {
+      if (this.isAnim || e.target.closest('.side-fixed__menu') || this.scrollLock) {
+        return
+      }
+
+      const deltaY = e.changedTouches[0].clientY - this.touchY
+
+      if (deltaY < 0 && !this.isActiveContent) {
+        this.enableContent()
+      } else if (deltaY > 0 && window.scrollY < 50 && this.isActiveContent) {
+        this.disableContent()
+      }
+    },
+
+    handleWheel(e) {
+      if (this.isAnim || this.scrollLock) {
+        return
+      }
+
+      if (e.deltaY > 0 && !this.isActiveContent) {
+        this.enableContent()
+      } else if (e.deltaY < 0 && window.scrollY < 50 && this.isActiveContent) {
+        this.disableContent()
+      }
     }
   }
 }
@@ -112,7 +176,7 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
-    width: 100%;
+    right: 0;
     height: 100%;
     background-size: cover;
     background-position: center;
@@ -143,7 +207,6 @@ export default {
 
   &__content {
     position: relative;
-    padding-top: (calc(100vh - #{$header-bar-height + 170px}));
     z-index: 1;
 
     &::before {
@@ -165,6 +228,12 @@ export default {
       }
 
       #{$b} {
+        &__menu,
+        &__header {
+          transform: none;
+          transition: transform 0.5s ease;
+        }
+
         &__heading {
           color: $color-primary;
           transition: color 0.5s ease;
@@ -188,9 +257,15 @@ export default {
     }
   }
 
+  &__menu,
+  &__header {
+    transform: translateY(calc(100vh - #{$header-bar-height + 200px}));
+    transition: transform .5s ease .5s;
+  }
+
   &__menu {
     margin-bottom: 8px;
-    padding-top: 50px;
+    padding-top: 50px;    
     overflow: hidden;
   }
 
@@ -204,7 +279,8 @@ export default {
     &::after {
       content: '';
       flex-shrink: 0;
-      width: calc(50% - 150px);
+      width: calc(50vw - #{$container-max-width / 2 - $container-padding});
+      min-width: $container-padding;
     }
 
     &::before {
@@ -295,7 +371,6 @@ export default {
     &__content {
       margin-left: auto;
       width: 76.5%;
-      padding-top: calc(100vh - #{$header-bar-height-md + 325px});
 
       &.is-active {
         #{$b} {
@@ -309,6 +384,7 @@ export default {
 
     &__header {
       padding-top: 50px;
+      transform: translateY(calc(100vh - #{$header-bar-height-md + 325px}));
     }
 
     &__category {
@@ -341,7 +417,10 @@ export default {
 
     &__content {
       width: 75%;
-      padding-top: calc(100vh - #{$header-bar-height-lg + $nav-panel-height-lg + 325px});
+    }
+
+    &__header {
+      transform: translateY(calc(100vh - #{$header-bar-height-lg + $nav-panel-height-lg + 325px}));
     }
 
     &__desc {
@@ -362,7 +441,10 @@ export default {
 
     &__content {
       width: 73.7%;
-      padding-top: calc(100vh - #{$header-bar-height-xl + $nav-panel-height-xl + 445px});
+    }
+
+    &__header {
+      transform: translateY(calc(100vh - #{$header-bar-height-xl + $nav-panel-height-xl + 445px}));
     }
 
     &__desc {

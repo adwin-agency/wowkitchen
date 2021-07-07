@@ -309,8 +309,8 @@ export default {
     display: flex;
     justify-content: space-between;
     padding: 18px 0;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 16px;
 
     &-icon {
       width: 20px;

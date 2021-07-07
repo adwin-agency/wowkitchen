@@ -9,11 +9,6 @@
           <div class="intro__content">
             <p class="intro__top">Новая кухня: с нами - легко!</p>
             <h1 class="intro__heading">Кухни и{{'\xa0'}}мебель на заказ</h1>
-            <AppVideoButton
-              v-if="$_media.sm"
-              title="Смотреть видео"
-              class="intro__video-btn"
-            />
             <div class="intro__tags">
               <router-link
                 :to="{name: 'kitchens'}"
@@ -48,6 +43,11 @@
                 class="intro__tag intro__tag_green"
               >Современная классика</router-link>
             </div>
+            <AppVideoButton
+              v-if="$_media.sm"
+              title="Смотреть видео"
+              class="intro__video-btn"
+            />
           </div>
           <div class="intro__video">
             <AppIcon
@@ -237,7 +237,7 @@ export default {
     display: flex;
     align-items: center;
     position: relative;
-    margin-top: 36px;
+    margin-top: 84px;
     margin-left: 18px;
     border-radius: 100px;
     font-weight: bold;
@@ -273,7 +273,7 @@ export default {
   &__tags {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 84px;
+    margin-top: 36px;
     margin-right: -5px;
   }
 

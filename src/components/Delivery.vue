@@ -55,8 +55,8 @@
               <AppTextField label="Контактный телефон" color="white" class="delivery__form-field" />
               <!-- <label class="delivery__form-lable" for="phone">Контактный телефон</label>
               <input class="delivery__form-input" type="tel" required> -->
-              <AppButton title="Расчитать" class="delivery__form-button-sb" />
-              <!-- <button class="delivery__form-button-sb" type="submith">Расчитать</button> -->
+              <AppButton title="Рассчитать" class="delivery__form-button-sb" />
+              <!-- <button class="delivery__form-button-sb" type="submith">Рассчитать</button> -->
             </fieldset>
             <div class="delivery__form-map-box">
               <div class="delivery__form-map"></div>

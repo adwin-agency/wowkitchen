@@ -6,6 +6,7 @@
         <Swiper
           slides-per-view="auto"
           :space-between="$_media.sm ? 10 : 60"
+          navigation
           class="wardrobe-materials__slider"
         >
           <SwiperSlide
@@ -52,8 +53,11 @@
 </template>
 
 <script>
+import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppIcon from './base/AppIcon.vue'
+
+SwiperCore.use([Navigation])
 
 export default {
   name: 'WardrobeMaterials',
@@ -79,6 +83,11 @@ export default {
   &__slider {
     margin: 32px (-$container-padding) 0;
     overflow: visible;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
   }
 
   &__slide {
@@ -160,6 +169,16 @@ export default {
 
     &__slider {
       margin: 40px 0 0;
+      max-width: calc(50% + 50vw - 50px);
+
+      .swiper-button-next {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: -20px;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
     }
 
     &__slide {
@@ -216,6 +235,14 @@ export default {
   @include media(lg) {
     &__heading {
       max-width: 500px;
+    }
+
+    &__slider {
+      max-width: none;
+      
+      .swiper-button-next {
+        right: 78px;
+      }
     }
 
     &__slide {

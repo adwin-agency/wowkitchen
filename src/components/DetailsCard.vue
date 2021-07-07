@@ -221,6 +221,11 @@ export default {
       margin: 0 18px;
       font-size: 10px;
       color: #8b8b8b;
+      transition: opacity .3s ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
 
       &-icon {
         width: 20px;

@@ -86,9 +86,9 @@ export default {
   }
 
   display: block;
-  border: 1px solid #f3f4f9;
+  border: 1px solid $color-gray;
   border-radius: 4px;
-  padding: 20px 34px 20px 38px;
+  padding: 26px 34px 26px 38px;
   cursor: pointer;
 
   &_accented {
@@ -115,7 +115,7 @@ export default {
     align-items: center;
     margin-top: 2px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     line-height: (18/14);
   }
 

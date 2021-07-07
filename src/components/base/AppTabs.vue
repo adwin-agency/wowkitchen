@@ -65,7 +65,8 @@ export default {
     &::after {
       content: '';
       flex-shrink: 0;
-      width: calc(50% - 150px);
+      width: calc(50vw - #{$container-max-width / 2 - $container-padding});
+      min-width: $container-padding;
     }
   }
 
