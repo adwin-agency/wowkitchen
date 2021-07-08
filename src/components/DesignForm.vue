@@ -1,17 +1,31 @@
 <template>
-  <form class="design-form">
+  <form
+    class="design-form"
+    @submit="handleSubmit"
+  >
+    <input type="hidden" name="type" value="designer">
+    <input type="hidden" name="page" :value="page">
+    <input v-if="product" type="hidden" name="item" :value="product.name">
+    <input v-if="product" type="hidden" name="item_id" :value="product.id">
+    <input v-if="product" type="hidden" name="product_type" :value="product.type">
     <p class="design-form__title">Оставить заявку</p>
     <div class="design-form__fields">
       <AppTextField
         class="design-form__field"
         label="Имя"
         placeholder="Как к вам обращаться?"
+        type="text"
+        name="name"
+        required
         color="white"
       />
       <AppTextField
         class="design-form__field"
         label="Контактный телефон"
         placeholder="+7 (999) 999 - 99 - 99"
+        type="tel"
+        name="phone"
+        required
         color="white"
       />
     </div>
@@ -28,12 +42,22 @@
 <script>
 import AppButton from './base/AppButton.vue'
 import AppTextField from './base/AppTextField.vue'
+import useForms from '../composition/forms'
 
 export default {
   name: 'DesignForm',
   components: {
     AppTextField,
     AppButton
+  },
+  setup(props) {
+    const { sending, page, product, handleSubmit } = useForms(props)
+    return {
+      sending,
+      page,
+      product,
+      handleSubmit
+    }
   }
 }
 </script>

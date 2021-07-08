@@ -54,24 +54,34 @@
         <form
           v-if="!$_media.sm"
           class="design-call__form"
+          @submit="handleSubmit"
         >
+          <input type="hidden" name="type" value="designer-call">
+          <input type="hidden" name="page" :value="page">
           <div class="design-call__fields">
             <AppTextField
               label="Имя"
               labelSize="big"
               placeholder="Как к вам обращаться?"
+              type="text"
+              name="name"
+              required
               class="design-call__field"
             />
             <AppTextField
               label="Контактный телефон"
               labelSize="big"
               placeholder="+7 (999) 999 - 99 - 99"
+              type="tel"
+              name="phone"
+              required
               class="design-call__field"
             />
             <AppButton
               v-if="$_desktop"
               title="Отправить заявку"
               color="yellow"
+              type="submit"
               class="design-call__btn"
             />
           </div>
@@ -81,6 +91,7 @@
               v-if="$_media.md"
               title="Отправить заявку"
               color="yellow"
+              type="submit"
               class="design-call__btn"
             />
           </div>
@@ -94,6 +105,7 @@
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
+import useForms from '../composition/forms'
 
 export default {
   name: 'DesignCall',
@@ -101,6 +113,14 @@ export default {
     AppButton,
     AppIcon,
     AppTextField
+  },
+  setup() {
+    const { sending, page, handleSubmit } = useForms()
+    return {
+      sending,
+      page,
+      handleSubmit
+    }
   }
 }
 </script>

@@ -20,7 +20,8 @@ export default createStore({
     detectedCity: null,
     selectedCity: null,
     introEffect: false,
-    activeFilters: false
+    activeFilters: false,
+    productData: null
   },
 
   getters: {
@@ -80,6 +81,10 @@ export default createStore({
 
     setActiveFilters(state, status) {
       state.activeFilters = status
+    },
+
+    setProductData(state, data) {
+      state.productData = data
     }
   }
 })

@@ -24,7 +24,7 @@
             </div>
             <img src="@/assets/img/form-pic.png" alt="" class="design__image">
           </div>
-          <DesignForm class="design__form" />
+          <DesignForm class="design__form"/>
         </div>
         <div class="design__features">
           <p class="design__slogan">Новая кухня: <br><span>с нами - легко!</span></p>

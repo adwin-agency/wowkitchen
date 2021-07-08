@@ -44,6 +44,11 @@ export default {
   },
   async created() {
     this.details = await api.loadDetails(this.$route)
+    const { name, id, product_type: type } = this.details.info
+    this.$store.commit('setProductData', { name, id, type } )
+  },
+  unmounted() {
+    this.$store.commit('setProductData', null)
   }
 }
 </script>

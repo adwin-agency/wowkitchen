@@ -427,6 +427,7 @@ export default {
 
     &__inner {
       padding-bottom: 0;
+      overflow-y: visible;
     }
 
     &__header {

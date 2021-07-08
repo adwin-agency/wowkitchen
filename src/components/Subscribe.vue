@@ -1,5 +1,10 @@
 <template>
-  <form class="subscribe">
+  <form
+    class="subscribe"
+    @submit="handleSubmit"
+  >
+    <input type="hidden" name="type" value="subscribe">
+    <input type="hidden" name="page" :value="page">
     <div class="subscribe__bg">
       <img
         src="@/assets/img/env-back.png"
@@ -16,7 +21,9 @@
     <p class="subscribe__desc">Полезные советы, новинки мира интерьера и никакого спама!</p>
     <div class="subscribe__field">
       <input
-        type="text"
+        type="email"
+        name="name"
+        required
         placeholder="sample@sample.ru"
         class="subscribe__input"
       >
@@ -26,6 +33,7 @@
       >
         <AppIcon
           name="long-arrow"
+          type="submit"
           class="subscribe__btn-icon"
         />
       </button>
@@ -35,11 +43,20 @@
 
 <script>
 import AppIcon from './base/AppIcon.vue'
+import useForms from '../composition/forms'
 
 export default {
   name: 'Subscribe',
   components: {
     AppIcon
+  },
+  setup() {
+    const { sending, page, handleSubmit } = useForms()
+    return {
+      sending,
+      page,
+      handleSubmit
+    }
   }
 }
 </script>

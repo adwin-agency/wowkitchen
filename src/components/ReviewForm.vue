@@ -1,5 +1,10 @@
 <template>
-  <form class="review-form">
+  <form
+    class="review-form"
+    @submit="handleSubmit"
+  >
+    <input type="hidden" name="type" value="payment">
+    <input type="hidden" name="page" :value="page">
     <p class="review-form__heading">Оставить отзыв</p>
     <div class="review-form__fields">
       <AppTextField
@@ -8,6 +13,9 @@
         labelSize="big"
         label="Представьтесь"
         placeholder="Ваше имя"
+        type="text"
+        name="name"
+        required
         class="review-form__field"
       />
       <AppTextField
@@ -15,6 +23,8 @@
         labelColor="gray"
         labelSize="big"
         label="Телефон/номер договора"
+        type="text"
+        name="id"
         note="Эти данные нужны для идентификации и не будут опубликованы"
         class="review-form__field review-form__field_note"
       />
@@ -24,22 +34,30 @@
         labelColor="gray"
         labelSize="big"
         label="Отзыв"
+        name="review"
+        required
         class="review-form__field review-form__field_large"
       />
     </div>
     <div class="review-form__footer">
-      <div class="review-form__file">
+      <label class="review-form__file">
         <input
+          ref="file"
           type="file"
           class="review-form__file-input"
-          id="review-file"
+          multiple
+          @change="handleFile"
         />
         <div class="review-form__file-info">
-          <p class="review-form__file-title">Приложить файлы</p>
+          <p class="review-form__file-title">{{fileLength ? 'Прикреплено файлов: ' + fileLength : 'Приложить файлы'}}</p>
           <p class="review-form__file-note">Максимум 10 файлов общим размером до 20 МБ</p>
+          <p
+            v-if="fileError"
+            class="review-form__file-error"
+          >{{fileError}}</p>
         </div>
         <div class="review-form__file-btns">
-          <label
+          <span
             for="review-file"
             class="review-form__file-btn"
           >
@@ -47,8 +65,8 @@
               name="image"
               class="review-form__file-icon"
             />
-          </label>
-          <label
+          </span>
+          <span
             for="review-file"
             class="review-form__file-btn"
           >
@@ -56,9 +74,9 @@
               name="camera"
               class="review-form__file-icon"
             />
-          </label>
+          </span>
         </div>
-      </div>
+      </label>
       <AppButton
         title="Опубликовать"
         type="submit"
@@ -72,6 +90,7 @@
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
+import useForms from '../composition/forms'
 
 export default {
   name: 'ReviewForm',
@@ -79,6 +98,67 @@ export default {
     AppIcon,
     AppTextField,
     AppButton
+  },
+  setup() {
+    const { sending, success, page, handleSubmit } = useForms()
+    return {
+      sending,
+      success,
+      page,
+      handleSubmit
+    }
+  },
+  data() {
+    return {
+      fileLength: 0,
+      fileError: ''
+    }
+  },
+  watch: {
+    success() {
+      this.fileLength = 0
+      this.fileError = ''
+    }
+  },
+  methods: {
+    handleFile(e) {
+      const files = e.target.files
+
+      this.fileLength = 0
+      this.fileError = ''
+
+      if (files.length) {
+        let totalLength = 0
+        let totalSize = 0
+
+        for (let file of files) {
+          const { type, size } = file
+
+          if (!/image\/*|video\/*/.test(type)) {
+            this.$refs.file.value = ''
+            this.fileError = 'Некорректный формат файла'
+            return
+          }
+
+          totalLength++
+          totalSize += size          
+        }
+
+        if (totalLength > 10) {
+          this.$refs.file.value = ''
+          this.fileError = 'Превышен лимит файлов'
+          return
+        }
+
+        if (totalSize > 20 * 1024 * 1024) {
+          this.$refs.file.value = ''
+          this.fileError = 'Превышен размер файлов'
+          return
+        }
+
+        this.fileLength = totalLength
+      }
+    }
   }
 }
 </script>
@@ -109,6 +189,7 @@ export default {
   &__file {
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 
     &-input {
       display: none;
@@ -125,6 +206,14 @@ export default {
       font-size: 10px;
       line-height: (12/10);
       color: #949494;
+    }
+
+    &-error {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11px;
+      line-height: 1.2;
+      color: #ff0000;
     }
 
     &-btns {

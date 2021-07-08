@@ -24,39 +24,60 @@
           <span class="delivery__discription_accent"></span>
         </p>
       </div>
-      <form class="delivery__form" action="">
+      <form
+        class="delivery__form"
+        @submit="handleSubmit"
+      >
+        <input type="hidden" name="type" value="delivery">
+        <input type="hidden" name="page" :value="page">
         <div class="delivery__form-content">
           <h4 class="delivery__form-title">Расчитать стоимость доставки</h4>
           <label class="delivery__form-lable" for="select-city">Укажите адрес и наш оператор свяжется с вами  для обсуждения стоимости.</label>
           <div class="delivery__form-container">
             <fieldset class="delivery__form-box">
-              <AppSelect :options="cities" color="white" class="delivery__form-select-city" />
-              <!-- <select class="delivery__form-select-city" name="select-city" id="">
-                <option class="delivery__form-city-option" value="spb">Санкт-Петербург</option>
-                <option class="delivery__form-city-option" value="spb">Ленинградская область</option>
-              </select> -->
-              <AppTextField label="Улица" color="white" class="delivery__form-field" />
-              <!-- <label class="delivery__form-lable" for="street">Улица</label>
-              <input class="delivery__form-input" type="text" required> -->
-
-              <AppTextField label="Дом" color="white" class="delivery__form-field delivery__form-field_sm" />
-              <AppTextField label="Корпус" color="white" class="delivery__form-field delivery__form-field_sm" />
-              <!-- <div class="delivery__form-short-box">
-                <div class="delivery__form-short-el">
-                  <label class="delivery__form-lable" for="house">Дом</label>
-                  <input class="delivery__form-input" type="text" required>
-                </div>
-                <div class="delivery__form-short-el">
-                  <label class="delivery__form-lable" for="housing">Корпус</label>
-                  <input class="delivery__form-input" type="text" required>
-                </div>
-              </div> -->
-
-              <AppTextField label="Контактный телефон" color="white" class="delivery__form-field" />
-              <!-- <label class="delivery__form-lable" for="phone">Контактный телефон</label>
-              <input class="delivery__form-input" type="tel" required> -->
-              <AppButton title="Рассчитать" class="delivery__form-button-sb" />
-              <!-- <button class="delivery__form-button-sb" type="submith">Рассчитать</button> -->
+              <AppSelect
+                :options="cities"
+                color="white"
+                name="city"
+                class="delivery__form-select-city"
+              />
+              <AppTextField
+                label="Улица"
+                color="white"
+                type="text"
+                name="street"
+                required
+                class="delivery__form-field"
+              />
+              <AppTextField
+                label="Дом"
+                color="white"
+                type="text"
+                name="building"
+                required
+                class="delivery__form-field delivery__form-field_sm"
+              />
+              <AppTextField
+                label="Корпус"
+                color="white"
+                type="text"
+                name="building-c"
+                required
+                class="delivery__form-field delivery__form-field_sm"
+              />
+              <AppTextField
+                label="Контактный телефон"
+                color="white"
+                type="tel"
+                name="phone"
+                required
+                class="delivery__form-field"
+              />
+              <AppButton
+                title="Рассчитать"
+                type="submit"
+                class="delivery__form-button-sb"
+              />
             </fieldset>
             <div class="delivery__form-map-box">
               <div class="delivery__form-map"></div>
@@ -76,10 +97,23 @@
 import AppButton from './base/AppButton.vue'
 import AppSelect from './base/AppSelect.vue'
 import AppTextField from './base/AppTextField.vue'
+import useForms from '../composition/forms'
 
 export default {
-  components: { AppSelect, AppTextField, AppButton },
   name: 'Delivery',
+  components: {
+    AppSelect,
+    AppTextField,
+    AppButton
+  },
+  setup() {
+    const { sending, page, handleSubmit } = useForms()
+    return {
+      sending,
+      page,
+      handleSubmit
+    }
+  },
   data() {
     return {
       cities: [
@@ -164,7 +198,7 @@ export default {
       padding: 0 0px 20px 35px;
     }
     &-content {
-      max-width: 320px;
+      max-width: $container-max-width - $container-padding * 2;
       margin: 0 auto;
 
       @include media(lg) {

@@ -47,6 +47,35 @@ const api = {
     const responseJson = await response.json()
 
     return responseJson
+  },
+
+  async sendForm(form) {
+    const formData = new FormData(form)
+    const formType = formData.get('type')
+
+    if (window.Comagic) {
+      const comagicData = window.Comagic.getCredentials()
+
+      for (let item in comagicData) {
+        formData.append(item, comagicData[item])
+      }
+    }
+
+    const response = await fetch('/send.php', {
+      method: 'POST',
+      body: formData
+    })
+
+    window.fbq && window.fbq('track', 'Lead')
+    window.VK && window.VK.Retargeting.Event('lead')
+    window.gtag && window.gtag('event', formType, {event_category: 'Forms'})
+    window.ym && window.ym(73257226, 'reachGoal', formType)
+    window.ym && window.ym(73257226, 'reachGoal', 'lead')
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({'event': 'formSubmit'})
+    window.dataLayer.push({'event': formType})
+
+    return response
   }
 }
 

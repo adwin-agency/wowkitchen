@@ -1,5 +1,10 @@
 <template>
-  <form class="payment-form">
+  <form
+    class="payment-form"
+    @submit="handleSubmit"
+  >
+    <input type="hidden" name="type" value="payment">
+    <input type="hidden" name="page" :value="page">
     <div class="payment-form__header">
       <p class="payment-form__title">Оплатите будущую кухню прямо с сайта</p>
       <p class="payment-form__desc">После заполнения формы ниже вы автоматически перейдёте на сайт банка с протоколом безопасности для оплаты.</p>
@@ -8,6 +13,7 @@
       <div class="payment-form__fields">
         <AppControl
           label="Тип оплаты"
+          type="radio"
           name="payment"
           :items="['Предоплата', 'Доплата']"
           class="payment-form__field"
@@ -15,6 +21,9 @@
         <AppTextField
           label="Имя и фамилия"
           placeholder="Как к вам обращаться?"
+          type="text"
+          name="name"
+          required
           color="white"
           bordered
           class="payment-form__field"
@@ -22,22 +31,29 @@
         <AppTextField
           label="Номер договора"
           placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
+          type="text"
+          name="contract"
+          required
           color="white"
           bordered
           class="payment-form__field payment-form__field_small"
         />
         <AppTextField
-          type="tel"
           label="Контактный телефон"
           placeholder="+7 (999) 999 - 99 - 99"
+          type="tel"
+          name="phone"
+          required
           color="white"
           bordered
           class="payment-form__field payment-form__field_small"
         />
         <AppTextField
-          type="email"
           label="Mail"
           placeholder="sample@sample.ru"
+          type="email"
+          name="email"
+          required
           :note="$_media.sm ? 'На него будет выслана квитанция после прохождения оплаты' : ''"
           :sideNote="!$_media.sm ? 'На него будет выслана квитанция после прохождения оплаты' : ''"
           color="white"
@@ -52,12 +68,18 @@
         />
         <AppTextField
           label="Адрес (как в договоре)"
+          type="text"
+          name="address"
+          required
           color="white"
           bordered
           class="payment-form__field"
         />
         <AppTextField
           label="Сумма, ₽"
+          type="text"
+          name="sum"
+          required
           sideNote="Важно: минимальная сумма предоплаты 1000 ₽"
           color="white"
           bordered
@@ -66,6 +88,7 @@
         <AppTextField
           textarea
           label="Комментарий (необязательно)"
+          name="comment"
           size="small"
           color="white"
           bordered
@@ -74,6 +97,7 @@
         <div class="payment-form__fields-footer">
           <AppButton
             title="Оплатить"
+            type="submit"
             class="payment-form__btn"
           />
           <p class="payment-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с <a href="#">Политикой конфиденциальности</a></p>
@@ -114,6 +138,7 @@ import AppIcon from './base/AppIcon.vue'
 import AppControl from './base/AppControl.vue'
 import AppSelect from './base/AppSelect.vue'
 import AppTextField from './base/AppTextField.vue'
+import useForms from '../composition/forms'
 
 export default {
   name: 'PaymentForm',
@@ -123,6 +148,14 @@ export default {
     AppButton,
     AppIcon,
     AppTextField
+  },
+  setup() {
+    const { sending, page, handleSubmit } = useForms()
+    return {
+      sending,
+      page,
+      handleSubmit
+    }
   }
 }
 </script>

@@ -60,7 +60,10 @@
       v-else
       ref="quizform"
       class="quiz__form"
+      @submit="handleSubmit"
     >
+      <input type="hidden" name="type" value="quiz">
+      <input type="hidden" name="page" :value="page">
       <div class="quiz__screen">
         <div class="quiz__step">
           <div class="container">
@@ -289,6 +292,7 @@ import AppControl from './base/AppControl.vue'
 import AppTextField from './base/AppTextField.vue'
 import QuizOption from './QuizOption.vue'
 import QuizResult from './QuizResult.vue'
+import useForms from '../composition/forms'
 
 export default {
   name: 'Quiz',
@@ -299,6 +303,14 @@ export default {
     QuizOption,
     AppIcon,
     QuizResult
+  },
+  setup() {
+    const { sending, page, handleSubmit } = useForms()
+    return {
+      sending,
+      page,
+      handleSubmit
+    }
   },
   data() {
     return {

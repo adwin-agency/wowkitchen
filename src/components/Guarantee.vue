@@ -20,13 +20,18 @@
     </div>
     <div class="guarantee__write">
       <div class="container container_side-fixed">
-        <form class="guarantee__form">
+        <form
+          class="guarantee__form"
+          @submit="handleSubmit"
+        >
+          <input type="hidden" name="type" value="guarantee">
+          <input type="hidden" name="page" :value="page">
           <p class="guarantee__form-title">Наступил гарантийный случай или появились вопросы?<br>Напишите и мы обязательно поможем!</p>
           <div class="guarantee__radios">
             <label class="guarantee__radio">
               <input
                 type="radio"
-                name="type"
+                name="case"
                 checked
                 class="guarantee__radio-input"
               >
@@ -40,7 +45,7 @@
             <label class="guarantee__radio">
               <input
                 type="radio"
-                name="type"
+                name="case"
                 class="guarantee__radio-input"
               >
               <span
@@ -56,6 +61,9 @@
               label="Имя"
               labelSize="big"
               color="white"
+              type="text"
+              name="name"
+              required
               class="guarantee__field"
             />
             <AppTextField
@@ -63,6 +71,9 @@
               labelSize="big"
               color="white"
               placeholder="+7 (999) 999 - 99 - 99"
+              type="tel"
+              name="phone"
+              required
               class="guarantee__field"
             />
             <AppTextField
@@ -70,6 +81,9 @@
               labelSize="big"
               color="white"
               placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
+              type="text"
+              name="contract"
+              required
               class="guarantee__field"
             />
             <AppTextField
@@ -78,26 +92,37 @@
               label="Опишите проблему"
               labelSize="big"
               color="white"
+              name="question"
+              required
               class="guarantee__field guarantee__field_textarea"
             />
           </div>
           <div class="guarantee__form-footer">
-            <label class="guarantee__file">
-              <input
-                type="file"
-                class="guarantee__file-input"
-              >
-              <AppIcon
-                name="attachment"
-                class="guarantee__file-icon"
+            <div class="guarantee__form-actions">
+              <label class="guarantee__file">
+                <input
+                  ref="file"
+                  type="file"
+                  class="guarantee__file-input"
+                  @change="handleFile"
+                >
+                <AppIcon
+                  name="attachment"
+                  class="guarantee__file-icon"
+                />
+                <span class="guarantee__file-title">{{fileName || 'Прикрепить файлы'}}</span>
+                <span class="guarantee__file-note">Фото, видео или .pdf (до 20 МБ)</span>
+                <span
+                  v-if="fileError"
+                  class="guarantee__file-error"
+                >{{fileError}}</span>
+              </label>
+              <AppButton
+                title="Отправить"
+                type="submit"
+                class="guarantee__form-btn"
               />
-              <span class="guarantee__file-title">Прикрепить файлы</span>
-              <span class="guarantee__file-note">Фото, видео или .pdf (до 20 МБ)</span>
-            </label>
-            <AppButton
-              title="Отправить"
-              class="guarantee__form-btn"
-            />
+            </div>
             <p class="guarantee__policy">Нажимая кнопку "Отправить", вы соглашаетесь с условиями <a href="#">Политики конфиденциальности</a></p>
           </div>
         </form>
@@ -196,6 +221,7 @@ import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
 import Interesting from './Interesting.vue'
+import useForms from '../composition/forms'
 
 export default {
   name: 'Guarantee',
@@ -204,6 +230,54 @@ export default {
     AppButton,
     AppIcon,
     Interesting
+  },
+  setup() {
+    const { sending, success, page, handleSubmit } = useForms()
+    return {
+      sending,
+      success,
+      page,
+      handleSubmit
+    }
+  },
+  data() {
+    return {
+      fileName: '',
+      fileError: ''
+    }
+  },
+  watch: {
+    success() {
+      this.fileName = ''
+      this.fileError = ''
+    }
+  },
+  methods: {
+    handleFile(e) {
+      const files = e.target.files
+
+      this.fileName = ''
+      this.fileError = ''
+
+      if (files.length) {
+        const file = files[0]
+        const { name, type, size } = file
+
+        if (!/image\/*|video\/*|application\/pdf/.test(type)) {
+          this.$refs.file.value = ''
+          this.fileError = 'Некорректный формат файла'
+          return
+        }
+
+        if (size > 20 * 1024 * 1024) {
+          this.$refs.file.value = ''
+          this.fileError = 'Превышен размер файла'
+          return
+        }
+
+        this.fileName = name
+      }
+    }
   }
 }
 </script>
@@ -284,6 +358,7 @@ export default {
       color: $color-lightviolet;
       background-color: #fff;
       transition: color 0.3s ease, background-color 0.3s ease;
+      cursor: pointer;
 
       &::before {
         content: attr(data-title);
@@ -315,6 +390,7 @@ export default {
     display: inline-block;
     position: relative;
     padding-left: 40px;
+    cursor: pointer;
 
     &-input {
       display: none;
@@ -342,6 +418,14 @@ export default {
       font-weight: 500;
       font-size: 11px;
       color: $color-lightviolet;
+    }
+
+    &-error {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11px;
+      line-height: 1.2;
+      color: #ff0000;
     }
   }
 
@@ -480,13 +564,15 @@ export default {
     }
 
     &__form-footer {
-      display: flex;
-      flex-wrap: wrap;
       margin-top: 14px;
     }
 
+    &__form-actions {
+      display: flex;
+      align-items: flex-start;
+    }
+
     &__file {
-      flex: 1;
       margin-top: 6px;
       margin-right: 20px;
 
@@ -499,6 +585,7 @@ export default {
       width: auto;
       min-width: 255px;
       margin-top: 0;
+      margin-left: auto;
     }
 
     &__policy {

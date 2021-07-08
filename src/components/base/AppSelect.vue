@@ -8,7 +8,11 @@
     ]"
     v-outside-click="closeSelect"
   >
-    <select class="select__el">
+    <select
+      ref="select"
+      :name="name"
+      class="select__el"
+    >
       <option
         v-for="(option, index) in options"
         :key="index"
@@ -74,7 +78,8 @@ export default {
     sideLabel: String,
     color: String,
     up: Boolean,
-    options: Array
+    options: Array,
+    name: String
   },
   data() {
     return {
@@ -103,6 +108,7 @@ export default {
     selectOption(option) {
       if (this.selectedOption !== option) {
         this.selectedOption = option
+        this.$refs.select.value = option
       }
 
       this.closeSelect()

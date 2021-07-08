@@ -17,6 +17,7 @@
           :name="name"
           :value="item"
           class="control__input"
+          :checked="type === 'radio' && index === 0"
           @change="$emit('change', $event)"
         >
         <span :class="['control__btn', {[`control__btn_${color}`]: color}]">{{item}}</span>

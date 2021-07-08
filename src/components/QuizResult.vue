@@ -6,6 +6,9 @@
     <div class="quiz-result__footer">
       <AppTextField
         placeholder="sample@sample/com"
+        type="text"
+        name="email"
+        required
         color="white"
         class="quiz-result__field"
       />

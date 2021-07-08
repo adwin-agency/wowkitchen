@@ -14,6 +14,8 @@
     <textarea
       v-if="textarea"
       :placeholder="placeholder"
+      :name="name"
+      :required="required"
       :class="[
         'text-field__input',
         'text-field__input_ta',
@@ -27,6 +29,8 @@
       v-else
       :type="type"
       :placeholder="placeholder"
+      :name="name"
+      :required="required"
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
@@ -55,6 +59,8 @@ export default {
     type: String,
     label: String,
     placeholder: String,
+    required: Boolean,
+    name: String,
     color: String,
     bordered: Boolean,
     size: String,

@@ -13,7 +13,13 @@
         <form
           v-if="modal === 'designer'"
           class="modal__form"
+          @submit="handleSubmit"
         >
+          <input type="hidden" name="type" value="designer-m">
+          <input type="hidden" name="page" :value="page">
+          <input v-if="product" type="hidden" name="item" :value="product.name">
+          <input v-if="product" type="hidden" name="item_id" :value="product.id">
+          <input v-if="product" type="hidden" name="product_type" :value="product.type">
           <AppIcon
             name="group"
             class="modal__icon"
@@ -23,24 +29,32 @@
           <div class="modal__fields">
             <AppTextField
               type="text"
+              name="name"
+              required
               label="Ваше имя"
               placeholder="Как к вам обращаться?"
               class="modal__field"
             />
             <AppTextField
               type="tel"
+              name="phone"
+              required
               label="Контактный телефон"
               placeholder="+7 (999) 999 - 99 - 99"
               class="modal__field"
             />
             <AppTextField
               type="text"
+              name="address"
+              required
               label="Адрес"
               placeholder="Адрес"
               class="modal__field"
             />
             <AppTextField
               type="text"
+              name="time"
+              required
               label="Предпочитаемое время"
               placeholder="Время"
               class="modal__field"
@@ -48,6 +62,7 @@
           </div>
           <AppButton
             title="Отправить"
+            type="submit"
             class="modal__btn"
           />
           <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="">Полиикой конфиденциальности</a></p>
@@ -66,7 +81,13 @@
         <form
           v-if="modal === 'calc'"
           class="modal__form"
+          @submit="handleSubmit"
         >
+          <input type="hidden" name="type" value="calc">
+          <input type="hidden" name="page" :value="page">
+          <input v-if="product" type="hidden" name="item" :value="product.name">
+          <input v-if="product" type="hidden" name="item_id" :value="product.id">
+          <input v-if="product" type="hidden" name="product_type" :value="product.type">
           <AppIcon
             name="live-chat"
             class="modal__icon"
@@ -76,12 +97,16 @@
           <div class="modal__fields">
             <AppTextField
               type="text"
+              name="name"
+              required
               label="Ваше имя"
               placeholder="Как к вам обращаться?"
               class="modal__field"
             />
             <AppTextField
               type="tel"
+              name="phone"
+              required
               label="Контактный телефон"
               placeholder="Как к вам обращаться?"
               class="modal__field"
@@ -89,6 +114,7 @@
           </div>
           <AppButton
             title="Отправить"
+            type="submit"
             class="modal__btn"
           />
           <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="">Полиикой конфиденциальности</a></p>
@@ -147,6 +173,33 @@
           </button>
         </div>
 
+        <div
+          v-if="modal === 'success'"
+          class="modal__success"
+        >
+          <AppIcon
+            name="like"
+            class="modal__icon"
+          />
+          <p class="modal__title modal__title_small">Ваша заявка принята</p>
+          <p class="modal__desc">Спасибо за обращение в нашу компанию.<br>наши менеджеры свяжутся с вами в<br>ближайшее время.</p>
+          <AppButton
+            title="Ок, понятно"
+            class="modal__btn"
+            @click="closeModal"
+          />
+          <button
+            type="button"
+            class="modal__close"
+            @click="closeModal"
+          >
+            <AppIcon
+              name="close"
+              class="modal__close-icon"
+            />
+          </button>
+        </div>
+
       </div>
     </div>
   </transition>
@@ -156,6 +209,7 @@
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
+import useForms from '../composition/forms'
 
 export default {
   name: 'Modal',
@@ -163,6 +217,15 @@ export default {
     AppIcon,
     AppTextField,
     AppButton
+  },
+  setup() {
+    const { sending, page, product, handleSubmit } = useForms()
+    return {
+      sending,
+      page,
+      product,
+      handleSubmit
+    }
   },
   computed: {
     modal() {
@@ -238,6 +301,10 @@ export default {
     margin: 25px -5px 0;
     font-weight: bold;
     font-size: 24px;
+
+    &_small {
+      font-size: 18px;
+    }
   }
 
   &__desc {
@@ -303,6 +370,16 @@ export default {
     }
   }
 
+  &__success {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0px 19px 26px 0px rgba(0, 0, 0, 0.1);
+  }
+
   @include media(md) {
     &__area {
       justify-content: center;
@@ -319,6 +396,11 @@ export default {
 
     &__media {
       width: 1280px;
+    }
+
+    &__success {
+      border-radius: 8px;
+      padding: 67px 100px 78px;
     }
   }
 }
