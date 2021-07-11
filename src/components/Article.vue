@@ -323,7 +323,6 @@ export default {
   },
   data() {
     return {
-      // scrollPage: null,
       sidebar: null,
       isActiveContent: false,
       isAnim: false,
@@ -370,11 +369,14 @@ export default {
     window.addEventListener('touchstart', this.handleTouchstart)
     window.addEventListener('touchend', this.handleTouchend)
 
-    this.initSidebar()
+    if (!this.$_media.sm) {
+      this.initSidebar()
+    }
   },
   unmounted() {
     if (this.sidebar) {
       this.sidebar.destroy()
+      this.sidebar = null
     }
 
     this.$store.commit('setIntroEffect', false)
@@ -416,6 +418,7 @@ export default {
 
     handleResize() {
       if (this.$_media.sm) {
+        this.sidebar.destroy()
         this.sidebar = null
       } else {
         if (this.sidebar) {

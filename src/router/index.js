@@ -111,6 +111,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
   linkActiveClass: 'is-active',
+  linkExactActiveClass: '',
   scrollBehavior(to, from, savedPosition) {
     if (to.meta.introEffect) {
       return { top: 0 }

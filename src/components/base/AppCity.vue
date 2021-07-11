@@ -11,6 +11,7 @@
         :up="$_mobile"
         :options="options"
         class="city__select"
+        @change="setCity"
       />
     </div>
   </div>
@@ -26,9 +27,12 @@ export default {
     AppButton,
     AppSelect
   },
+  emits: [
+    'apply'
+  ],
   computed: {
     cities() {
-      return this.$store.state.cities.map(i => ({ title: i.name }))
+      return this.$store.state.cities.map(i => ({ title: i.name, value: i.code }))
     },
     detectedCity() {
       return this.$store.state.detectedCity
@@ -50,6 +54,12 @@ export default {
         document.cookie = `city=${this.detectedCity}; max-age=${30 * 24 * 60 * 60}; path=/`
       }
 
+      this.$emit('apply')
+    },
+
+    setCity(city) {
+      this.$store.commit('setSelectedCity', city)
+      document.cookie = `city=${city}; max-age=${30 * 24 * 60 * 60}; path=/`
       this.$emit('apply')
     }
   }

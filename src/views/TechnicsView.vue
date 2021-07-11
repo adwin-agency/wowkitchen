@@ -26,7 +26,7 @@ const sortOptions = [
 ]
 
 const filterCategories = [
-  { title:'Варочые панели', value: 'varochnye-paneli' },
+  { title: 'Варочые панели', value: 'varochnye-paneli' },
   { title: 'Духовые шкафы', value: 'dukhovye-shkafy' },
   { title: 'Холодильники', value: 'kholodilniki' },
   { title: 'Посудомоечные машины', value : 'posudomoechnye-mashiny' },
@@ -50,11 +50,9 @@ export default {
   },
   async created() {
     this.cards = await api.loadCards(this.$route)
-    window.sidebar && window.sidebar.updateSticky()
   },
   async beforeRouteUpdate(to) {
     this.cards = await api.loadCards(to)
-    window.sidebar && window.sidebar.updateSticky()
   }
 }
 </script>

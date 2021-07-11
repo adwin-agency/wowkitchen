@@ -121,6 +121,13 @@ export default {
       catalogType: 'grid'
     }
   },
+  watch: {
+    $route() {
+      setTimeout(() => {
+        window.sidebar.updateSticky()
+      })
+    }
+  },
   created() {
     this.filtersLength = Object.keys(this.$route.query).length
 

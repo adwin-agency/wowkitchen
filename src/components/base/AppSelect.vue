@@ -17,6 +17,7 @@
         v-for="(option, index) in options"
         :key="index"
         :disabled="option.disabled"
+        :value="option.value || option.title"
       >
         {{option.title}}
       </option>
@@ -55,7 +56,7 @@
             :key="index"
             class="select__item"
             :class="{'is-active': selectedOption === option.title}"
-            @click="selectOption(option.title)"
+            @click="selectOption(option.title, option.value)"
           >
             {{option.title}}
           </li>
@@ -81,6 +82,9 @@ export default {
     options: Array,
     name: String
   },
+  emits: [
+    'change'
+  ],
   data() {
     return {
       isActive: false,
@@ -105,10 +109,11 @@ export default {
       this.isActive ? this.closeSelect() : this.openSelect()
     },
 
-    selectOption(option) {
-      if (this.selectedOption !== option) {
-        this.selectedOption = option
-        this.$refs.select.value = option
+    selectOption(title, value) {
+      if (this.selectedOption !== title) {
+        this.selectedOption = title
+        this.$refs.select.value = value || title
+        this.$emit('change', value || title)
       }
 
       this.closeSelect()

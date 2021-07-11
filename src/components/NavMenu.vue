@@ -18,7 +18,12 @@
           :key="index"
           class="nav-menu__main-col"
         >
-          <p class="nav-menu__title">{{group.title}}</p>
+          <p
+            v-if="group.title"
+            class="nav-menu__title"
+          >
+            {{group.title}}
+          </p>
           <div class="nav-menu__list">
             <span
               v-for="(item, index) in group.items"
@@ -26,7 +31,10 @@
               class="nav-menu__item"
               @click="$emit('close-menu')"
             >
-              <router-link :to="{name: item.path}">{{item.title}}</router-link>
+              <router-link
+                :to="{name: item.path, query: item.query}"
+                :active-class="JSON.stringify($route.query) === JSON.stringify(item.query) ? 'is-active' : ''"
+              >{{item.title}}</router-link>
             </span>
           </div>
         </div>
@@ -60,7 +68,10 @@ export default {
     title: String,
     menu: Array
   },
-  emits: ['close-menu', 'close-submenu']
+  emits: [
+    'close-menu',
+    'close-submenu'
+  ]
 }
 </script>
 
@@ -122,6 +133,10 @@ export default {
     &:hover {
       color: #aca8c3;
     }
+
+    a.is-active {
+      color: $color-green;
+    }
   }
 
   @include media(lg) {
@@ -135,6 +150,7 @@ export default {
       display: flex;
       justify-content: space-between;
       margin-top: 0;
+      border-top: none;
     }
 
     &__main {

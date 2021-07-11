@@ -86,11 +86,9 @@ export default {
   },
   async created() {
     this.cards = await api.loadCards(this.$route)
-    window.sidebar && window.sidebar.updateSticky()
   },
   async beforeRouteUpdate(to) {
     this.cards = await api.loadCards(to)
-    window.sidebar && window.sidebar.updateSticky()
   }
 }
 </script>

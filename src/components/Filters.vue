@@ -117,7 +117,7 @@ export default {
   ],
   data() {
     return {
-      initOptions: {},
+      selectedOptions: {},
       activeOptions: {},
       resultLength: null
     }
@@ -136,16 +136,27 @@ export default {
       return arr
     }
   },
-  created() {
-    const query = this.$route.query
-
-    for (let key in query) {
-      this.initOptions[key] = query[key]
+  watch: {
+    $route() {
+      this.initActiveOptions()
     }
-
-    this.activeOptions = { ...this.initOptions }
+  },
+  created() {
+    this.initActiveOptions()
   },
   methods: {
+    initActiveOptions() {
+      const query = this.$route.query
+
+      this.activeOptions = {}
+
+      for (let key in query) {
+        this.activeOptions[key] = query[key]
+      }
+
+      this.selectedOptions = { ...this.activeOptions }
+    },
+
     toggleCategory(category) {
       if (this.activeOptions.category === category) {
         delete this.activeOptions.category
@@ -219,13 +230,13 @@ export default {
       const query = { category: this.activeCategory, ...this.activeOptions }
 
       this.$router.push({ name: this.$route.name, query: query })
-      this.initOptions = { ...this.activeOptions }
+      this.selectedOptions = { ...this.activeOptions }
       this.$emit('apply', Object.keys(this.activeOptions).length)
       this.$emit('close')
     },
 
     closeFilters() {
-      this.activeOptions = { ...this.initOptions }
+      this.activeOptions = { ...this.selectedOptions }
       this.$emit('close')
     }
   }

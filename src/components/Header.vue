@@ -306,41 +306,33 @@ const kitchensMenu = [
   {
     title: 'Планировки',
     items: [
-      { path: 'kitchens', title: 'Прямые кухни' },
-      { path: 'kitchens', title: 'Угловые кухни' },
-      { path: 'kitchens', title: 'П-образные кухни' },
-      { path: 'kitchens', title: 'Кухни с барной стойкой' },
-      { path: 'kitchens', title: 'Кухни с островом' }
+      { path: 'kitchens', query: { category: 'pryamye' }, title: 'Прямые кухни' },
+      { path: 'kitchens', query: { category: 'uglovye' }, title: 'Угловые кухни' },
+      { path: 'kitchens', query: { category: 'p-obraznye' }, title: 'П-образные кухни' },
+      { path: 'kitchens', query: { category: 's-barnoy-stoykoy' }, title: 'Кухни с барной стойкой' },
+      { path: 'kitchens', query: { category: 's-ostrovom' }, title: 'Кухни с островом' }
     ]
   },
   {
     title: 'Стили',
     items: [
-      { path: 'kitchens', title: 'Скандинавский' },
-      { path: 'kitchens', title: 'Лофт' },
-      { path: 'kitchens', title: 'Неоклассика' },
-      { path: 'kitchens', title: 'Минимализм' }
+      { path: 'kitchens', query: { style: 'scandinaviya' }, title: 'Скандинавский' },
+      { path: 'kitchens', query: { style: 'loft' }, title: 'Лофт' },
+      { path: 'kitchens', query: { style: 'neoklassika' }, title: 'Неоклассика' },
+      { path: 'kitchens', query: { style: 'minimalizm' }, title: 'Минимализм' },
+      { path: 'kitchens', query: { style: 'sovremenniy' }, title: 'Современный' },
     ]
   }
 ]
 
 const technicsMenu = [
   {
-    title: 'Категория1',
     items: [
-      { path: 'technics', title: 'Пункт1' },
-      { path: 'technics', title: 'Пункт2' },
-      { path: 'technics', title: 'Пункт3' },
-      { path: 'technics', title: 'Пункт4' },
-      { path: 'technics', title: 'Пункт5' }
-    ]
-  },
-  {
-    title: 'Категория2',
-    items: [
-      { path: 'technics', title: 'Пункт1' },
-      { path: 'technics', title: 'Пункт2' },
-      { path: 'technics', title: 'Пункт3' }
+      { path: 'technics', query: { category: 'varochnye-paneli' }, title: 'Варочые панели' },
+      { path: 'technics', query: { category: 'dukhovye-shkafy' }, title: 'Духовые шкафы' },
+      { path: 'technics', query: { category: 'kholodilniki' }, title: 'Холодильники' },
+      { path: 'technics', query: { category: 'posudomoechnye-mashiny' }, title: 'Посудомоечные машины' },
+      { path: 'technics', query: { category: 'vytyazhki' }, title: 'Вытяжки' }
     ]
   }
 ]
