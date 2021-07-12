@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import MainView from '@/views/MainView.vue'
+import store from '../store'
 
 const routes = [
   {
@@ -21,22 +22,25 @@ const routes = [
   {
     path: '/contacts',
     name: 'contacts',
+    meta: { title: 'Контакты' },
     component: () => import('@/views/ContactsView.vue')
   },
   {
     path: '/delivery',
     name: 'delivery',
+    meta: { title: 'Доставка' },
     component: () => import('@/views/DeliveryView.vue')
   },
   {
     path: '/discount',
     name: 'discount',
+    meta: { title: 'Акции' },
     component: () => import('@/views/DiscountView.vue')
   },
   {
     path: '/guarantee',
     name: 'guarantee',
-    meta: { introEffect: true },
+    meta: { title: 'Гарантии', introEffect: true },
     component: () => import('@/views/GuaranteeView.vue')
   },
   {
@@ -52,29 +56,31 @@ const routes = [
   {
     path: '/materials',
     name: 'materials',
-    meta: { introEffect: true },
+    meta: { title: 'Материалы', introEffect: true },
     component: () => import('@/views/MaterialsView.vue')
   },
   {
     path: '/payment',
     name: 'payment',
-    meta: { introEffect: true },
+    meta: { title: 'Оплата', introEffect: true },
     component: () => import('@/views/PaymentView.vue')
   },
   {
     path: '/quiz',
     name: 'quiz',
+    meta: { title: 'Подбор кухни' },
     component: () => import('@/views/QuizView.vue')
   },
   {
     path: '/reviews',
     name: 'reviews',
+    meta: { title: 'Отзывы' },
     component: () => import('@/views/ReviewsView.vue')
   },
   {
     path: '/team',
     name: 'team',
-    meta: { introEffect: true },
+    meta: { title: 'Команда', introEffect: true },
     component: () => import('@/views/TeamView.vue')
   },
   {
@@ -90,7 +96,7 @@ const routes = [
   {
     path: '/vacancy',
     name: 'vacancy',
-    meta: { introEffect: true },
+    meta: { title: 'Вакансии', introEffect: true },
     component: () => import('@/views/VacancyView.vue')
   },
   {
@@ -123,6 +129,13 @@ const router = createRouter({
       return { top: 0 }
     }
   }
+})
+
+router.afterEach((to) => {
+  if (to.meta.title) {
+    const crumbs = [{ title: to.meta.title }]
+    store.commit('setBreadCrumbs', crumbs)
+  }  
 })
 
 export default router

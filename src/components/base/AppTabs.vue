@@ -2,13 +2,16 @@
   <div class="tabs">
     <div class="tabs__list">
       <div class="tabs__items">
-        <button
+        <router-link
           v-for="(tab, index) in tabs"
           :key="index"
-          type="button"
+          :to="{ name: routeName, query: tab.value !== 'all' ? { category: tab.value } : null}"
+          :active-class="(!$route.query.category && tab.value === 'all' || $route.query.category === tab.value) ? 'is-active' : ''"
           class="tabs__item"
-          :class="[{'tabs__item_b': tab.bold}, {'is-active': activeTab === tab.title}]"
-        >{{tab.title}}</button>
+          :class="{'tabs__item_b': tab.bold}"
+        >
+          {{tab.title}}
+        </router-link>
       </div>
     </div>
     <div class="tabs__line"></div>
@@ -43,8 +46,12 @@ export default {
   },
   props: {
     tabs: Array,
-    activeTab: String,
     search: Boolean
+  },
+  computed: {
+    routeName() {
+      return this.$route.name
+    }
   }
 }
 </script>

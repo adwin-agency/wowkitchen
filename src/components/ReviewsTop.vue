@@ -1,52 +1,59 @@
 <template>
   <div class="reviews-top">
-    <div class="container">
-      <h1 class="reviews-top__heading">Отзывы</h1>
-      <div class="reviews-top__tabs">
-        <button
-          v-for="(tab, index) in tabs"
-          :key="index"
-          type="button"
-          class="reviews-top__tab"
-          :class="{ 'is-active': index === 0 }"
-        >
-          {{ tab }}
-        </button>
+    <div class="reviews-top__header">
+      <div class="container">
+        <h1 class="reviews-top__heading">Отзывы</h1>
       </div>
-      <div class="reviews-top__top-cards">
-        <ReviewCard
-          v-for="(review, index) in reviews.slice(0, 3)"
-          :key="index"
-          :cardData="review"
-          :mod="index === 0 ? 'big' : 'small'"
-          class="reviews-top__card"
-          :class="[
-            { 'reviews-top__card_big': index === 0 },
-            { 'reviews-top__card_small': index !== 0 }
-          ]"
+    </div>
+    <div class="reviews-top__bar">
+      <div class="container">
+        <AppTabs
+          :tabs="categories"
+          search
+          class="reviews-top__tabs"
         />
       </div>
-      <div class="reviews-top__bottom-cards">
-        <ReviewCard
-          v-for="(review, index) in reviews.slice(3)"
-          :key="index"
-          :cardData="review"
-          class="reviews-top__card"
-        />
+    </div>
+    <div class="reviews-top__main">
+      <div class="container">
+        <div class="reviews-top__top-cards">
+          <ReviewCard
+            v-for="(review, index) in reviews.slice(0, 3)"
+            :key="index"
+            :cardData="review"
+            :mod="index === 0 ? 'big' : 'small'"
+            class="reviews-top__card"
+            :class="[
+              { 'reviews-top__card_big': index === 0 },
+              { 'reviews-top__card_small': index !== 0 }
+            ]"
+          />
+        </div>
+        <div class="reviews-top__bottom-cards">
+          <ReviewCard
+            v-for="(review, index) in reviews.slice(3)"
+            :key="index"
+            :cardData="review"
+            class="reviews-top__card"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import AppTabs from './base/AppTabs.vue'
 import ReviewCard from './ReviewCard.vue'
 
 export default {
   name: 'ReviewsTop',
   components: {
-    ReviewCard
+    ReviewCard,
+    AppTabs
   },
   props: {
+    categories: Array,
     reviews: Array
   },
   data() {
@@ -59,27 +66,12 @@ export default {
 
 <style lang="scss">
 .reviews-top {
-  &__tabs {
-    display: flex;
-    margin: 12px (-$container-padding) 0;
-    padding: 0 $container-padding;
-    border-bottom: 3px solid $color-lightgray;
-  }
+  &__bar {
+    margin-top: 12px;
 
-  &__tab {
-    margin-right: 20px;
-    padding: 0 12px 12px;
-    border-bottom: 4px solid transparent;
-    margin-bottom: -3px;
-    font-size: 14px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    &.is-active {
-      font-weight: 500;
-      border-color: $color-lightviolet;
+    .container {
+      padding: 0;
+      max-width: 100%;
     }
   }
 
@@ -92,14 +84,13 @@ export default {
   }
 
   @include media(md) {
-    &__tabs {
-      margin: 6px 0 0;
-      padding: 0;
-    }
+    &__bar {
+      margin-top: 6px;
 
-    &__tab {
-      margin-right: 28px;
-      padding: 0 14px 12px;
+      .container {
+        padding: 0 $container-padding;
+        max-width: $container-max-width-md;
+      }
     }
 
     &__top-cards {
@@ -126,8 +117,12 @@ export default {
   }
 
   @include media(lg) {
-    &__tabs {
+    &__bar {
       margin-top: 24px;
+
+      .container {
+        max-width: $container-max-width-lg;
+      }
     }
 
     &__top-cards {
@@ -143,6 +138,12 @@ export default {
   }
 
   @include media(xl) {
+    &__bar {
+      .container {
+        max-width: $container-max-width-xl;
+      }
+    }
+    
     &__top-cards {
       grid-template-columns: 1fr 40.5%;
       grid-gap: 30px 80px;

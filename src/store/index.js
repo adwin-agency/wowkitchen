@@ -21,7 +21,8 @@ export default createStore({
     selectedCity: null,
     introEffect: false,
     activeFilters: false,
-    productData: null
+    productData: null,
+    breadCrumbs: null
   },
 
   getters: {
@@ -85,6 +86,10 @@ export default createStore({
 
     setProductData(state, data) {
       state.productData = data
+    },
+
+    setBreadCrumbs(state, data) {
+      state.breadCrumbs = data
     }
   }
 })

@@ -5,6 +5,7 @@
         <CatalogSideBanner class="catalog-banners__side" />
         <CatalogMainBanner
           :type="type"
+          :title="title"
           class="catalog-banners__main" />
       </div>      
     </div>    
@@ -22,7 +23,8 @@ export default {
     CatalogSideBanner
   },
   props: {
-    type: String
+    type: String,
+    title: String
   }
 }
 </script>

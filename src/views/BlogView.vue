@@ -1,12 +1,16 @@
 <template>
   <div class="v-blog">
-    <BlogTop :cards="cards.slice(0, 3)" />
+    <BlogTop
+      :categories="categories"
+      :cards="cards.slice(0, 3)"
+    />
     <BlogCards :cards="cards.slice(3, 8)" />
     <DesignCall />
     <BlogCards
       :cards="cards.slice(8)"
       subscribe
-      show
+      :showBtn="currentPage < pages"
+      @show-more="showMore"
     />
     <ArticleSet />
     <QuizPreview type="kitchens" />
@@ -21,6 +25,17 @@ import DesignCall from '../components/DesignCall.vue'
 import QuizPreview from '../components/QuizPreview.vue'
 import api from '../api'
 
+const categories = [
+  { title: 'Все статьи', value: 'all' },
+  { title: 'Лайфхаки', value: 'laifhaki' },
+  { title: 'Спорные вопросы', value: 'spornye-voprosy' },
+  { title: 'От эксперта', value: 'ot-eksperta' },
+  { title: 'Планировки', value: 'planirovki' },
+  { title: 'Идеи для кухни', value: 'idei-dlya-kuhni' },
+  { title: 'Видео', value: 'video', bold: true },
+  { title: 'Популярное', value: 'populyarnoe', bold: true },
+]
+
 export default {
   name: 'BlogView.vue',
   components: {
@@ -32,11 +47,45 @@ export default {
   },
   data() {
     return {
-      cards: []
+      categories: categories,
+      cards: [],
+      pages: 1,
+      currentPage: 1
     }
   },
   async created() {
-    this.cards = await api.loadCards(this.$route)
+    const response = await api.loadCards(this.$route)
+    this.cards = response.goods
+    this.pages = response.pages
+    this.setBreadCrumbs(this.$route)
+  },
+  async beforeRouteUpdate(to) {
+    const response = await api.loadCards(to)
+    this.cards = response.goods
+    this.pages = response.pages
+    this.currentPage = 1
+    this.setBreadCrumbs(to)
+  },
+  methods: {
+    setBreadCrumbs(route) {
+      const query = route.query
+      let crumbs
+
+      if (query.category) {
+        const categoryTitle = categories.find(i => i.value === query.category).title
+        crumbs = [{ path: '/blog', title: 'Блог' }, { title: categoryTitle }]
+      } else {
+        crumbs = [{ title: 'Блог' }]
+      }
+    
+      this.$store.commit('setBreadCrumbs', crumbs)
+    },
+
+    async showMore() {
+      this.currentPage++
+      const response = await api.loadCards(this.$route, this.currentPage)
+      this.cards = [...this.cards, ...response.goods]
+    }
   }
 }
 </script>

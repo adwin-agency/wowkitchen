@@ -38,6 +38,7 @@
       <p class="favorites__text">Наш менеджер свяжется с вами в ближайшее время.</p>
       <AppButton
         title="Рассчитать мой проект"
+        modalName="calc"
         class="favorites__button"
       />
       <AppButton

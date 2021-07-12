@@ -42,6 +42,10 @@ export default {
   },
   async created() {
     this.details = await api.loadDetails(this.$route)
+    
+    const info = this.details.info
+    const crumbs = [{ path: '/blog', title: 'Блог' }, { path: '/blog?category=' + info.category, title: info.category_rus }]
+    this.$store.commit('setBreadCrumbs', crumbs)
   }
 }
 </script>

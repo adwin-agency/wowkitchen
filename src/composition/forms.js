@@ -20,12 +20,14 @@ export default function useForms() {
 
     sending.value = true
     success.value = false
-    await api.sendForm(e.target)
+    const response = await api.sendForm(e.target)
 
-    sending.value = false
-    success.value = true
-    e.target.reset()
-    store.commit('setModal', 'success')
+    if (response.ok) {
+      sending.value = false
+      success.value = true
+      e.target.reset()
+      store.commit('setModal', 'success')
+    }    
   }
 
   return {

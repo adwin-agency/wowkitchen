@@ -1,6 +1,9 @@
 <template>
   <div class="v-reviews">
-    <ReviewsTop :reviews="reviews" />
+    <ReviewsTop
+      :categories="categories"
+      :reviews="reviews"
+    />
     <ReviewsMain :reviews="reviews" />
     <Design />
   </div>
@@ -11,6 +14,12 @@ import Design from '../components/Design.vue'
 import ReviewsMain from '../components/ReviewsMain.vue'
 import ReviewsTop from '../components/ReviewsTop.vue'
 
+const categories = [
+  { title: 'Все статьи', value: 'all' },
+  { title: 'Кухни', value: 'kitchens' },
+  { title: 'Шкафы', value: 'closets' }
+]
+
 export default {  
   name: 'ReviewsView',
   components: {
@@ -20,6 +29,7 @@ export default {
   },
   data() {
     return {
+      categories: categories,
       reviews: []
     }
   },

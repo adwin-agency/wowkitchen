@@ -245,7 +245,7 @@
       </div>
     </div>
     <div
-      v-if="!$_media.sm && activeBreadCrumbs"
+      v-if="!$_media.sm && breadCrumbs"
       class="header__line"
     >
       <div class="container">
@@ -253,11 +253,18 @@
           <div class="header__breadcrumb">
             <router-link to="/">Главная</router-link>
           </div>
-          <div class="header__breadcrumb">
-            <router-link to="/">Название категории</router-link>
-          </div>
-          <div class="header__breadcrumb">
-            <router-link to="/">Название подкатегории</router-link>
+          <div
+            v-for="(item, index) in breadCrumbs"
+            :key="index"
+            class="header__breadcrumb"
+          >
+            <router-link
+              v-if="item.path"
+              :to="item.path"
+            >
+              {{item.title}}
+            </router-link>
+            <span v-else>{{item.title}}</span>
           </div>
         </div>
       </div>
@@ -359,8 +366,8 @@ export default {
     }
   },
   computed: {
-    activeBreadCrumbs() {
-      return this.$route.name !== 'main'
+    breadCrumbs() {
+      return this.$route.name !== 'main' && this.$store.state.breadCrumbs
     },
     favoritesLength() {
       return this.$store.state.favoriteItems.length
@@ -794,11 +801,6 @@ export default {
 
       &:last-child {
         margin-right: 0;
-        pointer-events: none;
-
-        a {
-          text-decoration: none;
-        }
 
         &::after {
           display: none;

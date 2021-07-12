@@ -1,12 +1,17 @@
 <template>
   <div class="v-technics">
-    <CatalogBanners type="technics" />
+    <CatalogBanners
+      type="technics"
+      :title="title"
+    />
     <Catalog
       type="technics"
       cardType="technic"
       :sortOptions="sortOptions"
       :filterCategories="filterCategories"
       :cards="cards"
+      :showBtn="currentPage < pages"
+      @show-more="showMore"
     />
     <Design />
     <Steps />
@@ -45,14 +50,47 @@ export default {
     return {
       sortOptions: sortOptions,
       filterCategories: filterCategories,
-      cards: []
+      title: '',
+      cards: [],
+      pages: 1,
+      currentPage: 1
     }
   },
   async created() {
-    this.cards = await api.loadCards(this.$route)
+    const response = await api.loadCards(this.$route)
+    this.cards = response.goods
+    this.pages = response.pages
+    this.setBreadCrumbs(this.$route)
   },
   async beforeRouteUpdate(to) {
-    this.cards = await api.loadCards(to)
+    const response = await api.loadCards(to)
+    this.cards = response.goods
+    this.pages = response.pages
+    this.currentPage = 1
+    this.setBreadCrumbs(to)
+  },
+  methods: {
+    setBreadCrumbs(route) {
+      const query = route.query
+      let crumbs
+
+      if (query.category) {
+        const categoryTitle = filterCategories.find(i => i.value === query.category).title
+        this.title = categoryTitle
+        crumbs = [{ path: '/technics', title: 'Техника' }, { title: categoryTitle }]
+      } else {
+        this.title = 'Техника'
+        crumbs = [{ title: 'Техника' }]
+      }
+    
+      this.$store.commit('setBreadCrumbs', crumbs)
+    },
+
+    async showMore() {
+      this.currentPage++
+      const response = await api.loadCards(this.$route, this.currentPage)
+      this.cards = [...this.cards, ...response.goods]
+    }
   }
 }
 </script>

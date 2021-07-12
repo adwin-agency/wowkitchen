@@ -75,12 +75,16 @@
             class="catalog__card"
           />
         </div>
-        <div class="catalog__footer">
+        <div
+          v-if="showBtn"
+          class="catalog__footer"
+        >
           <AppButton
             icon="plus"
             color="gray"
             title="Показать больше"
             class="catalog__show-btn"
+            @click="$emit('show-more')"
           />
         </div>
       </div>
@@ -112,8 +116,12 @@ export default {
     sortOptions: Array,
     filterCategories: Array,
     filterGroups: Array,
-    cards: Array
+    cards: Array,
+    showBtn: Boolean
   },
+  emits: [
+    'show-more'
+  ],
   data() {
     return {
       activeFilters: false,
@@ -122,10 +130,8 @@ export default {
     }
   },
   watch: {
-    $route() {
-      setTimeout(() => {
-        window.sidebar.updateSticky()
-      })
+    cards() {
+      window.sidebar?.updateSticky()
     }
   },
   created() {

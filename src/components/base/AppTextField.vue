@@ -37,7 +37,7 @@
         {[`text-field__input_bordered`]: bordered},
         {[`text-field__input_side`]: sideNote}
       ]"
-      @input="$emit('input', $event)"
+      @input="handleInput"
     >
     <span
       v-if="note || sideNote"
@@ -69,7 +69,34 @@ export default {
     note: String,
     sideNote: String
   },
-  emits: ['input']
+  emits: [
+    'input'
+  ],
+  data() {
+    return {
+      phone: ''
+    }
+  },
+  methods: {
+    handleInput(e) {
+      if (this.type === 'tel') {
+        let val = e.target.value.replace(/\D/g, '')
+
+        if (val) {
+          if (val[0] === '7' || val[0] === '8') {
+            val = val.slice(1)
+          }
+
+          val = val.match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/)
+          val = '+7' + (val[2] ? '(' + val[1]  + ')' + val[2] : (val[1] ? val[1] : '')) + (val[3] ? '-' + val[3] : '') + (val[4] ? '-' + val[4] : '')
+        }
+
+        e.target.value = val
+      } else {
+        this.$emit('input', e)
+      }
+    }
+  }
 }
 </script>
 

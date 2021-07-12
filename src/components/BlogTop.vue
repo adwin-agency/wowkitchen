@@ -8,8 +8,7 @@
     <div class="blog-top__bar">
       <div class="container">
         <AppTabs
-          :tabs="tabs"
-          :activeTab="activeTab"
+          :tabs="categories"
           search
           class="blog-top__tabs"
         />
@@ -95,22 +94,8 @@ export default {
     AppButton
   },
   props: {
+    categories: Array,
     cards: Array
-  },
-  data() {
-    return {
-      tabs: [
-        { title: 'Все статьи' },
-        { title: 'Лайфхаки' },
-        { title: 'Спорные вопросы' },
-        { title: 'От эксперта' },
-        { title: 'Планировки' },
-        { title: 'Идеи для кухни' },
-        { title: 'Видео', bold: true },
-        { title: 'Популярное', bold: true }
-      ],
-      activeTab: 'Все статьи'
-    }
   }
 }
 </script>

@@ -8,7 +8,7 @@ const api = {
     return responseJson
   },
 
-  async loadCards(route) {
+  async loadCards(route, page) {
     const fileNames = {
       kitchens: 'kitchens',
       wardrobes: 'closets',
@@ -22,6 +22,10 @@ const api = {
       search.push(`${key}=${route.query[key]}`)
     }
 
+    if (page) {
+      search.push(`page=${page}`)
+    }
+
     search = search.join('&')
 
     if (search) {
@@ -31,7 +35,7 @@ const api = {
     const response = await fetch(`${dataPath}/${fileNames[route.name]}.php${search}`)
     const responseJson = await response.json()
 
-    return responseJson.goods
+    return responseJson
   },
 
   async loadDetails(route) {
@@ -51,29 +55,29 @@ const api = {
 
   async sendForm(form) {
     const formData = new FormData(form)
-    const formType = formData.get('type')
+    // const formType = formData.get('type')
 
-    if (window.Comagic) {
-      const comagicData = window.Comagic.getCredentials()
+    // if (window.Comagic) {
+    //   const comagicData = window.Comagic.getCredentials()
 
-      for (let item in comagicData) {
-        formData.append(item, comagicData[item])
-      }
-    }
+    //   for (let item in comagicData) {
+    //     formData.append(item, comagicData[item])
+    //   }
+    // }
 
     const response = await fetch('/send.php', {
       method: 'POST',
       body: formData
     })
 
-    window.fbq && window.fbq('track', 'Lead')
-    window.VK && window.VK.Retargeting.Event('lead')
-    window.gtag && window.gtag('event', formType, {event_category: 'Forms'})
-    window.ym && window.ym(73257226, 'reachGoal', formType)
-    window.ym && window.ym(73257226, 'reachGoal', 'lead')
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({'event': 'formSubmit'})
-    window.dataLayer.push({'event': formType})
+    // window.fbq && window.fbq('track', 'Lead')
+    // window.VK && window.VK.Retargeting.Event('lead')
+    // window.gtag && window.gtag('event', formType, {event_category: 'Forms'})
+    // window.ym && window.ym(73257226, 'reachGoal', formType)
+    // window.ym && window.ym(73257226, 'reachGoal', 'lead')
+    // window.dataLayer = window.dataLayer || []
+    // window.dataLayer.push({'event': 'formSubmit'})
+    // window.dataLayer.push({'event': formType})
 
     return response
   }

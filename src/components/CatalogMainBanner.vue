@@ -4,7 +4,7 @@
     :style="`background-image: url(${require(`@/assets/img/${bannerData[type].image}`)})`"
   >
     <div class="catalog-main-banner__inner">
-      <p class="catalog-main-banner__title">{{bannerData[type].title}}</p>
+      <p class="catalog-main-banner__title">{{title}}</p>
       <template v-if="type !== 'technics'">
         <p class="catalog-main-banner__discount">скидки на всё</p>
         <p class="catalog-main-banner__date">до конца месяца</p>
@@ -17,7 +17,8 @@
 export default {
   name: 'CatalogMainBanner',
   props: {
-    type: String
+    type: String,
+    title: String
   },
   data() {
     return {
