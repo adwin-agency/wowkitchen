@@ -24,11 +24,7 @@
               <p class="discount__mini-pills">&#10004; Быстро</p>
               <p class="discount__mini-pills">&#10004; Удобно</p>
             </div>
-            <picture class="discount__mini-img">
-              <source srcset="@/assets/img/discount/man_1920.png" media="(min-width: 1290px)" type="image/png">
-              <source srcset="@/assets/img/discount/man_320.png" media="(min-width: 0px)" type="image/png">
-              <img src="~@/assets/img/discount//man_1920.png" alt="superman">
-            </picture>
+            <img src="@/assets/img/discount/man_1920.png" alt class="discount__mini-img">
             
             <p class="discount__mini-ending">Постоянная акция</p>
           </div>
@@ -289,46 +285,35 @@ export default {
       position: absolute;
       bottom: 0;
       right: 0;
+      width: 86px;
+
+      @include media(lg) {
+        width: 138px;
+      }
     }
   }
 
   // Colors
+  &__mini-el {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
   &__mini-el_bg {
     &-grey {
       background-image: url("~@/assets/img/discount/background-man_320.png");
-      background-size: cover;
-      background-repeat: no-repeat;
-      
-      @include media(lg){
-      background-image: url("~@/assets/img/discount/background-man_320.png");
-      }
     }
+
     &-pink {
-      background-image: url("~@/assets/img/discount/baloons-bg_320.png");
-      background-size: cover;
-      background-repeat: no-repeat;
-      
-      @include media(lg){
-      background-image: url("~@/assets/img/discount/baloons-bg_1920.png")
-      }
+      background-image: url("~@/assets/img/discount/baloons-bg_1920.png");
     }
+
     &-aqua {
-      background-image: url("~@/assets/img/discount/shortcut-bg_320.png");
-      background-size: cover;
-      background-repeat: no-repeat;
-      
-      @include media(lg){
-        background-image: url("~@/assets/img/discount/shortcut-bg_1920.png");
-      }
+      background-image: url("~@/assets/img/discount/shortcut-bg_1920.png");
     }
+
     &-light-yellow {
-      background-image: url("~@/assets/img/discount/phone-bg_320.png");
-      background-size: cover;
-      background-repeat: no-repeat;
-      
-      @include media(lg){
-        background-image: url("~@/assets/img/discount/phone-bg_1920.png");
-      }    
+      background-image: url("~@/assets/img/discount/phone-bg_1920.png");
     }
   }
 }

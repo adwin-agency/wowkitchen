@@ -79,16 +79,24 @@
     <div class="footer__side">
       <div class="container">
         <div class="footer__side-inner">
-          <button
-            type="button"
-            class="footer__city"
-          >
-            <AppIcon
-              name="pin"
-              class="footer__city-icon"
+          <div class="footer__city">
+            <button
+              type="button"
+              class="footer__city-btn"
+              @click="toggleCityBox"
+            >
+              <AppIcon
+                name="pin"
+                class="footer__city-icon"
+              />
+              {{cityName}}
+            </button>
+            <AppCity
+              class="footer__city-box"
+              :class="{'is-active': activeCityBox}"
+              @apply="applyCity"
             />
-            Санкт-Петербург
-          </button>
+          </div>          
           <a
             href="tel:+7 (999) 999 99 99"
             class="footer__phone"
@@ -154,6 +162,7 @@
 <script>
 import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
+import AppCity from './base/AppCity.vue'
 
 const menu = [
   {
@@ -205,13 +214,20 @@ export default {
   name: 'Footer',
   components: {
     AppButton,
-    AppIcon
+    AppIcon,
+    AppCity
   },
   data() {
     return {
       menu: menu,
       activeSubmenu: null,
-      activeRequisites: false
+      activeRequisites: false,
+      activeCityBox: false
+    }
+  },
+  computed: {
+    cityName() {
+      return this.$store.getters.cityName
     }
   },
   created() {
@@ -264,6 +280,14 @@ export default {
         this.$refs[this.activeSubmenu].style.height = ''
         this.activeSubmenu = null
       }
+    },
+
+    toggleCityBox() {
+      this.activeCityBox = !this.activeCityBox
+    },
+
+    applyCity() {
+      this.activeCityBox = false
     }
   }
 }
@@ -375,12 +399,33 @@ export default {
   }
 
   &__city {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    font-size: 11px;
-    color: #aca8c3;
-    text-decoration: underline;
+    position: relative;
+
+    &-btn {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 11px;
+      color: #aca8c3;
+      text-decoration: underline;
+    }
+
+    &-box {
+      text-align: left;
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      margin-bottom: 10px;
+      width: 290px;
+      transform: translateX(-50%);
+      opacity: 0;
+      pointer-events: none;
+
+      &.is-active {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
   }
 
   &__city-icon {
@@ -548,6 +593,12 @@ export default {
     &__btn {
       width: auto;
     }
+
+    &__city-box {
+      left: auto;
+      right: 0;
+      transform: none;
+    }
   }
 
   @include media(lg) {
@@ -625,6 +676,10 @@ export default {
       .container {
         max-width: #{$container-max-width-lg * 0.5 - 330px};
       }
+    }
+
+    &__city-box {
+      width: 380px;
     }
   }
 

@@ -1,4 +1,5 @@
 const dataPath = process.env.NODE_ENV === 'production' ? '/local/templates/wow/api' : 'http://wowkitchen.beget.tech/local/templates/wow/api'
+const sendPath = process.env.NODE_ENV === 'production' ? '' : 'http://wowkitchen.beget.tech'
 
 const api = {
   async loadMain() {
@@ -65,7 +66,7 @@ const api = {
     //   }
     // }
 
-    const response = await fetch('/send.php', {
+    const response = await fetch(`${sendPath}/send.php`, {
       method: 'POST',
       body: formData
     })

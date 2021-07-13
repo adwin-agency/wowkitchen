@@ -323,7 +323,6 @@ export default {
   },
   data() {
     return {
-      sidebar: null,
       isActiveContent: false,
       isAnim: false,
       touchY: null
@@ -336,7 +335,7 @@ export default {
   },
   watch: {
     info() {
-      this.sidebar?.updateSticky()
+      window.sidebar.updateSticky()
     }
   },
   mounted() {
@@ -374,9 +373,9 @@ export default {
     }
   },
   unmounted() {
-    if (this.sidebar) {
-      this.sidebar.destroy()
-      this.sidebar = null
+    if (window.sidebar) {
+      window.sidebar.destroy()
+      window.sidebar = null
     }
 
     this.$store.commit('setIntroEffect', false)
@@ -401,28 +400,36 @@ export default {
       this.isAnim = true
       this.isActiveContent = true
 
+      setTimeout(() => {        
+        this.$store.commit('setIntroEffect', false)
+      }, 200)
+
       setTimeout(() => {
         this.isAnim = false
-        this.$store.commit('setIntroEffect', false)
       }, 500)
     },
 
     initSidebar() {
-      this.sidebar = new StickySidebar('.article__aside', {
+      window.sidebar = new StickySidebar('.article__aside', {
         topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
         bottomSpacing: 30,
         containerSelector: '.article__inner',
         innerWrapperSelector: '.article__aside-inner'
       })
+
+      window.sidebar.isSidebarFitsViewport = function() {
+        var offset = this.scrollDirection === 'down' ? this.dimensions.lastBottomSpacing : this.dimensions.lastTopSpacing;
+        return this.dimensions.sidebarHeight + offset < this.dimensions.viewportHeight;
+      }
     },
 
     handleResize() {
       if (this.$_media.sm) {
-        this.sidebar.destroy()
-        this.sidebar = null
+        window.sidebar.destroy()
+        window.sidebar = null
       } else {
-        if (this.sidebar) {
-          this.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
+        if (window.sidebar) {
+          window.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
         } else {
           this.initSidebar()
         }
@@ -487,7 +494,7 @@ export default {
     left: 0;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     padding: 40px 0;
     transition: opacity .5s ease, transform .5s ease;
     z-index: 1;
@@ -628,7 +635,6 @@ export default {
     &__inner {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
     }
 
     &__stats {

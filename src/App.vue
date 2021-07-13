@@ -63,9 +63,10 @@ export default {
     this.$store.commit('setCities', cities)
 
     if (selectedCity) {
-      this.$store.commit('setSelectedCity', selectedCity)
+      this.$store.commit('setActiveCity', selectedCity)
     } else {
-      this.$store.commit('setDetectedCity', detectedCity)
+      this.$store.commit('setActiveCity', detectedCity)
+      this.$store.commit('setCityDetection', true)
     }
   },
   unmounted() {

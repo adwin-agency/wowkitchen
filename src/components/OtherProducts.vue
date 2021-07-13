@@ -25,7 +25,7 @@
             <ProductCard
              slide
              :disabled="!isVisible"
-             :cardData="product"
+             :info="product"
             />
           </SwiperSlide>
         </Swiper>

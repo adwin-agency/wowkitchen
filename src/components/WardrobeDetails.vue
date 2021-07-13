@@ -5,6 +5,7 @@
         <div class="wardrobe-details__gallery">
           <div class="wardrobe-details__thumbs">
             <Swiper
+              v-if="info.pictures"
               direction="vertical"
               :slides-per-view="$_media.md ? 3 : $_media.lg ? 4 : 5"
               :space-between="$_media.md ? 5 : 8"
@@ -35,8 +36,10 @@
             />
           </div>
           <Swiper
+            v-if="info.pictures"
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
+            @swiper="setMainSwiper"
             @slideChangeTransitionStart="thumbsSwiper.updateSlidesClasses()"
             class="wardrobe-details__slider"
           >
@@ -184,12 +187,16 @@ export default {
         { title: '3 часа', desc: 'на монтаж' }
       ],
 
+      mainSwiper: null,
       thumbsSwiper: null,
       activeInfo: null,
       infoTimeout: null
     }
   },
   methods: {
+    setMainSwiper(swiper) {
+      this.mainSwiper = swiper
+    },
     setThumbsSwiper(swiper) {
       this.thumbsSwiper = swiper
     },

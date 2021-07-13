@@ -69,7 +69,7 @@
           <ProductCard
             v-for="(card, index) in cards"
             :key="index"
-            :cardData="card"
+            :info="card"
             :cardType="cardType"
             :large="catalogType === 'list'"
             class="catalog__card"
@@ -186,6 +186,11 @@ export default {
         containerSelector: '.catalog',
         innerWrapperSelector: '.catalog__side-inner'
       })
+
+      window.sidebar.isSidebarFitsViewport = function() {
+        var offset = this.scrollDirection === 'down' ? this.dimensions.lastBottomSpacing : this.dimensions.lastTopSpacing;
+        return this.dimensions.sidebarHeight + offset < this.dimensions.viewportHeight;
+      }
     },
 
     handleResize() {

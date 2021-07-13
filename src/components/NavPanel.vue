@@ -90,8 +90,9 @@
               {{cityName}}
             </button>
             <AppCity
+              arrow
               class="nav-panel__city-box"
-              :class="{'is-active': detectedCity || activeCityBox}"
+              :class="{'is-active': cityDetection || activeCityBox}"
               @apply="applyCity"
             />
           </div>
@@ -143,8 +144,11 @@ export default {
     cityName() {
       return this.$store.getters.cityName
     },
-    detectedCity() {
-      return this.$store.state.detectedCity
+    cityDetection() {
+      return this.$store.state.cityDetection
+    },
+    activeCity() {
+      return this.$store.state.activeCity
     }
   },
   methods: {

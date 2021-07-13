@@ -61,10 +61,7 @@
             <p class="details__desc">{{info.description}}</p>
           </div>
           <DetailsCard
-            :title="info.name"
-            :price="info.price"
-            :oldPrice="info.old_price"
-            :discount="info.discount"
+            :cardData="info"
             class="details__card"
           />
           <div
@@ -150,7 +147,7 @@
             </button>
           </SwiperSlide>
           <SwiperSlide
-            v-for="(picture, index) in info.second_pictures"
+            v-for="(picture, index) in info.pictures"
             :key="index"
             class="details__gallery-item"
           >

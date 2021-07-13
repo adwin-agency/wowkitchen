@@ -22,7 +22,7 @@
             class="other-wardrobes__slide"
           >
             <ProductCard
-              :cardData="wardrobe"
+              :info="wardrobe"
               cardType="wardrobe"
               :disabled="!isVisible"
             />

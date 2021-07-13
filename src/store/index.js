@@ -17,8 +17,8 @@ export default createStore({
     activeFavorites: false,
     favoriteItems: favorites,
     cities: [],
-    detectedCity: null,
-    selectedCity: null,
+    cityDetection: false,
+    activeCity: null,
     introEffect: false,
     activeFilters: false,
     productData: null,
@@ -30,8 +30,7 @@ export default createStore({
       return !!state.modal || state.mobileMenu || state.activeFavorites || state.activeFilters
     },
     cityName(state) {
-      const city = state.selectedCity || state.detectedCity
-      return state.cities.find(i => i.code === city)?.name
+      return state.cities.find(i => i.code === state.activeCity)?.name
     }
   },
 
@@ -69,11 +68,11 @@ export default createStore({
     setCities(state, cities) {
       state.cities = cities
     },
-    setDetectedCity(state, city) {
-      state.detectedCity = city
+    setCityDetection(state, status) {
+      state.cityDetection = status
     },
-    setSelectedCity(state, city) {
-      state.selectedCity = city
+    setActiveCity(state, city) {
+      state.activeCity = city
     },
 
     setIntroEffect(state, status) {

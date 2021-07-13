@@ -12,16 +12,16 @@
   >
     <div class="product-card__img-box">
       <img
-        :src="$_basepath + ($_mobile ? cardData.pictures[0].small.path : cardData.pictures[0].medium.path)"
+        :src="$_basepath + ($_mobile ? info.pictures[0].small.path : info.pictures[0].medium.path)"
         alt
         class="product-card__img"
       >
-      <router-link :to="{name: cardType, params: {code: cardData.url}}"></router-link>
+      <router-link :to="{name: cardType, params: {code: info.url}}"></router-link>
       <span
-        v-if="!large && cardData.discount"
+        v-if="!large && info.discount"
         class="product-card__discount"
       >
-        -{{cardData.discount}}%
+        -{{info.discount}}%
       </span>
       <button
         v-if="cardType === 'kitchen'"
@@ -35,10 +35,10 @@
         />
       </button>
       <AppVideoButton
-        v-if="cardData.video"
+        v-if="info.video"
         :expand="!large"
         :title="large ? 'Смотреть видеообзор' : 'Видеообзор'"
-        :video="$_mobile ? cardData.video.mobile : cardData.video.desktop"
+        :video="$_mobile ? info.video.mobile : info.video.desktop"
         class="product-card__video-btn"
         :class="{'is-active': !large && hover}"
       />
@@ -52,7 +52,7 @@
           Гарнитур
         </p>
         <p class="product-card__title">
-          <router-link :to="{name: cardType, params: {code: cardData.url}}">{{cardData.name}}</router-link>
+          <router-link :to="{name: cardType, params: {code: info.url}}">{{info.name}}</router-link>
         </p>
         <div
           v-if="cardType !== 'wardrobe'"
@@ -60,13 +60,12 @@
         >
           <button
             type="button"
-            class="product-card__action"
-            :class="{'is-active': isFavorite}"
-            @click="toggleFavorite(cardData)"
+            class="product-card__action"            
+            @click="toggleFavorite(info)"
           >
-            <AppIcon
-              name="bookmark-l"
+            <AppBookmark
               class="product-card__action-icon"
+              :class="{'is-active': isFavorite}"
             />
           </button>
           <button
@@ -82,11 +81,11 @@
         </div>
       </div>
       <div
-        v-if="cardData.features && ($_desktop && !large || cardType === 'technic' || $_media.md && cardType === 'wardrobe')"
+        v-if="info.features && ($_desktop && !large || cardType === 'technic' || $_media.md && cardType === 'wardrobe')"
         class="product-card__props"
       >
         <p
-          v-for="(feature, index) in Object.values(cardData.features)"
+          v-for="(feature, index) in Object.values(info.features)"
           :key="index"
           class="product-card__prop"
         >
@@ -95,18 +94,18 @@
         </p>
       </div>
       <div class="product-card__prices">
-        <p class="product-card__price">{{cardData.price}} ₽</p>
+        <p class="product-card__price">{{info.price}} ₽</p>
         <p
-          v-if="cardData.old_price"
+          v-if="info.old_price"
           class="product-card__old-price"
         >
-          {{cardData.old_price}} ₽
+          {{info.old_price}} ₽
         </p>
         <span
-          v-if="large && cardData.discount"
+          v-if="large && info.discount"
           class="product-card__discount"
         >
-          -{{cardData.discount}}%
+          -{{info.discount}}%
         </span>
       </div>
       <AppButton
@@ -122,32 +121,37 @@
 </template>
 
 <script>
+import AppBookmark from './base/AppBookmark.vue'
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppVideoButton from './base/AppVideoButton.vue'
+import useFavorites from '../composition/favorites'
 
 export default {
   name: 'ProductCard',
   components: {
     AppButton,
     AppIcon,
-    AppVideoButton
+    AppVideoButton,
+    AppBookmark
   },
   props: {
-    cardData: Object,
+    info: Object,
     cardType: String,
     large: Boolean,
     slide: Boolean,
     disabled: Boolean
   },
+  setup(props) {
+    const { isFavorite, toggleFavorite } = useFavorites(props)
+    return {
+      isFavorite,
+      toggleFavorite
+    }
+  },
   data() {
     return {
       hover: false
-    }
-  },
-  computed: {
-    isFavorite() {
-      return this.$store.state.favoriteItems.find(i => i.id === this.cardData.id)
     }
   },
   methods: {
@@ -159,22 +163,9 @@ export default {
     },
 
     openModalImage() {
-      const imagePath = `${this.$_mobile ? this.cardData.pictures[0].medium.path : this.cardData.pictures[0].large.path}`
+      const imagePath = `${this.$_mobile ? this.info.pictures[0].medium.path : this.info.pictures[0].large.path}`
       this.$store.commit('setModal', 'image')
       this.$store.commit('setModalData', { image: imagePath })
-    },
-
-    toggleFavorite(data) {
-      const item = {
-        id: data.id,
-        image: data.pictures[0].small.path,
-        type: data.product_type,
-        name: data.name,
-        price: data.price,
-        oldPrice: data.old_price
-      }
-
-      this.$store.commit('setFavoriteItem', item)
     }
   }
 }
@@ -386,6 +377,7 @@ export default {
   }
 
   &__action-icon {
+    display: block;
     width: 20px;
     height: 20px;
   }

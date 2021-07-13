@@ -115,8 +115,12 @@
             <button
               type="button"
               class="technic-details__favorite"
+              @click="toggleFavorite(info)"
             >
-              <AppIcon name="bookmark-l" class="technic-details__favorite-icon" />
+              <AppBookmark
+                class="technic-details__favorite-icon"
+                :class="{'is-active': isFavorite}"
+              />
               Добавить в подборку
             </button>
           </div>
@@ -131,6 +135,8 @@ import SwiperCore, { Scrollbar, Thumbs } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue' 
 import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
+import AppBookmark from './base/AppBookmark.vue'
+import useFavorites from '../composition/favorites'
 
 SwiperCore.use([Scrollbar, Thumbs])
 
@@ -140,7 +146,18 @@ export default {
     Swiper,
     SwiperSlide,
     AppIcon,
-    AppButton
+    AppButton,
+    AppBookmark
+  },
+  props: {
+    info: Object
+  },
+  setup(props) {
+    const { isFavorite, toggleFavorite } = useFavorites(props)
+    return {
+      isFavorite,
+      toggleFavorite
+    }
   },
   data() {
     return {

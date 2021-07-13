@@ -3,33 +3,34 @@
     <div class="details-card__box">
       <p class="details-card__type">Гарнитур</p>
       <p class="details-card__title">
-        {{title}}
+        {{info.name}}
         <button
           v-if="$_mobile"
           type="button"
           class="details-card__favorite"
+          @click="toggleFavorite(info)"
         >
-          <AppIcon
-            name="bookmark-l"
+          <AppBookmark
             class="details-card__favorite-icon"
+            :class="{'is-active': isFavorite}"
           />
         </button>
       </p>
       <div class="details-card__cost">
         <div class="details-card__prices">
-          <p class="details-card__price">{{price}} ₽</p>
+          <p class="details-card__price">{{info.price}} ₽</p>
           <p
-            v-if="oldPrice"
+            v-if="info.old_price"
             class="details-card__old-price"
           >
-            {{oldPrice}} ₽
+            {{info.old_price}} ₽
           </p>
         </div>
         <span
-          v-if="discount"
+          v-if="info.discount"
           class="details-card__discount"
         >
-          -{{discount}}%
+          -{{info.discount}}%
         </span>
       </div>
       <div class="details-card__btns">
@@ -64,10 +65,11 @@
       <button
         type="button"
         class="details-card__action"
+        @click="toggleFavorite(info)"
       >
-        <AppIcon
-          name="bookmark-l"
+        <AppBookmark
           class="details-card__action-icon"
+          :class="{'is-active': isFavorite}"
         />
         <span>В подборку</span>
       </button>
@@ -88,18 +90,25 @@
 <script>
 import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
+import AppBookmark from './base/AppBookmark.vue'
+import useFavorites from '../composition/favorites'
 
 export default {
   name: 'DetailsCard',
   components: {
     AppButton,
-    AppIcon
+    AppIcon,
+    AppBookmark
   },
   props: {
-    title: String,
-    price: String,
-    oldPrice: String,
-    discount: String,
+    info: Object
+  },
+  setup(props) {
+    const { isFavorite, toggleFavorite } = useFavorites(props)
+    return {
+      isFavorite,
+      toggleFavorite
+    }
   }
 }
 </script>

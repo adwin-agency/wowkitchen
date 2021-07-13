@@ -1,5 +1,5 @@
 <template>
-  <div class="v-article">
+  <div v-if="details" class="v-article">
     <Article
       :info="details.info"
       :cards="details.populars"
@@ -42,6 +42,14 @@ export default {
   },
   async created() {
     this.details = await api.loadDetails(this.$route)
+    
+    const info = this.details.info
+    const crumbs = [{ path: '/blog', title: 'Блог' }, { path: '/blog?category=' + info.category, title: info.category_rus }]
+    this.$store.commit('setBreadCrumbs', crumbs)
+  },
+  async beforeRouteUpdate(to) {
+    this.details = null
+    this.details = await api.loadDetails(to)
     
     const info = this.details.info
     const crumbs = [{ path: '/blog', title: 'Блог' }, { path: '/blog?category=' + info.category, title: info.category_rus }]

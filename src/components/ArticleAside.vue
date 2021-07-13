@@ -28,10 +28,10 @@
     ></div> -->
     <h2 class="article-aside__heading">Популярные статьи</h2>
 
-    <a
+    <router-link
       v-for="(card, index) in cards"
       :key="index"
-      href="#"
+      :to="{ name: 'article', params: { code: card.url } }"
       class="article-aside__card"
     >
       <img
@@ -46,7 +46,7 @@
         <AppIcon name="play" class="article-aside__play-icon" />
       </button>
       <h4 class="article-aside__title">{{card.name}}</h4>
-    </a>
+    </router-link>
     <div class="article-aside__share">
       <p class="article-aside__share-text">Поделиться</p>
       <a
