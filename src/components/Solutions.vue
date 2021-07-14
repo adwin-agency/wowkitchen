@@ -17,6 +17,14 @@
 import CardSlider from './CardSlider.vue'
 import Production from './Production.vue'
 
+const cards = [
+  { route: '/kitchens?style=scandinaviya', title: 'Скандинавский стиль' },
+  { route: '/kitchens?style=neoklassika', title: 'Стиль неоклассика' },
+  { route: '/kitchens?style=minimalizm', title: 'Стиль минимализм' },
+  { route: '/kitchens?style=loft', title: 'Стиль лофт' },
+  { route: '/kitchens?style=sovremenniy', title: 'Современный стиль' },
+]
+
 export default {
   name: 'Solutions',
   components: {
@@ -25,11 +33,7 @@ export default {
   },
   data() {
     return {
-      cards: [
-        {title: 'Скандинавский стиль'},
-        {title: 'Современный стиль'},
-        {title: 'Стиль неоклассика'}
-      ]
+      cards: cards
     }
   }
 }

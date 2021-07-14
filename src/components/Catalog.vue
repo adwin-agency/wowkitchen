@@ -131,7 +131,9 @@ export default {
   },
   watch: {
     cards() {
-      window.sidebar?.updateSticky()
+      setTimeout(() => {
+        window.sidebar?.updateSticky()
+      })
     }
   },
   created() {

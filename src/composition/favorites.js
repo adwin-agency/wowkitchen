@@ -12,7 +12,8 @@ export default function useFavorites(props) {
       type: data.product_type,
       name: data.name,
       price: data.price,
-      oldPrice: data.old_price
+      oldPrice: data.old_price,
+      url: '/' + data.category_link.split('/')[0] + '/' + data.url
     }
 
     store.commit('setFavoriteItem', item)

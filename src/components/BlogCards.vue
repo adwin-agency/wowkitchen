@@ -15,12 +15,13 @@
         />
       </div>
       <AppButton
-        v-if="show"
+        v-if="showBtn"
         icon="plus"
         title="Показать больше"
         color="gray"
         show
         class="blog-cards__show"
+        @click="$emit('show-more')"
       />
     </div>
   </div>
@@ -41,8 +42,11 @@ export default {
   props: {
     cards: Array,
     subscribe: Boolean,
-    show: Boolean
-  }
+    showBtn: Boolean
+  },
+  emits: [
+    'show-more'
+  ]
 }
 </script>
 

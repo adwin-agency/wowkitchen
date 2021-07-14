@@ -43,9 +43,11 @@ import AppIcon from './base/AppIcon.vue'
 import CardSlider from './CardSlider.vue'
 
 const cards = [
-  { title: 'Угловые кухни', icon: 'kit1' },
-  { title: 'Прямые кухни', icon: 'kit2' },
-  { title: 'П-образные', icon: 'kit3' }
+  { route: '/kitchens?category=uglovye', title: 'Угловые кухни', icon: 'kit1' },
+  { route: '/kitchens?category=pryamye', title: 'Прямые кухни', icon: 'kit2' },
+  { route: '/kitchens?category=p-obraznye', title: 'П-образные', icon: 'kit3' },
+  { route: '/kitchens?category=s-barnoy-stoykoy', title: 'С барной стойкой' },
+  { route: '/kitchens?category=s-ostrovom', title: 'С островом' },
 ]
 
 export default {

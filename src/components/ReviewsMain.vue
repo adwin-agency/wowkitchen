@@ -20,11 +20,13 @@
         />
       </div>
       <AppButton
+        v-if="showBtn"
         icon="plus"
         size="large"
         color="white"
         title="Показать больше"
         class="reviews-main__show-btn"
+        @click="$emit('show-more')"
       />
     </div>
   </div>
@@ -42,6 +44,12 @@ export default {
     ReviewCard,
     AppButton
   },
+  props: {
+    showBtn: Boolean
+  },
+  emits: [
+    'show-more'
+  ],
   data() {
     return {
       cards: [

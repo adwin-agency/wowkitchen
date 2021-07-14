@@ -4,7 +4,11 @@
       :categories="categories"
       :reviews="reviews"
     />
-    <ReviewsMain :reviews="reviews" />
+    <ReviewsMain
+      :reviews="reviews"
+      :showBtn="currentPage < pages"
+      @show-more="showMore"
+    />
     <Design />
   </div>
 </template>
@@ -13,6 +17,7 @@
 import Design from '../components/Design.vue'
 import ReviewsMain from '../components/ReviewsMain.vue'
 import ReviewsTop from '../components/ReviewsTop.vue'
+import api from '../api'
 
 const categories = [
   { title: 'Все статьи', value: 'all' },
@@ -30,14 +35,44 @@ export default {
   data() {
     return {
       categories: categories,
-      reviews: []
+      reviews: [],
+      pages: 1,
+      currentPage: 1
     }
   },
   async created() {
-    const response = await fetch(`http://wowkitchen.beget.tech/local/templates/wow/api/reviews.php`)
-    const responseJson = await response.json()
+    const response = await api.loadCards(this.$route)
+    this.reviews = response.reviews
+    this.pages = response.pages
+    this.setBreadCrumbs(this.$route)
+  },
+  async beforeRouteUpdate(to) {
+    const response = await api.loadCards(to)
+    this.reviews = response.reviews
+    this.pages = response.pages
+    this.currentPage = 1
+    this.setBreadCrumbs(to)
+  },
+  methods: {
+    setBreadCrumbs(route) {
+      const query = route.query
+      let crumbs
 
-    this.reviews = responseJson.reviews
+      if (query.category) {
+        const categoryTitle = categories.find(i => i.value === query.category).title
+        crumbs = [{ path: '/reviews', title: 'Отзывы' }, { title: categoryTitle }]
+      } else {
+        crumbs = [{ title: 'reviews' }]
+      }
+    
+      this.$store.commit('setBreadCrumbs', crumbs)
+    },
+
+    async showMore() {
+      this.currentPage++
+      const response = await api.loadCards(this.$route, this.currentPage)
+      this.reviews = [...this.reviews, ...response.reviews]
+    }
   }
 }
 </script>

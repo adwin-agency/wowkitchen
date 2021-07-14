@@ -213,7 +213,7 @@
             />
 
             <a
-              href="tel:+79999999999"
+              :href="`tel:${cityPhone}`"
               class="header__phone"
             >
               <AppIcon
@@ -224,7 +224,7 @@
               <span
                 v-else
                 class="header__phone-num"
-              >+7 (999) 999 99 99</span>
+              >{{cityPhone}}</span>
             </a>
             <button
               class="header__favorites"
@@ -371,6 +371,9 @@ export default {
     },
     favoritesLength() {
       return this.$store.state.favoriteItems.length
+    },
+    cityPhone() {
+      return this.$store.state.cities[this.$store.state.activeCity]?.phone
     }
   },
   watch: {

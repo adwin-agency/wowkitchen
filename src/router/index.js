@@ -118,16 +118,19 @@ const router = createRouter({
   routes,
   linkActiveClass: 'is-active',
   linkExactActiveClass: '',
-  scrollBehavior(to, from, savedPosition) {
-    if (to.meta.introEffect) {
-      return { top: 0 }
-    }
+  // scrollBehavior(to, from, savedPosition) {
+  //   if (to.meta.introEffect) {
+  //     return { top: 0 }
+  //   }
 
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { top: 0 }
-    }
+  //   if (savedPosition) {
+  //     return savedPosition
+  //   } else {
+  //     return { top: 0 }
+  //   }
+  // }
+  scrollBehavior() {
+    return { top: 0 }
   }
 })
 

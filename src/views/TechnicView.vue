@@ -1,7 +1,11 @@
 <template>
   <div class="v-technic">
-    <TechnicDetails :info="details.info" />
+    <TechnicDetails
+      v-if="details"
+      :info="details.info"
+    />
     <OtherProducts
+      v-if="details"
       heading="Отлично подойдёт для этих кухонь"
       :products="details.similars"
     />
@@ -32,6 +36,17 @@ export default {
   },
   async created() {
     this.details = await api.loadDetails(this.$route)
+    const { name, id, product_type: type } = this.details.info
+    this.$store.commit('setProductData', { name, id, type } )
+  },
+  async beforeRouteUpdate(to) {
+    this.details = null
+    this.details = await api.loadDetails(to)
+    const { name, id, product_type: type } = this.details.info
+    this.$store.commit('setProductData', { name, id, type } )
+  },
+  unmounted() {
+    this.$store.commit('setProductData', null)
   }
 }
 </script>

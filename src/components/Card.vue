@@ -1,5 +1,8 @@
 <template>
-  <div class="card">
+  <router-link
+    :to="route"
+    class="card"
+  >
     <div class="card__image">
       <img src="@/assets/img/slide-card.jpg" alt="">
     </div>
@@ -11,7 +14,7 @@
       />
       {{title}}
     </p>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -23,6 +26,7 @@ export default {
     AppIcon
   },
   props: {
+    route: String,
     title: String,
     icon: String
   }

@@ -11,37 +11,13 @@
             <h1 class="intro__heading">Кухни и{{'\xa0'}}мебель на заказ</h1>
             <div class="intro__tags">
               <router-link
-                :to="{name: 'kitchens'}"
-                class="intro__tag intro__tag_gray"
-              >Прямые кухни</router-link>
-              <router-link
-                :to="{name: 'kitchens'}"
-                class="intro__tag intro__tag_gray"
-              >Угловые кухни</router-link>
-              <router-link
-                :to="{name: 'kitchens'}"
-                class="intro__tag intro__tag_green"
-              >Кухни лофт</router-link>
-              <router-link
-                :to="{name: 'wardrobes'}"
-                class="intro__tag intro__tag_red"
-              >Шкафы-купе</router-link>
-              <router-link
-                :to="{name: 'kitchens'}"
-                class="intro__tag intro__tag_green"
-              >Скандинавский стиль</router-link>
-              <router-link
-                :to="{name: 'kitchens'}"
-                class="intro__tag intro__tag_gray"
-              >С барной стойкой</router-link>
-              <router-link
-                :to="{name: 'kitchens'}"
-                class="intro__tag intro__tag_green"
-              >Стиль минимализм</router-link>
-              <router-link
-                :to="{name: 'kitchens'}"
-                class="intro__tag intro__tag_green"
-              >Современная классика</router-link>
+                v-for="(tag, index) in tags"
+                :key="index"
+                :to="tag.route"
+                :class="`intro__tag intro__tag_${tag.color}`"
+              >
+                {{tag.title}}
+              </router-link>
             </div>
             <AppVideoButton
               v-if="$_media.sm"
@@ -150,6 +126,17 @@ import IntroFeatures from './IntroFeatures.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppVideoButton from './base/AppVideoButton.vue'
 
+const tags = [
+  { route: 'kitchens?category=pryamye', title: 'Прямые кухни', color: 'gray' },
+  { route: 'kitchens?category=uglovye', title: 'Угловые кухни', color: 'gray' },
+  { route: 'kitchens?style=loft', title: 'Кухни лофт', color: 'green' },
+  { route: 'wardrobes', title: 'Шкафы-купе', color: 'red' },
+  { route: 'kitchens?style=scandinaviya', title: 'Скандинавский стиль', color: 'green' },
+  { route: 'kitchens?category=s-barnoy-stoykoy', title: 'С барной стойкой', color: 'gray' },
+  { route: 'kitchens?style=minimalizm', title: 'Стиль минимализм', color: 'green' },
+  { route: 'kitchens?style=sovremenniy', title: 'Современная классика', color: 'green' }
+]
+
 export default {
   name: 'Intro',
   components: {
@@ -159,6 +146,7 @@ export default {
   },
   data() {
     return {
+      tags: tags,
       shapeBackTranslate: 0,
       shapeFrontTranslate: 0
     }

@@ -141,14 +141,11 @@ export default {
     }
   },
   computed: {
-    cityName() {
-      return this.$store.getters.cityName
-    },
     cityDetection() {
       return this.$store.state.cityDetection
     },
-    activeCity() {
-      return this.$store.state.activeCity
+    cityName() {
+      return this.$store.state.cities[this.$store.state.activeCity]?.name
     }
   },
   methods: {

@@ -15,9 +15,15 @@
       @show-more="showMore"
     />
     <QuizPreview type="kitchens" />
-    <PopularArticles allBtn />
+    <PopularArticles
+      :cards="articles"
+      allBtn
+    />
     <Steps />
-    <RatedReviews v-if="!$_media.sm" />
+    <RatedReviews
+      v-if="!$_media.sm"
+      :cards="reviews"
+    />
   </div>
 </template>
 
@@ -88,14 +94,22 @@ export default {
       filterGroups: filterGroups,
       cards: [],
       pages: 1,
-      currentPage: 1
+      currentPage: 1,
+      articles: [],
+      reviews: []
     }
   },
   async created() {
-    const response = await api.loadCards(this.$route)
-    this.cards = response.goods
-    this.pages = response.pages
+    const kitchensResponse = await api.loadCards(this.$route)
+    this.cards = kitchensResponse.goods
+    this.pages = kitchensResponse.pages
     this.setBreadCrumbs(this.$route)
+
+    const articlesResponse = await api.loadCards({ name: 'blog' })
+    this.articles = articlesResponse.goods.slice(0, 3)
+
+    const reviewsResponse = await api.loadCards({ name: 'reviews' })
+    this.reviews = reviewsResponse.reviews.slice(0, 4)
   },
   async beforeRouteUpdate(to) {
     const response = await api.loadCards(to)

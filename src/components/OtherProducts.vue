@@ -24,6 +24,7 @@
           >
             <ProductCard
              slide
+             cardType="kitchen"
              :disabled="!isVisible"
              :info="product"
             />

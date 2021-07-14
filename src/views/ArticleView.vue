@@ -1,12 +1,16 @@
 <template>
-  <div v-if="details" class="v-article">
+  <div class="v-article">
     <Article
+      v-if="details"
       :info="details.info"
       :cards="details.populars"
     />
-    <RelatedArticles :cards="details.similars" />
+    <RelatedArticles
+      v-if="details"
+      :cards="details.similars"
+    />
     <PopularArticles
-      v-if="$_media.sm"
+      v-if="$_media.sm && details"
       :cards="details.populars"
     />
     <DesignCall />

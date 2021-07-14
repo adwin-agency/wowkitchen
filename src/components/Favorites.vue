@@ -8,30 +8,34 @@
           :key="index"
           class="favorites__element"
         >
-          <img
-            class="favorites__image"
-            :src="$_basepath + item.image"
-            alt
-          >
+          <router-link :to="item.url" target="_blank">
+            <img
+              class="favorites__image"
+              :src="$_basepath + item.image"
+              alt
+            >
+          </router-link>
           <div class="favorites__box">
             <p class="favorites__category">{{item.type}}</p>
-            <p class="favorites__name">{{item.name}}</p>
+            <p class="favorites__name">
+              <router-link :to="item.url" target="_blank">{{item.name}}</router-link>
+            </p>
             <p class="favorites__price">{{item.price}}</p>
             <p
               v-if="item.oldPrice"
               class="favorites__discount"
-            >{{item.oldPrice}}</p>
-            <button
-              type="button"
-              class="favorites__remove"
-              @click="removeFavorite(item)"
-            >
-              <AppIcon
-                name="close"
-                class="favorites__remove-icon"
-              />
-            </button>
+            >{{item.oldPrice}}</p>            
           </div>
+          <button
+            type="button"
+            class="favorites__remove"
+            @click="removeFavorite(item)"
+          >
+            <AppIcon
+              name="close"
+              class="favorites__remove-icon"
+            />
+          </button>
         </div>
       </div>
       <p class="favorites__text">Хотите рассчитать стоимость выбранных позиций с учётом габаритов вашего помещения?</p>

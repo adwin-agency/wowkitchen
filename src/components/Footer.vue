@@ -98,10 +98,10 @@
             />
           </div>          
           <a
-            href="tel:+7 (999) 999 99 99"
+            :href="`tel:${cityPhone}`"
             class="footer__phone"
           >
-            +7 (999) 999 99 99
+            {{cityPhone}}
           </a>
           <p class="footer__time">Ежедневно с 10 до 22</p>
           <AppButton
@@ -227,7 +227,10 @@ export default {
   },
   computed: {
     cityName() {
-      return this.$store.getters.cityName
+      return this.$store.state.cities[this.$store.state.activeCity]?.name
+    },
+    cityPhone() {
+      return this.$store.state.cities[this.$store.state.activeCity]?.phone
     }
   },
   created() {

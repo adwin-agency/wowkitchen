@@ -335,7 +335,7 @@ export default {
   },
   watch: {
     info() {
-      window.sidebar.updateSticky()
+      window.sidebar?.updateSticky()
     }
   },
   mounted() {
@@ -425,8 +425,10 @@ export default {
 
     handleResize() {
       if (this.$_media.sm) {
-        window.sidebar.destroy()
-        window.sidebar = null
+        if (window.sidebar) {
+          window.sidebar.destroy()
+          window.sidebar = null
+        }
       } else {
         if (window.sidebar) {
           window.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170

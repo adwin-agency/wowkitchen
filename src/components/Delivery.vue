@@ -3,21 +3,22 @@
     <div class="container delivery__container">
       <div class="delivery__discription-container">
         <h2 class="delivery__discription-title">Доставка</h2>
-        <h3 class="delivery__discription-subtitle">В пределах СПб</h3>
+        <h3 class="delivery__discription-subtitle">В пределах СПб, ЛО, Москвы</h3>
         <p class="delivery__discription-text">
-          Доставка осуществляется с Пн. по Сб. 10:00 до 21:00. Стоимость по Санкт-Петербургу зависит от вашего местонахождения.
-      
+          Доставка осуществляется с Пн. по Сб. 10:00 до 21:00. Стоимость зависит от вашего местонахождения.
         </p>
         <p class="delivery__discription-text">
-         Подробнее узнать о стоимости можно у оператора по телефону:<span class="delivery__discription_accent"> +7 (999) 999 - 99 - 99</span>
+          Подробнее узнать о стоимости можно у оператора по телефону:
+          <a
+            :href="`tel:${cityPhone}`"
+            class="delivery__discription_accent"
+          >{{cityPhone}}</a>
         </p>
-
-        <h3 class="delivery__discription-subtitle">В ЛО</h3>
+        <!-- <h3 class="delivery__discription-subtitle">В ЛО</h3>
         <p class="delivery__discription-text">
           Доставка за КАД, по Ленинградской области и в другие регионы рассчитывается индивидуально при оформлении заказа или по телефону:<span class="delivery__discription_accent"> +7 (999) 999 - 99 - 99</span>
           <span class="delivery__discription_accent"></span>
-        </p>
-
+        </p> -->
         <h3 class="delivery__discription-subtitle">Подъём на этаж</h3>
         <p class="delivery__discription-text">
           Подъем в квартиру без лифта - 200 рублей этаж. Подъем в квартиру на лифте - бесплатно.
@@ -120,6 +121,11 @@ export default {
         { title: 'Санкт-Петербург' },
         { title: 'Ленинградская область' }
       ]
+    }
+  },
+  computed: {
+    cityPhone() {
+      return this.$store.state.cities[this.$store.state.activeCity]?.phone
     }
   }
 }

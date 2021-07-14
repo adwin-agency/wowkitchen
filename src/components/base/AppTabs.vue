@@ -84,11 +84,6 @@ export default {
     border-bottom: 4px solid transparent;
     font-size: 14px;
 
-    &_b {
-      font-weight: bold;
-      color: $color-lightviolet;
-    }
-
     &:last-child {
       margin-right: 0;
     }
@@ -96,6 +91,15 @@ export default {
     &.is-active {
       font-weight: 500;
       border-color: $color-lightviolet;
+    }
+
+    &_b {
+      font-weight: bold;
+      color: $color-lightviolet;
+
+      &.is-active {
+        font-weight: bold;
+      }
     }
   }
 

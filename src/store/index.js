@@ -16,7 +16,7 @@ export default createStore({
     mobileMenu: false,
     activeFavorites: false,
     favoriteItems: favorites,
-    cities: [],
+    cities: {},
     cityDetection: false,
     activeCity: null,
     introEffect: false,
@@ -28,9 +28,6 @@ export default createStore({
   getters: {
     scrollLock(state) {
       return !!state.modal || state.mobileMenu || state.activeFavorites || state.activeFilters
-    },
-    cityName(state) {
-      return state.cities.find(i => i.code === state.activeCity)?.name
     }
   },
 

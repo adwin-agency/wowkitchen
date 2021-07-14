@@ -56,9 +56,14 @@ export default {
     window.addEventListener('resize', this.handleResize)
 
     const main = await api.loadMain()
-    const cities = main.cities
     const detectedCity = main.detected_city
     const selectedCity = this.getCookie('city')
+
+    const cities = {}
+
+    for (let city of main.cities) {
+      cities[city.code] = city
+    }
 
     this.$store.commit('setCities', cities)
 

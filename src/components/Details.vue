@@ -3,6 +3,7 @@
     <div class="details__top">
       <div class="container">
         <Swiper
+          :key="info.id"
           :scrollbar="{ hide: false }"
           navigation
           :lazy="{ loadPrevNext: true }"
@@ -61,7 +62,7 @@
             <p class="details__desc">{{info.description}}</p>
           </div>
           <DetailsCard
-            :cardData="info"
+            :info="info"
             class="details__card"
           />
           <div
@@ -122,6 +123,7 @@
     <div class="details__gallery">
       <div class="container container_slider">
         <Swiper
+          :key="info.id"
           :slides-per-view="$_media.sm ? 'auto' : 1"
           :space-between="$_media.sm ? 10 : $_media.md ? 30 : 50"
           watch-slides-visibility

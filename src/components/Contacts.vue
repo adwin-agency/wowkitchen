@@ -5,11 +5,15 @@
       <div class="contacts__info-container">
         <div class="contacts__info-item">
           <h3 class="contacts__info-title">Адрес</h3>
-          <p class="contacts__info-text">ул.Новорощинская, д.4,  оф. 904-2 (БЦ "Собрание")</p>
+          <p class="contacts__info-text">
+            <a v-if="$_media.sm && activeCity === 'spb'" href="maps://yandex.ru/map-widget/v1/-/CCUerMt0DA">{{cityAddress}}</a>
+            <a v-else-if="$_media.sm && activeCity === 'msk'" href="maps://yandex.ru/map-widget/v1/-/CCUerQRICB">{{cityAddress}}</a>
+            <span v-else>{{cityAddress}}</span>
+          </p>
         </div>
         <div class="contacts__info-item">
           <h3 class="contacts__info-title">Телефон</h3>
-          <p class="contacts__info-text">+7 (999) 999 - 99 - 99</p>
+          <p class="contacts__info-text">{{cityPhone}}</p>
         </div>
         <div class="contacts__info-item">
           <h3 class="contacts__info-title">Время работы</h3>
@@ -17,22 +21,63 @@
         </div>
         <div class="contacts__info-item">
           <h3 class="contacts__info-title">Мы в соцсетях</h3>
-            <a href="#" class="contacts__info-link">
-              <AppIcon
-                name="insta"
-                class="contacts__info-icon"
-              />
-            </a>
-            <a href="#" class="contacts__info-link">
-              <AppIcon
-                name="vk"
-                class="contacts__info-icon"
-              />
-            </a>
+          <a
+            href="#"
+            class="contacts__info-link"
+          >
+            <AppIcon
+              name="insta"
+              class="contacts__info-icon"
+            />
+          </a>
+          <a
+            href="#"
+            class="contacts__info-link"
+          >
+            <AppIcon
+              name="vk"
+              class="contacts__info-icon"
+            />
+          </a>
         </div>
       </div>
       <div class="contacts__map">
-
+        <div
+          v-if="activeCity === 'spb'"
+          style="position:relative;overflow:hidden;"
+        >
+          <a
+            href="https://yandex.ru/maps/2/saint-petersburg/?utm_medium=mapframe&utm_source=maps"
+            style="color:#eee;font-size:12px;position:absolute;top:0px;"
+          >Санкт‑Петербург</a>
+          <a
+            href="https://yandex.ru/maps/2/saint-petersburg/house/4_y_predportovy_proyezd_5l/Z0kYdQdkSkUAQFtjfXRzeX1lZQ==/?ll=30.313073%2C59.828162&utm_medium=mapframe&utm_source=maps&z=13.41"
+            style="color:#eee;font-size:12px;position:absolute;top:14px;"
+          >4-й Предпортовый проезд, 5Л — Яндекс.Карты</a>
+          <iframe
+            src="https://yandex.ru/map-widget/v1/-/CCUerMt0DA"
+            allowfullscreen="true"
+            style="position:relative;"
+          ></iframe>
+        </div>
+        <div
+          v-if="activeCity === 'msk'"
+          style="position:relative;overflow:hidden;"
+        >
+          <a
+            href="https://yandex.ru/maps/213/moscow/?utm_medium=mapframe&utm_source=maps"
+            style="color:#eee;font-size:12px;position:absolute;top:0px;"
+          >Москва</a>
+          <a
+            href="https://yandex.ru/maps/213/moscow/house/ryabinovaya_ulitsa_47s5/Z04YcgVmQUMHQFtvfXp4d35lZA==/?ll=37.432570%2C55.694911&utm_medium=mapframe&utm_source=maps&z=13.14"
+            style="color:#eee;font-size:12px;position:absolute;top:14px;"
+          >Рябиновая улица, 47с5 — Яндекс.Карты</a>
+          <iframe
+            src="https://yandex.ru/map-widget/v1/-/CCUerQRICB"
+            allowfullscreen="true"
+            style="position:relative;"
+          ></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -40,9 +85,23 @@
 
 <script>
 import AppIcon from './base/AppIcon.vue'
+
 export default {
-  components: { AppIcon },
-  name: 'Contacts'
+  name: 'Contacts',
+  components: {
+    AppIcon
+  },
+  computed: {
+    activeCity() {
+      return this.$store.state.activeCity
+    },
+    cityAddress() {
+      return this.$store.state.cities[this.$store.state.activeCity]?.address
+    },
+    cityPhone() {
+      return this.$store.state.cities[this.$store.state.activeCity]?.phone
+    }
+  }
 }
 </script>
 
@@ -55,30 +114,29 @@ export default {
     margin-top: 20px;
     margin: 20px 0 0;
 
-    @include media(md){
+    @include media(md) {
       font-size: 30px;
       margin-top: 36px;
       margin-bottom: 40px;
     }
-    @include media(lg){
+    @include media(lg) {
       font-size: 50px;
       margin-top: 46px;
       margin-bottom: 50px;
     }
-    @include media(xl){
+    @include media(xl) {
       margin-top: 56px;
-      margin-bottom: 62px;;
+      margin-bottom: 62px;
     }
   }
   &__info {
-
     &-container {
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;
 
-      @include media(md){
+      @include media(md) {
         flex-direction: row;
       }
     }
@@ -90,14 +148,14 @@ export default {
       &:last-child {
         margin-right: 0;
       }
-      @include media(md){
+      @include media(md) {
         margin-right: 80px;
         margin-top: 0px;
       }
-      @include media(lg){
+      @include media(lg) {
         margin-right: 100px;
       }
-      @include media(xl){
+      @include media(xl) {
         margin-right: 150px;
       }
     }
@@ -111,7 +169,7 @@ export default {
       line-height: 1.429;
       margin-top: 8px;
 
-      @include media(md){
+      @include media(md) {
         margin-top: 12px;
       }
     }
@@ -126,7 +184,7 @@ export default {
       margin-right: 14px;
       margin-top: 8px;
 
-      @include media(md){
+      @include media(md) {
         margin-top: 12px;
       }
     }
@@ -139,11 +197,23 @@ export default {
     transform: translateX(-50%);
     background-color: rgb(60, 60, 60);
     margin-top: 45px;
+    overflow: hidden;
 
-    @include media(md){
-    height: 500px;
-    border-top-right-radius: 120px;
-    width: 100%;
+    div {
+      width: 100%;
+      height: 100%;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @include media(md) {
+      height: 500px;
+      border-top-right-radius: 120px;
+      width: 100%;
     }
   }
 }

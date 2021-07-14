@@ -9,7 +9,7 @@
       :products="details.similars"
     />
     <Steps />
-    <RatedReviews />
+    <RatedReviews :cards="reviews" />
   </div>
 </template>
 
@@ -39,11 +39,20 @@ export default {
       details: {
         info: {},
         similars: []
-      }
+      },
+      reviews: []
     }
   },
   async created() {
     this.details = await api.loadDetails(this.$route)
+    const { name, id, product_type: type } = this.details.info
+    this.$store.commit('setProductData', { name, id, type } )
+
+    const reviewsResponse = await api.loadCards({ name: 'reviews' })
+    this.reviews = reviewsResponse.reviews.slice(0, 4)
+  },
+  async beforeRouteUpdate(to) {
+    this.details = await api.loadDetails(to)
     const { name, id, product_type: type } = this.details.info
     this.$store.commit('setProductData', { name, id, type } )
   },

@@ -12,6 +12,8 @@
         <div class="technic-details__gallery">
           <div class="technic-details__thumbs">
             <Swiper
+              v-if="info.pictures"
+              :key="info.id"
               direction="vertical"
               :slides-per-view="4"
               :space-between="8"
@@ -21,42 +23,42 @@
               class="technic-details__thumbs-slider"
             >
               <SwiperSlide
-                v-for="(slide, index) in slides"
+                v-for="(picture, index) in info.pictures"
                 :key="index"
                 class="technic-details__thumbs-slide"
-                :class="{'technic-details__thumb_video': slide.video}"
               >
                 <img
-                  :src="require(`@/assets/img/${slide.image || slide.video}`)"
+                  :src="$_basepath + picture.small.path"
                   alt=""
                 >
-                <AppIcon
+                <!-- <AppIcon
                   v-if="slide.video"
                   name="play"
                   class="technic-details__play-icon"
-                />
+                /> -->
               </SwiperSlide>
             </Swiper>
           </div>          
           <Swiper
+            v-if="info.pictures"
+            :key="info.id"
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
             @slideChangeTransitionStart="thumbsSwiper.updateSlidesClasses()"
             class="technic-details__slider"
           >
             <SwiperSlide
-              v-for="(slide, index) in slides"
+              v-for="(picture, index) in info.pictures"
               :key="index"
               class="technic-details__slide"
             >
               <img
-                v-if="slide.image"
-                :src="require(`@/assets/img/${slide.image}`)"
-                alt=""
+                :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
+                alt
               >         
             </SwiperSlide>
             <span
-              v-if="!$_media.sm"
+              v-if="!$_media.sm && info.discount"
               class="technic-details__discount"
             >
               %
@@ -71,14 +73,17 @@
           >
             Вернуться в каталог
           </router-link>
-          <h1 class="technic-details__title">Candy CVG 64 SGNX</h1>
+          <h1 class="technic-details__title">{{info.name}}</h1>
           <div class="technic-details__cost">
             <div class="technic-details__prices">
-              <p class="technic-details__price">54 500 ₽</p>
-              <p class="technic-details__old-price">109 000 ₽</p>
+              <p class="technic-details__price">{{info.price}} ₽</p>
+              <p
+                v-if="info.old_price"
+                class="technic-details__old-price"
+              >{{info.old_price}} ₽</p>
             </div>
             <span
-              v-if="$_media.sm"
+              v-if="$_media.sm && info.discount"
               class="technic-details__discount"
             >
               %
@@ -100,11 +105,11 @@
             class="technic-details__props"
           >
             <p
-              v-for="(prop, index) in props"
+              v-for="(feature, index) in info.features"
               :key="index"
               class="technic-details__prop"
             >
-              <span>{{prop.title}}</span>{{prop.desc}}
+              <span>{{feature.text}}</span>{{feature.value}}
             </p>
           </div>
           <div class="technic-details__btns">

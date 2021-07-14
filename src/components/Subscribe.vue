@@ -99,18 +99,15 @@ export default {
     }
   }
 
-  &__env-back {
+  &__env-back,
+  &__env-front {
     position: absolute;
     top: -6px;
     left: calc(50% - 132px);
-    width: 300px;
+    width: 280px;
   }
 
   &__env-front {
-    position: absolute;
-    top: 2px;
-    left: calc(50% - 88px);
-    width: 250px;
     z-index: 1;
   }
 
@@ -165,16 +162,11 @@ export default {
       }
     }
 
-    &__env-back {
+    &__env-back,
+    &__env-front {
       top: -18px;
       left: calc(50% - 138px);
-      width: 355px;
-    }
-
-    &__env-front {
-      top: -6px;
-      left: calc(50% - 84px);
-      width: 290px;
+      width: 320px;
     }
 
     &__title {
@@ -198,16 +190,11 @@ export default {
       }
     }
 
-    &__env-back {
+    &__env-back,
+    &__env-front {
       top: -30px;
       left: calc(50% - 198px);
-      width: 450px;
-    }
-
-    &__env-front {
-      top: -12px;
-      left: calc(50% - 124px);
-      width: 360px;
+      width: 420px;
     }
 
     &__title {

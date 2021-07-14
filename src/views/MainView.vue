@@ -6,7 +6,7 @@
     <Design />
     <Equipment />
     <Steps />
-    <RatedReviews />
+    <RatedReviews :cards="reviews" />
   </div>
 </template>
 
@@ -18,6 +18,7 @@ import Design from '../components/Design.vue'
 import Equipment from '../components/Equipment.vue'
 import Steps from '../components/Steps.vue'
 import RatedReviews from '../components/RatedReviews.vue'
+import api from '../api'
 
 export default {
   name: 'MainView',
@@ -29,6 +30,15 @@ export default {
     Equipment,
     Steps,
     RatedReviews
+  },
+  data() {
+    return {
+      reviews: []
+    }
+  },
+  async created() {
+    const reviewsResponse = await api.loadCards({ name: 'reviews' })
+    this.reviews = reviewsResponse.reviews.slice(0, 4)
   }
 }
 </script>

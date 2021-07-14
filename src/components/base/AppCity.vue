@@ -40,16 +40,17 @@ export default {
   ],
   computed: {
     cities() {
-      return this.$store.state.cities.map(i => ({ title: i.name, value: i.code }))
+      return this.$store.state.cities
     },
     activeCity() {
       return this.$store.state.activeCity
     },
     options() {
-      return [{ title: 'Нет, другой', disabled: true }, ...this.cities]
+      const options = Object.values(this.cities).map(i => ({ title: i.name, value: i.code }))
+      return [{ title: 'Нет, другой', disabled: true }, ...options]
     },
     cityName() {
-      return this.$store.getters.cityName
+      return this.cities[this.activeCity]?.name
     }
   },
   methods: {

@@ -104,15 +104,8 @@ export default {
     AppIcon,
     ReviewCard
   },
-  data() {
-    return {
-      cards: [
-        { image: 'review-card-01.jpg', title: 'ХайдиКлум' },
-        { image: 'review-card-02.jpg', title: 'ТайраБэнкс' },
-        { image: 'review-card-03.jpg', title: 'ЖизельБундхен' },
-        { image: 'review-card-04.jpg', title: 'АдрианаЛима' }
-      ]
-    }
+  props: {
+    cards: Array
   }
 }
 </script>

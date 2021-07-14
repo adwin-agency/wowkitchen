@@ -24,7 +24,12 @@
           :key="index"
           class="card-slider__slide"
         >
-          <Card class="card-slider__card" :title="card.title" :icon="card.icon" />
+          <Card
+            :route="card.route"
+            :title="card.title"
+            :icon="card.icon"
+            class="card-slider__card"
+          />
         </SwiperSlide>
       </Swiper>
     </div>

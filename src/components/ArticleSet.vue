@@ -11,7 +11,7 @@
           :slides-per-view="$_media.sm ? 'auto' : 3"
           :space-between="$_media.sm ? 10 : $_media.md ? 20 : $_media.lg ? 30 : 40"
           watch-slides-visibility
-          :navigation="!$_media.sm"
+          navigation
           class="article-set__slider"
         >
           <SwiperSlide
@@ -20,16 +20,16 @@
             class="article-set__slide"
           >
             <router-link
-              :to="{ name: 'blog' }"
+              :to="{ name: 'blog', query: { category: card.id } }"
               class="article-set__card"
             >
               <img
-                :src="require(`@/assets/img/${card.image}`)"
+                src="@/assets/img/blog-selection-01.jpg"
                 alt=""
                 class="article-set__image"
               >
               <p class="article-set__title">{{card.title}}</p>
-              <p class="article-set__desc">{{card.desc}}</p>
+              <p class="article-set__desc">10 статей</p>
             </router-link>
           </SwiperSlide>
         </Swiper>
@@ -42,6 +42,16 @@
 import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
+const cards = [
+  { id: 'laifhaki', title: 'Лайфхаки' },
+  { id: 'spornye-voprosy', title: 'Спорные вопросы' },
+  { id: 'ot-eksperta', title: 'От эксперта' },
+  { id: 'planirovki', title: 'Планировки' },
+  { id: 'idei-dlya-kuhni', title: 'Идеи для кухни' },
+  { id: 'video', title: 'Видео' },
+  { id: 'populyarnoe', title: 'Популярное' },
+]
+
 SwiperCore.use([Navigation])
 
 export default {
@@ -52,14 +62,7 @@ export default {
   },
   data() {
     return {
-      cards: [
-        { image: 'blog-selection-01.jpg', title: 'Лайфхаки', desc: '10 статей' },
-        { image: 'blog-selection-01.jpg', title: 'От эксперта', desc: '23 статьи' },
-        { image: 'blog-selection-01.jpg', title: 'Планировки', desc: '15 статей' },
-        { image: 'blog-selection-01.jpg', title: 'Лайфхаки', desc: '10 статей' },
-        { image: 'blog-selection-01.jpg', title: 'От эксперта', desc: '23 статьи' },
-        { image: 'blog-selection-01.jpg', title: 'Планировки', desc: '15 статей' }
-      ]
+      cards: cards
     }
   }
 }
@@ -81,6 +84,11 @@ export default {
 
   &__slider {
     overflow: visible;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
   }
 
   &__slide {
@@ -164,11 +172,8 @@ export default {
     &__slider {
       padding-right: 170px;
 
-      .swiper-button-prev {
-        display: none;
-      }
-
       .swiper-button-next {
+        display: block;
         position: absolute;
         top: 50%;
         right: 56px;

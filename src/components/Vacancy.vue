@@ -165,6 +165,7 @@ export default {
     font-size: 16px;
     color: #000;
     background-color: $color-lightgray;
+    cursor: pointer;
 
     &-icon {
       width: 20px;

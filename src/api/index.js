@@ -14,7 +14,8 @@ const api = {
       kitchens: 'kitchens',
       wardrobes: 'closets',
       technics: 'technics',
-      blog: 'blog'
+      blog: 'blog',
+      reviews: 'reviews'
     }
 
     let search = []
