@@ -115,6 +115,7 @@
         title="Рассчитать проект"
         modalName="calc"
         class="product-card__btn"
+        @click="handleBtnClick"
       />
     </div>
   </div>
@@ -166,6 +167,11 @@ export default {
       const imagePath = `${this.$_mobile ? this.info.pictures[0].medium.path : this.info.pictures[0].large.path}`
       this.$store.commit('setModal', 'image')
       this.$store.commit('setModalData', { image: imagePath })
+    },
+
+    handleBtnClick() {
+      const { name, id, product_type: type } = this.info
+      this.$store.commit('setProductData', { name, id, type } )
     }
   }
 }

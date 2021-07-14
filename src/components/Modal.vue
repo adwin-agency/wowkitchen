@@ -239,6 +239,7 @@ export default {
     closeModal() {
       this.$store.commit('setModal', null)
       this.$store.commit('setModalData', null)
+      this.$store.commit('setProductData', null)
     }
   }
 }
