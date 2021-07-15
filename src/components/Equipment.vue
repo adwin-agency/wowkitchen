@@ -71,6 +71,7 @@ const cards = [
       { icon: 'leaf', title: 'Экологичные' },
       { icon: 'umbrella', title: 'Водостойкие' }
     ],
+    image: { mobile: 'eq-facade.jpg', desktop: 'eq-facade-v.jpg' },
     title: 'Фасады',
     company: 'Австрия, Egger',
     desc: 'Прочные и износостойкие из плит МДФ с ПВХ-плёнкой или пластиком от компании EGGER. Обладают повышенными показателями влагостойкости.'
@@ -80,6 +81,7 @@ const cards = [
       { icon: 'star', title: 'Известные бренды' },
       { icon: 'clock', title: 'Долговечная' }
     ],
+    image: { mobile: 'eq-furniture.jpg', desktop: 'eq-furniture-v.jpg' },
     title: 'Фурнитура',
     desc: 'от лидеров отечественного и мирового рынков: Blum, Hettich, Boyard'
   },
@@ -88,6 +90,7 @@ const cards = [
       { icon: 'thermometer', title: 'Жаропрочные' },
       { icon: 'texture', title: 'Текстурные' }
     ],
+    image: { mobile: 'eq-table.jpg', desktop: 'eq-table-v.jpg' },
     title: 'Столешницы',
     company: 'Австрия, Kronospan',
     desc: 'прочные столешницы из ЛДСП и искуственного камня толщиной до 60 мм'
@@ -97,6 +100,7 @@ const cards = [
       { icon: 'grid', title: 'Широкий выбор' },
       { icon: 'clock', title: 'Долговечная' }
     ],
+    image: { mobile: 'eq-technic.jpg', desktop: 'eq-technic-v.jpg' },
     title: 'Техника',
     desc: 'разнообразный выбор от отечественных и зарубежных производителей'
   }

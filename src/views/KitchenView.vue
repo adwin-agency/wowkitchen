@@ -48,6 +48,8 @@ export default {
     const { name, id, product_type: type } = this.details.info
     this.$store.commit('setProductData', { name, id, type } )
 
+    this.setBreadCrumbs()
+
     const reviewsResponse = await api.loadCards({ name: 'reviews' })
     this.reviews = reviewsResponse.reviews.slice(0, 4)
   },
@@ -55,9 +57,19 @@ export default {
     this.details = await api.loadDetails(to)
     const { name, id, product_type: type } = this.details.info
     this.$store.commit('setProductData', { name, id, type } )
+
+    this.setBreadCrumbs()
   },
   unmounted() {
     this.$store.commit('setProductData', null)
+  },
+  methods: {
+    setBreadCrumbs() {
+      const info = this.details.info
+      const crumbs = [{ path: '/kitchens', title: 'Кухни' }, { path: '/kitchens?category=' + info.category, title: info.category_rus }]
+
+      this.$store.commit('setBreadCrumbs', crumbs)
+    }
   }
 }
 </script>

@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     handleScroll() {
-      if (this.$refs.desc.getBoundingClientRect().top < window.innerHeight * 0.75) {
+      if (this.$refs.desc.getBoundingClientRect().top < window.innerHeight * 0.8) {
         this.activeDesc = true
         window.removeEventListener('scroll', this.handleScroll)
       }

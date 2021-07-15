@@ -26,8 +26,17 @@
           />
         </router-link>
         <img
-          :src="require(`@/assets/img/${preview[type].photos}`)"
-          alt=""
+          v-if="type === 'kitchens'"
+          srcset="@/assets/img/quiz-preview-k.png, @/assets/img/quiz-preview-k@2x.png 2x"
+          src="@/assets/img/quiz-preview-k.png"
+          alt
+          class="quiz-preview__img quiz-preview__img_photos"
+        >
+        <img
+          v-if="type === 'wardrobes'"
+          srcset="@/assets/img/quiz-preview-w.png, @/assets/img/quiz-preview-w@2x.png 2x"
+          src="@/assets/img/quiz-preview-w.png"
+          alt
           class="quiz-preview__img quiz-preview__img_photos"
         >
         <img
@@ -44,6 +53,11 @@
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 
+const preview = {
+  kitchens: { title: 'Подберите кухню своей мечты за пару минут!', btn: 'Подобрать кухню' },
+  wardrobes: { title: 'Подберите шкаф своей мечты за пару минут!', btn: 'Подобрать шкаф' }
+}
+
 export default {
   name: 'QuizPreview',
   components: {
@@ -55,10 +69,7 @@ export default {
   },
   data() {
     return {
-      preview: {
-        kitchens: { title: 'Подберите кухню своей мечты за пару минут!', btn: 'Подобрать кухню', photos: 'quiz-preview-kit.png' },
-        wardrobes: { title: 'Подберите шкаф своей мечты за пару минут!', btn: 'Подобрать шкаф', photos: 'quiz-preview-cup.png' }
-      }
+      preview: preview
     }
   }
 }

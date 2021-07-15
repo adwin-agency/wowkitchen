@@ -70,7 +70,7 @@
               label="Контактный телефон"
               labelSize="big"
               color="white"
-              placeholder="+7 (999) 999 - 99 - 99"
+              placeholder="+7(999)999-99-99"
               type="tel"
               name="phone"
               required

@@ -41,9 +41,9 @@ const filterGroups = [
     title: 'Планировка',
     items: [
       { title: 'Все', value: 'all' },
-      { title: 'Прямая', value: 'pryamye' },
-      { title: 'Встроенная', value: 'vstroennye' },
-      { title: 'Угловая', value: 'uglovye' }
+      { title: 'Прямые', value: 'pryamye' },
+      { title: 'Встроенные', value: 'vstroennye' },
+      { title: 'Угловые', value: 'uglovye' }
     ]
   },
   {

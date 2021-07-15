@@ -40,7 +40,7 @@
               name="phone"
               required
               label="Контактный телефон"
-              placeholder="+7 (999) 999 - 99 - 99"
+              placeholder="+7(999)999-99-99"
               class="modal__field"
             />
             <AppTextField
@@ -108,7 +108,7 @@
               name="phone"
               required
               label="Контактный телефон"
-              placeholder="Как к вам обращаться?"
+              placeholder="+7(999)999-99-99"
               class="modal__field"
             />
           </div>

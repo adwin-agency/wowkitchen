@@ -23,7 +23,7 @@
             :href="href"
             order="Шаг 2"
             title="Производство"
-            bg="about-step.jpg"
+            bg="about.jpg"
             view
             class="steps__item"
             @click="navigate"
@@ -38,7 +38,7 @@
             :href="href"
             order="Шаг 3"
             title="Доставка"
-            bg="delivery-step.jpg"
+            bg="delivery.jpg"
             class="steps__item"
             @click="navigate"
           />
@@ -52,7 +52,7 @@
             :href="href"
             order="Шаг 4"
             title="Сборка"
-            bg="fixing-step.jpg"
+            bg="fixing.jpg"
             class="steps__item"
             @click="navigate"
           />
@@ -66,7 +66,7 @@
             :href="href"
             order="Шаг 5"
             title="Гарантия"
-            bg="guaranty-step.jpg"
+            bg="guarantee.jpg"
             class="steps__item"
             @click="navigate"
           />

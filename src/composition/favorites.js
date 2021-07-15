@@ -9,7 +9,7 @@ export default function useFavorites(props) {
     const item = {
       id: data.id,
       image: data.pictures[0].small.path,
-      type: data.product_type,
+      type: data.product_type || data.category_rus,
       name: data.name,
       price: data.price,
       oldPrice: data.old_price,

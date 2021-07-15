@@ -1,7 +1,10 @@
 <template>
   <div :class="['equipment-card', {'equipment-card_lg': lg}, {'is-active': active}]">
     <div class="equipment-card__wrapper">
-      <div class="equipment-card__bg"></div>
+      <div
+        class="equipment-card__bg"
+        :style="`background-image: url(${require(`@/assets/img/${$_mobile ? cardData.image.mobile : cardData.image.desktop}`)})`"
+      ></div>
       <div class="equipment-card__inner">
         <div class="equipment-card__features">
           <p
@@ -72,7 +75,6 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 20px;
-    background-image: url('~@/assets/img/materials.jpg');
     background-size: cover;
     box-shadow: 0px 10px 35px 0px rgba(0, 0, 0, 0.28);
     overflow: hidden;

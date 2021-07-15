@@ -86,7 +86,7 @@
         </div>
       </div>
     </div>
-    <Interesting />
+    <Interesting payment />
   </div>
 </template>
 

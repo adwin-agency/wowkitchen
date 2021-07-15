@@ -19,12 +19,13 @@
             :key="$_media.sm ? index : index + 100"
             class="interesting__slide"
           >
-            <div
+            <router-link
+              :to="card.route"
               class="interesting__card"
               :style="`background-image: url(${require(`@/assets/img/${card.img}`)})`"
             >
               <p class="interesting__title">{{card.title}}</p>
-            </div>
+            </router-link>
           </SwiperSlide>
         </Swiper>
       </div>
@@ -36,6 +37,13 @@
 import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
+const cards = [
+  { img: 'measure.jpg', route: '/', title: 'Как проходит замер' },
+  { img: 'delivery.jpg', route: '/delivery', title: 'Доставка' },
+  { img: 'fixing.jpg', route: '/', title: 'Сборка' },
+  { img: 'payment.jpg', route: '/payment', title: 'Оплата' }
+]
+
 SwiperCore.use([Navigation])
 
 export default {
@@ -44,13 +52,12 @@ export default {
     Swiper,
     SwiperSlide
   },
+  props: {
+    payment: Boolean
+  },
   data() {
     return {
-      cards: [
-        { img: 'interesting-01.jpg', title: 'Как проходит замер' },
-        { img: 'interesting-01.jpg', title: 'Доставка' },
-        { img: 'interesting-01.jpg', title: 'Как проходит замер' }
-      ]
+      cards: this.payment ? cards.filter(i => i.route !== '/payment') : cards
     }
   }
 }
@@ -88,6 +95,7 @@ export default {
     border-radius: 12px;
     padding: 26px 20px;
     min-height: 200px;
+    background-size: cover;
     box-shadow: 0px 19px 26px 0px rgba(0, 0, 0, 0.21);
     overflow: hidden;
 

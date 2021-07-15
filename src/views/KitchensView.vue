@@ -48,9 +48,9 @@ const filterGroups = [
     id: 'category',
     title: 'Планировка',
     items: [
-      { title: 'Угловая', value: 'uglovye', icon: 'kit1' },
-      { title: 'Прямая', value: 'pryamye', icon: 'kit2' },
-      { title: 'П-образная', value: 'p-obraznye', icon: 'kit3' },
+      { title: 'Угловые', value: 'uglovye', icon: 'kit1' },
+      { title: 'Прямые', value: 'pryamye', icon: 'kit2' },
+      { title: 'П-образные', value: 'p-obraznye', icon: 'kit3' },
       { title: 'С барной стойкой', value: 's-barnoy-stoykoy' },
       { title: 'С островом', value: 's-ostrovom' }
     ]
@@ -100,10 +100,11 @@ export default {
     }
   },
   async created() {
+    this.setBreadCrumbs(this.$route)
+
     const kitchensResponse = await api.loadCards(this.$route)
     this.cards = kitchensResponse.goods
     this.pages = kitchensResponse.pages
-    this.setBreadCrumbs(this.$route)
 
     const articlesResponse = await api.loadCards({ name: 'blog' })
     this.articles = articlesResponse.goods.slice(0, 3)
@@ -112,11 +113,12 @@ export default {
     this.reviews = reviewsResponse.reviews.slice(0, 4)
   },
   async beforeRouteUpdate(to) {
+    this.setBreadCrumbs(to)
+
     const response = await api.loadCards(to)
     this.cards = response.goods
     this.pages = response.pages
     this.currentPage = 1
-    this.setBreadCrumbs(to)
   },
   methods: {
     setBreadCrumbs(route) {
