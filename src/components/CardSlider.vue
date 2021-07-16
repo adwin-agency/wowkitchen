@@ -5,6 +5,8 @@
         class="card-slider__slides"
         slides-per-view="auto"
         :spaceBetween="10"
+        loop
+        :looped-slides="3"
         navigation
         :watchSlidesVisibility="true"
         :breakpointsInverse="true"
@@ -66,6 +68,12 @@ export default {
 
   &__slide {
     width: 160px;
+    transition: opacity .3s ease;
+
+    &:not(.swiper-slide-visible) {
+      opacity: 0.2;
+      pointer-events: none;
+    }
   }
 
   .swiper-button-prev,
@@ -84,38 +92,25 @@ export default {
       padding-right: 220px;
     }
 
-    &__slide {
-      transition: opacity .3s ease;
-
-      &:not(.swiper-slide-visible) {
-        opacity: 0.2;
-        pointer-events: none;
-      }
-    }
-
     &__card {
       height: 280px;
     }
 
+    .swiper-button-prev,
     .swiper-button-next {
       display: block;
       position: absolute;
       top: 50%;
-      right: 108px;
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      background-image: url(data:image/svg+xml;base64,PHN2ZyBpZD0iYXJyb3ciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjY2IiBoZWlnaHQ9IjY2IiB2aWV3Qm94PSIwIDAgNjYgNjYiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICMzYzNjM2M7CiAgICAgICAgb3BhY2l0eTogMC4zOwogICAgICB9CgogICAgICAuY2xzLTIgewogICAgICAgIGZpbGw6ICNmM2Y0Zjk7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Y2lyY2xlIGlkPSLQrdC70LvQuNC/0YFfOV/QutC+0L/QuNGPIiBkYXRhLW5hbWU9ItCt0LvQu9C40L/RgSA5INC60L7Qv9C40Y8iIGNsYXNzPSJjbHMtMSIgY3g9IjMzIiBjeT0iMzMiIHI9IjMzIi8+CiAgPHBhdGggaWQ9ImFycm93X3JpZ2h0X9C60L7Qv9C40Y8iIGRhdGEtbmFtZT0iYXJyb3dfcmlnaHQg0LrQvtC/0LjRjyIgY2xhc3M9ImNscy0yIiBkPSJNMTEwNi42NSw1NjQuM2gwYTEuMDU1LDEuMDU1LDAsMCwwLTEuNDYsMGwtOC41Niw4LjI2NWExLjk0OSwxLjk0OSwwLDAsMCwwLDIuODI4bDguNjIsOC4zMjZhMS4wNTgsMS4wNTgsMCwwLDAsMS40NS4wMWgwYTAuOTcsMC45NywwLDAsMCwuMDEtMS40MjRsLTcuODktNy42MTlhMC45ODMsMC45ODMsMCwwLDEsMC0xLjQxNGw3LjgzLTcuNTU4QTAuOTgzLDAuOTgzLDAsMCwwLDExMDYuNjUsNTY0LjNaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTA2OSAtNTQxKSIvPgo8L3N2Zz4K);
-      background-size: contain;
-      transition: opacity .3s ease;
-      transform: translateY(-50%) rotate(180deg);
-      cursor: pointer;
+      transform: translateY(-50%);
       z-index: 2;
+    }
 
-      &.swiper-button-disabled {
-        opacity: 0;
-        pointer-events: none;
-      }
+    .swiper-button-prev {
+      left: 30px;
+    }
+
+    .swiper-button-next {
+      right: 108px;
     }
   }
 

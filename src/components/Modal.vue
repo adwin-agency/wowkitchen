@@ -344,13 +344,12 @@ export default {
   }
 
   &__media {
-    position: relative;
-    width: calc(100vw - 40px);
+    position: relative;    
     overflow: hidden;
 
     video, img {
-      width: 100.1%;
-      object-fit: cover;
+      max-width: calc(100vw - 40px);
+      max-height: calc(100vh - 40px);
     }
   }
 
@@ -396,7 +395,10 @@ export default {
     }
 
     &__media {
-      width: 1280px;
+      video, img {
+        max-width: 1280px;
+        max-height: calc(100vh - 100px);
+      }
     }
 
     &__success {

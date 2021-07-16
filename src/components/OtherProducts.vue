@@ -9,9 +9,11 @@
     <div class="other-products__cards">
       <div class="container">
         <Swiper
+          v-if="products"
           :slides-per-view="$_media.sm ? 1 : 2"
           :space-between="$_mobile ? 30 : $_media.lg ? 40 : 50"
           scrollbar
+          :looped-slides="3"
           navigation
           watch-slides-visibility
           class="other-products__slider"
@@ -109,13 +111,21 @@ export default {
         display: none;
       }
 
+      .swiper-button-prev,
       .swiper-button-next {
         display: block;
         position: absolute;
         top: 125px;
-        right: 115px;
         transform: translateY(-50%);
         z-index: 2;
+      }
+
+      .swiper-button-prev {
+        left: 30px;
+      }
+
+      .swiper-button-next {
+        right: 115px;
       }
     }
 
@@ -145,8 +155,12 @@ export default {
     &__slider {
       padding-right: 310px;
 
+      .swiper-button-prev,
       .swiper-button-next {
         top: 150px;
+      }
+
+      .swiper-button-next {
         right: 165px;
       }
     }
@@ -166,8 +180,12 @@ export default {
     &__slider {
       padding-right: 330px;
 
+      .swiper-button-prev,
       .swiper-button-next {
         top: 190px;
+      }
+
+      .swiper-button-next {
         right: 170px;
       }
     }

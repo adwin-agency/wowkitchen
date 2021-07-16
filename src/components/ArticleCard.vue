@@ -33,22 +33,22 @@
         class="article-card__footer"
       >
         <span
-          v-if="cardData.author"
+          v-if="mod === 'large' && cardData.author"
           class="article-card__author"
         >
           {{cardData.author}}
         </span>
         <span
-          v-if="cardData.date"
+          v-if="cardData.date_public"
           class="article-card__date"
         >
-          {{cardData.date}}
+          {{cardData.date_public}}
         </span>
         <span
-          v-if="cardData.note"
+          v-if="cardData.time_read"
           class="article-card__note"
         >
-          {{cardData.note}}
+          {{cardData.time_read}}
         </span>
         <span class="article-card__views">
           <AppIcon

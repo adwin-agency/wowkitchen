@@ -22,7 +22,7 @@
           </div>
         </div>
         <Swiper
-          v-if="$_windowWidth < $_breakpoints.md"
+          v-if="$_media.sm"
           class="equipment__slider"
           :slidesPerView="'auto'"
           :spaceBetween="10"

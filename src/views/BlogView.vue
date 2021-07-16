@@ -27,12 +27,12 @@ import api from '../api'
 
 const categories = [
   { title: 'Все статьи', value: 'all' },
-  { title: 'Лайфхаки', value: 'laifhaki' },
+  { title: 'Лайфхаки', value: 'layfxaki' },
   { title: 'Спорные вопросы', value: 'spornye-voprosy' },
   { title: 'От эксперта', value: 'ot-eksperta' },
   { title: 'Планировки', value: 'planirovki' },
-  { title: 'Идеи для кухни', value: 'idei-dlya-kuhni' },
-  { title: 'Видео', value: 'video', bold: true },
+  { title: 'Идеи для кухни', value: 'idei-dlya-kukhni' },
+  { title: 'Видео', value: 'videos', bold: true },
   { title: 'Популярное', value: 'populyarnoe', bold: true },
 ]
 

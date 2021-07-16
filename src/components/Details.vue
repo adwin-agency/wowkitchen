@@ -5,6 +5,7 @@
         <Swiper
           :key="info.id"
           :scrollbar="{ hide: false }"
+          loop
           navigation
           :lazy="{ loadPrevNext: true }"
           class="details__slider"
@@ -127,6 +128,8 @@
           :slides-per-view="$_media.sm ? 'auto' : 1"
           :space-between="$_media.sm ? 10 : $_media.md ? 30 : 50"
           watch-slides-visibility
+          loop
+          :looped-slides="2"
           navigation
           :lazy="{ loadPrevNext: true, loadPrevNextAmount: 2 }"
           class="details__gallery-slider"
@@ -525,13 +528,21 @@ export default {
       &-slider {
         padding-right: 320px;
 
+        .swiper-button-prev,
         .swiper-button-next {
           display: block;
           position: absolute;
           top: 50%;
-          right: 170px;
           z-index: 2;
           transform: translateY(-50%);
+        }
+
+        .swiper-button-prev {
+          left: 30px;
+        }
+
+        .swiper-button-next {
+          right: 170px;
         }
       }
 

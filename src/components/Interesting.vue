@@ -11,6 +11,8 @@
           :slides-per-view="$_media.sm ? 'auto' : 2"
           :space-between="$_mobile ? 20 : $_media.lg ? 40 : 60"
           watch-slides-visibility
+          loop
+          :looped-slides="3"
           navigation
           class="interesting__slider"
         >
@@ -86,6 +88,18 @@ export default {
 
   &__slide {
     width: 200px;
+    transition: opacity .3s ease;
+
+    &:not(.swiper-slide-visible) {
+      opacity: 0.2;
+      pointer-events: none;
+
+      #{$b} {
+        &__title {
+          opacity: 0;
+        }
+      }
+    }
   }
 
   &__card {
@@ -134,28 +148,21 @@ export default {
     &__slider {
       padding-right: 270px;
 
+      .swiper-button-prev,
       .swiper-button-next {
         display: block;
         position: absolute;
         top: 50%;
-        right: 140px;
         transform: translateY(-50%);
         z-index: 2;
       }
-    }
 
-    &__slide {
-      transition: opacity .3s ease;
+      .swiper-button-prev {
+        left: 30px;
+      }
 
-      &:not(.swiper-slide-visible) {
-        opacity: 0.2;
-        pointer-events: none;
-
-        #{$b} {
-          &__title {
-            opacity: 0;
-          }
-        }
+      .swiper-button-next {
+        right: 140px;
       }
     }
 

@@ -26,6 +26,8 @@
         <template v-if="!$_desktop">
           <Swiper
             :space-between="10"
+            loop
+            :looped-slides="3"
             navigation
             :scrollbar="{ hide: false }"
             :watchSlidesVisibility="true"

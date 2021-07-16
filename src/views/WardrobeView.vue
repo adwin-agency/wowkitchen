@@ -39,10 +39,7 @@ export default {
   },
   data() {
     return {
-      details: {
-        info: {},
-        similars: []
-      }
+      details: null
     }
   },
   async created() {

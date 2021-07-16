@@ -6,6 +6,8 @@
         <Swiper
           slides-per-view="auto"
           :space-between="$_media.sm ? 10 : 60"
+          loop
+          :looped-slide="2"
           navigation
           class="wardrobe-materials__slider"
         >
@@ -171,13 +173,21 @@ export default {
       margin: 40px 0 0;
       max-width: calc(50% + 50vw - 50px);
 
+      .swiper-button-prev,
       .swiper-button-next {
         display: block;
         position: absolute;
         top: 50%;
-        right: -20px;
         transform: translateY(-50%);
         z-index: 2;
+      }
+
+      .swiper-button-prev {
+        left: 30px;
+      }
+
+      .swiper-button-next {
+        right: -20px;
       }
     }
 

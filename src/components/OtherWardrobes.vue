@@ -9,6 +9,8 @@
       <div class="container">
         <Swiper
           scrollbar
+          loop
+          :looped-slides="4"
           navigation
           :slides-per-view="$_media.sm ? 1 : $_media.md ? 2 : 3"
           :space-between="$_media.sm ? 20 : 50"
@@ -77,6 +79,15 @@ export default {
     }
   }
 
+  &__slide {
+      transition: opacity .3s ease;
+
+      &:not(.swiper-slide-visible) {
+        opacity: 0.2;
+        pointer-events: none;
+      }
+    }
+
   @include media(md) {
     &__cards {
       .container {
@@ -95,24 +106,26 @@ export default {
         display: none;
       }
 
+      .swiper-button-prev,
       .swiper-button-next {
         display: block;
         position: absolute;
         top: 155px;
-        right: 140px;
         transform: translateY(-50%);
         z-index: 2;
+      }
+
+      .swiper-button-prev {
+        left: 30px;
+      }
+
+      .swiper-button-next {
+        right: 140px;
       }
     }
 
     &__slide {
       width: calc(50% - 10px);
-      transition: opacity .3s ease;
-
-      &:not(.swiper-slide-visible) {
-        opacity: 0.2;
-        pointer-events: none;
-      }
     }
   }
 
@@ -142,8 +155,12 @@ export default {
     &__slider {
       padding-right: 380px;
 
+      .swiper-button-prev,
       .swiper-button-next {
         top: 190px;
+      }
+
+      .swiper-button-next {
         right: 185px;
       }
     }

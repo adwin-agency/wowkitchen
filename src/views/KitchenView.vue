@@ -1,10 +1,14 @@
 <template>
   <div class="v-kitchen">
-    <Details :info="details.info" />
+    <Details
+      v-if="details"
+      :info="details.info"
+    />
     <Constructor />
     <Equipment />
     <Design />
     <OtherProducts
+      v-if="details"
       heading="Другие модели"
       :products="details.similars"
     />
@@ -36,10 +40,7 @@ export default {
   },
   data() {
     return {
-      details: {
-        info: {},
-        similars: []
-      },
+      details: null,
       reviews: []
     }
   },

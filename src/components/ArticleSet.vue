@@ -11,6 +11,8 @@
           :slides-per-view="$_media.sm ? 'auto' : 3"
           :space-between="$_media.sm ? 10 : $_media.md ? 20 : $_media.lg ? 30 : 40"
           watch-slides-visibility
+          loop
+          :looped-slides="4"
           navigation
           class="article-set__slider"
         >
@@ -43,12 +45,12 @@ import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
 const cards = [
-  { id: 'laifhaki', title: 'Лайфхаки' },
+  { id: 'layfxaki', title: 'Лайфхаки' },
   { id: 'spornye-voprosy', title: 'Спорные вопросы' },
   { id: 'ot-eksperta', title: 'От эксперта' },
   { id: 'planirovki', title: 'Планировки' },
-  { id: 'idei-dlya-kuhni', title: 'Идеи для кухни' },
-  { id: 'video', title: 'Видео' },
+  { id: 'idei-dlya-kukhni', title: 'Идеи для кухни' },
+  { id: 'videos', title: 'Видео' },
   { id: 'populyarnoe', title: 'Популярное' },
 ]
 
@@ -172,13 +174,21 @@ export default {
     &__slider {
       padding-right: 170px;
 
+      .swiper-button-prev,
       .swiper-button-next {
         display: block;
         position: absolute;
         top: 50%;
-        right: 56px;
         transform: translateY(-50%);
         z-index: 2;
+      }
+
+      .swiper-button-prev {
+        left: 30px;
+      }
+
+      .swiper-button-next {
+        right: 56px;
       }
     }
 
