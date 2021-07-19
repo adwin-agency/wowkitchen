@@ -61,7 +61,6 @@ export default {
     bg: String,
     accented: Boolean,
     href: String,
-    modal: String,
     route: String
   },
   computed: {

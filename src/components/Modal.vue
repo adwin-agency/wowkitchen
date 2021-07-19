@@ -111,6 +111,31 @@
               placeholder="+7(999)999-99-99"
               class="modal__field"
             />
+            <AppTextField
+              textarea
+              label="Комментарий"
+              name="comment"
+              placeholder="Ваш комментарий"
+              class="modal__field"
+            />
+            <label class="modal__file">
+              <input
+                ref="file"
+                type="file"
+                class="modal__file-input"
+                @change="handleFile"
+              >
+              <AppIcon
+                name="attachment"
+                class="modal__file-icon"
+              />
+              <span class="modal__file-title">{{fileName || 'Прикрепить файлы'}}</span>
+              <span class="modal__file-note">Фото, видео или .pdf (до 20 МБ)</span>
+              <span
+                v-if="fileError"
+                class="modal__file-error"
+              >{{fileError}}</span>
+            </label>
           </div>
           <AppButton
             title="Отправить"
@@ -136,7 +161,7 @@
         >
           <video
             ref="video"
-            :src="`http://wowkitchen.beget.tech${modalData.video}`"
+            :src="$_basepath + modalData.video"
             autoplay
             controls
             controlsList="nodownload"
@@ -158,7 +183,7 @@
           class="modal__media"
         >
           <img
-            :src="`http://wowkitchen.beget.tech${modalData.image}`"
+            :src="$_basepath + modalData.image"
             alt
           >
           <button
@@ -219,12 +244,19 @@ export default {
     AppButton
   },
   setup() {
-    const { sending, page, product, handleSubmit } = useForms()
+    const { sending, success, page, product, handleSubmit } = useForms()
     return {
       sending,
+      success,
       page,
       product,
       handleSubmit
+    }
+  },
+  data() {
+    return {
+      fileName: '',
+      fileError: ''
     }
   },
   computed: {
@@ -235,11 +267,43 @@ export default {
       return this.$store.state.modalData
     }
   },
+  watch: {
+    success() {
+      this.fileName = ''
+      this.fileError = ''
+    }
+  },
   methods: {
     closeModal() {
       this.$store.commit('setModal', null)
       this.$store.commit('setModalData', null)
       this.$store.commit('setProductData', null)
+    },
+
+    handleFile(e) {
+      const files = e.target.files
+
+      this.fileName = ''
+      this.fileError = ''
+
+      if (files.length) {
+        const file = files[0]
+        const { name, type, size } = file
+
+        if (!/image\/*|video\/*|application\/pdf/.test(type)) {
+          this.$refs.file.value = ''
+          this.fileError = 'Некорректный формат файла'
+          return
+        }
+
+        if (size > 20 * 1024 * 1024) {
+          this.$refs.file.value = ''
+          this.fileError = 'Превышен размер файла'
+          return
+        }
+
+        this.fileName = name
+      }
     }
   }
 }
@@ -378,6 +442,49 @@ export default {
     text-align: center;
     background-color: #fff;
     box-shadow: 0px 19px 26px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  &__file {
+    display: inline-block;
+    position: relative;
+    padding-left: 40px;
+    cursor: pointer;
+
+    &-input {
+      display: none;
+    }
+
+    &-icon {
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      width: 20px;
+      height: 20px;
+      fill: $color-green;
+    }
+
+    &-title {
+      display: block;
+      font-weight: bold;
+      font-size: 13px;
+      color: $color-green;
+    }
+
+    &-note {
+      display: block;
+      margin-top: 2px;
+      font-weight: 500;
+      font-size: 11px;
+      color: $color-lightviolet;
+    }
+
+    &-error {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11px;
+      line-height: 1.2;
+      color: #ff0000;
+    }
   }
 
   @include media(md) {

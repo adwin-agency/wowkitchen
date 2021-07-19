@@ -2,6 +2,9 @@ const path = require('path')
 
 module.exports = {
   // publicPath: '/wow-build/',
+  assetsDir: 'assets',
+  filenameHashing: false,
+  productionSourceMap: false,
   pluginOptions: {
     'style-resources-loader': {
       'preProcessor': 'scss',
@@ -14,7 +17,7 @@ module.exports = {
       test: /\.(svg)(\?.*)?$/,
       loaderOptions: {
         extract: true,
-        spriteFilename: 'img/sprite.svg'
+        spriteFilename: 'assets/img/sprite.svg'
       },
       pluginOptions: {
         plainSprite: true

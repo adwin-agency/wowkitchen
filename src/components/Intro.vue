@@ -22,6 +22,7 @@
             <AppVideoButton
               v-if="$_media.sm"
               title="Смотреть видео"
+              video="/assets/video/intro.mp4"
               class="intro__video-btn"
             />
           </div>
@@ -111,6 +112,7 @@
             <AppVideoButton
               v-if="!$_media.sm"
               title="Смотреть видео"
+              video="/assets/video/intro.mp4"
               class="intro__video-btn"
             />
           </div>
