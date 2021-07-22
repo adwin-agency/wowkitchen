@@ -113,9 +113,9 @@
             />
             <AppTextField
               textarea
-              label="Комментарий"
+              label="Пожелания"
               name="comment"
-              placeholder="Ваш комментарий"
+              placeholder="Укажите размеры и ваши пожелания"
               class="modal__field"
             />
             <label class="modal__file">

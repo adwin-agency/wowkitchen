@@ -59,7 +59,7 @@
             v-if="!$_media.sm"
             class="details__info"
           >
-            <h2 class="details__title">О модели</h2>
+            <h2 class="details__title">О кухне</h2>
             <p class="details__desc">{{info.description}}</p>
           </div>
           <DetailsCard
@@ -112,7 +112,7 @@
                 class="details__hidden"
               >
                 <div class="details__info">
-                  <h2 class="details__title">О модели</h2>
+                  <h2 class="details__title">О кухне</h2>
                   <p class="details__desc">{{info.description}}</p>
                 </div>
               </div>
@@ -276,9 +276,13 @@ export default {
   }
 
   &__slide {
-    height: 260px;
+    position: relative;
+    padding-top: 75%;
 
     img {
+      position: absolute;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -467,6 +471,7 @@ export default {
     }
 
     &__slide {
+      padding-top: 0;
       height: 480px;
     }
 

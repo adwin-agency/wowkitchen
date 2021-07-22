@@ -1,7 +1,7 @@
 <template>
   <div class="details-card">
     <div class="details-card__box">
-      <p class="details-card__type">Гарнитур</p>
+      <p class="details-card__type">Кухня</p>
       <p class="details-card__title">
         {{info.name}}
         <button

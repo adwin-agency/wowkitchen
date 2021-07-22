@@ -7,7 +7,7 @@
             name="quotes"
             class="rated-reviews__quotes"
           />
-          <h2 class="rated-reviews__heading">За что любят наши кухни</h2>
+          <h2 class="rated-reviews__heading">Отзывы</h2>
           <p class="rated-reviews__desc">Отзывы довольных клиентов говорят сами за себя.</p>
           <router-link
             v-if="$_desktop"

@@ -1,20 +1,29 @@
 <template>
   <div class="nav-menu">
-    <span
+    <div
       v-if="$_mobile"
-      class="nav-menu__back"
-      @click="$emit('close-submenu')"
+      class="nav-menu__header"
     >
-      <AppIcon
-        class="nav-menu__arrow"
-        name="angle-down"
-      />
-      {{title}}
-    </span>
+      <span
+        class="nav-menu__back"
+        @click="$emit('close-submenu')"
+      >
+        <AppIcon
+          class="nav-menu__arrow"
+          name="angle-down"
+        />
+      </span>
+      <router-link
+        :to="{ name: menu.main.path }"
+        class="nav-menu__header-link"
+      >
+        {{menu.main.title}}
+      </router-link>
+    </div>
     <div class="nav-menu__row">
       <div class="nav-menu__main">
         <div
-          v-for="(group, index) in menu"
+          v-for="(group, index) in menu.groups"
           :key="index"
           class="nav-menu__main-col"
         >
@@ -65,26 +74,30 @@ export default {
     AppIcon
   },
   props: {
-    title: String,
-    menu: Array
+    menu: Object
   },
-  emits: [
-    'close-menu',
-    'close-submenu'
-  ]
+  emits: ['close-menu', 'close-submenu']
 }
 </script>
 
 <style lang="scss">
 .nav-menu {
+  &__header {
+    display: flex;
+    align-items: center;
+
+    &-link {
+      padding: 18px 0;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 1;
+    }
+  }
+
   &__back {
     display: flex;
     align-items: center;
     padding: 18px 0;
-
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 1;
     cursor: pointer;
   }
 
@@ -141,10 +154,6 @@ export default {
 
   @include media(lg) {
     padding: 45px 0 60px;
-
-    &__back {
-      display: inline-flex;
-    }
 
     &__row {
       display: flex;

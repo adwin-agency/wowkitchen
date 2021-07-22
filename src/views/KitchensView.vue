@@ -55,27 +55,27 @@ const filterGroups = [
       { title: 'С островом', value: 's-ostrovom' }
     ]
   },
-  {
-    id: 'style',
-    title: 'Стиль',
-    items: [
-      { title: 'Скандинавия', value: 'scandinaviya' },
-      { title: 'Неоклассика', value: 'neoklassika' },
-      { title: 'Минимализм', value: 'minimalizm' },
-      { title: 'Лофт', value: 'loft' },
-      { title: 'Современный', value: 'sovremenniy' }
-    ]
-  },
-  {
-    id: 'facade',
-    title: 'Фасад',
-    items: [
-      { title: 'Эмаль', value: 'emal' },
-      { title: 'Пластик', value: 'plastik' },
-      { title: 'Плёнка+МДФ', value: 'plenka_mdf' },
-      { title: 'Акрил', value: 'akril' }
-    ]
-  }
+  // {
+  //   id: 'style',
+  //   title: 'Стиль',
+  //   items: [
+  //     { title: 'Скандинавия', value: 'scandinaviya' },
+  //     { title: 'Неоклассика', value: 'neoklassika' },
+  //     { title: 'Минимализм', value: 'minimalizm' },
+  //     { title: 'Лофт', value: 'loft' },
+  //     { title: 'Современный', value: 'sovremenniy' }
+  //   ]
+  // },
+  // {
+  //   id: 'facade',
+  //   title: 'Фасад',
+  //   items: [
+  //     { title: 'Эмаль', value: 'emal' },
+  //     { title: 'Пластик', value: 'plastik' },
+  //     { title: 'Плёнка+МДФ', value: 'plenka_mdf' },
+  //     { title: 'Акрил', value: 'akril' }
+  //   ]
+  // }
 ]
 
 export default {

@@ -49,7 +49,7 @@
           v-if="large"
           class="product-card__category"
         >
-          Гарнитур
+          Кухня
         </p>
         <p class="product-card__title">
           <router-link :to="{name: cardType, params: {code: info.url}}">{{info.name}}</router-link>
@@ -183,24 +183,6 @@ export default {
 
   &_slide {
     #{$b} {
-      &__img-box {
-        height: auto;
-        max-height: 400px;
-        overflow: hidden;
-
-        &::before {
-          content: "";
-          display: block;
-          padding-top: 75%;
-        }
-      }
-
-      &__img {
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
       &__video-btn {
         left: 10px;
         bottom: 10px;
@@ -239,10 +221,6 @@ export default {
 
   &_wardrobe {
     #{$b} {
-      &__img-box {
-        height: 290px;
-      }
-
       &__content {
         margin-top: 6px;
       }
@@ -263,11 +241,14 @@ export default {
       &__img-box {
         border: 2px solid $color-lightgray;
         border-radius: 8px;
-        height: 270px;
-        padding: 18px;
       }
 
       &__img {
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: calc(100% - 36px);
+        height: calc(100% - 36px);
         object-fit: contain;
       }
 
@@ -299,8 +280,7 @@ export default {
 
   &__img-box {
     position: relative;
-    border-radius: 12px;
-    height: 250px;
+    padding-top: 75%;
     overflow: hidden;
 
     a {
@@ -313,6 +293,9 @@ export default {
   }
 
   &__img {
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -418,11 +401,6 @@ export default {
       #{$b} {
         &__img-box {
           height: 250px;
-          max-height: none;
-
-          &::before {
-            display: none;
-          }
         }
 
         &__discount {
@@ -520,7 +498,11 @@ export default {
       #{$b} {
         &__img-box {
           height: 310px;
-          padding: 35px;
+        }
+
+        &__img {
+          width: calc(100% - 70px);
+          height: calc(100% - 70px);
         }
 
         &__discount {
@@ -576,7 +558,9 @@ export default {
     }
 
     &__img-box {
+      padding-top: 0;
       height: 390px;
+      border-radius: 12px;
     }
 
     &__discount {
@@ -795,7 +779,11 @@ export default {
       #{$b} {
         &__img-box {
           height: 380px;
-          padding: 60px;
+        }
+
+        &__img {
+          width: calc(100% - 120px);
+          height: calc(100% - 120px);
         }
 
         &__prices {

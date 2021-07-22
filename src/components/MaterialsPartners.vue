@@ -4,10 +4,12 @@
       <p class="materials-partners__title">Надежные поставщики со всего мира – нашего друзья</p>
       <p class="materials-partners__desc">Мы сотрудничаем только с проверенными и лучшими в своих направлениях поставщиками. Прямое взаимодействие с ними позволяет снизить стоимость наших гарнитуров (нет посредников – нет проблем), а также быть уверенными в отличном качество используемых материалов. </p>
       <div class="materials-partners__items">
-        <img src="@/assets/img/partner-01.png" alt="Partner" class="materials-partners__img">
-        <img src="@/assets/img/partner-01.png" alt="Partner" class="materials-partners__img">
-        <img src="@/assets/img/partner-01.png" alt="Partner" class="materials-partners__img">
-        <img src="@/assets/img/partner-01.png" alt="Partner" class="materials-partners__img">
+        <img src="@/assets/img/logo-egger.svg" alt="Egger" class="materials-partners__img">
+        <img src="@/assets/img/logo-kronospan.svg" alt="Kronospan" class="materials-partners__img">
+        <img src="@/assets/img/partners-lex.svg" alt="Lex" class="materials-partners__img">
+        <img src="@/assets/img/partners-candy.svg" alt="Candy" class="materials-partners__img">
+        <img src="@/assets/img/partners-boyard.svg" alt="Boyard" class="materials-partners__img">
+        <img src="@/assets/img/partners-blum.svg" alt="Blum" class="materials-partners__img">
       </div>
     </div>
   </div>
@@ -40,12 +42,12 @@ export default {
   &__items {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 10px;
+    margin-top: 30px;
     margin-right: -30px;
   }
 
   &__img {
-    margin: -10px 30px -10px 0;
+    margin: 0 30px 30px 0;
     width: 135px;
   }
   
@@ -58,7 +60,6 @@ export default {
     }
 
     &__items {
-      margin-top: 20px;
       margin-right: -40px;
     }
 
@@ -79,7 +80,6 @@ export default {
     }
 
     &__items {
-      margin-top: 0;
       margin-right: -54px;
     }
 

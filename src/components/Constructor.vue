@@ -4,7 +4,7 @@
       <div class="constructor__inner">
         <div class="constructor__header">
           <h2 class="constructor__heading">О<span>свой</span>те кухню</h2>
-          <p class="constructor__desc">Понравилась модель, но хочется что-то заменить? Мы разработали простой конструктор, помогающий понять, как полюбившаяся модель будет выглядеть "с перламутровыми пуговицами".</p>
+          <p class="constructor__desc">Разные стили и планировки кухни. Все кухни делаем на заказ по индивидуальным размерам учитывая ваши пожелания</p>
         </div>
         <div class="constructor__settings">        
           <div

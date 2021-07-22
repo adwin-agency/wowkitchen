@@ -83,7 +83,6 @@
           <div class="container">
             <NavMenu
               class="header__nav-menu"
-              title="Кухни"
               :menu="kitchensMenu"
               @close-menu="toggleMobileMenu"
               @close-submenu="toggleNavMenu"
@@ -97,7 +96,6 @@
           <div class="container">
             <NavMenu
               class="header__nav-menu"
-              title="Техника"
               :menu="technicsMenu"
               @close-menu="toggleMobileMenu"
               @close-submenu="toggleNavMenu"
@@ -309,40 +307,46 @@ import Favorites from './Favorites.vue'
 import NavMenu from './NavMenu.vue'
 import NavPanel from './NavPanel.vue'
 
-const kitchensMenu = [
-  {
-    title: 'Планировки',
-    items: [
-      { path: 'kitchens', query: { category: 'pryamye' }, title: 'Прямые кухни' },
-      { path: 'kitchens', query: { category: 'uglovye' }, title: 'Угловые кухни' },
-      { path: 'kitchens', query: { category: 'p-obraznye' }, title: 'П-образные кухни' },
-      { path: 'kitchens', query: { category: 's-barnoy-stoykoy' }, title: 'Кухни с барной стойкой' },
-      { path: 'kitchens', query: { category: 's-ostrovom' }, title: 'Кухни с островом' }
-    ]
-  },
-  {
-    title: 'Стили',
-    items: [
-      { path: 'kitchens', query: { style: 'scandinaviya' }, title: 'Скандинавский' },
-      { path: 'kitchens', query: { style: 'loft' }, title: 'Лофт' },
-      { path: 'kitchens', query: { style: 'neoklassika' }, title: 'Неоклассика' },
-      { path: 'kitchens', query: { style: 'minimalizm' }, title: 'Минимализм' },
-      { path: 'kitchens', query: { style: 'sovremenniy' }, title: 'Современный' },
-    ]
-  }
-]
+const kitchensMenu = {
+  main: { path: 'kitchens', title: 'Кухни' },
+  groups: [
+    {
+      title: 'Планировки',
+      items: [
+        { path: 'kitchens', query: { category: 'pryamye' }, title: 'Прямые кухни' },
+        { path: 'kitchens', query: { category: 'uglovye' }, title: 'Угловые кухни' },
+        { path: 'kitchens', query: { category: 'p-obraznye' }, title: 'П-образные кухни' },
+        { path: 'kitchens', query: { category: 's-barnoy-stoykoy' }, title: 'Кухни с барной стойкой' },
+        { path: 'kitchens', query: { category: 's-ostrovom' }, title: 'Кухни с островом' }
+      ]
+    },
+    // {
+    //   title: 'Стили',
+    //   items: [
+    //     { path: 'kitchens', query: { style: 'scandinaviya' }, title: 'Скандинавский' },
+    //     { path: 'kitchens', query: { style: 'loft' }, title: 'Лофт' },
+    //     { path: 'kitchens', query: { style: 'neoklassika' }, title: 'Неоклассика' },
+    //     { path: 'kitchens', query: { style: 'minimalizm' }, title: 'Минимализм' },
+    //     { path: 'kitchens', query: { style: 'sovremenniy' }, title: 'Современный' },
+    //   ]
+    // }
+  ]
+}
 
-const technicsMenu = [
-  {
-    items: [
-      { path: 'technics', query: { category: 'varochnye-paneli' }, title: 'Варочые панели' },
-      { path: 'technics', query: { category: 'dukhovye-shkafy' }, title: 'Духовые шкафы' },
-      { path: 'technics', query: { category: 'kholodilniki' }, title: 'Холодильники' },
-      { path: 'technics', query: { category: 'posudomoechnye-mashiny' }, title: 'Посудомоечные машины' },
-      { path: 'technics', query: { category: 'vytyazhki' }, title: 'Вытяжки' }
-    ]
-  }
-]
+const technicsMenu = {
+  main: { path: 'technics', title: 'Техника' },
+  groups: [
+    {
+      items: [
+        { path: 'technics', query: { category: 'varochnye-paneli' }, title: 'Варочые панели' },
+        { path: 'technics', query: { category: 'dukhovye-shkafy' }, title: 'Духовые шкафы' },
+        { path: 'technics', query: { category: 'kholodilniki' }, title: 'Холодильники' },
+        { path: 'technics', query: { category: 'posudomoechnye-mashiny' }, title: 'Посудомоечные машины' },
+        { path: 'technics', query: { category: 'vytyazhki' }, title: 'Вытяжки' }
+      ]
+    }
+  ]
+}
 
 export default {
   name: 'AppHeader',
