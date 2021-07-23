@@ -123,6 +123,60 @@
     </div>
     <div class="details__gallery">
       <div class="container container_slider">
+        <div
+          v-if="$_media.sm"
+          class="details__gallery-video"
+        >
+          <video
+            v-if="activeReview"
+            src="/assets/video/intro_2.mp4"
+            autoplay
+            controls
+          ></video>
+          <video
+            v-else
+            src="/assets/video/intro.mp4"
+            autoplay
+            loop
+            muted
+          ></video>
+          <button
+            v-if="!activeReview"
+            type="button"
+            class="details__gallery-play"
+            @click="playReview"
+          >
+            <AppIcon name="play" />
+            <span>Видеоотзыв клиента</span>
+          </button>
+        </div>
+        <div
+          v-if="$_media.sm"
+          class="details__gallery-video"
+        >
+          <video
+            v-if="activeDrive"
+            src="/assets/video/intro_2.mp4"
+            autoplay
+            controls
+          ></video>
+          <video
+            v-else
+            src="/assets/video/intro.mp4"
+            autoplay
+            loop
+            muted
+          ></video>
+          <button
+            v-if="!activeDrive"
+            type="button"
+            class="details__gallery-play"
+            @click="playDrive"
+          >
+            <AppIcon name="play" />
+            <span>Кулинарный тест-драйв</span>
+          </button>
+        </div>
         <Swiper
           :key="info.id"
           :slides-per-view="$_media.sm ? 'auto' : 1"
@@ -131,10 +185,12 @@
           loop
           :looped-slides="2"
           navigation
-          :lazy="{ loadPrevNext: true, loadPrevNextAmount: 2 }"
+          :lazy="{ loadPrevNext: true, loadPrevNextAmount: 3 }"
           class="details__gallery-slider"
+          @swiper="setGallerySwiper"
+          @slideChange="handleGalleryChange"
         >
-          <SwiperSlide
+          <!-- <SwiperSlide
             v-if="info.video_customer"
             class="details__gallery-item"
           >
@@ -149,6 +205,62 @@
               @click="playVideo"
             >
               <AppIcon name="play" />
+            </button>
+          </SwiperSlide> -->
+          <SwiperSlide
+            v-if="!$_media.sm"
+            class="details__gallery-item"
+            style="background: gray"
+          >
+            <video
+              v-if="activeReview"
+              src="/assets/video/intro_2.mp4"
+              autoplay
+              controls
+            ></video>
+            <video
+              v-else
+              src="/assets/video/intro.mp4"
+              autoplay
+              loop
+              muted
+            ></video>
+            <button
+              v-if="!activeReview"
+              type="button"
+              class="details__gallery-play"
+              @click="playReview"
+            >
+              <AppIcon name="play" />
+              <span>Видеоотзыв клиента</span>
+            </button>
+          </SwiperSlide>
+          <SwiperSlide
+            v-if="!$_media.sm"
+            class="details__gallery-item"
+            style="background: gray"
+          >
+            <video
+              v-if="activeDrive"
+              src="/assets/video/intro_2.mp4"
+              autoplay
+              controls
+            ></video>
+            <video
+              v-else
+              src="/assets/video/intro.mp4"
+              autoplay
+              loop
+              muted
+            ></video>
+            <button
+              v-if="!activeDrive"
+              type="button"
+              class="details__gallery-play"
+              @click="playDrive"
+            >
+              <AppIcon name="play" />
+              <span>Кулинарный тест-драйв</span>
             </button>
           </SwiperSlide>
           <SwiperSlide
@@ -167,8 +279,33 @@
               alt
               class="swiper-lazy"
             >
+            <div
+              v-if="!$_media.sm"
+              class="details__gallery-info"
+            >
+              <div class="details__gallery-info-badge">
+                <AppIcon
+                  name="info"
+                  class="details__gallery-info-icon"
+                />
+              </div>
+              <p class="details__gallery-desc">Утолщенная столешница компании “1000 и {{index + 1}} столешница” с уникальным запатентованным покрытием устойчива к физическим повреждениям</p>
+            </div>
           </SwiperSlide>
         </Swiper>
+        <div
+          v-if="$_media.sm"
+          class="details__gallery-info"
+        >
+          <p
+            v-for="n in info.pictures.length"
+            :key="n"
+            class="details__gallery-desc"
+            :class="{'is-active': activeGalleryIndex === n}"
+          >
+            Утолщенная столешница компании “1000 и {{n}} столешница” с уникальным запатентованным покрытием устойчива к физическим повреждениям
+          </p>
+        </div>
       </div>
     </div>
     <div class="details__features">
@@ -217,7 +354,10 @@ export default {
     return {
       activeExpand: null,
       expandTimeout: null,
-      activeVideo: false
+      activeReview: false,
+      activeDrive: false,
+      activeGalleryIndex: 1,
+      gallerySwiper: null
     }
   },
   methods: {
@@ -247,9 +387,20 @@ export default {
       }
     },
 
-    playVideo() {
-      this.activeVideo = true
-      this.$refs.video.play()
+    playReview() {
+      this.activeReview = true
+    },
+    playDrive() {
+      this.activeDrive = true
+    },
+
+    setGallerySwiper(swiper) {
+      this.gallerySwiper = swiper
+    },
+    handleGalleryChange() {
+      if (this.gallerySwiper) {
+        this.activeGalleryIndex = this.gallerySwiper.realIndex + 1
+      }
     }
   }
 }
@@ -257,6 +408,8 @@ export default {
 
 <style lang="scss">
 .details {
+  $b: &;
+
   &__slider {
     position: relative;
     margin: 0 (-$container-padding);
@@ -370,7 +523,23 @@ export default {
   &__gallery {
     margin: 25px (-$container-padding) 0;
 
+    &-video {
+      position: relative;
+      margin-top: 15px;
+      padding-top: 75%;
+
+      video {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
     &-slider {
+      margin-top: 15px;
       overflow: visible;
 
       .swiper-button-prev,
@@ -382,10 +551,13 @@ export default {
     &-item {
       position: relative;
       width: calc(100% - 20px);
-      height: 200px;
+      padding-top: 75%;
 
       img,
       video {
+        position: absolute;
+        left: 0;
+        top: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -393,14 +565,22 @@ export default {
     }
 
     &-play {
+      display: flex;
+      align-items: center;
       position: absolute;
       left: 50%;
-      top: 50%;
-      width: 59px;
-      height: 59px;
-      border-radius: 50%;
+      bottom: 20px;
+      width: 356px;
+      max-width: calc(100% - 20px);
+      height: 84px;
+      padding-right: 30px;
+      border-radius: 100px;
+      font-weight: bold;
+      font-size: 16px;
+      color: #000;
       background-color: $color-yellow;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%) translateZ(0);
+      overflow: hidden;
 
       &:hover {
         svg {
@@ -409,9 +589,47 @@ export default {
       }
 
       svg {
-        width: 100%;
+        flex-shrink: 0;
+        width: 84px;
+        height: 84px;
+        transition: transform 0.3s ease;
+      }
+
+      span {
+        margin: 0 auto;
+      }
+    }
+
+    &-info {
+      display: grid;
+      position: relative;
+      padding: 20px 30px;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: (20/13);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 100vw;
         height: 100%;
-        transition: transform .3s ease;
+        background-color: rgba(229, 229, 229, 0.7);
+        transform: translateX(-50%);
+      }
+    }
+
+    &-desc {
+      position: relative;
+      grid-area: 1 / 1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+
+      &.is-active {
+        opacity: 1;
+        pointer-events: all;
       }
     }
   }
@@ -554,17 +772,64 @@ export default {
       &-item {
         width: auto;
         height: 400px;
-        transition: opacity .3s ease;
+        padding-top: 0;
+        transition: opacity 0.3s ease;
 
         &:not(.swiper-slide-visible) {
           opacity: 0.2;
           pointer-events: none;
+
+          #{$b}__gallery-info {
+            opacity: 0;
+            pointer-events: none;
+          }
         }
       }
 
-      &-play {
-        width: 83px;
-        height: 83px;
+      &-info {
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        border-top-left-radius: 80px;
+        width: 608px;
+        padding: 38px 54px;
+        padding-left: 72px;
+        text-align: right;
+        background-color: rgba(229, 229, 229, 0.7);
+        transition: opacity .3s ease;
+        overflow: hidden;
+        
+        &::before {
+          display: none;
+        }
+
+        &-badge {
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 200px;
+          height: 200px;
+          padding: 34px;
+          border-radius: 50%;
+          background-color: $color-yellow;
+          transform: translate(-50%, -50%);
+        }
+
+        &-icon {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      &-desc {
+        font-size: 16px;
+        line-height: (30/16);
+        opacity: 1;
+        pointer-events: all;
       }
     }
 
@@ -650,6 +915,24 @@ export default {
       &-item {
         width: calc(100% - 140px);
         height: 570px;
+
+        &:hover {
+          #{$b}__gallery-play {
+            max-width: 356px;
+          }
+        }
+      }
+
+      &-play {
+        top: 50%;
+        bottom: auto;
+        max-width: 84px;
+        transform: translate(-50%, -50%) translateZ(0);
+        transition: max-width 0.3s ease;
+
+        span {
+          flex-shrink: 0;
+        }
       }
     }
 
