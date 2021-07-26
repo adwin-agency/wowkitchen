@@ -417,7 +417,19 @@ export default {
 
     .swiper-button-prev,
     .swiper-button-next {
-      display: none;
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .swiper-button-prev {
+      left: 0;
+    }
+
+    .swiper-button-next {
+      right: 0;
     }
 
     .swiper-scrollbar {
@@ -666,15 +678,6 @@ export default {
       padding-bottom: 0;
       border-radius: 0 0 120px 0;
 
-      .swiper-button-prev,
-      .swiper-button-next {
-        display: inline-block;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 2;
-      }
-
       .swiper-button-prev {
         left: 80px;
       }
@@ -797,9 +800,9 @@ export default {
         padding-left: 72px;
         text-align: right;
         background-color: rgba(229, 229, 229, 0.7);
-        transition: opacity .3s ease;
+        transition: opacity 0.3s ease;
         overflow: hidden;
-        
+
         &::before {
           display: none;
         }

@@ -114,6 +114,7 @@ export default {
   },
   async beforeRouteUpdate(to) {
     this.setBreadCrumbs(to)
+    this.cards = null
 
     const response = await api.loadCards(to)
     this.cards = response.goods

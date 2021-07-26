@@ -11,29 +11,64 @@
     @mouseleave="handleMouseLeave"
   >
     <div class="product-card__img-box">
-      <img
-        :src="$_basepath + ($_mobile ? info.pictures[0].small.path : info.pictures[0].medium.path)"
-        alt
-        class="product-card__img"
+      <Swiper
+        v-if="cardType !== 'technic' && !slide"
+        loop
+        navigation
+        :lazy="{ loadPrevNext: true }"
+        class="product-card__slider"
+        @swiper="setSwiper"
       >
-      <router-link :to="{name: cardType, params: {code: info.url}}"></router-link>
+        <SwiperSlide
+          v-for="(picture, index) in info.pictures"
+          :key="index"
+        >
+          <img
+            v-if="index === 0"
+            :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
+            alt
+            class="product-card__img"
+          >
+          <img
+            v-else
+            :data-src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
+            alt
+            class="product-card__img swiper-lazy"
+          >
+          <router-link
+            :to="{name: cardType, params: {code: info.url}}"
+            class="product-card__link"
+          ></router-link>
+          <button
+            v-if="cardType === 'kitchen'"
+            type="button"
+            class="product-card__zoom-btn"
+            @click="openModalImage(picture)"
+          >
+            <AppIcon
+              name="zoom"
+              class="product-card__zoom-icon"
+            />
+          </button>
+        </SwiperSlide>
+      </Swiper>
+      <template v-else>
+        <img
+          :src="$_basepath + ($_mobile ? info.pictures[0].small.path : info.pictures[0].medium.path)"
+          alt
+          class="product-card__img"
+        >
+        <router-link
+          :to="{name: cardType, params: {code: info.url}}"
+          class="product-card__link"
+        ></router-link>
+      </template>
       <span
         v-if="!large && info.discount"
         class="product-card__discount"
       >
         -{{info.discount}}%
       </span>
-      <button
-        v-if="cardType === 'kitchen'"
-        type="button"
-        class="product-card__zoom-btn"
-        @click="openModalImage"
-      >
-        <AppIcon
-          name="zoom"
-          class="product-card__zoom-icon"
-        />
-      </button>
       <AppVideoButton
         v-if="info.video"
         :expand="!large"
@@ -60,7 +95,7 @@
         >
           <button
             type="button"
-            class="product-card__action"            
+            class="product-card__action"
             @click="toggleFavorite(info)"
           >
             <AppBookmark
@@ -122,15 +157,21 @@
 </template>
 
 <script>
+import SwiperCore, { Navigation, Lazy } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppBookmark from './base/AppBookmark.vue'
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppVideoButton from './base/AppVideoButton.vue'
 import useFavorites from '../composition/favorites'
 
+SwiperCore.use([Navigation, Lazy])
+
 export default {
   name: 'ProductCard',
   components: {
+    Swiper,
+    SwiperSlide,
     AppButton,
     AppIcon,
     AppVideoButton,
@@ -152,7 +193,15 @@ export default {
   },
   data() {
     return {
-      hover: false
+      hover: false,
+      swiper: null
+    }
+  },
+  watch: {
+    large() {
+      setTimeout(() => {
+        this.swiper?.update()
+      })
     }
   },
   methods: {
@@ -163,15 +212,19 @@ export default {
       this.hover = false
     },
 
-    openModalImage() {
-      const imagePath = `${this.$_mobile ? this.info.pictures[0].medium.path : this.info.pictures[0].large.path}`
+    openModalImage(picture) {
+      const imagePath = `${this.$_mobile ? picture.medium.path : picture.large.path}`
       this.$store.commit('setModal', 'image')
       this.$store.commit('setModalData', { image: imagePath })
     },
 
     handleBtnClick() {
       const { name, id, product_type: type } = this.info
-      this.$store.commit('setProductData', { name, id, type } )
+      this.$store.commit('setProductData', { name, id, type })
+    },
+
+    setSwiper(swiper) {
+      this.swiper = swiper
     }
   }
 }
@@ -279,16 +332,34 @@ export default {
   }
 
   &__img-box {
+    display: block;
     position: relative;
     padding-top: 75%;
     overflow: hidden;
+  }
 
-    a {
+  &__slider {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: block;
       position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .swiper-button-prev {
       left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
+    }
+
+    .swiper-button-next {
+      right: 0;
     }
   }
 
@@ -299,6 +370,14 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  &__link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
   }
 
   &__discount {
@@ -354,7 +433,7 @@ export default {
 
   &__action {
     fill: $color-lightviolet;
-    transition: opacity .3s ease, fill .3s ease;
+    transition: opacity 0.3s ease, fill 0.3s ease;
 
     &:hover {
       opacity: 0.7;
@@ -563,6 +642,16 @@ export default {
       border-radius: 12px;
     }
 
+    &__slider {
+      .swiper-button-prev {
+        left: 20px;
+      }
+
+      .swiper-button-next {
+        right: 20px;
+      }
+    }
+
     &__discount {
       top: 28px;
       right: 30px;
@@ -583,11 +672,12 @@ export default {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background-color: rgba(#fff, .5);
+      background-color: rgba(#fff, 0.5);
       transform: translate(-50%, -50%);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
+      z-index: 2;
     }
 
     &__zoom-icon {
@@ -668,6 +758,7 @@ export default {
           padding: 22px 40px 28px;
           background-color: #fff;
           box-shadow: 0px 20px 38px 0px rgba(53, 53, 53, 0.11);
+          z-index: 1;
         }
 
         &__header {
