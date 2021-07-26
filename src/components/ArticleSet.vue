@@ -30,8 +30,10 @@
                 alt=""
                 class="article-set__image"
               >
-              <p class="article-set__title">{{card.title}}</p>
-              <p class="article-set__desc">10 статей</p>
+              <div class="article-set__inner">
+                <p class="article-set__title">{{card.title}}</p>
+                <p class="article-set__desc">10 статей</p>
+              </div>
             </router-link>
           </SwiperSlide>
         </Swiper>
@@ -51,7 +53,7 @@ const cards = [
   { id: 'planirovki', title: 'Планировки' },
   { id: 'idei-dlya-kukhni', title: 'Идеи для кухни' },
   { id: 'videos', title: 'Видео' },
-  { id: 'populyarnoe', title: 'Популярное' },
+  { id: 'populyarnoe', title: 'Популярное' }
 ]
 
 SwiperCore.use([Navigation])
@@ -94,30 +96,13 @@ export default {
   }
 
   &__slide {
-    width: 160px;
-    transition: opacity 0.3s ease;
-
-    &:not(.swiper-slide-visible) {
-      opacity: 0.2;
-      pointer-events: none;
-
-      #{$b} {
-        &__title,
-        &__desc {
-          opacity: 0;
-        }
-      }
-    }
+    width: calc(100% - 60px);
   }
 
   &__card {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
     position: relative;
     border-radius: 12px;
-    min-height: 130px;
-    padding: 14px 18px;
     color: $color-lightgray;
     overflow: hidden;
 
@@ -129,7 +114,12 @@ export default {
       width: 100%;
       height: 100%;
       background-image: linear-gradient(0deg, rgba(#12131e, 0.5), transparent);
-      z-index: -1;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      padding-top: 81%;
     }
   }
 
@@ -140,7 +130,16 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -2;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+    padding: 14px 18px;
+    z-index: 2;
   }
 
   &__title {
@@ -192,8 +191,31 @@ export default {
       }
     }
 
+    &__slide {
+      transition: opacity 0.3s ease;
+
+      &:not(.swiper-slide-visible) {
+        opacity: 0.2;
+        pointer-events: none;
+
+        #{$b} {
+          &__title,
+          &__desc {
+            opacity: 0;
+          }
+        }
+      }
+    }
+
     &__card {
-      min-height: 250px;
+      height: 250px;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    &__inner {
       padding: 34px 38px;
     }
 
@@ -221,7 +243,7 @@ export default {
     }
 
     &__card {
-      min-height: 300px;
+      height: 300px;
     }
   }
 
@@ -242,7 +264,7 @@ export default {
       }
     }
 
-    &__card {
+    &__inner {
       padding: 44px 58px;
     }
   }

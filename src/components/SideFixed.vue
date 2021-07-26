@@ -123,9 +123,12 @@ export default {
       this.isAnim = true
       this.isActiveContent = true
 
+      setTimeout(() => {        
+        this.$store.commit('setIntroEffect', false)
+      }, 200)
+
       setTimeout(() => {
         this.isAnim = false
-        this.$store.commit('setIntroEffect', false)
       }, 500)
     },
 

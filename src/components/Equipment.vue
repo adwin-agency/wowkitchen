@@ -147,7 +147,7 @@ export default {
   }
 
   &__slide {
-    width: calc(100% - 20px);
+    width: calc(100% - 60px);
   }
 
   @include media(md) {

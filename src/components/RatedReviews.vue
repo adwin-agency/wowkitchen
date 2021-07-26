@@ -25,6 +25,7 @@
         </div>
         <template v-if="!$_desktop">
           <Swiper
+            :slides-per-view="'auto'"
             :space-between="10"
             loop
             :looped-slides="3"
@@ -161,6 +162,10 @@ export default {
     height: 100%;
     border-radius: inherit;
     background-color: $color-green;
+  }
+
+  &__slide {
+    width: calc(100% - 60px);
   }
 
   &__footer {

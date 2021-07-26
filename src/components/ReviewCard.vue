@@ -74,9 +74,17 @@ export default {
   cursor: pointer;
 
   &_sample {
+    display: flex;
+
+    &::before {
+      content: "";
+      padding-top: 70%;
+    }
+
     #{$b} {
       &__content {
-        min-height: 210px;
+        width: 100%;
+        height: auto;
         padding: 22px 30px;
       }
 
@@ -134,8 +142,7 @@ export default {
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
-    min-height: 310px;
-    height: 100%;
+    height: 310px;
     padding: 32px;
     font-weight: 500;
   }
@@ -212,7 +219,7 @@ export default {
           justify-content: flex-start;
           flex: 1;
           margin-left: 20px;
-          min-height: 138px;
+          height: 138px;
           padding: 10px 0;
         }
 
@@ -250,7 +257,7 @@ export default {
     &_big {
       #{$b} {
         &__content {
-          min-height: 285px;
+          height: 285px;
           padding: 28px 32px 28px 48px;
         }
 
@@ -269,9 +276,13 @@ export default {
     }
 
     &_sample {
+      &::before {
+        display: none;
+      }
+
       #{$b} {
         &__content {
-          min-height: 260px;
+          height: 260px;
           padding: 26px 32px;
         }
 
@@ -290,7 +301,7 @@ export default {
     }
 
     &__content {
-      min-height: 310px;
+      height: 310px;
       padding: 32px 30px;
     }
 
@@ -314,7 +325,7 @@ export default {
         }
 
         &__content {
-          min-height: 186px;
+          height: 186px;
           padding: 30px 0;
         }
 
@@ -359,7 +370,7 @@ export default {
     }
 
     &__content {
-      min-height: 400px;
+      height: 400px;
       padding: 44px 40px;
     }
   }
@@ -373,7 +384,7 @@ export default {
 
         &__content {
           margin-left: 40px;
-          min-height: 210px;
+          height: 210px;
         }
 
         &__footer {
@@ -397,14 +408,14 @@ export default {
     &_sample {
       #{$b} {
         &__content {
-          min-height: 300px;
+          height: 300px;
           padding: 35px 40px;
         }
       }
     }
 
     &__content {
-      min-height: 480px;
+      height: 480px;
       padding: 40px 60px 40px 40px;
     }
   }

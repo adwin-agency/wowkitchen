@@ -42,6 +42,7 @@
           <Swiper
             v-if="info.pictures"
             :key="info.id"
+            navigation
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
             @slideChangeTransitionStart="thumbsSwiper.updateSlidesClasses()"
@@ -136,14 +137,14 @@
 </template>
 
 <script>
-import SwiperCore, { Scrollbar, Thumbs } from 'swiper'
+import SwiperCore, { Navigation, Scrollbar, Thumbs } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue' 
 import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
 import AppBookmark from './base/AppBookmark.vue'
 import useFavorites from '../composition/favorites'
 
-SwiperCore.use([Scrollbar, Thumbs])
+SwiperCore.use([Navigation, Scrollbar, Thumbs])
 
 export default {
   name: 'TecnicDetails',
@@ -243,6 +244,22 @@ export default {
     margin: 0 (-$container-padding);
     padding-bottom: 10px;
 
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .swiper-button-prev {
+      left: 0;
+    }
+
+    .swiper-button-next {
+      right: 0;
+    }
+
     .swiper-scrollbar {
       position: absolute;
       left: $container-padding;
@@ -253,12 +270,17 @@ export default {
 
   &__slide {
     border: 2px solid $color-lightgray;
-    height: 320px;
-    padding: 20px;
+    padding-top: 100%;
 
     img {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: calc(100% - 60px);
+      height: calc(100% - 60px);
       object-fit: contain;
     }
   }
@@ -437,6 +459,14 @@ export default {
       margin-right: 0;
       padding-bottom: 0;
 
+      .swiper-button-prev {
+        left: 20px;
+      }
+
+      .swiper-button-next {
+        right: 20px;
+      }
+
       .swiper-scrollbar {
         display: none;
       }
@@ -444,6 +474,7 @@ export default {
 
     &__slide {
       height: 385px;
+      padding-top: 0;
     }
 
     &__discount {

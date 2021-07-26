@@ -7,7 +7,7 @@
     />
     <RelatedArticles
       v-if="details"
-      :cards="details.similars"
+      :cards="details.similars.slice(0, 2)"
     />
     <PopularArticles
       v-if="$_media.sm && details"

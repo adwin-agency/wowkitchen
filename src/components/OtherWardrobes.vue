@@ -12,7 +12,7 @@
           loop
           :looped-slides="4"
           navigation
-          :slides-per-view="$_media.sm ? 1 : $_media.md ? 2 : 3"
+          :slides-per-view="$_media.sm ? 'auto' : $_media.md ? 2 : 3"
           :space-between="$_media.sm ? 20 : 50"
           watch-slides-visibility
           class="other-wardrobes__slider"
@@ -26,6 +26,7 @@
             <ProductCard
               :info="wardrobe"
               cardType="wardrobe"
+              wardrobeslide
               :disabled="!isVisible"
             />
           </SwiperSlide>
@@ -80,13 +81,14 @@ export default {
   }
 
   &__slide {
-      transition: opacity .3s ease;
+    width: calc(100% - 60px);
+    transition: opacity 0.3s ease;
 
-      &:not(.swiper-slide-visible) {
-        opacity: 0.2;
-        pointer-events: none;
-      }
+    &:not(.swiper-slide-visible) {
+      opacity: 0.2;
+      pointer-events: none;
     }
+  }
 
   @include media(md) {
     &__cards {

@@ -36,12 +36,16 @@ export default {
 <style lang="scss">
 .card {
   &__image {
-    height: 140px;
+    position: relative;
+    padding-top: 87%;
     border-radius: 12px;
     box-shadow: 0px 10px 22px 0px rgba(0, 0, 0, 0.19);
     overflow: hidden;
 
     img {
+      position: absolute;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -70,6 +74,7 @@ export default {
     justify-content: flex-end;
     align-items: flex-end;
     position: relative;
+    height: 280px;
     padding: 30px;
 
     &__image {
@@ -78,6 +83,7 @@ export default {
       top: 0;
       width: 100%;
       height: 100%;
+      padding-top: 0;
 
       &::after {
         content: "";
@@ -104,10 +110,12 @@ export default {
   }
 
   @include media(lg) {
+    height: 330px;
     padding: 32px 40px;
   }
 
   @include media(xl) {
+    height: 430px;
     padding: 40px 54px;
   }
 }

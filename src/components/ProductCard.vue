@@ -12,7 +12,7 @@
   >
     <div class="product-card__img-box">
       <Swiper
-        v-if="cardType !== 'technic' && !slide"
+        v-if="cardType !== 'technic' && !slide && !wardrobeslide"
         loop
         navigation
         :lazy="{ loadPrevNext: true }"
@@ -182,6 +182,7 @@ export default {
     cardType: String,
     large: Boolean,
     slide: Boolean,
+    wardrobeslide: Boolean,
     disabled: Boolean
   },
   setup(props) {

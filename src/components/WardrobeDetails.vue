@@ -37,6 +37,7 @@
           </div>
           <Swiper
             v-if="info.pictures"
+            navigation
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
             @swiper="setMainSwiper"
@@ -155,12 +156,12 @@
 </template>
 
 <script>
-import SwiperCore, { Scrollbar, Thumbs } from 'swiper'
+import SwiperCore, { Navigation, Scrollbar, Thumbs } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
 
-SwiperCore.use([Scrollbar, Thumbs])
+SwiperCore.use([Navigation, Scrollbar, Thumbs])
 
 export default {
   name: 'WardrobeDetails',
@@ -240,6 +241,22 @@ export default {
     margin: 0 (-$container-padding);
     padding-bottom: 6px;
 
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .swiper-button-prev {
+      left: 0;
+    }
+
+    .swiper-button-next {
+      right: 0;
+    }
+
     .swiper-scrollbar {
       position: absolute;
       left: $container-padding;
@@ -249,10 +266,13 @@ export default {
   }
 
   &__slide {
-    height: 260px;
+    padding-top: 81%;
 
     img,
     video {
+      position: absolute;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -472,6 +492,14 @@ export default {
       margin-right: 0;
       padding-bottom: 0;
       border-bottom-right-radius: 80px;
+
+      .swiper-button-prev {
+        left: 20px;
+      }
+
+      .swiper-button-next {
+        right: 20px;
+      }
 
       .swiper-scrollbar {
         display: none;

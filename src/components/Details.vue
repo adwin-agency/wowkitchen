@@ -562,7 +562,7 @@ export default {
 
     &-item {
       position: relative;
-      width: calc(100% - 20px);
+      width: calc(100% - 60px);
       padding-top: 75%;
 
       img,

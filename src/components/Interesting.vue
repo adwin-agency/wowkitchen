@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      cards: this.payment ? cards.filter(i => i.route !== '/payment') : cards
+      cards: this.payment ? cards.filter((i) => i.route !== '/payment') : cards
     }
   }
 }
@@ -87,19 +87,7 @@ export default {
   }
 
   &__slide {
-    width: 200px;
-    transition: opacity .3s ease;
-
-    &:not(.swiper-slide-visible) {
-      opacity: 0.2;
-      pointer-events: none;
-
-      #{$b} {
-        &__title {
-          opacity: 0;
-        }
-      }
-    }
+    width: calc(100% - 60px);
   }
 
   &__card {
@@ -108,13 +96,12 @@ export default {
     position: relative;
     border-radius: 12px;
     padding: 26px 20px;
-    min-height: 200px;
     background-size: cover;
     box-shadow: 0px 19px 26px 0px rgba(0, 0, 0, 0.21);
     overflow: hidden;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -122,6 +109,11 @@ export default {
       height: 100%;
       background-color: #000;
       opacity: 0.44;
+    }
+
+    &::after {
+      content: '';
+      padding-top: 100%;
     }
   }
 
@@ -166,13 +158,28 @@ export default {
       }
     }
 
+    &__slide {
+      transition: opacity 0.3s ease;
+
+      &:not(.swiper-slide-visible) {
+        opacity: 0.2;
+        pointer-events: none;
+
+        #{$b} {
+          &__title {
+            opacity: 0;
+          }
+        }
+      }
+    }
+
     &__card {
       padding: 26px 30px;
     }
 
     &__title {
       font-size: 18px;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
     }
   }
 
@@ -181,7 +188,11 @@ export default {
 
     &__card {
       padding: 45px 40px;
-      min-height: 300px;
+      height: 300px;
+
+      &::after {
+        display: none;
+      }
     }
   }
 

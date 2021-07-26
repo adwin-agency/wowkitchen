@@ -93,14 +93,17 @@ export default {
   }
 
   &__slide {
-    width: calc(100% - 20px);
+    width: calc(100% - 60px);
   }
 
   &__image {
     position: relative;
-    height: 200px;
+    padding-top: 65%;
 
     img {
+      position: absolute;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -201,6 +204,7 @@ export default {
       width: 50%;
       height: auto;
       min-height: 500px;
+      padding-top: 0;
     }
 
     &__num {

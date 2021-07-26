@@ -10,8 +10,8 @@
       <div class="container">
         <Swiper
           v-if="products"
-          :slides-per-view="$_media.sm ? 1 : 2"
-          :space-between="$_mobile ? 30 : $_media.lg ? 40 : 50"
+          :slides-per-view="$_media.sm ? 'auto' : 2"
+          :space-between="$_media.sm ? 10 : $_media.md ? 30 : $_media.lg ? 40 : 50"
           scrollbar
           :looped-slides="3"
           navigation
@@ -90,6 +90,10 @@ export default {
     .swiper-button-next {
       display: none;
     }
+  }
+
+  &__slide {
+    width: calc(100% - 60px);
   }
 
   @include media(md) {

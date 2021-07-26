@@ -67,7 +67,7 @@ export default {
   }
 
   &__slide {
-    width: 160px;
+    width: calc(100% - 60px);
     transition: opacity .3s ease;
 
     &:not(.swiper-slide-visible) {
@@ -90,10 +90,6 @@ export default {
 
     &__slides {
       padding-right: 220px;
-    }
-
-    &__card {
-      height: 280px;
     }
 
     .swiper-button-prev,
@@ -123,10 +119,6 @@ export default {
       padding-right: 370px;
     }
 
-    &__card {
-      height: 330px;
-    }
-
     .swiper-button-next {
       right: 186px;
     }
@@ -135,10 +127,6 @@ export default {
   @include media(xl) {
     .container {
       max-width: calc(50% + #{$container-max-width-xl / 2});
-    }
-    
-    &__card {
-      height: 430px;
     }
   }
 }

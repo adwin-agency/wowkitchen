@@ -31,7 +31,7 @@
                     v-for="(item, index) in info.content"
                     :key="index"
                   >
-                    <a :href="`#`">{{item}}</a>
+                    <a :href="`#${index + 1}`" @click.prevent="handleAnchorClick(index + 1)">{{item}}</a>
                   </li>
                 </ol>
               </div>
@@ -336,7 +336,7 @@ export default {
   watch: {
     info() {
       window.sidebar?.updateSticky()
-      
+
       setTimeout(() => {
         this.initImages()
       })
@@ -448,6 +448,7 @@ export default {
         this.disableContent()
       }
     },
+
     initImages() {
       // START DEVELOPE CODE
 
@@ -482,6 +483,13 @@ export default {
       })
    
     // END DEVELOPE CODE
+    },
+
+    handleAnchorClick(id) {
+      const targetOffset = document.getElementById(id).getBoundingClientRect().top + window.scrollY
+      const headerHeight = document.querySelector('.header').offsetHeight
+
+      window.scrollTo(0, targetOffset - headerHeight)
     }
   }
 }

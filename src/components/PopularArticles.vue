@@ -93,7 +93,7 @@ export default {
   }
 
   &__slide {
-    width: 160px;
+    width: calc(100% - 60px);
   }
 
   &__footer {

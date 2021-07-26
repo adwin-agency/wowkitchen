@@ -187,11 +187,14 @@ export default {
     #{$b} {
       &__image {
         position: relative;
-        height: 100px;
+        padding-top: 62.5%;
         border-radius: 12px;
         overflow: hidden;
 
         img {
+          position: absolute;
+          left: 0;
+          top: 0;
           width: 100%;
           height: 100%;
           object-fit: cover;
