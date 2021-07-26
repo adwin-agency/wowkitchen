@@ -34,8 +34,11 @@
               :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <video
-              src=""
-              poster="@/assets/img/intro.jpg"
+              ref="video"
+              src="/assets/video/intro.mp4"
+              autoplay
+              loop
+              muted
             ></video>
             <AppIcon
               class="intro__shape intro__shape_2"
@@ -114,6 +117,7 @@
               title="Смотреть видео"
               video="/assets/video/intro.mp4"
               class="intro__video-btn"
+              @click="handleVideoClick"
             />
           </div>
         </div>
@@ -153,6 +157,18 @@ export default {
       shapeFrontTranslate: 0
     }
   },
+  computed: {
+    isModal() {
+      return !!this.$store.state.modal
+    }
+  },
+  watch: {
+    isModal(newStatus) {
+      if (!newStatus) {
+        this.$refs.video.play()
+      }
+    }
+  },
   created() {
     window.addEventListener('scroll', this.handleScroll)
   },
@@ -167,6 +183,10 @@ export default {
 
       this.shapeBackTranslate = (introY - introOffset) / 2
       this.shapeFrontTranslate = (introY - introOffset) / 3
+    },
+
+    handleVideoClick() {
+      this.$refs.video.pause()
     }
   }
 }

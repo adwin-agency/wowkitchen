@@ -2,7 +2,8 @@
   <div class="v-main">
     <Intro />
     <Projects />
-    <Solutions />
+    <!-- <Solutions /> -->
+    <ArticleSet />
     <Design />
     <Equipment />
     <Steps />
@@ -13,11 +14,12 @@
 <script>
 import Intro from '../components/Intro.vue'
 import Projects from '../components/Projects.vue'
-import Solutions from '../components/Solutions.vue'
+// import Solutions from '../components/Solutions.vue'
 import Design from '../components/Design.vue'
 import Equipment from '../components/Equipment.vue'
 import Steps from '../components/Steps.vue'
 import RatedReviews from '../components/RatedReviews.vue'
+import ArticleSet from '../components/ArticleSet.vue'
 import api from '../api'
 
 export default {
@@ -25,11 +27,12 @@ export default {
   components: {
     Intro,
     Projects,
-    Solutions,
+    // Solutions,
     Design,
     Equipment,
     Steps,
-    RatedReviews
+    RatedReviews,
+    ArticleSet
   },
   data() {
     return {
@@ -49,7 +52,8 @@ export default {
     margin-top: 40px;
   }
 
-  .solutions {
+  .solutions,
+  .article-set {
     margin-top: 205px;
   }
 
@@ -75,7 +79,8 @@ export default {
       margin-top: 70px;
     }
 
-    .solutions {
+    .solutions,
+    .article-set {
       margin-top: 70px;
     }
 
@@ -125,7 +130,8 @@ export default {
       margin-top: 65px;
     }
 
-    .solutions {
+    .solutions,
+    .article-set {
       margin-top: 150px;
     }
 

@@ -13,6 +13,7 @@
           :slides-per-view="$_media.sm ? 'auto' : 2"
           :space-between="$_media.sm ? 10 : $_media.md ? 30 : $_media.lg ? 40 : 50"
           scrollbar
+          loop
           :looped-slides="3"
           navigation
           watch-slides-visibility

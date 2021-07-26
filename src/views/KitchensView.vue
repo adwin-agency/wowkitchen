@@ -14,15 +14,13 @@
       :showBtn="currentPage < pages"
       @show-more="showMore"
     />
+    <Projects catalog />
     <QuizPreview type="kitchens" />
+    <RatedReviews :cards="reviews" />
+    <Steps />
     <PopularArticles
       :cards="articles"
       allBtn
-    />
-    <Steps />
-    <RatedReviews
-      v-if="!$_media.sm"
-      :cards="reviews"
     />
   </div>
 </template>
@@ -34,14 +32,10 @@ import PopularArticles from '../components/PopularArticles.vue'
 import RatedReviews from '../components/RatedReviews.vue'
 import QuizPreview from '../components/QuizPreview.vue'
 import Steps from '../components/Steps.vue'
+import Projects from '../components/Projects.vue'
 import api from '../api'
 
-const sortOptions = [
-  { title: 'Сначала дешёвые' },
-  { title: 'Сначала популярные' },
-  { title: 'Сначала дорогие' },
-  { title: 'Сначала новые' }
-]
+const sortOptions = [{ title: 'Сначала дешёвые' }, { title: 'Сначала популярные' }, { title: 'Сначала дорогие' }, { title: 'Сначала новые' }]
 
 const filterGroups = [
   {
@@ -54,7 +48,7 @@ const filterGroups = [
       { title: 'С барной стойкой', value: 's-barnoy-stoykoy' },
       { title: 'С островом', value: 's-ostrovom' }
     ]
-  },
+  }
   // {
   //   id: 'style',
   //   title: 'Стиль',
@@ -86,7 +80,8 @@ export default {
     QuizPreview,
     PopularArticles,
     Steps,
-    RatedReviews
+    RatedReviews,
+    Projects
   },
   data() {
     return {
@@ -127,12 +122,12 @@ export default {
       let crumbs
 
       if (query.category) {
-        const categoryTitle = filterGroups.find(i => i.id === 'category').items.find(i => i.value === query.category).title
+        const categoryTitle = filterGroups.find((i) => i.id === 'category').items.find((i) => i.value === query.category).title
         crumbs = [{ path: '/kitchens', title: 'Кухни' }, { title: categoryTitle }]
       } else {
         crumbs = [{ title: 'Кухни' }]
       }
-    
+
       this.$store.commit('setBreadCrumbs', crumbs)
     },
 
@@ -151,16 +146,20 @@ export default {
     margin-top: 20px;
   }
 
-  .quiz-preview {
+  .projects {
     margin-top: 50px;
   }
 
-  .popular-articles {
+  .rated-reviews {
     margin-top: 50px;
   }
 
   .steps {
     margin-top: 55px;
+  }
+
+  .popular-articles {
+    margin-top: 50px;
     margin-bottom: 55px;
   }
 
@@ -169,47 +168,49 @@ export default {
       margin-top: 0;
     }
 
-    .quiz-preview {
+    .projects {
       margin-top: 0;
     }
 
-    .popular-articles {
-      margin-top: 70px;
+    .rated-reviews {
+      margin-top: 100px;
     }
 
     .steps {
       margin-top: 85px;
-      margin-bottom: 0;
     }
 
-    .rated-reviews {
-      margin-top: 125px;
+    .popular-articles {
+      margin-top: 90px;
       margin-bottom: 75px;
     }
   }
 
   @include media(lg) {
-    .popular-articles {
-      margin-top: 100px;
+    .rated-reviews {
+      margin-top: 120px;
     }
 
     .steps {
       margin-top: 75px;
     }
 
-    .rated-reviews {
-      margin-top: 120px;
+    .popular-articles {
+      margin-top: 100px;
       margin-bottom: 60px;
     }
   }
 
   @include media(xl) {
+    .rated-reviews {
+      margin-top: 150px;
+    }
+
     .steps {
       margin-top: 115px;
     }
 
-    .rated-reviews {
-      margin-top: 150px;
+    .popular-articles {
       margin-bottom: 100px;
     }
   }

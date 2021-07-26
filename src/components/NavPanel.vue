@@ -123,6 +123,7 @@ const menu = [
   { route: 'delivery', title: 'Доставка' },
   { route: 'main', title: 'Сборка' },
   { route: 'discount', title: 'Акции' },
+  { route: 'reviews', title: 'Отзывы' },
   { route: 'contacts', title: 'Контакты' }
 ]
 

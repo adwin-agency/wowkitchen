@@ -217,6 +217,7 @@
               <AppIcon
                 v-if="$_media.sm"
                 class="header__phone-icon"
+                :class="{'is-active': activePhone}"
                 name="phone"
               />
               <span
@@ -313,6 +314,7 @@ const kitchensMenu = {
     {
       title: 'Планировки',
       items: [
+        { path: 'kitchens', query: { }, title: 'Все кухни' },
         { path: 'kitchens', query: { category: 'pryamye' }, title: 'Прямые кухни' },
         { path: 'kitchens', query: { category: 'uglovye' }, title: 'Угловые кухни' },
         { path: 'kitchens', query: { category: 'p-obraznye' }, title: 'П-образные кухни' },
@@ -378,6 +380,10 @@ export default {
     },
     cityPhone() {
       return this.$store.state.cities[this.$store.state.activeCity]?.phone
+    },
+    activePhone() {
+      const hours = new Date().getHours()
+      return hours >= 10 && hours < 22
     }
   },
   watch: {
@@ -628,7 +634,11 @@ export default {
   &__phone-icon {
     width: 23px;
     height: 23px;
-    fill: #aca8c3;
+    fill: $color-lightviolet;
+
+    &.is-active {
+      fill: $color-green;
+    }
   }
 
   &__favorites {

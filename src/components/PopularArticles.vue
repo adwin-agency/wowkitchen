@@ -13,10 +13,7 @@
           :key="index"
           class="popular-articles__slide"
         >
-          <ArticleCard
-            :cardData="card"
-            mod="sample"
-          />
+          <ArticleCard :cardData="card" />
         </SwiperSlide>
       </Swiper>
       <div
@@ -28,10 +25,7 @@
           :key="index"
           class="popular-articles__cards-col"
         >
-          <ArticleCard
-            :cardData="card"
-            mod="sample"
-          />
+          <ArticleCard :cardData="card" />
         </div>
       </div>
       <div

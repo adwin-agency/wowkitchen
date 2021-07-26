@@ -137,12 +137,12 @@ export default {
   }
 
   &__slide {
-    width: 160px;
+    width: calc(100% - 60px);
   }
 
   &__show {
     width: 100%;
-    height: 100px;
+    height: 330px;
     border-radius: 12px;
   }
 

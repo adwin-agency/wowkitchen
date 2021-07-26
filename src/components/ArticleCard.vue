@@ -87,61 +87,7 @@ export default {
   &_small {
     #{$b} {
       &__image {
-        position: relative;
-        height: 100px;
-        border-radius: 12px;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        &::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background-image: linear-gradient(0deg, #12131e, transparent 61%);
-          opacity: 0.57;
-        }
-      }
-
-      &__play-icon {
-        position: absolute;
-        left: 8px;
-        bottom: 12px;
-        width: 42px;
-        height: 42px;
-        margin-bottom: 0;
-        z-index: 1;
-      }
-
-      &__content {
-        margin-top: 4px;
-        min-height: 0;
-        padding: 0;
-        color: $color-primary;
-      }
-
-      &__tag {
-        color: #000;
-        background-color: $color-lightgray;
-      }
-
-      &__title {
-        margin-top: 6px;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: (15/13);
-      }
-
-      &__footer {
-        margin-top: 10px;
-        color: #9f9f9f;
+        border-radius: 0;
       }
     }
   }
@@ -316,7 +262,7 @@ export default {
     align-items: flex-start;
     position: relative;
     margin-top: 0;
-    min-height: 250px;
+    min-height: 330px;
     padding: 26px 18px;
     color: $color-lightgray;
   }
@@ -332,8 +278,8 @@ export default {
   &__title {
     margin-top: 12px;
     font-weight: bold;
-    font-size: 14px;
-    line-height: (18/14);
+    font-size: 18px;
+    line-height: (24/18);
   }
 
   &__footer {
@@ -377,10 +323,12 @@ export default {
     &_small {
       #{$b} {
         &__image {
-          margin-top: 2px;
+          position: relative;
           width: 53%;
           height: 100%;
           min-height: 130px;
+          border-radius: 12px;
+          overflow: hidden;
 
           img {
             position: absolute;
@@ -390,14 +338,21 @@ export default {
         }
 
         &__play-icon {
+          position: absolute;
           left: 20px;
           bottom: 14px;
+          width: 42px;
+          height: 42px;
+          margin-bottom: 0;
+          z-index: 1;
         }
 
         &__content {
           flex: 1;
-          margin-top: 0;
           margin-left: 14px;
+          min-height: auto;
+          padding: 0;
+          color: $color-primary;
         }
 
         &__title {
@@ -411,6 +366,13 @@ export default {
 
         &__tag {
           margin-top: 10px;
+          color: #000;
+          background-color: $color-lightgray;
+        }
+
+        &__footer {
+          margin-top: 10px;
+          color: #9f9f9f;
         }
 
         &__views {

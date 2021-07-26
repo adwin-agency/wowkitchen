@@ -13,7 +13,10 @@
       :cards="cards"
       class="projects__slider"
     />
-    <div class="projects__content">
+    <div
+      v-if="!catalog"
+      class="projects__content"
+    >
       <div class="container">
         <p
           ref="desc"
@@ -28,7 +31,10 @@
         </p>
       </div>
     </div>
-    <div class="projects__extras">
+    <div
+      v-if="!catalog"
+      class="projects__extras"
+    >
       <AppExtras
         title="Бесплатный замер у вас дома"
         desc="Наш специалист поможет не потеряться в многообразии материалов, подскажет верную планировку и сделает расчёт проекта. Бесплатно. Совершенно бесплатно."
@@ -47,7 +53,7 @@ const cards = [
   { route: '/kitchens?category=pryamye', title: 'Прямые кухни', icon: 'kit2' },
   { route: '/kitchens?category=p-obraznye', title: 'П-образные', icon: 'kit3' },
   { route: '/kitchens?category=s-barnoy-stoykoy', title: 'С барной стойкой' },
-  { route: '/kitchens?category=s-ostrovom', title: 'С островом' },
+  { route: '/kitchens?category=s-ostrovom', title: 'С островом' }
 ]
 
 export default {
@@ -56,6 +62,9 @@ export default {
     AppExtras,
     AppIcon,
     CardSlider
+  },
+  props: {
+    catalog: Boolean
   },
   data() {
     return {
@@ -154,7 +163,7 @@ export default {
       opacity: 0;
       pointer-events: none;
       transform: translateY(100%);
-      transition: opacity .5s ease, transform .5s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
 
       @keyframes projects-leaf {
         0% {
@@ -177,7 +186,7 @@ export default {
       &-icon {
         opacity: 0;
         transform-origin: left bottom;
-        transition: opacity .5s ease 1s;
+        transition: opacity 0.5s ease 1s;
       }
 
       span {
@@ -185,7 +194,7 @@ export default {
         background-image: linear-gradient(90deg, #fde93d 50%, transparent 50%);
         background-position: 100% 0;
         background-size: 200% 100%;
-        transition: background-position .5s ease .5s;
+        transition: background-position 0.5s ease 0.5s;
       }
 
       &.is-active {
@@ -200,7 +209,7 @@ export default {
 
         span {
           background-position: 0 0;
-        }        
+        }
       }
     }
 

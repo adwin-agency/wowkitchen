@@ -7,7 +7,6 @@
           v-for="(card, index) in cards"
           :key="index"
           :cardData="card"
-          mod="related"
           class="related-articles__card"
         />
         <Subscribe class="related-articles__subscribe" />
@@ -35,13 +34,9 @@ export default {
 .related-articles {
   &__grid {
     display: grid;
-    grid-template-columns: repeat(2, calc(50% - 5px));
+    grid-template-columns: repeat(1, 100%);
     grid-gap: 30px 10px;
     margin-top: 15px;
-  }
-
-  &__subscribe {
-    grid-column: 1 / 3;
   }
 
   @include media(md) {

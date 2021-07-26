@@ -73,6 +73,10 @@ export default {
 
       &__expand {
         transform: translate(-50%, -50%) rotate(45deg);
+
+        &::before {
+          animation: none;
+        }
       }
     }
   }
@@ -133,6 +137,17 @@ export default {
     color: $color-green;
   }
 
+  @keyframes expand {
+    from {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+
   &__expand {
     display: flex;
     justify-content: center;
@@ -148,6 +163,20 @@ export default {
     background-color: $color-yellow;
     transition: transform 0.3s ease;
     cursor: pointer;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: $color-yellow;
+      animation: expand 1s infinite;
+      z-index: -1;
+    }
   }
 
   @include media(md) {
