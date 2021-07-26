@@ -19,12 +19,12 @@
         <div class="article__inner">
           <div class="article__section-container">
             <article class="article__section">
-
-              <h2>{{info.name}}</h2>
-
-              <div v-html="info.previews_text"></div>
-
-              <div>
+              <!-- New class -->
+              <h2 class="article__section-title">{{info.name}}</h2>
+              <!-- New class -->
+              <div class="article__section-previews" v-html="info.previews_text"></div>
+              <!-- New class -->
+              <div class="article__section-content">
                 <h4>Содержание</h4>
                 <ol>
                   <li
@@ -35,10 +35,10 @@
                   </li>
                 </ol>
               </div>
+              <!-- New class -->
+              <div class="article__desc" v-html="info.description_text"></div>
 
-              <div v-html="info.description_text"></div>
-
-              <img
+              <!-- <img
                 src="@/assets/img/articles/article-img/37.jpg"
                 alt="image"
               >
@@ -228,7 +228,7 @@
                   src="@/assets/img/articles/article-img/69.jpg"
                   alt="image"
                 >
-              </div>
+              </div> -->
             </article>
             <div class="article__tags">
               <a
@@ -336,32 +336,13 @@ export default {
   watch: {
     info() {
       window.sidebar?.updateSticky()
+      
+      setTimeout(() => {
+        this.initImages()
+      })
     }
   },
   mounted() {
-    // START DEVELOPE CODE
-    const container = document.querySelector('.article__section')
-    const images = container.getElementsByTagName('img')
-    const blocks = container.getElementsByTagName('div')
-    images.forEach((element) => {
-      element.addEventListener('load', function () {
-        if (this.naturalWidth < this.naturalHeight) {
-          element.classList.add('article__section-vertical')
-        } else {
-          element.classList.add('article__section-horizontal')
-        }
-      })
-    })
-    blocks.forEach((element) => {
-      const tags = element.childNodes
-      for (let tag of tags) {
-        if (tag.tagName === 'IMG') {
-          element.classList.add('article__section-grid')
-        }
-      }
-    })
-    // END DEVELOPE CODE
-
     this.$store.commit('setIntroEffect', true)
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('wheel', this.handleWheel)
@@ -466,6 +447,41 @@ export default {
       } else if (e.deltaY < 0 && window.scrollY < 50 && this.isActiveContent) {
         this.disableContent()
       }
+    },
+    initImages() {
+      // START DEVELOPE CODE
+
+      const container = document.querySelector('.article__section')
+      const desc = document.querySelector('.article__desc')
+      const images = container.querySelectorAll('img')
+      const blocks = desc.querySelectorAll('div')
+
+      function addImageClass(element) {
+        if (element.naturalWidth < element.naturalHeight) {
+          element.classList.remove('article__desc-horizontal')
+          element.classList.add('article__desc-vertical')
+        } else {
+          element.classList.remove('article__desc-vertical')
+          element.classList.add('article__desc-horizontal')
+        }
+      }
+
+      images.forEach((element) => {
+        addImageClass(element)
+        element.addEventListener('load', function () {
+          addImageClass(element)
+        })
+      })
+      blocks.forEach((element) => {
+        const tags = element.childNodes
+        for (let tag of tags) {
+          if (tag.tagName === 'IMG') {
+            element.classList.add('article__desc-grid')
+          }
+        }
+      })
+   
+    // END DEVELOPE CODE
     }
   }
 }
@@ -694,7 +710,137 @@ export default {
     }
   }
 }
+// Start New css block
 .article__section {
+  &-title {
+    font-weight: bold;
+    line-height: 1.44;
+    margin-bottom: 25px;
+    font-size: 26px;
+
+    @include media(md) {
+      font-size: 35px;
+      margin-bottom: 35px;
+    }
+
+    @include media(lg) {
+      font-size: 50px;
+      margin-bottom: 65px;
+    }
+  }
+  &-previews {
+    font-size: 14px;
+    line-height: 2.125;
+    margin: 10px 0;
+
+    @include media(md) {
+      margin: 15px 0;
+      font-size: 16px;
+    }
+  }
+  &-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: baseline;
+        position: relative;
+        margin: 30px auto;
+    // Рамка (ссылки + закругленный угол)
+    & h4 {
+      margin-right: auto;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding: 40px 0 20px 0;
+
+      @include media(md) {
+        margin-right: auto;
+        margin-bottom: 0;
+        padding: 50px 0 0 55px;
+      }
+
+      @include media(lg) {
+        padding: 0;
+        margin-left: auto;
+      }
+    }
+
+    & h5 {
+      padding-top: 20px;
+      padding-bottom: 15px;
+      margin-right: 40px;
+      @include media(md) {
+        margin-left: -40px;
+        margin-left: auto;
+        padding: 27px 0 27px 20px;
+      }
+    }
+
+    & a {
+      margin-right: auto;
+    }
+
+    & > h4 + ol {
+      padding: 0;
+      margin-left: 15px;
+      &:last-child {
+        margin-bottom: 25px;
+      }
+      @include media(md) {
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      @include media(md) {
+        padding: 35px 0 35px 55px;
+      }
+
+      @include media(lg) {
+        padding: 55px 0 55px 55px;
+      }
+
+      margin-right: auto;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -9999px;
+        right: 0;
+        bottom: 0;
+        margin: 0 auto;
+        width: 10000vw;
+        background-color: $color-lightgray;
+        z-index: -1;
+
+        @include media(md) {
+          width: auto;
+          left: 0;
+          border-bottom-right-radius: 80px;
+        }
+      }
+      & li {
+        padding-bottom: 15px;
+        margin: 0;
+        padding-left: 0;
+        color: $color-lightgreen;
+        list-style-type: decimal;
+
+        @include media(lg) {
+          padding-bottom: 15px;
+        }
+        &::before {
+          display: none;
+        }
+
+        & a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+// End New css block
+.article__desc {
   margin-bottom: 15px;
   h2 {
     font-weight: bold;
@@ -820,99 +966,6 @@ export default {
     align-items: baseline;
     position: relative;
     margin: 30px auto;
-
-    // Рамка (ссылки + закругленный угол)
-    & h4 {
-      margin-right: auto;
-      margin-bottom: 0;
-      margin-top: 0;
-      padding: 40px 0 20px 0;
-
-      @include media(md) {
-        margin-right: auto;
-        margin-bottom: 0;
-        padding: 50px 0 0 55px;
-      }
-
-      @include media(lg) {
-        padding: 0;
-        margin-left: auto;
-      }
-    }
-
-    & h5 {
-      padding-top: 20px;
-      padding-bottom: 15px;
-      margin-right: 40px;
-      @include media(md) {
-        margin-left: -40px;
-        margin-left: auto;
-        padding: 27px 0 27px 20px;
-      }
-    }
-
-    & a {
-      margin-right: auto;
-    }
-
-    & > h4 + ol {
-      padding: 0;
-      margin-left: 15px;
-      &:last-child {
-        margin-bottom: 25px;
-      }
-      @include media(md) {
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-      @include media(md) {
-        padding: 35px 0 35px 55px;
-      }
-
-      @include media(lg) {
-        padding: 55px 0 55px 55px;
-      }
-
-      margin-right: auto;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -9999px;
-        right: 0;
-        bottom: 0;
-        margin: 0 auto;
-        width: 10000vw;
-        background-color: $color-lightgray;
-        z-index: -1;
-
-        @include media(md) {
-          width: auto;
-          left: 0;
-          border-bottom-right-radius: 80px;
-        }
-      }
-      & li {
-        padding-bottom: 10px;
-        margin: 0;
-        padding-left: 0;
-        color: $color-lightgreen;
-        list-style-type: decimal;
-
-        @include media(lg) {
-          padding-bottom: 15px;
-        }
-        &::before {
-          display: none;
-        }
-
-        & a {
-          text-decoration: underline;
-        }
-      }
-    }
 
     // Рамка (прямоугольная)
     & > h5 + a {
