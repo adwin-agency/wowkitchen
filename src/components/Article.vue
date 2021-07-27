@@ -15,30 +15,47 @@
       </div>
     </div>
     <div class="article__container">
-      <div class="container">
-        <div class="article__inner">
-          <div class="article__section-container">
-            <article class="article__section">
-              <!-- New class -->
-              <h2 class="article__section-title">{{info.name}}</h2>
-              <!-- New class -->
-              <div class="article__section-previews" v-html="info.previews_text"></div>
-              <!-- New class -->
-              <div class="article__section-content">
-                <h4>Содержание</h4>
-                <ol>
-                  <li
-                    v-for="(item, index) in info.content"
-                    :key="index"
-                  >
-                    <a :href="`#${index + 1}`" @click.prevent="handleAnchorClick(index + 1)">{{item}}</a>
-                  </li>
-                </ol>
-              </div>
-              <!-- New class -->
-              <div class="article__desc" v-html="info.description_text"></div>
+      <ArticleVideo
+        v-if="info.video"
+        :info="info"
+      />
+      <div
+        v-else
+        class="article__wrap"
+      >
+        <div class="container">
+          <div class="article__inner">
+            <div class="article__section-container">
+              <article class="article__section">
+                <!-- New class -->
+                <h2 class="article__section-title">{{info.name}}</h2>
+                <!-- New class -->
+                <div
+                  class="article__section-previews"
+                  v-html="info.previews_text"
+                ></div>
+                <!-- New class -->
+                <div class="article__section-content">
+                  <h4>Содержание</h4>
+                  <ol>
+                    <li
+                      v-for="(item, index) in info.content"
+                      :key="index"
+                    >
+                      <a
+                        :href="`#${index + 1}`"
+                        @click.prevent="handleAnchorClick(index + 1)"
+                      >{{item}}</a>
+                    </li>
+                  </ol>
+                </div>
+                <!-- New class -->
+                <div
+                  class="article__desc"
+                  v-html="info.description_text"
+                ></div>
 
-              <!-- <img
+                <!-- <img
                 src="@/assets/img/articles/article-img/37.jpg"
                 alt="image"
               >
@@ -229,75 +246,76 @@
                   alt="image"
                 >
               </div> -->
-            </article>
-            <div class="article__tags">
-              <a
-                class="article__tag"
-                href="#"
-              >От эксперта</a>
-              <a
-                class="article__tag"
-                href="#"
-              >Лайфхаки</a>
-              <a
-                class="article__tag"
-                href="#"
-              >Планировки</a>
-            </div>
-            <div class="article__stats">
-              <p class="article__stats-author article__stats-el">Автор<span class="article__stats-author-name">Ксения абрамова</span></p>
-              <p class="article__stats-date article__stats-el">Дата публикации<span class="article__stats-date-value">16 декабря 2020</span></p>
-              <div class="article__stats-views article__stats-el">
-                <img
-                  class="article__stats-views-icon"
-                  src="@/assets/img/articles/icons/view_simple.svg"
-                  alt="image-views"
-                >
-                <span class="article__stats-views-count">1290</span>
+              </article>
+              <div class="article__tags">
+                <a
+                  class="article__tag"
+                  href="#"
+                >От эксперта</a>
+                <a
+                  class="article__tag"
+                  href="#"
+                >Лайфхаки</a>
+                <a
+                  class="article__tag"
+                  href="#"
+                >Планировки</a>
+              </div>
+              <div class="article__stats">
+                <p class="article__stats-author article__stats-el">Автор<span class="article__stats-author-name">Ксения абрамова</span></p>
+                <p class="article__stats-date article__stats-el">Дата публикации<span class="article__stats-date-value">16 декабря 2020</span></p>
+                <div class="article__stats-views article__stats-el">
+                  <img
+                    class="article__stats-views-icon"
+                    src="@/assets/img/articles/icons/view_simple.svg"
+                    alt="image-views"
+                  >
+                  <span class="article__stats-views-count">1290</span>
+                </div>
+              </div>
+              <div
+                v-if="$_media.sm"
+                class="article__share"
+              >
+                <p class="article__share-title">Поделиться</p>
+                <div class="article__share-btns">
+                  <a
+                    href="#"
+                    class="article__share-btn"
+                  >
+                    <AppIcon
+                      name="vk"
+                      class="article__share-icon"
+                    />
+                  </a>
+                  <a
+                    href="#"
+                    class="article__share-btn"
+                  >
+                    <AppIcon
+                      name="facebook"
+                      class="article__share-icon"
+                    />
+                  </a>
+                  <a
+                    href="#"
+                    class="article__share-btn"
+                  >
+                    <AppIcon
+                      name="link"
+                      class="article__share-icon"
+                    />
+                  </a>
+                </div>
               </div>
             </div>
             <div
-              v-if="$_media.sm"
-              class="article__share"
+              v-if="!$_media.sm"
+              class="article__aside"
             >
-              <p class="article__share-title">Поделиться</p>
-              <div class="article__share-btns">
-                <a
-                  href="#"
-                  class="article__share-btn"
-                >
-                  <AppIcon
-                    name="vk"
-                    class="article__share-icon"
-                  />
-                </a>
-                <a
-                  href="#"
-                  class="article__share-btn"
-                >
-                  <AppIcon
-                    name="facebook"
-                    class="article__share-icon"
-                  />
-                </a>
-                <a
-                  href="#"
-                  class="article__share-btn"
-                >
-                  <AppIcon
-                    name="link"
-                    class="article__share-icon"
-                  />
-                </a>
+              <div class="article__aside-inner">
+                <ArticleAside :cards="cards" />
               </div>
-            </div>
-          </div>
-          <div
-            v-if="!$_media.sm"
-            class="article__aside"
-          >
-            <div class="article__aside-inner">
-              <ArticleAside :cards="cards" />
             </div>
           </div>
         </div>
@@ -310,12 +328,14 @@
 import ArticleAside from './ArticleAside.vue'
 import StickySidebar from 'sticky-sidebar'
 import AppIcon from './base/AppIcon.vue'
+import ArticleVideo from './ArticleVideo.vue'
 
 export default {
   name: 'Article',
   components: {
     ArticleAside,
-    AppIcon
+    AppIcon,
+    ArticleVideo
   },
   props: {
     info: Object,
@@ -349,7 +369,7 @@ export default {
     window.addEventListener('touchstart', this.handleTouchstart)
     window.addEventListener('touchend', this.handleTouchend)
 
-    if (!this.$_media.sm) {
+    if (!this.$_media.sm && this.info.video) {
       this.initSidebar()
     }
   },
@@ -364,11 +384,10 @@ export default {
     window.removeEventListener('wheel', this.handleWheel)
     window.removeEventListener('touchstart', this.handleTouchstart)
     window.removeEventListener('touchend', this.handleTouchend)
-    
   },
   methods: {
     disableContent() {
-      this.isAnim = true        
+      this.isAnim = true
       this.$store.commit('setIntroEffect', true)
       this.isActiveContent = false
 
@@ -381,7 +400,7 @@ export default {
       this.isAnim = true
       this.isActiveContent = true
 
-      setTimeout(() => {        
+      setTimeout(() => {
         this.$store.commit('setIntroEffect', false)
       }, 200)
 
@@ -398,13 +417,17 @@ export default {
         innerWrapperSelector: '.article__aside-inner'
       })
 
-      window.sidebar.isSidebarFitsViewport = function() {
-        var offset = this.scrollDirection === 'down' ? this.dimensions.lastBottomSpacing : this.dimensions.lastTopSpacing;
-        return this.dimensions.sidebarHeight + offset < this.dimensions.viewportHeight;
+      window.sidebar.isSidebarFitsViewport = function () {
+        var offset = this.scrollDirection === 'down' ? this.dimensions.lastBottomSpacing : this.dimensions.lastTopSpacing
+        return this.dimensions.sidebarHeight + offset < this.dimensions.viewportHeight
       }
     },
 
     handleResize() {
+      if (this.info.video) {
+        return
+      }
+
       if (this.$_media.sm) {
         if (window.sidebar) {
           window.sidebar.destroy()
@@ -450,6 +473,10 @@ export default {
     },
 
     initImages() {
+      if (this.info.video) {
+        return
+      }
+
       // START DEVELOPE CODE
 
       const container = document.querySelector('.article__section')
@@ -465,6 +492,8 @@ export default {
           element.classList.remove('article__desc-vertical')
           element.classList.add('article__desc-horizontal')
         }
+
+        window.sidebar?.updateSticky()
       }
 
       images.forEach((element) => {
@@ -481,8 +510,8 @@ export default {
           }
         }
       })
-   
-    // END DEVELOPE CODE
+
+      // END DEVELOPE CODE
     },
 
     handleAnchorClick(id) {
@@ -522,7 +551,7 @@ export default {
     width: 100%;
     height: 100%;
     padding: 40px 0;
-    transition: opacity .5s ease, transform .5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
     z-index: 1;
 
     &-img {
@@ -544,10 +573,13 @@ export default {
   }
 
   &__container {
-    padding-top: 40px;
     opacity: 0;
     transform: translateY(400px);
-    transition: opacity .5s ease, transform .5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  &__wrap {
+    padding-top: 40px;
   }
 
   &__stats {
@@ -654,7 +686,7 @@ export default {
       }
     }
 
-    &__container {
+    &__wrap {
       padding-top: 50px;
     }
 
@@ -685,7 +717,7 @@ export default {
       }
     }
 
-    &__container {
+    &__wrap {
       padding-top: 65px;
     }
 
@@ -704,7 +736,7 @@ export default {
       margin-left: 80px;
     }
 
-    &__container {
+    &__wrap {
       padding-top: 95px;
     }
 
@@ -747,12 +779,12 @@ export default {
     }
   }
   &-content {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: baseline;
-        position: relative;
-        margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    position: relative;
+    margin: 30px auto;
     // Рамка (ссылки + закругленный угол)
     & h4 {
       margin-right: auto;
