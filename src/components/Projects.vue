@@ -49,11 +49,11 @@ import AppIcon from './base/AppIcon.vue'
 import CardSlider from './CardSlider.vue'
 
 const cards = [
-  { route: '/kitchens?category=uglovye', title: 'Угловые кухни', icon: 'kit1' },
-  { route: '/kitchens?category=pryamye', title: 'Прямые кухни', icon: 'kit2' },
-  { route: '/kitchens?category=p-obraznye', title: 'П-образные', icon: 'kit3' },
-  { route: '/kitchens?category=s-barnoy-stoykoy', title: 'С барной стойкой' },
-  { route: '/kitchens?category=s-ostrovom', title: 'С островом' }
+  { route: '/kitchens?category=uglovye', image: 'L.png', title: 'Угловые кухни', icon: 'kit1' },
+  { route: '/kitchens?category=pryamye', image: 'I.png', title: 'Прямые кухни', icon: 'kit2' },
+  { route: '/kitchens?category=p-obraznye', image: 'U.png', title: 'П-образные', icon: 'kit3' },
+  { route: '/kitchens?category=s-barnoy-stoykoy', image: 'bar.png', title: 'С барной стойкой' },
+  { route: '/kitchens?category=s-ostrovom', image: 'island.png', title: 'С островом' }
 ]
 
 export default {

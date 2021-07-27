@@ -16,13 +16,18 @@
     </div>
     <div class="catalog__main">
       <div class="container">
-        <div class="catalog__controls">
+        <div
+          ref="controls"
+          class="catalog__controls"
+        >
           <div class="catalog__select">
             <AppSelect :options="sortOptions" />
           </div>
           <button
             type="button"
             class="catalog__filters-btn"
+            :class="{'is-fixed': fixedFiltersBtn}"
+            :style="fixedFiltersBtn && `left: ${filtersBtnOffsetLeft}px`"
             @click="openFilters"
           >
             <AppIcon name="filters" />
@@ -119,13 +124,13 @@ export default {
     cards: Array,
     showBtn: Boolean
   },
-  emits: [
-    'show-more'
-  ],
+  emits: ['show-more'],
   data() {
     return {
       activeFilters: false,
-      catalogType: 'grid'
+      catalogType: 'grid',
+      fixedFiltersBtn: false,
+      filtersBtnOffsetLeft: 0
     }
   },
   computed: {
@@ -142,6 +147,7 @@ export default {
   },
   created() {
     window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
   },
   mounted() {
     if (!this.$_media.sm) {
@@ -155,6 +161,7 @@ export default {
     }
 
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     openFilters() {
@@ -187,9 +194,9 @@ export default {
         innerWrapperSelector: '.catalog__side-inner'
       })
 
-      window.sidebar.isSidebarFitsViewport = function() {
-        var offset = this.scrollDirection === 'down' ? this.dimensions.lastBottomSpacing : this.dimensions.lastTopSpacing;
-        return this.dimensions.sidebarHeight + offset < this.dimensions.viewportHeight;
+      window.sidebar.isSidebarFitsViewport = function () {
+        var offset = this.scrollDirection === 'down' ? this.dimensions.lastBottomSpacing : this.dimensions.lastTopSpacing
+        return this.dimensions.sidebarHeight + offset < this.dimensions.viewportHeight
       }
     },
 
@@ -214,6 +221,28 @@ export default {
         window.sidebar.destroy()
         window.sidebar = null
       }
+
+      if (this.$_media.sm) {
+        this.setFiltersBtnOffsetLeft()
+      } else {
+        this.fixedFiltersBtn = false
+      }
+    },
+
+    handleScroll() {
+      if (!this.$_media.sm) {
+        return
+      }
+
+      const controlsTop = this.$refs.controls.getBoundingClientRect().top
+
+      this.fixedFiltersBtn = controlsTop < 70
+      this.setFiltersBtnOffsetLeft()
+    },
+
+    setFiltersBtnOffsetLeft() {
+      const controlsRight = this.$refs.controls.getBoundingClientRect().right
+      this.filtersBtnOffsetLeft = controlsRight
     }
   }
 }
@@ -253,7 +282,7 @@ export default {
 
   &__select {
     position: relative;
-    flex: 1;
+    width: calc(100% - 70px);
     margin-right: 20px;
     z-index: 1;
   }
@@ -268,6 +297,18 @@ export default {
     padding: 15px;
     border-radius: 50px;
     background-color: $color-lightgray;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    &.is-fixed {
+      position: fixed;
+      top: 70px;
+      transform: translateX(-100%);
+      z-index: 90;
+    }
   }
 
   &__filters-badge {
@@ -383,6 +424,7 @@ export default {
       flex: 0 1 auto;
       margin-left: auto;
       margin-right: 0;
+      width: auto;
       min-width: 230px;
     }
 

@@ -4,7 +4,7 @@
     class="card"
   >
     <div class="card__image">
-      <img src="@/assets/img/slide-card.jpg" alt="">
+      <img :src="require(`@/assets/img/${image}`)" :alt="title">
     </div>
     <p class="card__title">
       <AppIcon
@@ -27,6 +27,7 @@ export default {
   },
   props: {
     route: String,
+    image: String,
     title: String,
     icon: String
   }

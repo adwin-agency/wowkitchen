@@ -28,6 +28,7 @@
         >
           <Card
             :route="card.route"
+            :image="card.image"
             :title="card.title"
             :icon="card.icon"
             class="card-slider__card"
