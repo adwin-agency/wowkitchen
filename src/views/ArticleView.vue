@@ -6,14 +6,14 @@
       :cards="details.populars"
     />
     <RelatedArticles
-      v-if="details"
+      v-if="details && !details.info.video"
       :cards="details.similars.slice(0, 2)"
     />
     <PopularArticles
-      v-if="$_media.sm && details"
+      v-if="$_media.sm && details && !details.info.video"
       :cards="details.populars"
     />
-    <DesignCall />
+    <DesignCall v-if="details && !details.info.video" />
     <ArticleSet />
   </div>
 </template>
