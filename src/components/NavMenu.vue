@@ -31,6 +31,11 @@
             v-if="group.title"
             class="nav-menu__title"
           >
+            <AppIcon
+              v-if="group.icon"
+              :name="group.icon"
+              class="nav-menu__title-icon"
+            />
             {{group.title}}
           </p>
           <div class="nav-menu__list">
@@ -177,9 +182,16 @@ export default {
     }
 
     &__title {
-      display: block;
+      display: flex;
+      align-items: center;
       font-weight: bold;
       font-size: 14px;
+
+      &-icon {
+        width: 18px;
+        height: 16px;
+        margin-right: 10px;
+      }
     }
 
     &__list {

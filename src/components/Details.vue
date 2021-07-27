@@ -77,7 +77,7 @@
               >
                 Характеристики
                 <AppIcon
-                  name="plus"
+                  :name="activeExpand === 'char' ? 'minus' : 'plus'"
                   class="details__expand-icon"
                 />
               </p>
@@ -103,7 +103,7 @@
               >
                 Описание
                 <AppIcon
-                  name="plus"
+                  :name="activeExpand === 'info' ? 'minus' : 'plus'"
                   class="details__expand-icon"
                 />
               </p>
@@ -360,6 +360,12 @@ export default {
       gallerySwiper: null
     }
   },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
     onExpandClick(id) {
       clearTimeout(this.expandTimeout)
@@ -400,6 +406,12 @@ export default {
     handleGalleryChange() {
       if (this.gallerySwiper) {
         this.activeGalleryIndex = this.gallerySwiper.realIndex + 1
+      }
+    },
+
+    handleResize() {
+      if (!this.$_media.sm && this.activeExpand) {
+        this.activeExpand = null
       }
     }
   }

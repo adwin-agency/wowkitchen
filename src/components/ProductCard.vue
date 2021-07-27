@@ -81,7 +81,7 @@
     <div class="product-card__content">
       <div class="product-card__header">
         <p
-          v-if="large"
+          v-if="cardType === 'kitchen'"
           class="product-card__category"
         >
           Кухня
@@ -116,7 +116,7 @@
         </div>
       </div>
       <div
-        v-if="info.features && ($_desktop && !large || cardType === 'technic' || $_media.md && cardType === 'wardrobe')"
+        v-if="info.features && ($_desktop && !large || large && noPrice || cardType === 'technic' || $_media.md && cardType === 'wardrobe')"
         class="product-card__props"
       >
         <p
@@ -128,7 +128,7 @@
           {{feature.value}}
         </p>
       </div>
-      <div class="product-card__prices">
+      <div v-if="!noPrice" class="product-card__prices">
         <p class="product-card__price">{{info.price}} ₽</p>
         <p
           v-if="info.old_price"
@@ -143,15 +143,23 @@
           -{{info.discount}}%
         </span>
       </div>
-      <AppButton
+      <div
         v-if="cardType !== 'technic'"
-        :size="!large ? 'small' : ''"
-        :bordered="!large"
-        title="Рассчитать проект"
-        modalName="calc"
-        class="product-card__btn"
-        @click="handleBtnClick"
-      />
+        class="product-card__calc"
+      >
+        <AppButton
+          :size="!large ? 'small' : ''"
+          :bordered="!large"
+          title="Рассчитать проект"
+          modalName="calc"
+          class="product-card__btn"
+          @click="handleBtnClick"
+        />
+        <p
+          v-if="cardType === 'kitchen' && !slide && !noPrice"
+          class="product-card__calc-desc"
+        >Бесплатный расчёт проекта по вашим размерам</p>
+      </div>
     </div>
   </div>
 </template>
@@ -179,6 +187,7 @@ export default {
   },
   props: {
     info: Object,
+    noPrice: Boolean,
     cardType: String,
     large: Boolean,
     slide: Boolean,
@@ -242,8 +251,16 @@ export default {
         bottom: 10px;
       }
 
+      &__content {
+        display: block;
+      }
+
       &__price {
         font-size: 22px;
+      }
+
+      &__calc {
+        margin-top: 15px;
       }
     }
   }
@@ -416,9 +433,14 @@ export default {
 
   &__header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    grid-column: 1 / 3;
     margin-bottom: 5px;
+  }
+
+  &__category {
+    width: 100%;
+    font-size: 12px;
   }
 
   &__title {
@@ -470,8 +492,57 @@ export default {
     text-decoration: line-through;
   }
 
+  &__calc {
+    width: 180px;
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    font-size: 12px;
+    line-height: (16/12);
+    text-align: center;
+    color: #7f7f7f;
+
+    &-desc {
+      margin-top: 10px;
+      max-width: 100%;
+    }
+  }
+
   &__btn {
     min-width: 180px;
+  }
+
+  @include media(xxs) {
+    &_slide {
+      #{$b} {
+        &__content {
+          display: grid;
+        }
+
+        &__calc {
+          margin-top: 0;
+          width: 160px;
+        }
+
+        &__btn {
+          min-width: 160px;
+          padding: 12px;
+        }
+      }
+    }
+  }
+
+  @include media(xs) {
+    &_slide {
+      #{$b} {
+        &__calc {
+          width: 180px;
+        }
+
+        &__btn {
+          min-width: 180px;
+        }
+      }
+    }
   }
 
   @include media(md) {
@@ -497,16 +568,11 @@ export default {
           transition: opacity 0.3s ease;
         }
 
-        &__header {
-          grid-column: 1 / 3;
-        }
-
         &__price-box {
           margin-top: 8px;
         }
 
         &__btn {
-          grid-row: 2 / 3;
           margin-top: 3px;
         }
       }
@@ -530,21 +596,21 @@ export default {
           padding-right: 5px;
         }
 
-        &__header {
-          grid-column: 1 / 3;
-        }
-
-        &__price-box {
-          margin-top: 10px;
+        &__prices {
+          display: block;
         }
 
         &__price {
+          margin-right: 0;
           font-size: 20px;
         }
 
-        &__btn {
-          grid-row: 2 / 3;
+        &__calc {
           margin-top: 6px;
+          width: auto;
+        }
+
+        &__btn {
           min-width: 180px;
           min-height: 50px;
         }
@@ -694,7 +760,6 @@ export default {
     }
 
     &__header {
-      grid-column: 1 / 2;
       margin-bottom: 0;
     }
 
@@ -713,9 +778,11 @@ export default {
       font-size: 18px;
     }
 
+    &__calc {
+      width: 215px;
+    }
+
     &__btn {
-      grid-column: 2/ 3;
-      grid-row: 1 / 3;
       min-width: 215px;
     }
   }
@@ -768,6 +835,14 @@ export default {
           justify-content: space-between;
         }
 
+        &__category {
+          margin-bottom: 2px;
+          font-weight: 500;
+          font-size: 10px;
+          text-transform: uppercase;
+          color: $color-lightviolet;
+        }
+
         &__title {
           font-size: 20px;
         }
@@ -809,8 +884,16 @@ export default {
           padding: 9px 16px;
         }
 
-        &__btn {
+        &__props {
+          margin-top: 16px;
+        }
+
+        &__calc {
           margin-top: 14px;
+          width: 100%;
+        }
+
+        &__btn {
           width: 100%;
         }
       }
@@ -841,10 +924,6 @@ export default {
 
         &__price {
           margin-right: 32px;
-        }
-
-        &__btn {
-          grid-row: 2 / 4;
         }
       }
     }
@@ -920,18 +999,6 @@ export default {
       margin-top: 20px;
     }
 
-    &__header {
-      grid-column: 1 / 3;
-    }
-
-    &__category {
-      margin-bottom: 2px;
-      font-weight: 500;
-      font-size: 10px;
-      text-transform: uppercase;
-      color: $color-lightviolet;
-    }
-
     &__action {
       margin-right: 14px;
 
@@ -948,10 +1015,10 @@ export default {
     }
 
     &__prop {
-      width: 120px;
       margin-right: 18px;
       margin-bottom: 8px;
       font-size: 11px;
+      white-space: nowrap;
       opacity: 0.5;
 
       span {
@@ -973,8 +1040,8 @@ export default {
       padding-right: 12px;
     }
 
-    &__btn {
-      grid-row: 2 / 4;
+    &__calc {
+      grid-row: 1 / 5;
     }
   }
 
@@ -996,9 +1063,8 @@ export default {
           padding: 38px 40px 40px;
         }
 
-        &__btn {
+        &__calc {
           margin-top: 24px;
-          margin-right: 0;
         }
       }
     }
@@ -1065,10 +1131,6 @@ export default {
 
     &__content {
       margin-top: 30px;
-    }
-
-    &__btn {
-      margin-right: 35px;
     }
   }
 }

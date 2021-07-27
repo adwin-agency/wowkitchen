@@ -332,6 +332,16 @@ const kitchensMenu = {
     //     { path: 'kitchens', query: { style: 'sovremenniy' }, title: 'Современный' },
     //   ]
     // }
+    {
+      icon: 'crown',
+      title: 'Популярное',
+      items: [
+        { path: 'kitchens', title: 'Маленькие кухни' },
+        { path: 'kitchens', title: 'ТОП-5 кухонь месяца' },
+        { path: 'kitchens', title: 'Гарнитуры для хрущёвок' },
+        { path: 'kitchens', title: 'Практичные кухни' }
+      ]
+    }
   ]
 }
 

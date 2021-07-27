@@ -111,10 +111,7 @@ export default {
     categories: Array,
     groups: Array
   },
-  emits: [
-    'apply',
-    'close'
-  ],
+  emits: ['apply', 'close'],
   data() {
     return {
       selectedOptions: {},
@@ -126,11 +123,13 @@ export default {
     selection() {
       const arr = []
 
-      for (let key in this.activeOptions) {
-        const groupItems = this.groups.find((item) => item.id === key).items
-        const title = groupItems.find((item) => item.value === this.activeOptions[key]).title
+      if (this.groups) {
+        for (let key in this.activeOptions) {
+          const groupItems = this.groups.find((item) => item.id === key).items
+          const title = groupItems.find((item) => item.value === this.activeOptions[key]).title
 
-        arr.push({ group: key, title: title })
+          arr.push({ group: key, title: title })
+        }
       }
 
       return arr
@@ -219,7 +218,7 @@ export default {
 
     removeTag(group) {
       delete this.activeOptions[group]
-    },    
+    },
 
     resetTags() {
       this.activeOptions = {}

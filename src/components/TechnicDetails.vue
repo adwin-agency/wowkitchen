@@ -97,7 +97,7 @@
           >
             Характеристики
             <AppIcon
-              name="plus"
+              :name="activeInfo === 'props' ? 'minus' : 'plus'"
               class="technic-details__expand-icon"
             />
           </p>

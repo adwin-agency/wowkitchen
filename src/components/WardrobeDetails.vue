@@ -94,7 +94,7 @@
           >
             Описание
             <AppIcon
-              name="plus"
+              :name="activeInfo === 'desc' ? 'minus' : 'plus'"
               class="wardrobe-details__expand-icon"
             />
           </p>
@@ -111,7 +111,7 @@
           >
             Характеристики
             <AppIcon
-              name="plus"
+              :name="activeInfo === 'props' ? 'minus' : 'plus'"
               class="wardrobe-details__expand-icon"
             />
           </p>

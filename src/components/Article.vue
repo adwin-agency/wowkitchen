@@ -1045,7 +1045,7 @@ export default {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(min-content, auto) minmax(min-content, auto);
 
-    @include media(xs) {
+    @include media(xxs) {
       grid-template-columns: minmax(min-content, auto) minmax(min-content, auto);
       grid-template-rows: 1fr;
     }

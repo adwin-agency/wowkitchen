@@ -10,7 +10,6 @@
           :groups="filterGroups"
           class="catalog__filters"
           :class="{'is-active': activeFilters}"
-          @apply="applyFilters($event)"
           @close="closeFilters"
         />
       </div>
@@ -70,6 +69,7 @@
             v-for="(card, index) in cards"
             :key="index"
             :info="card"
+            :noPrice="cardType === 'kitchen' && index < 2"
             :cardType="cardType"
             :large="catalogType === 'list'"
             class="catalog__card"
@@ -125,8 +125,12 @@ export default {
   data() {
     return {
       activeFilters: false,
-      filtersLength: null,
       catalogType: 'grid'
+    }
+  },
+  computed: {
+    filtersLength() {
+      return Object.keys(this.$route.query).length
     }
   },
   watch: {
@@ -137,8 +141,6 @@ export default {
     }
   },
   created() {
-    this.filtersLength = Object.keys(this.$route.query).length
-
     window.addEventListener('resize', this.handleResize)
   },
   mounted() {
@@ -163,10 +165,6 @@ export default {
     closeFilters() {
       this.activeFilters = false
       this.$store.commit('setActiveFilters', false)
-    },
-
-    applyFilters(length) {
-      this.filtersLength = length
     },
 
     changeCatalogType(type) {
