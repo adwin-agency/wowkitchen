@@ -10,7 +10,7 @@
       </div>
     </div>
     <CardSlider
-      :cards="cards"
+      :cards="catalog ? cards : cards.slice(1)"
       class="projects__slider"
     />
     <div
@@ -49,6 +49,7 @@ import AppIcon from './base/AppIcon.vue'
 import CardSlider from './CardSlider.vue'
 
 const cards = [
+  { route: '/kitchens', image: 'kitchen.jpg', title: 'Все кухни' },
   { route: '/kitchens?category=uglovye', image: 'L.png', title: 'Угловые кухни', icon: 'kit1' },
   { route: '/kitchens?category=pryamye', image: 'I.png', title: 'Прямые кухни', icon: 'kit2' },
   { route: '/kitchens?category=p-obraznye', image: 'U.png', title: 'П-образные', icon: 'kit3' },
