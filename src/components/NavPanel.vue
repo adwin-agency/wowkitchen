@@ -119,7 +119,7 @@ const menu = [
       { route: 'vacancy', title: 'Вакансии' }
     ]
   },
-  { route: 'main', title: 'Замер' },
+  { route: 'sizing', title: 'Замер' },
   { route: 'delivery', title: 'Доставка' },
   { route: 'main', title: 'Сборка' },
   { route: 'discount', title: 'Акции' },

@@ -4,6 +4,7 @@
     :class="[
       'video-btn',
       {'video-btn_expand': expand},
+      {'video-btn_round': round},
       {[`video-btn_${size}`]: size}
     ]"
     @click="openModal"
@@ -30,7 +31,8 @@ export default {
     expand: Boolean,
     title: String,
     video: String,
-    size: String
+    size: String,
+    round: Boolean
   },
   methods: {
     openModal() {
@@ -97,6 +99,38 @@ export default {
       &__box {
         width: 42px;
         overflow: hidden;
+      }
+    }
+  }
+
+  &_round {
+    &::before {
+      width: 88px;
+      height: 88px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 174px;
+      height: 174px;
+      border: 1px solid $color-yellow;
+      border-radius: 50%;
+      opacity: 0.3;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    #{$b} {
+      &__box {
+        padding-right: 0;
+      }
+
+      &__icon {
+        margin-right: 0;
       }
     }
   }

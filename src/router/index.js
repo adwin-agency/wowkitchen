@@ -78,6 +78,12 @@ const routes = [
     component: () => import('@/views/ReviewsView.vue')
   },
   {
+    path: '/sizing',
+    name: 'sizing',
+    meta: { title: 'Замер' },
+    component: () => import('@/views/SizingView.vue')
+  },
+  {
     path: '/team',
     name: 'team',
     meta: { title: 'Команда', introEffect: true },

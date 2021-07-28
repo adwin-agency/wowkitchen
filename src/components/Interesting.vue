@@ -40,7 +40,7 @@ import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
 const cards = [
-  { img: 'measure.jpg', route: '/', title: 'Как проходит замер' },
+  { img: 'measure.jpg', route: '/sizing', title: 'Как проходит замер' },
   { img: 'delivery.jpg', route: '/delivery', title: 'Доставка' },
   { img: 'fixing.jpg', route: '/', title: 'Сборка' },
   { img: 'payment.jpg', route: '/payment', title: 'Оплата' }
