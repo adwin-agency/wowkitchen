@@ -62,8 +62,16 @@
       class="quiz__form"
       @submit="handleSubmit"
     >
-      <input type="hidden" name="type" value="quiz">
-      <input type="hidden" name="page" :value="page">
+      <input
+        type="hidden"
+        name="type"
+        value="quiz"
+      >
+      <input
+        type="hidden"
+        name="page"
+        :value="page"
+      >
       <div class="quiz__screen">
         <div class="quiz__step">
           <div class="container">
@@ -106,18 +114,13 @@
                 <div class="quiz__fields-group">
                   <p class="quiz__fields-title">Габариты</p>
                   <AppTextField
+                    v-for="(size, index) in values.sizes"
+                    :key="index"
                     type="text"
-                    label="Сторона А, см"
+                    :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
                     placeholder="Размер в см"
                     class="quiz__field"
-                    @input="handleSizeInput('sizeA', $event)"
-                  />
-                  <AppTextField
-                    type="text"
-                    label="Сторона В, см"
-                    placeholder="Размер в см"
-                    class="quiz__field"
-                    @input="handleSizeInput('sizeB', $event)"
+                    @input="handleSizeInput(index, $event)"
                   />
                 </div>
                 <div class="quiz__fields-group">
@@ -202,7 +205,7 @@
                 <p class="quiz__summary-title">Параметры вашей будущей кухни:</p>
                 <ol class="quiz__progress">
                   <li class="quiz__progress-item is-active">Тип кухни: {{values.plan}}</li>
-                  <li class="quiz__progress-item is-active">Размеры: {{values.sizeA}}х{{values.sizeB}} см {{values.construct.join(' ')}}</li>
+                  <li class="quiz__progress-item is-active">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</li>
                   <li class="quiz__progress-item is-active">Стиль: {{values.style}}</li>
                   <li
                     v-if="values.elements.length"
@@ -252,7 +255,7 @@
               class="quiz__progress-item"
               :class="{'is-active': activeStep > 1}"
             >
-              {{activeStep > 1 ? `Размеры: ${values.sizeA}х${values.sizeB} см ${values.construct.join(' ')}` : ''}}
+              {{activeStep > 1 ? `Размеры: ${values.sizes.join('x')} см ${values.construct.join(' ')}` : ''}}
             </li>
             <li
               class="quiz__progress-item"
@@ -343,8 +346,7 @@ export default {
       isCompletedStep: false,
       values: {
         plan: '',
-        sizeA: '',
-        sizeB: '',
+        sizes: [],
         construct: [],
         style: '',
         elements: [],
@@ -359,6 +361,16 @@ export default {
     },
 
     handleRadioChange(name, event) {
+      if (name === 'plan') {
+        const sizeData = {
+          'Прямая планировка': [''],
+          'Угловая планировка': ['', ''],
+          'П-образная планировка': ['', '', '']
+        }
+
+        this.values.sizes = sizeData[event.target.value]
+      }
+
       this.values[name] = event.target.value
       this.isCompletedStep = true
     },
@@ -371,17 +383,24 @@ export default {
       }
     },
 
-    handleSizeInput(input, event) {
+    handleSizeInput(index, event) {
       event.preventDefault()
       const value = event.target.value
 
       if (/^\d*$/.test(value)) {
-        this.values[input] = value
+        this.values.sizes[index] = value
       } else {
-        event.target.value = this.values[input]
+        event.target.value = this.values.sizes[index]
       }
 
-      this.isCompletedStep = this.values.sizeA && this.values.sizeB
+      for (let size of this.values.sizes) {
+        if (size === '') {
+          this.isCompletedStep = false
+          return
+        }
+      }
+
+      this.isCompletedStep = true
     },
 
     goToNextStep() {
@@ -400,8 +419,7 @@ export default {
       this.isCompletedStep = false
       this.values = {
         plan: '',
-        sizeA: '',
-        sizeB: '',
+        sizes: [],
         construct: [],
         style: '',
         elements: [],
