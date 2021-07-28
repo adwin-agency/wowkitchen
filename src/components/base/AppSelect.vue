@@ -4,7 +4,8 @@
       'select',
       {[`select_${color}`]: color},
       {'select_up': up},
-      {'is-active': isActive}
+      {'is-active': isActive},
+      {'is-closing': isClosing}
     ]"
     v-outside-click="closeSelect"
   >
@@ -89,7 +90,8 @@ export default {
     return {
       isActive: false,
       isArrowActive: false,
-      selectedOption: this.options[0].title
+      selectedOption: this.options[0].title,
+      isClosing: false
     }
   },
   methods: {
@@ -100,9 +102,18 @@ export default {
     },
 
     closeSelect() {
+      if (!this.isActive) {
+        return
+      }
+
       const dropdown = this.$refs.dropdown
       dropdown.style.height = ''
       this.isActive = false
+      this.isClosing = true
+
+      setTimeout(() => {
+        this.isClosing = false
+      }, 300)
     },
 
     toggleSelect() {
@@ -185,6 +196,11 @@ export default {
     #{$b}__arrow {
       transform: rotate(180deg);
     }
+  }
+
+  &.is-closing {
+    transition: z-index 0.3s step-start;
+    z-index: 5;
   }
 
   &__el {

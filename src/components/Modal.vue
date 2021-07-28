@@ -15,11 +15,34 @@
           class="modal__form"
           @submit="handleSubmit"
         >
-          <input type="hidden" name="type" value="designer-m">
-          <input type="hidden" name="page" :value="page">
-          <input v-if="product" type="hidden" name="item" :value="product.name">
-          <input v-if="product" type="hidden" name="item_id" :value="product.id">
-          <input v-if="product" type="hidden" name="product_type" :value="product.type">
+          <input
+            type="hidden"
+            name="type"
+            value="designer-m"
+          >
+          <input
+            type="hidden"
+            name="page"
+            :value="page"
+          >
+          <input
+            v-if="product"
+            type="hidden"
+            name="item"
+            :value="product.name"
+          >
+          <input
+            v-if="product"
+            type="hidden"
+            name="item_id"
+            :value="product.id"
+          >
+          <input
+            v-if="product"
+            type="hidden"
+            name="product_type"
+            :value="product.type"
+          >
           <AppIcon
             name="group"
             class="modal__icon"
@@ -83,11 +106,43 @@
           class="modal__form"
           @submit="handleSubmit"
         >
-          <input type="hidden" name="type" value="calc">
-          <input type="hidden" name="page" :value="page">
-          <input v-if="product" type="hidden" name="item" :value="product.name">
-          <input v-if="product" type="hidden" name="item_id" :value="product.id">
-          <input v-if="product" type="hidden" name="product_type" :value="product.type">
+          <input
+            type="hidden"
+            name="type"
+            value="calc"
+          >
+          <input
+            type="hidden"
+            name="page"
+            :value="page"
+          >
+          <input
+            v-if="product"
+            type="hidden"
+            name="item"
+            :value="product.name"
+          >
+          <input
+            v-if="product"
+            type="hidden"
+            name="item_id"
+            :value="product.id"
+          >
+          <input
+            v-if="product"
+            type="hidden"
+            name="product_type"
+            :value="product.type"
+          >
+          <template v-if="constructor">
+            <input
+              v-for="(value, name) in constructor"
+              :key="name"
+              type="hidden"
+              :name="name"
+              :value="value"
+            >
+          </template>
           <AppIcon
             name="live-chat"
             class="modal__icon"
@@ -265,6 +320,9 @@ export default {
     },
     modalData() {
       return this.$store.state.modalData
+    },
+    constructor() {
+      return this.$store.state.constructor
     }
   },
   watch: {
@@ -278,6 +336,7 @@ export default {
       this.$store.commit('setModal', null)
       this.$store.commit('setModalData', null)
       this.$store.commit('setProductData', null)
+      this.$store.commit('setConstructor', null)
     },
 
     handleFile(e) {
@@ -408,10 +467,11 @@ export default {
   }
 
   &__media {
-    position: relative;    
+    position: relative;
     overflow: hidden;
 
-    video, img {
+    video,
+    img {
       max-width: calc(100vw - 40px);
       max-height: calc(100vh - 40px);
     }
@@ -502,7 +562,8 @@ export default {
     }
 
     &__media {
-      video, img {
+      video,
+      img {
         max-width: 1280px;
         max-height: calc(100vh - 100px);
       }

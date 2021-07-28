@@ -22,7 +22,8 @@ export default createStore({
     introEffect: false,
     activeFilters: false,
     productData: null,
-    breadCrumbs: null
+    breadCrumbs: null,
+    constructor: null
   },
 
   getters: {
@@ -86,6 +87,10 @@ export default createStore({
 
     setBreadCrumbs(state, data) {
       state.breadCrumbs = data
+    },
+
+    setConstructor(state, data) {
+      state.constructor = data
     }
   }
 })

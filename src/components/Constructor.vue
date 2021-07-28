@@ -6,50 +6,61 @@
           <h2 class="constructor__heading">О<span>свой</span>те кухню</h2>
           <p class="constructor__desc">Разные стили и планировки кухни. Все кухни делаем на заказ по индивидуальным размерам учитывая ваши пожелания</p>
         </div>
-        <div class="constructor__settings">        
-          <div
-            v-for="(setting, index) in settings"
-            :key="index"
-            class="constructor__setting"
-            :class="`constructor__setting_${setting.id}`"
+        <div class="constructor__settings">
+          <form
+            ref="form"
+            class="constructor__form"
           >
-            <AppSelect
-              v-if="$_media.sm"
-              color="green"
-              :options="setting.options"
-              class="constructor__select"
-            />
-            <template v-else>
-              <p class="constructor__setting-title">{{setting.title}}</p>
-              <div class="constructor__options">
-                <button
-                  v-for="(option, index) in setting.options"
-                  :key="index"
-                  type="button"
-                  class="constructor__option"
-                  :class="{'is-active': activeSettings[setting.id].value === option.title}"
-                  @click="setOption(setting.id, option.title)"
-                >
-                  {{option.title}}
-                </button>
-              </div>
-            </template>
             <div
-              v-if="setting.additions"
-              class="constructor__additions"
+              v-for="(setting, index) in settings"
+              :key="index"
+              class="constructor__setting"
+              :class="`constructor__setting_${setting.id}`"
             >
-              <button
-                v-for="(addition, index) in setting.additions"
-                :key="index"
-                type="button"
-                class="constructor__addition"
-                :class="{'is-active': activeSettings[setting.id].addition === addition}"
-                @click="setAddition(setting.id, addition)"
+              <AppSelect
+                v-if="$_media.sm"
+                color="green"
+                :options="setting.options"
+                :name="setting.id"
+                class="constructor__select"
+              />
+              <template v-else>
+                <p class="constructor__setting-title">{{setting.title}}</p>
+                <div class="constructor__options">
+                  <label
+                    v-for="(option, index) in setting.options"
+                    :key="index"
+                    class="constructor__option"
+                  >
+                    <input
+                      type="radio"
+                      :name="setting.id"
+                      :value="option.title"
+                      :checked="index === 0"
+                    >
+                    <span>{{option.title}}</span>
+                  </label>
+                </div>
+              </template>
+              <div
+                v-if="setting.additions"
+                class="constructor__additions"
               >
-                {{addition}}
-              </button>
+                <label
+                  v-for="(addition, index) in setting.additions"
+                  :key="index"
+                  class="constructor__addition"
+                >
+                  <input
+                    type="checkbox"
+                    name="addition"
+                    :value="addition"
+                  >
+                  <span>{{addition}}</span>
+                </label>
+              </div>
             </div>
-          </div>
+          </form>
           <AppButton
             v-if="$_desktop"
             color="yellow"
@@ -58,6 +69,7 @@
             title="Рассчитать этот проект"
             modalName="calc"
             class="constructor__btn"
+            @click="handleBtnClick"
           />
         </div>
         <div class="constructor__area">
@@ -74,6 +86,7 @@
             title="Рассчитать этот проект"
             modalName="calc"
             class="constructor__btn"
+            @click="handleBtnClick"
           />
           <div
             v-for="(item, index) in points"
@@ -109,6 +122,7 @@
           title="Рассчитать этот проект"
           modalName="calc"
           class="constructor__btn"
+          @click="handleBtnClick"
         />
       </div>
     </div>
@@ -129,27 +143,17 @@ export default {
     return {
       settings: [
         { id: 'styles', title: 'Стиль', options: [{ title: 'Минимализм' }, { title: 'Неоклассика' }, { title: 'Хай-тек' }, { title: 'Скандинавский' }] },
-        { id: 'composition', title: 'Компоновка', options: [{ title: 'Прямая' }, {title: 'Угловая' }, {title: 'П-образная' }], additions: ['Барная стойка', 'Остров'] },
-        { id: 'colors', title: 'Цвет', options: [{ title: 'Светлые тона' }, { title: 'Тёмные тона' }] },
+        { id: 'composition', title: 'Компоновка', options: [{ title: 'Прямая' }, { title: 'Угловая' }, { title: 'П-образная' }], additions: ['Барная стойка', 'Остров'] },
+        { id: 'colors', title: 'Цвет', options: [{ title: 'Светлые тона' }, { title: 'Тёмные тона' }] }
       ],
       points: [
         { id: 'p1', coords: [16, 63], title: 'Столешница из утолщенного ЛДСП', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем.' },
         { id: 'p2', coords: [66, 17], title: 'Столешница из утолщенного ЛДСП 2', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем. 2' }
       ],
-
-      activeSettings: {
-        styles: { value: null },
-        composition: { value: null, addition: null },
-        colors: { value: null }
-      },
       activeTooltip: null
     }
   },
   created() {
-    this.activeSettings.styles.value = this.settings.find(item => item.id === 'styles').options[0].title
-    this.activeSettings.composition.value = this.settings.find(item => item.id === 'composition').options[0].title
-    this.activeSettings.colors.value = this.settings.find(item => item.id === 'colors').options[0].title
-
     window.addEventListener('resize', this.handleResize)
   },
   methods: {
@@ -159,17 +163,20 @@ export default {
       }
     },
 
-    setOption(setting, value) {
-      this.activeSettings[setting].value = value
-    },
-    setAddition(setting, value) {
-      this.activeSettings[setting].addition = this.activeSettings[setting].addition === value ? null : value
-    },
     openTooltip(id) {
       this.activeTooltip = id
     },
     closeTooltip() {
       this.activeTooltip = null
+    },
+
+    handleBtnClick() {
+      const obj = {}
+      const formData = new FormData(this.$refs.form)
+
+      formData.forEach((value, key) => obj[key] = value)
+      console.log(obj)
+      this.$store.commit('setConstructor', obj)
     }
   }
 }
@@ -178,7 +185,7 @@ export default {
 <style lang="scss">
 .constructor {
   $b: &;
-  
+
   padding: 35px 0;
   background-color: $color-lightgray;
 
@@ -204,16 +211,24 @@ export default {
   &__option,
   &__addition {
     margin-right: 15px;
-    border-radius: 20px;
-    padding: 8px 25px;
-    font-weight: bold;
-    font-size: 11px;
-    background-color: #ecedf4;
-    transition: color .3s ease, background-color .3s ease;
 
-    &.is-active {
-      color: $color-lightgray;
-      background-color: $color-green;
+    input {
+      display: none;
+
+      &:checked + span {
+        color: $color-lightgray;
+        background-color: $color-green;
+      }
+    }
+
+    span {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 8px 25px;
+      font-weight: bold;
+      font-size: 11px;
+      background-color: #ecedf4;
+      transition: color 0.3s ease, background-color 0.3s ease;
     }
   }
 
@@ -223,10 +238,12 @@ export default {
   }
 
   &__addition {
-    &::before {
-      content: "+";
-      margin-right: 12px;
-    }    
+    span {
+      &::before {
+        content: '+';
+        margin-right: 12px;
+      }
+    }
   }
 
   &__area {
@@ -250,11 +267,11 @@ export default {
     z-index: 1;
 
     &::after {
-      content: "";
+      content: '';
       margin: auto;
       width: 13px;
       height: 13px;
-      border-radius: 50%;      
+      border-radius: 50%;
       background-color: #fff;
       box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.46);
     }
@@ -271,7 +288,7 @@ export default {
     background-color: $color-lightgray;
     box-shadow: 0px 17px 24px 0px rgba(0, 0, 0, 0.16);
     opacity: 0;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
     pointer-events: none;
 
     &.is-active {
@@ -300,7 +317,7 @@ export default {
 
       &::before,
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         margin: auto;
         width: 22px;
@@ -340,8 +357,11 @@ export default {
     }
 
     &__settings {
-      display: flex;
       margin-top: 50px;
+    }
+
+    &__form {
+      display: flex;
     }
 
     &__setting {
@@ -410,7 +430,7 @@ export default {
       width: 360px;
       border-radius: 0;
       padding: 35px 50px;
-      background-color: rgba(#fff, .8);
+      background-color: rgba(#fff, 0.8);
       box-shadow: 0px 13px 24px 0px rgba(0, 0, 0, 0.168);
 
       &_r {
@@ -458,11 +478,14 @@ export default {
       margin-right: 55px;
     }
 
-    &__settings {
-      display: block;
+    &__settings {      
       order: 1;
       margin-top: 75px;
       width: 345px;
+    }
+
+    &__form {
+      display: block;
     }
 
     &__setting {
