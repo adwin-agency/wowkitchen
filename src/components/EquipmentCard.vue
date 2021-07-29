@@ -12,19 +12,29 @@
             :key="index"
             class="equipment-card__feature"
           >
-            <AppIcon class="equipment-card__feature-icon" :name="feature.icon" />
+            <AppIcon
+              class="equipment-card__feature-icon"
+              :name="feature.icon"
+            />
             {{feature.title}}
           </p>
         </div>
         <p class="equipment-card__title">{{cardData.title}}</p>
-        <p v-if="!$_media.sm && cardData.company" class="equipment-card__company">
-          <span class="equipment-card__flag"></span>
-          {{cardData.company}}
-        </p>
-        <p v-if="!$_media.sm" class="equipment-card__desc">{{cardData.desc}}</p>
-      </div>      
+        <img
+          v-if="cardData.company"
+          :src="require(`@/assets/img/${cardData.company}`)"
+          class="equipment-card__company"
+        >
+        <p
+          v-if="!$_media.sm"
+          class="equipment-card__desc"
+        >{{cardData.desc}}</p>
+      </div>
     </div>
-    <p v-if="$_media.sm" class="equipment-card__desc">{{cardData.desc}}</p>
+    <p
+      v-if="$_media.sm"
+      class="equipment-card__desc"
+    >{{cardData.desc}}</p>
   </div>
 </template>
 
@@ -81,13 +91,13 @@ export default {
     z-index: -1;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(0, rgba(#000, .67), transparent);
+      background-image: linear-gradient(0, rgba(#000, 0.67), transparent);
     }
   }
 
@@ -96,7 +106,7 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     opacity: 0;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
   }
 
   &__features {
@@ -135,12 +145,8 @@ export default {
   }
 
   &__company {
-    display: flex;
-    align-items: center;
-    margin-top: 6px;
-    font-weight: 500;
-    font-size: 12px;
-    color: $color-lightviolet;
+    margin-top: 10px;
+    margin-left: 20px;
   }
 
   &__flag {
@@ -159,7 +165,7 @@ export default {
     font-size: 12px;
     line-height: (20/12);
     opacity: 0;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
   }
 
   @include media(md) {
@@ -181,6 +187,11 @@ export default {
     &__title {
       margin-left: 0;
       font-size: 14px;
+    }
+
+    &__company {
+      margin-top: 6px;
+      margin-left: 0;
     }
 
     &__desc {
@@ -227,7 +238,7 @@ export default {
 
     &__desc {
       margin-top: 12px;
-      min-height: (20/12*3em);
+      min-height: (20/12 * 3em);
     }
   }
 

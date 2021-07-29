@@ -5,7 +5,14 @@
         <div class="equipment__header">
           <h2 class="equipment__heading">Из чего делается ваша кухня</h2>
           <div class="equipment__info">
-            <p class="equipment__desc">Отличное сочетание цены, качества и экологичности в более, чем 200 цветовых вариациях</p>
+            <div class="equipment__partners">
+              <img src="@/assets/img/logo-egger.svg" alt="Egger" class="equipment__partner">
+              <img src="@/assets/img/logo-kronospan.svg" alt="Kronospan" class="equipment__partner">
+              <img src="@/assets/img/partners-blum.svg" alt="Blum" class="equipment__partner">
+              <img src="@/assets/img/partners-boyard.svg" alt="Boyard" class="equipment__partner">
+              <img src="@/assets/img/partners-candy.svg" alt="Candy" class="equipment__partner">
+              <img src="@/assets/img/partners-lex.svg" alt="Lex" class="equipment__partner">
+            </div>
             <router-link
               :to="{name: 'materials'}"
               custom
@@ -14,7 +21,7 @@
               <AppButton
                 :href="href"
                 bordered
-                title="Подробнее о материалах"
+                title="Больше о материалах"
                 class="equipment__btn"
                 @click="navigate"
               />
@@ -73,7 +80,7 @@ const cards = [
     ],
     image: { mobile: 'eq-facade.jpg', desktop: 'eq-facade-v.jpg' },
     title: 'Фасады',
-    company: 'Австрия, Egger',
+    company: 'company-egger.png',
     desc: 'Прочные и износостойкие из плит МДФ с ПВХ-плёнкой или пластиком от компании EGGER. Обладают повышенными показателями влагостойкости.'
   },
   {
@@ -92,8 +99,7 @@ const cards = [
     ],
     image: { mobile: 'eq-table.jpg', desktop: 'eq-table-v.jpg' },
     title: 'Столешницы',
-    company: 'Австрия, Kronospan',
-    desc: 'прочные столешницы из ЛДСП и искуственного камня толщиной до 60 мм'
+    desc: 'прочные утолщённые влагостойкие столешницы из ЛДСП устойчивы механическим повреждениям'
   },
   {
     features: [
@@ -131,9 +137,18 @@ export default {
     margin-top: 12px;
   }
 
-  &__desc {
-    font-size: 14px;
-    line-height: (30/14);
+  &__partners {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 30px auto 0;
+    max-width: 650px;
+  }
+
+  &__partner {
+    width: 110px;
+    margin: 0 20px 20px;
   }
 
   &__btn {
@@ -148,6 +163,12 @@ export default {
 
   &__slide {
     width: calc(100% - 60px);
+  }
+
+  @include media(xxs) {
+    &__partner {
+      width: 130px;
+    }
   }
 
   @include media(md) {
@@ -174,17 +195,27 @@ export default {
     }
 
     &__heading {
-      flex: 1;
-      margin-right: 110px;
+      width: 190px;
     }
 
     &__info {
       margin-top: 0;
-      width: 61.5%;
+      flex: 1;
     }
 
-    &__desc {
-      margin-right: -40px;
+    &__partners {
+      justify-content: flex-start;
+      margin-top: 15px;
+      max-width: none;
+    }
+
+    &__partner {
+      margin: 0 30px 20px 10px;
+      width: 130px;
+    }
+
+    &__btn {
+      margin-top: 0;
     }
 
     &__cards {
@@ -203,7 +234,7 @@ export default {
 
     &__btn {
       width: auto;
-      min-width: 280px;
+      min-width: 255px;
     }
   }
 
@@ -235,22 +266,11 @@ export default {
     }
 
     &__heading {
-      margin-right: 80px;
+      width: 220px;
     }
 
     &__info {
       width: 64%;
-      padding-right: 50px;
-    }
-
-    &__desc {
-      margin-right: 0;
-      font-size: 16px;
-      line-height: (29/16);
-    }
-
-    &__btn {
-      margin-top: 18px;
     }
 
     &__cards {
@@ -292,12 +312,18 @@ export default {
     }
 
     &__info {
+      display: flex;
+      align-items: center;
       width: 69.5%;
-      padding-right: 210px;
     }
 
-    &__btn {
-      margin-top: 24px;
+    &__partners {
+      justify-content: center;
+      margin-top: 5px;
+    }
+
+    &__partner {
+      width: 120px;
     }
 
     &__cards {
