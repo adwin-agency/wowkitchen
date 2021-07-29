@@ -355,8 +355,6 @@ export default {
   },
   watch: {
     info() {
-      window.sidebar?.updateSticky()
-
       setTimeout(() => {
         this.initImages()
       })
@@ -369,7 +367,7 @@ export default {
     window.addEventListener('touchstart', this.handleTouchstart)
     window.addEventListener('touchend', this.handleTouchend)
 
-    if (!this.$_media.sm && this.info.video) {
+    if (!this.$_media.sm && !this.info.video) {
       this.initSidebar()
     }
   },
@@ -492,7 +490,7 @@ export default {
           element.classList.remove('article__desc-vertical')
           element.classList.add('article__desc-horizontal')
         }
-
+        
         window.sidebar?.updateSticky()
       }
 

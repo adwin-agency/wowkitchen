@@ -109,7 +109,13 @@
               v-show="activeStep === 1"
               class="quiz__size"
             >
-              <div class="quiz__area"></div>
+              <div class="quiz__area">
+                <img
+                  v-if="sizeImage"
+                  :src="require(`@/assets/img/${sizeImage}`)"
+                  alt
+                >
+              </div>
               <div class="quiz__fields">
                 <div class="quiz__fields-group">
                   <p class="quiz__fields-title">Габариты</p>
@@ -344,6 +350,7 @@ export default {
 
       activeStep: null,
       isCompletedStep: false,
+      sizeImage: '',
       values: {
         plan: '',
         sizes: [],
@@ -363,12 +370,13 @@ export default {
     handleRadioChange(name, event) {
       if (name === 'plan') {
         const sizeData = {
-          'Прямая планировка': [''],
-          'Угловая планировка': ['', ''],
-          'П-образная планировка': ['', '', '']
+          'Прямая планировка': { arr: [''], img: 'size-I.png' },
+          'Угловая планировка': { arr: ['', ''], img: 'size-L.png' },
+          'П-образная планировка': { arr: ['', '', ''], img: 'size-U.png' }
         }
 
-        this.values.sizes = sizeData[event.target.value]
+        this.values.sizes = sizeData[event.target.value].arr
+        this.sizeImage = sizeData[event.target.value].img
       }
 
       this.values[name] = event.target.value
@@ -417,6 +425,7 @@ export default {
       this.$refs.quizform.reset()
       this.activeStep = 0
       this.isCompletedStep = false
+      this.sizeImage = ''
       this.values = {
         plan: '',
         sizes: [],
@@ -517,9 +526,10 @@ export default {
 
   &__area {
     margin: 0 (-$container-padding);
-    height: 208px;
-    border-radius: 4px;
-    background-color: #ccc;
+
+    img {
+      width: 100%;
+    }
   }
 
   &__fields {
