@@ -7,23 +7,53 @@
       <p class="material-card__title">{{cardData.title}}</p>
       <p class="material-card__desc">{{cardData.desc}}</p>
     </div>
-    <template v-if="cardData.props && cardData.btn">
-      <div class="material-card__props">
-        <div
-          v-for="(prop, index) in cardData.props"
-          :key="index"
-          class="material-card__prop"
+    <div
+      v-if="cardData.props"
+      class="material-card__props"
+    >
+      <div
+        v-for="(prop, index) in cardData.props"
+        :key="index"
+        class="material-card__prop"
+      >
+        <img
+          v-if="prop.partner === 'boyard'"
+          src="@/assets/img/logo-boyard-m.png"
+          srcset="@/assets/img/logo-boyard-m.png, @/assets/img/logo-boyard-m@2x.png 2x"
+          alt="Boyard"
+          class="material-card__partner"
         >
-          <p class="material-card__prop-title">{{prop.title}}</p>
-          <p class="material-card__prop-desc">{{prop.desc}}</p>
-        </div>
+        <img
+          v-if="prop.partner === 'blum'"
+          src="@/assets/img/logo-blum-m.png"
+          srcset="@/assets/img/logo-blum-m.png, @/assets/img/logo-blum-m@2x.png 2x"
+          alt="Blum"
+          class="material-card__partner"
+        >
+        <p
+          v-if="prop.title"
+          class="material-card__prop-title"
+        >{{prop.title}}</p>
+        <p
+          class="material-card__prop-desc"
+          v-html="prop.desc"
+        ></p>
       </div>
+    </div>
+    <router-link
+      v-if="cardData.btn"
+      :to="{name: cardData.btn.route }"
+      custom
+      v-slot="{href, navigate}"
+    >
       <AppButton
-        :title="cardData.btn"
+        :href="href"
+        :title="cardData.btn.title"
         bordered
         class="material-card__btn"
+        @click="navigate"
       />
-    </template>
+    </router-link>
   </div>
 </template>
 
@@ -56,13 +86,13 @@ export default {
     overflow: hidden;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(0, #12131e 8%, transparent 52%);
+      background-image: linear-gradient(0, #12131e 8%, transparent 60%);
       opacity: 0.6;
       pointer-events: none;
     }
@@ -74,6 +104,11 @@ export default {
     font-size: 16px;
     line-height: (24/16);
     color: #fff;
+  }
+
+  &__partner {
+    width: 100px;
+    margin-bottom: 10px;
   }
 
   &__desc {
@@ -129,6 +164,10 @@ export default {
       width: auto;
       padding: 12px 30px;
     }
+
+    &__partner {
+      width: 118px;
+    }
   }
 
   @include media(lg) {
@@ -162,6 +201,25 @@ export default {
 
     &__props {
       margin-top: 34px;
+    }
+
+    &__prop {
+      margin-bottom: 35px;
+    }
+
+    &__prop-title {
+      font-size: 16px;
+    }
+
+    &__prop-desc {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: (20/14);
+    }
+
+    &__btn {
+      margin-top: 20px;
+      padding: 12px 40px;
     }
   }
 }

@@ -9,13 +9,10 @@ import store from './store'
 const app = createApp(App).use(store).use(router)
 
 app.config.globalProperties.$_breakpoints = {
-  xxs: 375,
-	xs: 480,
   sm: 600,
   md: 970,
   lg: 1290,
-  xl: 1610,
-	xxl: 2000
+  xl: 1610
 }
 
 app.config.globalProperties.$_basepath = process.env.NODE_ENV === 'production' ? '' : 'http://wowkitchen.beget.tech'

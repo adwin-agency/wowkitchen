@@ -1,11 +1,12 @@
 <template>
   <div class="materials">
+    <MaterialsIntro class="materials__intro" />
     <div class="materials__cards">
       <div class="container container_side-fixed">
         <div class="materials__row">
           <div class="materials__col">
             <MaterialCard
-              v-for="(card, index) in sortedCards.slice(0, 3)"
+              v-for="(card, index) in sortedCards.slice(0, 2)"
               :key="index"
               :cardData="card"
               class="materials__card"
@@ -13,7 +14,7 @@
           </div>
           <div class="materials__col">
             <MaterialCard
-              v-for="(card, index) in sortedCards.slice(3)"
+              v-for="(card, index) in sortedCards.slice(2)"
               :key="index"
               :cardData="card"
               class="materials__card"
@@ -31,100 +32,76 @@
 import MaterialCard from './MaterialCard.vue'
 import MaterialsPartners from './MaterialsPartners.vue'
 import Interesting from './Interesting.vue'
+import MaterialsIntro from './MaterialsIntro.vue'
+
+const cards = [
+  {
+    sort: 0,
+    image: 'material-card-01.jpg',
+    title: 'Материалы для кухонь',
+    desc: 'Мы следим за кухонными трендами и всегда предлагаем нашим клиентам только самые современные решения',
+    props: [
+      {
+        title: 'ЛДСП от компании Kronospan для корпусов',
+        desc: 'Экологичные <b>утолщённые плиты от австрийского производителя</b> с защитой от влаги, высоких температур и механических воздействий'
+      },
+      {
+        title: 'МДФ Egger + плёнка для фасадов',
+        desc: 'Австрийское качество и широкий выбор цветов и фактур. Склеивается под давлением, устойчив к перепадам температур, влажности и механическим воздействиям'
+      }
+    ],
+    btn: { route: 'kitchens', title: 'Смотреть каталог кухонь' }
+  },
+  {
+    sort: 2,
+    image: 'material-card-04.jpg',
+    title: 'Материалы для шкафов',
+    desc: 'Наши шкафы получаются не только вместительными, но качественно собранными',
+    props: [
+      {
+        title: 'ЛДСП от компании Kronospan для корпусов',
+        desc: 'Экологичные <b>утолщённые плиты от австрийского производителя</b> с защитой от влаги, высоких температур и механических воздействий'
+      },
+      {
+        title: 'Тонированное стекло для фасадов',
+        desc: 'Множество вариаций цветов и фактур на самый притязательный вкус'
+      },
+      {
+        title: 'Зеркала для фасадов',
+        desc: 'С покрытием, удерживающим все осколки в случае разбития фасада'
+      }
+    ],
+    btn: { route: 'wardrobes', title: 'Смотреть каталог шкафов' }
+  },
+  {
+    sort: 1,
+    image: 'material-card-03.jpg',
+    title: 'Высококлассная фурнитура',
+    desc: 'Залог долговечности вашей кухни или шкафа, а также гарант комфортного использования',
+    props: [
+      {
+        partner: 'boyard',
+        desc: 'Петли, ручки, тандем- и метабоксы от <b>отечественного производителя</b> отличают доступные цены и действительно хорошее качество'
+      },
+      {
+        partner: 'blum',
+        desc: 'Изделия австрийской компании от петель до складных подъёмников повышают комфорт использования мебели во всех жилых помещениях'
+      }
+    ]
+  }
+]
 
 export default {
   name: 'Materials',
   components: {
     MaterialCard,
     MaterialsPartners,
-    Interesting
+    Interesting,
+    MaterialsIntro
   },
   data() {
     return {
-      cards: [
-        {
-          sort: 0,
-          image: 'material-card-01.jpg',
-          title: 'Материалы для кухонь',
-          desc: 'Мы следим за кухонными трендами и всегда предлагаем нашим клиентам только самые современные решения',
-          props: [
-            {
-              title: 'ЛДСП',
-              desc: 'С защитой от влаги, высоких температур и механических воздействий'
-            },
-            {
-              title: 'МДФ + плёнка',
-              desc: 'Широкий выбор цветов и фактур, склеивается под давлением'
-            }
-          ],
-          btn: 'Смотреть кухни из этих материалов'
-        },
-        {
-          sort: 3,
-          image: 'material-card-02.jpg',
-          title: 'Материалы для кухонь PREMIUM-класса',
-          desc: 'Материалы высшего качества для самых искушенных клиентов.',
-          props: [
-            {
-              title: 'Утолщенный ЛДСП',
-              desc: 'Плиты толщиной до 60 мм с защитным покрытием против влаги и температур'
-            },
-            {
-              title: 'Эмаль',
-              desc: 'Износостойкий и эстетичный материал фасадов'
-            },
-            {
-              title: 'Натуральный и искуственный камень',
-              desc: 'Прочный монолитный материал'
-            }
-          ],
-          btn: 'Смотреть кухни из этих материалов'
-        },
-        {
-          sort: 1,
-          image: 'material-card-03.jpg',
-          title: 'Фурнитура',
-          desc: 'Наша фирма сотрудничает только с ведущими поставщиками фурнитуры',
-        },
-        {
-          sort: 4,
-          image: 'material-card-04.jpg',
-          title: 'Материалы для шкафов',
-          desc: 'Наши шкафы получаются не только вместительными, но качественно собранными',
-          props: [
-            {
-              title: 'ЛДСП',
-              desc: 'С защитой от влаги, высоких температур и механических воздействий'
-            },
-            {
-              title: 'Тонированное стекло',
-              desc: 'Множество вариаций цветов и фактур на самый притязательный вкус'
-            },
-            {
-              title: 'Зеркала',
-              desc: 'Спокрытием, удерживающим все осколки в случае разбития фасада'
-            }
-          ],
-          btn: 'Смотреть каталог шкафов'
-        },
-        {
-          sort: 2,
-          image: 'material-card-05.jpg',
-          title: 'Материалы для диванов',
-          desc: 'Сидя и лёжа на наших диванах вы в целом, и ваша спина в частности, испытаете максимальный комфорт',
-          props: [
-            {
-              title: 'Текстиль',
-              desc: 'Плотный и износостойки материал во множестве цветовых вариаций'
-            },
-            {
-              title: 'Экокожа',
-              desc: 'Экологичный материал, безопасен для животных, прост в очистке'
-            }
-          ],
-          btn: 'Смотреть каталог диванов'
-        }
-      ]
+      cards: cards
     }
   },
   computed: {
@@ -138,6 +115,10 @@ export default {
 
 <style lang="scss">
 .materials {
+  &__intro {
+    margin-top: 30px;
+  }
+
   &__cards {
     padding: 38px 0 32px;
   }
@@ -147,6 +128,10 @@ export default {
   }
 
   @include media(md) {
+    &__intro {
+      margin-top: 70px;
+    }
+
     &__cards {
       padding: 45px 0 25px;
     }
@@ -166,6 +151,10 @@ export default {
   }
 
   @include media(lg) {
+    &__intro {
+      margin-top: 110px;
+    }
+
     &__cards {
       padding: 36px 0 0;
     }
@@ -178,14 +167,18 @@ export default {
       margin-bottom: 60px;
     }
   }
-  
+
   @include media(xl) {
     &__cards {
-      padding: 68px 0 15px;
+      padding: 75px 0 15px;
     }
 
     &__col {
       width: calc(50% - 40px);
+    }
+
+    &__card {
+      margin-bottom: 90px;
     }
   }
 }
