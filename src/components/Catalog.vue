@@ -26,17 +26,22 @@
           <button
             type="button"
             class="catalog__filters-btn"
-            :class="{'is-fixed': fixedFiltersBtn}"
-            :style="fixedFiltersBtn && `left: ${filtersBtnOffsetLeft}px`"
+            :class="[
+              {'is-fixed': fixedFiltersBtn},
+              {'is-active': activeFixedFiltersBtn}
+            ]"
             @click="openFilters"
           >
-            <AppIcon name="filters" />
-            <span
-              v-if="filtersLength"
-              class="catalog__filters-badge"
-            >
-              {{filtersLength}}
+            <span class="catalog__filters-icon">
+              <AppIcon :name="fixedFiltersBtn ? 'filters-mobile' : 'filters'" />
+              <span
+                v-if="filtersLength"
+                class="catalog__filters-badge"
+              >
+                {{filtersLength}}
+              </span>
             </span>
+            {{fixedFiltersBtn ? 'Параметры поиска' : ''}}
           </button>
           <div
             v-if="switcher"
@@ -130,7 +135,7 @@ export default {
       activeFilters: false,
       catalogType: 'grid',
       fixedFiltersBtn: false,
-      filtersBtnOffsetLeft: 0
+      activeFixedFiltersBtn: false
     }
   },
   computed: {
@@ -222,10 +227,9 @@ export default {
         window.sidebar = null
       }
 
-      if (this.$_media.sm) {
-        this.setFiltersBtnOffsetLeft()
-      } else {
+      if (!this.$_media.sm && this.fixedFiltersBtn) {
         this.fixedFiltersBtn = false
+        this.activeFixedFiltersBtn = false
       }
     },
 
@@ -235,14 +239,8 @@ export default {
       }
 
       const controlsTop = this.$refs.controls.getBoundingClientRect().top
-
-      this.fixedFiltersBtn = controlsTop < 70
-      this.setFiltersBtnOffsetLeft()
-    },
-
-    setFiltersBtnOffsetLeft() {
-      const controlsRight = this.$refs.controls.getBoundingClientRect().right
-      this.filtersBtnOffsetLeft = controlsRight
+      this.fixedFiltersBtn = controlsTop < -100
+      this.activeFixedFiltersBtn = controlsTop < -200
     }
   }
 }
@@ -291,23 +289,55 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
     width: 50px;
     height: 50px;
     padding: 15px;
     border-radius: 50px;
     background-color: $color-lightgray;
 
+    &.is-fixed {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: $header-bar-height;
+      padding: 0;
+      border-radius: 0;
+      font-weight: bold;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: $color-green;
+      transition: transform .3s ease;
+      z-index: 90;
+
+      #{$b} {
+        &__filters-icon {
+          width: 28px;
+          height: 28px;
+          margin-right: 20px;
+        }
+
+        &__filters-badge {
+          top: -5px;
+          right: -5px;
+        }
+      }
+
+      &.is-active {
+        transform: translateY($header-bar-height);
+      }
+    }
+  }
+
+  &__filters-icon {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
     svg {
       width: 100%;
       height: 100%;
-    }
-
-    &.is-fixed {
-      position: fixed;
-      top: 70px;
-      transform: translateX(-100%);
-      z-index: 90;
     }
   }
 
@@ -316,8 +346,8 @@ export default {
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 0;
-    right: 2px;
+    top: -16px;
+    right: -16px;
     min-width: 16px;
     height: 16px;
     padding: 0 4px;

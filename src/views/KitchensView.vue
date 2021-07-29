@@ -42,6 +42,7 @@ const filterGroups = [
     id: 'category',
     title: 'Планировка',
     items: [
+      { title: 'Все', value: 'all' },
       { title: 'Угловые', value: 'uglovye', icon: 'kit1' },
       { title: 'Прямые', value: 'pryamye', icon: 'kit2' },
       { title: 'П-образные', value: 'p-obraznye', icon: 'kit3' },

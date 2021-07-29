@@ -46,22 +46,13 @@
                   name="angle-down"
                 />
               </span>
-              <span
-                class="header__nav-item"
-                @click="toggleMobileMenu"
-              >
+              <span class="header__nav-item">
                 <router-link :to="{name: 'wardrobes'}">Шкафы-купе</router-link>
               </span>
-              <span
-                class="header__nav-item"
-                @click="toggleMobileMenu"
-              >
+              <span class="header__nav-item">
                 <router-link :to="{name: 'quiz'}">Подбор кухни</router-link>
               </span>
-              <span
-                class="header__nav-item"
-                @click="toggleMobileMenu"
-              >
+              <span class="header__nav-item">
                 <router-link :to="{name: 'blog'}">Советы и идеи</router-link>
               </span>
             </nav>

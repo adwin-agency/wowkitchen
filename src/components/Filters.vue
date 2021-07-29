@@ -9,21 +9,6 @@
           Фильтры
         </p>
         <div
-          v-if="categories"
-          class="filters__categories"
-        >
-          <button
-            v-for="(category, index) in categories"
-            :key="index"
-            type="button"
-            class="filters__category"
-            :class="{'is-active': activeOptions.category === category.value}"
-            @click="toggleCategory(category.value)"
-          >
-            {{category.title}}
-          </button>
-        </div>
-        <div
           v-if="$_media.sm && selection.length"
           class="filters__selection"
         >
@@ -45,6 +30,21 @@
             Сбросить всё
           </button>
         </div>
+      </div>
+      <div
+        v-if="categories"
+        class="filters__categories"
+      >
+        <button
+          v-for="(category, index) in categories"
+          :key="index"
+          type="button"
+          class="filters__category"
+          :class="{'is-active': activeOptions.category === category.value}"
+          @click="toggleCategory(category.value)"
+        >
+          {{category.title}}
+        </button>
       </div>
       <div class="filters__groups">
         <div
@@ -88,23 +88,23 @@
       >
       </button>
     </div>
-    <AppButton
+    <!-- <AppButton
       v-if="$_media.sm"
       :title="`Показать результаты${resultLength !== null ? ` (${resultLength})` : ''}`"
       class="filters__btn"
       @click="applyFilters"
-    />
+    /> -->
   </div>
 </template>
 
 <script>
-import AppButton from './base/AppButton.vue'
+// import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 
 export default {
   name: 'Filters',
   components: {
-    AppButton,
+    // AppButton,
     AppIcon
   },
   props: {
@@ -163,10 +163,10 @@ export default {
         this.activeOptions.category = category
       }
 
-      if (this.$_media.sm) {
-        this.getResultLength()
-        return
-      }
+      // if (this.$_media.sm) {
+      //   this.getResultLength()
+      //   return
+      // }
 
       this.applyFilters()
     },
@@ -208,21 +208,23 @@ export default {
         this.activeOptions[group] = value
       }
 
-      if (this.$_media.sm) {
-        this.getResultLength()
-        return
-      }
+      // if (this.$_media.sm) {
+      //   this.getResultLength()
+      //   return
+      // }
 
       this.applyFilters()
     },
 
     removeTag(group) {
       delete this.activeOptions[group]
+      this.applyFilters()
     },
 
     resetTags() {
       this.activeOptions = {}
-      this.getResultLength()
+      // this.getResultLength()
+      this.applyFilters()
     },
 
     applyFilters() {
@@ -268,6 +270,7 @@ export default {
     display: flex;
     flex-direction: column;
     margin-top: 26px;
+    padding: 0 40px;
   }
 
   &__category {
@@ -447,6 +450,7 @@ export default {
 
     &__categories {
       margin-top: 0;
+      padding: 0;
     }
 
     &__category {
