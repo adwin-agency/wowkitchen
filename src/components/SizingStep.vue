@@ -61,16 +61,18 @@ export default {
 
 <style lang="scss">
 .sizing-step {
-  display: flex;
-  align-items: flex-start;
+  position: relative;
 
   &__num {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
     flex-shrink: 0;
     margin-top: 5px;
-    margin-right: 40px;
+    margin-right: 20px;
     border-radius: 14px 0 14px 0;
     width: 38px;
     height: 38px;
@@ -80,18 +82,15 @@ export default {
     background-color: $color-green;
   }
 
-  &__content {
-    flex: 1;
-  }
-
   &__title {
+    padding-left: 60px;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 18px;
   }
 
   &__desc {
-    margin-top: 30px;
-    font-size: 16px;
+    margin-top: 20px;
+    font-size: 13px;
     line-height: (32/16);
 
     & + & {
@@ -102,21 +101,25 @@ export default {
   &__btn {
     margin-top: 26px;
     width: 300px;
+    max-width: 100%;
   }
 
   &__stat {
-    margin-left: 200px;
-    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
 
     &-icon {
-      width: 182px;
-      height: 115px;
+      width: 152px;
+      height: 95px;
       margin-bottom: 10px;
     }
 
     &-num {
       font-weight: bold;
-      font-size: 106px;
+      font-size: 90px;
       line-height: 1;
       color: $color-green;
 
@@ -129,9 +132,69 @@ export default {
     }
 
     &-title {
-      padding-right: 20px;
+      width: 220px;
+      text-align: center;
       font-size: 13px;
       line-height: (18/13);
+    }
+  }
+
+  @include media(md) {
+    display: flex;
+    align-items: flex-start;
+
+    &__num {
+      position: static;
+      margin-right: 40px;
+    }
+
+    &__content {
+      flex: 1;
+    }
+
+    &__title {
+      font-size: 20px;
+      padding-left: 0;
+    }
+
+    &__desc {
+      font-size: 14px;
+    }
+
+    &__stat {
+      align-items: flex-start;
+      margin-left: 100px;
+      width: 220px;
+
+      &-icon {
+        width: 182px;
+        height: 115px;
+      }
+
+      &-num {
+        font-size: 106px;
+      }
+
+      &-title {
+        width: auto;
+        padding-right: 20px;
+        text-align: left;
+      }
+    }
+  }
+
+  @include media(lg) {
+    &__title {
+      font-size: 24px;
+    }
+
+    &__desc {
+      margin-top: 30px;
+      font-size: 16px;
+    }
+
+    &__stat {
+      margin-left: 200px;
     }
   }
 }

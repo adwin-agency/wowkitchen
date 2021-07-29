@@ -79,15 +79,15 @@ export default {
 <style lang="scss">
 .sizing-main {
   position: relative;
-  padding: 135px 0;
+  padding: 50px 0 60px;
 
   &__pattern {
     content: '';
     position: absolute;
     left: -50px;
     top: -50px;
-    width: 500px;
-    height: 750px;
+    width: 300px;
+    height: 450px;
     background-image: url('~@/assets/img/wow-pattern.svg');
     background-size: 100% 100%;
     background-repeat: repeat-y;
@@ -95,25 +95,67 @@ export default {
     z-index: -1;
 
     &:nth-child(2) {
-      top: 600px;
+      top: 345px;
     }
 
     &:nth-child(3) {
-      top: 1250px;
+      top: 745px;
     }
   }
 
   &__steps {
-    margin-top: 110px;
-    margin-left: 240px;
-    max-width: 1260px;
+    margin-top: 50px;
   }
 
   &__step {
-    margin-bottom: 110px;
+    margin-bottom: 50px;
 
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  @include media(md) {
+    padding: 100px 0 130px;
+
+    &__steps {
+      margin-top: 80px;
+    }
+
+    &__step {
+      margin-bottom: 80px;
+    }
+  }
+
+  @include media(lg) {
+    padding: 135px 0;
+
+    &__pattern {
+      width: 500px;
+      height: 750px;
+
+      &:nth-child(2) {
+        top: 600px;
+      }
+
+      &:nth-child(3) {
+        top: 1250px;
+      }
+    }
+
+    &__steps {
+      margin: 110px auto 0;
+      max-width: 1260px;
+    }
+
+    &__step {
+      margin-bottom: 110px;
+    }
+  }
+
+  @include media(xl) {
+    &__steps {
+      margin: 110px auto 0 240px;
     }
   }
 }
