@@ -124,18 +124,18 @@
     <div class="details__gallery">
       <div class="container container_slider">
         <div
-          v-if="$_media.sm"
+          v-if="$_media.sm && info.video_customer.desktop"
           class="details__gallery-video"
         >
           <video
             v-if="activeReview"
-            src="/assets/video/intro_2.mp4"
+            :src="$_basepath + info.video_customer.desktop"
             autoplay
             controls
           ></video>
           <video
             v-else
-            src="/assets/video/intro.mp4"
+            :src="$_basepath + info.video_prewiew_rewiew"
             autoplay
             loop
             muted
@@ -151,18 +151,18 @@
           </button>
         </div>
         <div
-          v-if="$_media.sm"
+          v-if="$_media.sm && info.video_test_drive"
           class="details__gallery-video"
         >
           <video
             v-if="activeDrive"
-            src="/assets/video/intro_2.mp4"
+            :src="$_basepath + info.video_test_drive"
             autoplay
             controls
           ></video>
           <video
             v-else
-            src="/assets/video/intro.mp4"
+            :src="$_basepath + info.video_prewiew_test_drive"
             autoplay
             loop
             muted
@@ -190,37 +190,20 @@
           @swiper="setGallerySwiper"
           @slideChange="handleGalleryChange"
         >
-          <!-- <SwiperSlide
-            v-if="info.video_customer"
-            class="details__gallery-item"
-          >
-            <video
-              ref="video"
-              :src="`http://wowkitchen.beget.tech${$_mobile ? info.video_customer.mobile : info.video_customer.desktop}`"
-            ></video>
-            <button
-              v-if="!activeVideo"
-              type="button"
-              class="details__gallery-play"
-              @click="playVideo"
-            >
-              <AppIcon name="play" />
-            </button>
-          </SwiperSlide> -->
           <SwiperSlide
-            v-if="!$_media.sm"
+            v-if="!$_media.sm && info.video_customer.desktop"
             class="details__gallery-item"
             style="background: gray"
           >
             <video
               v-if="activeReview"
-              src="/assets/video/intro_2.mp4"
+              :src="$_basepath + info.video_customer.desktop"
               autoplay
               controls
             ></video>
             <video
               v-else
-              src="/assets/video/intro.mp4"
+              :src="$_basepath + info.video_prewiew_rewiew"
               autoplay
               loop
               muted
@@ -236,19 +219,19 @@
             </button>
           </SwiperSlide>
           <SwiperSlide
-            v-if="!$_media.sm"
+            v-if="!$_media.sm && info.video_test_drive"
             class="details__gallery-item"
             style="background: gray"
           >
             <video
               v-if="activeDrive"
-              src="/assets/video/intro_2.mp4"
+              :src="$_basepath + info.video_test_drive"
               autoplay
               controls
             ></video>
             <video
               v-else
-              src="/assets/video/intro.mp4"
+              :src="$_basepath + info.video_prewiew_test_drive"
               autoplay
               loop
               muted
@@ -264,7 +247,7 @@
             </button>
           </SwiperSlide>
           <SwiperSlide
-            v-for="(picture, index) in info.pictures"
+            v-for="(picture, index) in info.second_pictures"
             :key="index"
             class="details__gallery-item"
           >
@@ -289,7 +272,7 @@
                   class="details__gallery-info-icon"
                 />
               </div>
-              <p class="details__gallery-desc">Утолщенная столешница компании “1000 и {{index + 1}} столешница” с уникальным запатентованным покрытием устойчива к физическим повреждениям</p>
+              <p class="details__gallery-desc">{{picture.caption}}</p>
             </div>
           </SwiperSlide>
         </Swiper>
@@ -298,12 +281,12 @@
           class="details__gallery-info"
         >
           <p
-            v-for="n in info.pictures.length"
+            v-for="n in info.second_pictures.length"
             :key="n"
             class="details__gallery-desc"
             :class="{'is-active': activeGalleryIndex === n}"
           >
-            Утолщенная столешница компании “1000 и {{n}} столешница” с уникальным запатентованным покрытием устойчива к физическим повреждениям
+            {{info.second_pictures[n - 1].caption}}
           </p>
         </div>
       </div>
@@ -809,7 +792,7 @@ export default {
         border-top-left-radius: 80px;
         width: 608px;
         padding: 38px 54px;
-        padding-left: 72px;
+        padding-left: 110px;
         text-align: right;
         background-color: rgba(229, 229, 229, 0.7);
         transition: opacity 0.3s ease;

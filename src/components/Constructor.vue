@@ -17,13 +17,34 @@
               class="constructor__setting"
               :class="`constructor__setting_${setting.id}`"
             >
-              <AppSelect
-                v-if="$_media.sm"
-                color="green"
-                :options="setting.options"
-                :name="setting.id"
-                class="constructor__select"
-              />
+              <template v-if="$_media.sm">
+                <AppSelect
+                  color="green"
+                  :options="setting.options"
+                  :name="setting.id"
+                  class="constructor__select"
+                  @change="handleSelectChange(setting.id, $event)"
+                />
+                <div
+                  v-if="setting.additions"
+                  ref="additions"
+                  class="constructor__additions"
+                >
+                  <label
+                    v-for="(addition, index) in setting.additions"
+                    :key="index"
+                    class="constructor__addition"
+                  >
+                    <input
+                      type="checkbox"
+                      name="addition"
+                      :value="addition.value"
+                      @change="handleAdditionChange($event)"
+                    >
+                    <span>{{addition.title}}</span>
+                  </label>
+                </div>
+              </template>
               <template v-else>
                 <p class="constructor__setting-title">{{setting.title}}</p>
                 <div class="constructor__options">
@@ -35,30 +56,33 @@
                     <input
                       type="radio"
                       :name="setting.id"
-                      :value="option.title"
+                      :value="option.value"
                       :checked="index === 0"
+                      @change="handleSettingChange(setting.id, $event)"
                     >
                     <span>{{option.title}}</span>
                   </label>
                 </div>
-              </template>
-              <div
-                v-if="setting.additions"
-                class="constructor__additions"
-              >
-                <label
-                  v-for="(addition, index) in setting.additions"
-                  :key="index"
-                  class="constructor__addition"
+                <div
+                  v-if="setting.additions"
+                  ref="additions"
+                  class="constructor__additions"
                 >
-                  <input
-                    type="checkbox"
-                    name="addition"
-                    :value="addition"
+                  <label
+                    v-for="(addition, index) in setting.additions"
+                    :key="index"
+                    class="constructor__addition"
                   >
-                  <span>{{addition}}</span>
-                </label>
-              </div>
+                    <input
+                      type="checkbox"
+                      name="addition"
+                      :value="addition.value"
+                      @change="handleAdditionChange($event)"
+                    >
+                    <span>{{addition.title}}</span>
+                  </label>
+                </div>
+              </template>
             </div>
           </form>
           <AppButton
@@ -74,7 +98,7 @@
         </div>
         <div class="constructor__area">
           <img
-            src="@/assets/img/constructor.jpg"
+            :src="require(`@/assets/img/${style}-${composition + (addition || '')}-${colors}.jpg`)"
             alt=""
             class="constructor__img"
           >
@@ -89,7 +113,7 @@
             @click="handleBtnClick"
           />
           <div
-            v-for="(item, index) in points"
+            v-for="(item, index) in activePoints"
             :key="index"
             class="constructor__point"
             :style="!$_media.sm && `left: ${item.coords[0]}%; top: ${item.coords[1]}%`"
@@ -97,14 +121,14 @@
             <span
               class="constructor__circle"
               :style="$_media.sm && `left: ${item.coords[0]}%; top: ${item.coords[1]}%`"
-              @click="$_media.sm && openTooltip(item.id)"
+              @click="$_media.sm && openTooltip(index)"
             ></span>
             <div
               class="constructor__tooltip"
-              :class="[{'constructor__tooltip_r': item.coords[0] > 50}, {'is-active': activeTooltip === item.id}]"
+              :class="[{'constructor__tooltip_r': item.coords[0] > 50}, {'is-active': activeTooltip === index}]"
             >
               <p class="constructor__tooltip-title">{{item.title}}</p>
-              <p class="constructor__tooltip-desc">{{item.desc}}</p>
+              <!-- <p class="constructor__tooltip-desc">{{item.desc}}</p> -->
               <button
                 v-if="$_media.sm"
                 type="button"
@@ -133,6 +157,219 @@
 import AppButton from './base/AppButton.vue'
 import AppSelect from './base/AppSelect.vue'
 
+const settings = [
+  {
+    id: 'style',
+    title: 'Стиль',
+    options: [
+      { title: 'Минимализм', value: 'minimal' },
+      { title: 'Скандинавский', value: 'scandy' },
+      { title: 'Лофт', value: 'loft' },
+      { title: 'Неоклассика', value: 'neoclassic' }
+    ]
+  },
+  {
+    id: 'composition',
+    title: 'Компоновка',
+    options: [
+      { title: 'Прямая', value: 'straight' },
+      { title: 'Угловая', value: 'corner' },
+      { title: 'П-образная', value: 'shaped' }
+    ],
+    additions: [
+      { title: 'Барная стойка', value: 'bar' },
+      { title: 'Остров', value: 'island' }
+    ]
+  },
+  {
+    id: 'colors',
+    title: 'Цвет',
+    options: [
+      { title: 'Светлые тона', value: 'light' },
+      { title: 'Тёмные тона', value: 'dark' }
+    ]
+  }
+]
+
+const points = {
+  minimal: {
+    straight: [
+      { title: 'Качественное ЛДСП, которому не страшны перепад темеператур', coords: [49, 63] },
+      { title: 'Встроенная в шкаф-пенал духовка', coords: [77, 53] }
+    ],
+    straightbar: [
+      { title: 'Встроенная в шкаф-пенал духовка', coords: [76, 54] },
+      { title: 'Качественное ЛДСП, которому не страшны перепад темеператур', coords: [49, 62] },
+      { title: 'Удобная барная стойка', coords: [28, 68] }
+    ],
+    straightisland: [
+      { title: 'Остров, как полноценная обеденная зона и дополнительное место для готовки', coords: [43, 80] },
+      { title: 'Качественное ЛДСП, которому не страшны перепад темеператур', coords: [52, 62] },
+      { title: 'Встроенная в шкаф-пенал духовка', coords: [79, 52] }
+    ],
+    corner: [
+      { title: 'Глубокая мойка', coords: [0, 0] },
+      { title: 'Влаго- и жаропрочный утолщенный ЛДСП', coords: [0, 0] }
+    ],
+    cornerbar: [
+      { title: 'Глубокая мойка', coords: [0, 0] },
+      { title: 'Глубокие шкафы для хранения', coords: [0, 0] },
+      { title: 'Функциональная барная стойка', coords: [0, 0] }
+    ],
+    cornerisland: [
+      { title: 'Вместительные шкафы для хранения', coords: [0, 0] },
+      { title: 'Глубокая мойка', coords: [0, 0] },
+      { title: 'Остров, как полноценная обеденная зона и дополнительное место для готовки', coords: [0, 0] }
+    ],
+    shaped: [
+      { title: 'Качественная подсветка рабочей зоны', coords: [0, 0] },
+      { title: 'Столешница из утолщенного ЛДСП', coords: [0, 0] }
+    ],
+    shapedbar: [
+      { title: 'Качественная подсветка рабочей зоны', coords: [0, 0] },
+      { title: 'Столешница из утолщенного ЛДСП', coords: [0, 0] },
+      { title: 'Функциональная барная стойка', coords: [0, 0] }
+    ],
+    shapedisland: [
+      { title: 'Качественная подсветка рабочей зоны', coords: [0, 0] },
+      { title: 'Столешница из утолщенного ЛДСП', coords: [0, 0] },
+      { title: 'Остров как полноценное обеденное место', coords: [0, 0] }
+    ]
+  },
+  scandy: {
+    straight: [
+      { title: 'Стеклянные фасады', coords: [0, 0] },
+      { title: 'Функциональная рейлинговая система', coords: [0, 0] }
+    ],
+    straightbar: [
+      { title: 'Стеклянные фасады', coords: [0, 0] },
+      { title: 'Функциональная рейлинговая система', coords: [0, 0] },
+      { title: 'Открытая барная стойка', coords: [0, 0] }
+    ],
+    straightisland: [
+      { title: 'Стеклянные фасады', coords: [0, 0] },
+      { title: 'Функциональная рейлинговая система', coords: [0, 0] },
+      { title: 'Остров, как полноценная обеденная зона и дополнительное место для готовки', coords: [0, 0] }
+    ],
+    corner: [
+      { title: 'Керамическая раковина', coords: [0, 0] },
+      { title: 'Просторная рабочая зона', coords: [0, 0] }
+    ],
+    cornerbar: [
+      { title: 'Керамическая раковина', coords: [0, 0] },
+      { title: 'Просторная рабочая зона', coords: [0, 0] },
+      { title: 'Открытая барная стойка', coords: [0, 0] }
+    ],
+    cornerisland: [
+      { title: 'Керамическая раковина', coords: [0, 0] },
+      { title: 'Просторная рабочая зона', coords: [0, 0] },
+      { title: 'Остров, как полноценная обеденная зона и дополнительное место для готовки', coords: [0, 0] }
+    ],
+    shaped: [
+      { title: 'Фрезерованные фасады', coords: [0, 0] },
+      { title: 'Открытая стена, разгружающая пространство', coords: [0, 0] }
+    ],
+    shapedbar: [
+      { title: 'Фрезерованные фасады', coords: [0, 0] },
+      { title: 'Открытая стена, разгружающая пространство', coords: [0, 0] },
+      { title: 'Открытая барная стойка', coords: [0, 0] }
+    ],
+    shapedisland: [
+      { title: 'Фрезерованные фасады', coords: [0, 0] },
+      { title: 'Открытая стена, разгружающая пространство', coords: [0, 0] },
+      { title: 'Остров, как полноценная обеденная зона и дополнительное место для готовки', coords: [0, 0] }
+    ]
+  },
+  loft: {
+    straight: [
+      { title: 'Открытая полка для декора', coords: [0, 0] },
+      { title: 'Встроенный духовой шкаф на комфортном уровне', coords: [0, 0] }
+    ],
+    straightbar: [
+      { title: 'Открытая полка для декора', coords: [0, 0] },
+      { title: 'Встроенный духовой шкаф на комфортном уровне', coords: [0, 0] },
+      { title: 'Барная стойка, расширяющая рабочую зону', coords: [0, 0] }
+    ],
+    straightisland: [
+      { title: 'Открытая полка для декора', coords: [0, 0] },
+      { title: 'Встроенный духовой шкаф на комфортном уровне', coords: [0, 0] },
+      { title: 'Функциональный остров с местом для хранения', coords: [0, 0] }
+    ],
+    corner: [
+      { title: 'Качественная подсветка рабочей зоны', coords: [0, 0] },
+      { title: 'Просторные верхние модули-антресоли под потолок', coords: [0, 0] }
+    ],
+    cornerbar: [
+      { title: 'Качественная подсветка рабочей зоны', coords: [0, 0] },
+      { title: 'Просторные верхние модули-антресоли под потолок', coords: [0, 0] },
+      { title: 'Барная стойка, расширяющая рабочую зону', coords: [0, 0] }
+    ],
+    cornerisland: [
+      { title: 'Качественная подсветка рабочей зоны', coords: [0, 0] },
+      { title: 'Просторные верхние модули-антресоли под потолок', coords: [0, 0] },
+      { title: 'Функциональный остров с местом для хранения', coords: [0, 0] }
+    ],
+    shaped: [
+      { title: 'Стильные матовые фасады от компании Egger', coords: [0, 0] },
+      { title: 'Столешница из утолщённого износостойкого ЛДСП', coords: [0, 0] }
+    ],
+    shapedbar: [
+      { title: 'Стильные матовые фасады от компании Egger', coords: [0, 0] },
+      { title: 'Столешница из утолщённого износостойкого ЛДСП', coords: [0, 0] },
+      { title: 'Барная стойка, расширяющая рабочую зону', coords: [0, 0] }
+    ],
+    shapedisland: [
+      { title: 'Стильные матовые фасады от компании Egger', coords: [0, 0] },
+      { title: 'Столешница из утолщённого износостойкого ЛДСП', coords: [0, 0] },
+      { title: 'Функциональный остров с местом для хранения', coords: [0, 0] }
+    ]
+  },
+  neoclassic: {
+    straight: [
+      { title: 'Шкафы-антресоли под потолком', coords: [0, 0] },
+      { title: 'Стильные хромированные ручки', coords: [0, 0] }
+    ],
+    straightbar: [
+      { title: 'Шкафы-антресоли под потолком', coords: [0, 0] },
+      { title: 'Стильные хромированные ручки', coords: [0, 0] },
+      { title: 'Минималистичная открытая барная стойка', coords: [0, 0] }
+    ],
+    straightisland: [
+      { title: 'Шкафы-антресоли под потолком', coords: [0, 0] },
+      { title: 'Стильные хромированные ручки', coords: [0, 0] },
+      { title: 'Функциональный остров с местом для хранения', coords: [0, 0] }
+    ],
+    corner: [
+      { title: 'Встроенная в шкаф-пенал техника', coords: [0, 0] },
+      { title: 'Фрезерованная матовые фасады', coords: [0, 0] }
+    ],
+    cornerbar: [
+      { title: 'Встроенная в шкаф-пенал техника', coords: [0, 0] },
+      { title: 'Фрезерованные матовые фасады', coords: [0, 0] },
+      { title: 'Минималистичная открытая барная стойка', coords: [0, 0] }
+    ],
+    cornerisland: [
+      { title: 'Встроенная в шкаф-пенал техника', coords: [0, 0] },
+      { title: 'Фрезерованные матовые фасады', coords: [0, 0] },
+      { title: 'Функциональный остров с местом для хранения', coords: [0, 0] }
+    ],
+    shaped: [
+      { title: 'Встроенный в пенал духовой шкаф на комфортном уровне', coords: [0, 0] },
+      { title: 'Вместительные шкафы-антресоли под потолком', coords: [0, 0] }
+    ],
+    shapedbar: [
+      { title: 'Встроенный в пенал духовой шкаф на комфортном уровне', coords: [0, 0] },
+      { title: 'Вместительные шкафы-антресоли под потолком', coords: [0, 0] },
+      { title: 'Минималистичная открытая барная стойка', coords: [0, 0] }
+    ],
+    shapedisland: [
+      { title: 'Встроенный в пенал духовой шкаф на комфортном уровне', coords: [0, 0] },
+      { title: 'Вместительные шкафы-антресоли под потолком', coords: [0, 0] },
+      { title: 'Функциональный остров с местом для хранения', coords: [0, 0] }
+    ]
+  }
+}
+
 export default {
   name: 'Constructor',
   components: {
@@ -141,25 +378,45 @@ export default {
   },
   data() {
     return {
-      settings: [
-        { id: 'styles', title: 'Стиль', options: [{ title: 'Минимализм' }, { title: 'Неоклассика' }, { title: 'Хай-тек' }, { title: 'Скандинавский' }] },
-        { id: 'composition', title: 'Компоновка', options: [{ title: 'Прямая' }, { title: 'Угловая' }, { title: 'П-образная' }], additions: ['Барная стойка', 'Остров'] },
-        { id: 'colors', title: 'Цвет', options: [{ title: 'Светлые тона' }, { title: 'Тёмные тона' }] }
-      ],
-      points: [
-        { id: 'p1', coords: [16, 63], title: 'Столешница из утолщенного ЛДСП', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем.' },
-        { id: 'p2', coords: [66, 17], title: 'Столешница из утолщенного ЛДСП 2', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем. 2' }
-      ],
+      activeSelects: this.$_media.sm,
+      settings: settings,
+      style: 'minimal',
+      composition: 'straight',
+      addition: null,
+      colors: 'light',
+      points: points,
       activeTooltip: null
+    }
+  },
+  computed: {
+    activePoints() {
+      return this.points[this.style][this.composition + (this.addition || '')]
     }
   },
   created() {
     window.addEventListener('resize', this.handleResize)
   },
   methods: {
+    resetSettings() {
+      this.style = 'minimal',
+      this.composition = 'straight',
+      this.addition = null,
+      this.colors = 'light'
+    },
+
     handleResize() {
       if (!this.$_media.sm && this.activeTooltip) {
         this.activeTooltip = null
+      }
+
+      if (this.$_media.sm && !this.activeSelects) {
+        this.activeSelects = true
+        this.resetSettings()
+      }
+
+      if (!this.$_media.sm && this.activeSelects) {
+        this.activeSelects = false
+        this.resetSettings()
       }
     },
 
@@ -170,11 +427,30 @@ export default {
       this.activeTooltip = null
     },
 
+    handleSelectChange(id, value) {
+      this[id] = value
+    },
+    handleSettingChange(id, event) {
+      this[id] = event.target.value
+    },
+    handleAdditionChange(event) {
+      const target = event.target
+      const inputs = this.$refs.additions.querySelectorAll('input')
+
+      for (let input of inputs) {
+        if (input !== target) {
+          input.checked = false
+        }
+      }
+
+      this.addition = target.checked ? target.value : null
+    },
+
     handleBtnClick() {
       const obj = {}
       const formData = new FormData(this.$refs.form)
 
-      formData.forEach((value, key) => obj[key] = value)
+      formData.forEach((value, key) => (obj[key] = value))
       console.log(obj)
       this.$store.commit('setConstructor', obj)
     }
@@ -211,6 +487,7 @@ export default {
   &__option,
   &__addition {
     margin-right: 15px;
+    cursor: pointer;
 
     input {
       display: none;
@@ -410,6 +687,8 @@ export default {
       position: absolute;
 
       &:hover {
+        z-index: 2;
+
         #{$b}__tooltip {
           opacity: 1;
           pointer-events: all;
@@ -478,7 +757,7 @@ export default {
       margin-right: 55px;
     }
 
-    &__settings {      
+    &__settings {
       order: 1;
       margin-top: 75px;
       width: 345px;
