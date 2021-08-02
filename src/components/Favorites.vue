@@ -111,6 +111,7 @@ export default {
   &__image {
     width: 105px;
     height: 85px;
+    object-fit: cover;
   }
 
   &__category {

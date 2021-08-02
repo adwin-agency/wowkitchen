@@ -28,14 +28,30 @@
     <input
       v-else
       :type="type"
-      :placeholder="placeholder"
-      :name="name"
+      :placeholder="Array.isArray(placeholder) ? placeholder[0] : placeholder"
+      :name="Array.isArray(name) ? name[0] : name"
       :required="required"
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
         {[`text-field__input_bordered`]: bordered},
-        {[`text-field__input_side`]: sideNote}
+        {[`text-field__input_side`]: sideNote},
+        {[`text-field__input_double-sm`]: double}
+      ]"
+      @input="handleInput"
+    >
+    <input
+      v-if="double"
+      :type="type"
+      :placeholder="Array.isArray(placeholder) ? placeholder[1] : placeholder"
+      :name="Array.isArray(name) ? name[1] : name"
+      :required="required"
+      :class="[
+        'text-field__input',
+        {[`text-field__input_${color}`]: color},
+        {[`text-field__input_bordered`]: bordered},
+        {[`text-field__input_side`]: sideNote},
+        {[`text-field__input_double-lg`]: double}
       ]"
       @input="handleInput"
     >
@@ -58,16 +74,17 @@ export default {
     textarea: Boolean,
     type: String,
     label: String,
-    placeholder: String,
+    placeholder: { type: [ String, Array ] },
     required: Boolean,
-    name: String,
+    name: { type: [ String, Array ] },
     color: String,
     bordered: Boolean,
     size: String,
     labelColor: String,
     labelSize: String,
     note: String,
-    sideNote: String
+    sideNote: String,
+    double: Boolean
   },
   emits: [
     'input'
@@ -92,6 +109,21 @@ export default {
         }
 
         e.target.value = val
+
+      } else if (e.target.name === 'contract-l') {
+        let val = e.target.value.replace(/[^А-ЯЁ]/gi, '')
+        val = val.toUpperCase()
+        e.target.value = val
+
+      } else if (e.target.name === 'contract-n') {
+        let val = e.target.value.replace(/[^0-9-]/g, '')
+
+        if (val && val[0] === '-') {
+          val = val.slice(1)
+        }
+
+        e.target.value = val
+
       } else {
         this.$emit('input', e)
       }
@@ -161,6 +193,15 @@ export default {
 
     &_bordered {
       border: 1px solid #e8e9f0;
+    }
+
+    &_double-sm {
+      width: 90px;
+    }
+
+    &_double-lg {
+      margin-left: auto;
+      width: calc(100% - 100px);
     }
   }
 

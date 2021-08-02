@@ -282,7 +282,6 @@ export default {
     position: relative;
     width: calc(100% - 70px);
     margin-right: 20px;
-    z-index: 1;
   }
 
   &__filters-btn {

@@ -125,7 +125,7 @@
           class="product-card__prop"
         >
           <span>{{feature.title}}</span>
-          {{feature.value}}
+          {{feature.title === 'Фасад' ? 'Egger' : feature.value}}
         </p>
       </div>
       <div v-if="!noPrice" class="product-card__prices">

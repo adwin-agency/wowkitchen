@@ -30,12 +30,13 @@
         />
         <AppTextField
           label="Номер договора"
-          placeholder="ХХХХ ХХХХ ХХХХ ХХХХ"
+          :placeholder="['буквы', 'цифры']"
           type="text"
-          name="contract"
+          :name="['contract-l', 'contract-n']"
           required
           color="white"
           bordered
+          double
           class="payment-form__field payment-form__field_small"
         />
         <AppTextField

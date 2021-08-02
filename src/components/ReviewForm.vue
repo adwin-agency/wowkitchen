@@ -22,7 +22,7 @@
         color="white"
         labelColor="gray"
         labelSize="big"
-        label="Телефон/номер договора"
+        label="Номер договора"
         type="text"
         name="id"
         note="Эти данные нужны для идентификации и не будут опубликованы"
