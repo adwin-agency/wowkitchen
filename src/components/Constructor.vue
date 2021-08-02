@@ -396,6 +396,9 @@ export default {
   created() {
     window.addEventListener('resize', this.handleResize)
   },
+  unmounted() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
     resetSettings() {
       this.style = 'minimal',
@@ -405,8 +408,8 @@ export default {
     },
 
     handleResize() {
-      if (!this.$_media.sm && this.activeTooltip) {
-        this.activeTooltip = null
+      if (!this.$_media.sm && this.activeTooltip !== null) {
+        this.closeTooltip()
       }
 
       if (this.$_media.sm && !this.activeSelects) {
@@ -429,9 +432,11 @@ export default {
 
     handleSelectChange(id, value) {
       this[id] = value
+      this.closeTooltip()
     },
     handleSettingChange(id, event) {
       this[id] = event.target.value
+      this.closeTooltip()
     },
     handleAdditionChange(event) {
       const target = event.target
@@ -444,6 +449,7 @@ export default {
       }
 
       this.addition = target.checked ? target.value : null
+      this.closeTooltip()
     },
 
     handleBtnClick() {
@@ -567,6 +573,7 @@ export default {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    z-index: 1;
 
     &.is-active {
       opacity: 1;
@@ -711,6 +718,7 @@ export default {
       padding: 35px 50px;
       background-color: rgba(#fff, 0.8);
       box-shadow: 0px 13px 24px 0px rgba(0, 0, 0, 0.168);
+      z-index: auto;
 
       &_r {
         left: auto;
