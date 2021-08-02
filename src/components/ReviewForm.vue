@@ -3,8 +3,16 @@
     class="review-form"
     @submit="handleSubmit"
   >
-    <input type="hidden" name="type" value="payment">
-    <input type="hidden" name="page" :value="page">
+    <input
+      type="hidden"
+      name="type"
+      value="payment"
+    >
+    <input
+      type="hidden"
+      name="page"
+      :value="page"
+    >
     <p class="review-form__heading">Оставить отзыв</p>
     <div class="review-form__fields">
       <AppTextField
@@ -83,6 +91,12 @@
         class="review-form__btn"
       />
     </div>
+    <p
+      v-if="error"
+      class="review-form__error"
+    >
+      Ошибка отправки. Попробуйте еще раз
+    </p>
   </form>
 </template>
 
@@ -100,10 +114,11 @@ export default {
     AppButton
   },
   setup() {
-    const { sending, success, page, handleSubmit } = useForms()
+    const { sending, success, error, page, handleSubmit } = useForms()
     return {
       sending,
       success,
+      error,
       page,
       handleSubmit
     }
@@ -141,7 +156,7 @@ export default {
           }
 
           totalLength++
-          totalSize += size          
+          totalSize += size
         }
 
         if (totalLength > 10) {
@@ -184,6 +199,13 @@ export default {
 
   &__footer {
     margin-top: 10px;
+  }
+
+  &__error {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #ff0000;
   }
 
   &__file {
@@ -282,6 +304,10 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+    }
+
+    &__error {
+      text-align: right;
     }
 
     &__file {

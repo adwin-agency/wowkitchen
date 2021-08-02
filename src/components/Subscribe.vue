@@ -3,8 +3,16 @@
     class="subscribe"
     @submit="handleSubmit"
   >
-    <input type="hidden" name="type" value="subscribe">
-    <input type="hidden" name="page" :value="page">
+    <input
+      type="hidden"
+      name="type"
+      value="subscribe"
+    >
+    <input
+      type="hidden"
+      name="page"
+      :value="page"
+    >
     <div class="subscribe__bg">
       <img
         src="@/assets/img/env-back.png"
@@ -38,6 +46,12 @@
         />
       </button>
     </div>
+    <p
+      v-if="error"
+      class="subscribe__error"
+    >
+      Ошибка отправки. Попробуйте еще раз
+    </p>
   </form>
 </template>
 
@@ -51,9 +65,10 @@ export default {
     AppIcon
   },
   setup() {
-    const { sending, page, handleSubmit } = useForms()
+    const { sending, error, page, handleSubmit } = useForms()
     return {
       sending,
+      error,
       page,
       handleSubmit
     }
@@ -151,6 +166,13 @@ export default {
     width: 44px;
     height: 12px;
     fill: $color-primary;
+  }
+
+  &__error {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 14px;
+    color: #ff0000;
   }
 
   @include media(lg) {

@@ -221,7 +221,10 @@
                   </li>
                 </ol>
               </div>
-              <QuizResult class="quiz__result" />
+              <QuizResult
+                :error="error"
+                class="quiz__result"
+              />
               <button
                 v-if="$_media.sm"
                 type="button"
@@ -314,9 +317,10 @@ export default {
     QuizResult
   },
   setup() {
-    const { sending, page, handleSubmit } = useForms()
+    const { sending, error, page, handleSubmit } = useForms()
     return {
       sending,
+      error,
       page,
       handleSubmit
     }

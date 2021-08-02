@@ -29,11 +29,22 @@
         class="delivery__form"
         @submit="handleSubmit"
       >
-        <input type="hidden" name="type" value="delivery">
-        <input type="hidden" name="page" :value="page">
+        <input
+          type="hidden"
+          name="type"
+          value="delivery"
+        >
+        <input
+          type="hidden"
+          name="page"
+          :value="page"
+        >
         <div class="delivery__form-content">
           <h4 class="delivery__form-title">Расчитать стоимость доставки</h4>
-          <label class="delivery__form-lable" for="select-city">Укажите адрес и наш оператор свяжется с вами  для обсуждения стоимости.</label>
+          <label
+            class="delivery__form-lable"
+            for="select-city"
+          >Укажите адрес и наш оператор свяжется с вами для обсуждения стоимости.</label>
           <div class="delivery__form-container">
             <fieldset class="delivery__form-box">
               <AppSelect
@@ -79,14 +90,23 @@
                 type="submit"
                 class="delivery__form-button-sb"
               />
+              <p
+                v-if="error"
+                class="delivery__form-error"
+              >Ошибка отправки. Попробуйте еще раз</p>
             </fieldset>
             <div class="delivery__form-map-box">
               <div class="delivery__form-map"></div>
             </div>
           </div>
           <p class="delivery__form-policy">
-            Нажимая кнопку «Рассчитать», вы соглашаетесь c 
-            <a class="delivery__form-policy-link" href="#" target="_blank" rel="noopener noreferrer"> Политикой конфиденциальности</a>
+            Нажимая кнопку «Рассчитать», вы соглашаетесь c
+            <a
+              class="delivery__form-policy-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            > Политикой конфиденциальности</a>
           </p>
         </div>
       </form>
@@ -108,19 +128,17 @@ export default {
     AppButton
   },
   setup() {
-    const { sending, page, handleSubmit } = useForms()
+    const { sending, error, page, handleSubmit } = useForms()
     return {
       sending,
+      error,
       page,
       handleSubmit
     }
   },
   data() {
     return {
-      cities: [
-        { title: 'Санкт-Петербург' },
-        { title: 'Ленинградская область' }
-      ]
+      cities: [{ title: 'Санкт-Петербург' }, { title: 'Ленинградская область' }]
     }
   },
   computed: {
@@ -129,7 +147,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style lang="scss">
@@ -140,7 +157,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding-top: 30px;
-    @include media(md){
+    @include media(md) {
       align-items: unset;
       padding-top: 50px;
       flex-direction: row;
@@ -149,7 +166,7 @@ export default {
   }
   &__discription {
     &-container {
-      @include media(lg){
+      @include media(lg) {
         flex: 50%;
         padding-right: 80px;
       }
@@ -157,15 +174,15 @@ export default {
     &-title {
       font-size: 26px;
       font-weight: bold;
-      @include media(lg){
-         font-size: 50px;
+      @include media(lg) {
+        font-size: 50px;
       }
     }
     &-subtitle {
       font-size: 18px;
       padding-top: 30px;
 
-      @include media(lg){
+      @include media(lg) {
         padding-top: 40px;
       }
     }
@@ -175,7 +192,7 @@ export default {
       font-size: 14px;
       line-height: 26px;
 
-      @include media(md){
+      @include media(md) {
         padding-top: 20px;
       }
     }
@@ -192,14 +209,14 @@ export default {
     margin-top: 24px;
     padding: 0 18px 20px;
     width: 100vw;
-    
-    @include media(sm){
+
+    @include media(sm) {
       padding: 0 30px 20px;
     }
-    @include media(md){
+    @include media(md) {
       margin-left: 20px;
     }
-    @include media(lg){
+    @include media(lg) {
       width: 700px;
       padding: 0 0px 20px 35px;
     }
@@ -239,7 +256,7 @@ export default {
       margin: 0;
       width: 100%;
 
-      @include media(lg){
+      @include media(lg) {
         max-width: 280px;
         width: auto;
         flex: 1;
@@ -268,7 +285,7 @@ export default {
       background-color: #e3e3e3;
       margin-left: auto;
 
-      @include media(lg){
+      @include media(lg) {
         display: block;
         width: 325px;
       }
@@ -286,9 +303,16 @@ export default {
       margin-top: 15px;
       width: 100%;
     }
+
+    &-error {
+      margin: 15px auto 0;
+      text-align: center;
+      font-size: 14px;
+      color: #ff0000;
+    }
   }
 
-    fieldset {
+  fieldset {
     border: none;
     padding: 0;
   }

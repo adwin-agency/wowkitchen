@@ -3,11 +3,34 @@
     class="design-form"
     @submit="handleSubmit"
   >
-    <input type="hidden" name="type" value="designer">
-    <input type="hidden" name="page" :value="page">
-    <input v-if="product" type="hidden" name="item" :value="product.name">
-    <input v-if="product" type="hidden" name="item_id" :value="product.id">
-    <input v-if="product" type="hidden" name="product_type" :value="product.type">
+    <input
+      type="hidden"
+      name="type"
+      value="designer"
+    >
+    <input
+      type="hidden"
+      name="page"
+      :value="page"
+    >
+    <input
+      v-if="product"
+      type="hidden"
+      name="item"
+      :value="product.name"
+    >
+    <input
+      v-if="product"
+      type="hidden"
+      name="item_id"
+      :value="product.id"
+    >
+    <input
+      v-if="product"
+      type="hidden"
+      name="product_type"
+      :value="product.type"
+    >
     <p class="design-form__title">Оставить заявку</p>
     <div class="design-form__fields">
       <AppTextField
@@ -35,6 +58,12 @@
       title="Пригласить дизайнера"
       color="pink"
     />
+    <p
+      v-if="error"
+      class="design-form__error"
+    >
+      Ошибка отправки. Попробуйте еще раз
+    </p>
     <p class="design-form__note">Нажимая на кнопку "Пригласить дизайнера", вы{{'\xa0'}}соглашаетесь с <a target="_blank">Политикой конфиденциальности</a></p>
   </form>
 </template>
@@ -51,9 +80,10 @@ export default {
     AppButton
   },
   setup(props) {
-    const { sending, page, product, handleSubmit } = useForms(props)
+    const { sending, error, page, product, handleSubmit } = useForms(props)
     return {
       sending,
+      error,
       page,
       product,
       handleSubmit
@@ -89,6 +119,13 @@ export default {
   &__btn {
     margin-top: 26px;
     width: 100%;
+  }
+
+  &__error {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #ff0000;
   }
 
   &__note {

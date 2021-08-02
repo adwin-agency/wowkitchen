@@ -3,8 +3,16 @@
     class="payment-form"
     @submit="handleSubmit"
   >
-    <input type="hidden" name="type" value="payment">
-    <input type="hidden" name="page" :value="page">
+    <input
+      type="hidden"
+      name="type"
+      value="payment"
+    >
+    <input
+      type="hidden"
+      name="page"
+      :value="page"
+    >
     <div class="payment-form__header">
       <p class="payment-form__title">Оплатите будущую кухню прямо с сайта</p>
       <p class="payment-form__desc">После заполнения формы ниже вы автоматически перейдёте на сайт банка с протоколом безопасности для оплаты.</p>
@@ -101,8 +109,20 @@
             type="submit"
             class="payment-form__btn"
           />
+          <p
+            v-if="error && $_media.sm"
+            class="payment-form__error"
+          >
+            Ошибка отправки. Попробуйте еще раз
+          </p>
           <p class="payment-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с <a href="#">Политикой конфиденциальности</a></p>
         </div>
+        <p
+          v-if="error && !$_media.sm"
+          class="payment-form__error"
+        >
+          Ошибка отправки. Попробуйте еще раз
+        </p>
       </div>
     </div>
     <div class="payment-form__systems">
@@ -151,9 +171,10 @@ export default {
     AppTextField
   },
   setup() {
-    const { sending, page, handleSubmit } = useForms()
+    const { sending, error, page, handleSubmit } = useForms()
     return {
       sending,
+      error,
       page,
       handleSubmit
     }
@@ -217,6 +238,13 @@ export default {
 
   &__btn {
     width: 100%;
+  }
+
+  &__error {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #ff0000;
   }
 
   &__policy {

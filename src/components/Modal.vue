@@ -88,6 +88,12 @@
             type="submit"
             class="modal__btn"
           />
+          <p
+            v-if="error"
+            class="modal__error"
+          >
+            Ошибка отправки. Попробуйте еще раз
+          </p>
           <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="">Полиикой конфиденциальности</a></p>
           <button
             type="button"

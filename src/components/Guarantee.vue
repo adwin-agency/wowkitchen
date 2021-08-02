@@ -24,8 +24,16 @@
           class="guarantee__form"
           @submit="handleSubmit"
         >
-          <input type="hidden" name="type" value="guarantee">
-          <input type="hidden" name="page" :value="page">
+          <input
+            type="hidden"
+            name="type"
+            value="guarantee"
+          >
+          <input
+            type="hidden"
+            name="page"
+            :value="page"
+          >
           <p class="guarantee__form-title">Наступил гарантийный случай или появились вопросы?<br>Напишите и мы обязательно поможем!</p>
           <div class="guarantee__radios">
             <label class="guarantee__radio">
@@ -123,6 +131,12 @@
                 class="guarantee__form-btn"
               />
             </div>
+            <p
+              v-if="error"
+              class="guarantee__error"
+            >
+              Ошибка отправки. Попробуйте еще раз
+            </p>
             <p class="guarantee__policy">Нажимая кнопку "Отправить", вы соглашаетесь с условиями <a href="#">Политики конфиденциальности</a></p>
           </div>
         </form>
@@ -232,10 +246,11 @@ export default {
     Interesting
   },
   setup() {
-    const { sending, success, page, handleSubmit } = useForms()
+    const { sending, success, error, page, handleSubmit } = useForms()
     return {
       sending,
       success,
+      error,
       page,
       handleSubmit
     }
@@ -434,6 +449,13 @@ export default {
     margin-top: 20px;
   }
 
+  &__error {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #ff0000;
+  }
+
   &__policy {
     margin-top: 14px;
     font-weight: 300;
@@ -586,6 +608,10 @@ export default {
       min-width: 255px;
       margin-top: 0;
       margin-left: auto;
+    }
+
+    &__error {
+      text-align: right;
     }
 
     &__policy {

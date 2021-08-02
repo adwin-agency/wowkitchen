@@ -56,8 +56,16 @@
           class="design-call__form"
           @submit="handleSubmit"
         >
-          <input type="hidden" name="type" value="designer-call">
-          <input type="hidden" name="page" :value="page">
+          <input
+            type="hidden"
+            name="type"
+            value="designer-call"
+          >
+          <input
+            type="hidden"
+            name="page"
+            :value="page"
+          >
           <div class="design-call__fields">
             <AppTextField
               label="Имя"
@@ -84,6 +92,12 @@
               type="submit"
               class="design-call__btn"
             />
+            <p
+              v-if="error && $_desktop"
+              class="design-call__error"
+            >
+              Ошибка отправки. Попробуйте еще раз
+            </p>
           </div>
           <div class="design-call__footer">
             <p class="design-call__policy">Нажимая на кнопку «Отправить заявку», вы соглашаетесь с <a href="#">Политикой конфиденциальности</a></p>
@@ -94,6 +108,12 @@
               type="submit"
               class="design-call__btn"
             />
+            <p
+              v-if="error && $_media.md"
+              class="design-call__error"
+            >
+              Ошибка отправки. Попробуйте еще раз
+            </p>
           </div>
         </form>
       </div>
@@ -115,9 +135,10 @@ export default {
     AppTextField
   },
   setup() {
-    const { sending, page, handleSubmit } = useForms()
+    const { sending, error, page, handleSubmit } = useForms()
     return {
       sending,
+      error,
       page,
       handleSubmit
     }
@@ -268,6 +289,7 @@ export default {
     &__footer {
       display: flex;
       align-items: center;
+      position: relative;
       margin-top: 18px;
     }
 
@@ -288,6 +310,15 @@ export default {
       margin-top: 0;
       width: auto;
       min-width: 260px;
+    }
+
+    &__error {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 5px;
+      font-size: 14px;
+      color: #ff0000;
     }
   }
 
@@ -325,6 +356,7 @@ export default {
     }
 
     &__fields {
+      position: relative;
       align-items: flex-end;
     }
 
@@ -336,6 +368,10 @@ export default {
 
     &__btn {
       margin-left: 20px;
+    }
+
+    &__error {
+      margin-top: 10px;
     }
 
     &__footer {

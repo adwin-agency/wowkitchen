@@ -19,6 +19,12 @@
         class="quiz-result__btn"
       />
     </div>
+    <p
+      v-if="error"
+      class="quiz-result__error"
+    >
+      Ошибка отправки. Попробуйте еще раз
+    </p>
   </div>
 </template>
 
@@ -31,6 +37,9 @@ export default {
   components: {
     AppTextField,
     AppButton
+  },
+  props: {
+    error: Boolean
   }
 }
 </script>
@@ -66,6 +75,13 @@ export default {
     width: 100%;
   }
 
+  &__error {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #ff0000;
+  }
+
   @include media(md) {
     padding: 50px 90px 50px 60px;
     border-bottom-right-radius: 70px;
@@ -91,6 +107,10 @@ export default {
       margin-top: 0;
       width: auto;
       min-width: 220px;
+    }
+
+    &__error {
+      text-align: right;
     }
   }
 
