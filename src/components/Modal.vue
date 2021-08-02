@@ -197,6 +197,12 @@
             type="submit"
             class="modal__btn"
           />
+          <p
+            v-if="error"
+            class="modal__error"
+          >
+            Ошибка отправки. Попробуйте еще раз
+          </p>
           <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="">Полиикой конфиденциальности</a></p>
           <button
             type="button"
@@ -299,10 +305,11 @@ export default {
     AppButton
   },
   setup() {
-    const { sending, success, page, product, handleSubmit } = useForms()
+    const { sending, success, error, page, product, handleSubmit } = useForms()
     return {
       sending,
       success,
+      error,
       page,
       product,
       handleSubmit
@@ -453,6 +460,12 @@ export default {
   &__btn {
     margin-top: 26px;
     width: 100%;
+  }
+
+  &__error {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #ff0000;
   }
 
   &__policy {

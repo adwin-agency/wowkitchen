@@ -8,6 +8,7 @@ export default function useForms() {
   const store = useStore()
   const sending = ref(false)
   const success = ref(false)
+  const error = ref(false)
   const page = computed(() => route.path)
   const product = computed(() => store.state.productData)
 
@@ -20,19 +21,31 @@ export default function useForms() {
 
     sending.value = true
     success.value = false
-    const response = await api.sendForm(e.target)
+    error.value = false
 
-    if (response.ok) {
+    try {
+      const response = await api.sendForm(e.target)
+      const responseJson = await response.json()
+
+      if (responseJson.status !== 'ok') {
+        throw new Error()
+      }
+
       sending.value = false
       success.value = true
       e.target.reset()
       store.commit('setModal', 'success')
-    }    
+
+    } catch {
+      sending.value = false
+      error.value = true
+    }
   }
 
   return {
     sending,
     success,
+    error,
     page,
     product,
     handleSubmit
