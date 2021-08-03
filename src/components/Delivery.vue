@@ -52,6 +52,7 @@
                 color="white"
                 name="city"
                 class="delivery__form-select-city"
+                @change="handleCityChange"
               />
               <AppTextField
                 label="Улица"
@@ -95,9 +96,10 @@
                 class="delivery__form-error"
               >Ошибка отправки. Попробуйте еще раз</p>
             </fieldset>
-            <div class="delivery__form-map-box">
-              <div class="delivery__form-map" id="map"></div>
-            </div>
+            <div
+              class="delivery__form-map"
+              id="map"
+            ></div>
           </div>
           <p class="delivery__form-policy">
             Нажимая кнопку «Рассчитать», вы соглашаетесь c
@@ -138,31 +140,42 @@ export default {
   },
   data() {
     return {
-      cities: [{ title: 'Санкт-Петербург' }, { title: 'Ленинградская область' }],
+      map: null,
       userCoords: null
     }
   },
   computed: {
+    cities() {
+      return Object.values(this.$store.state.cities).length ? Object.values(this.$store.state.cities).map((i) => ({ title: i.name, value: i.code })) : [{ title: '' }]
+    },
     cityPhone() {
       return this.$store.state.cities[this.$store.state.activeCity]?.phone
-    },
-    activeCity() {
-      return this.$store.state.activeCity
-    },
-    activeCityCoords() {
-      return [this.$store.state.cities[this.activeCity]?.coords.lat,  this.$store.state.cities[this.activeCity]?.coords.long]
     }
   },
-  // mounted() {
-  //   ymaps.ready(init)
+  mounted() {
+    window.ymaps.ready(() => {
+      window.myMap = new window.ymaps.Map('map', {
+        center: [55.76, 37.64],
+        zoom: 7
+      })
+    })
+  },
+  methods: {
+    handleCityChange(e) {
+      const code = e
+      const city = this.$store.state.cities[code].name
 
-  //   function init(){
-  //     new ymaps.Map('map', {
-  //       center: [55.76, 37.64],
-  //       zoom: 7
-  //     })
-  //   }
-  // }
+      this.setMap(city)
+    },
+
+    async setMap(location) {
+      const res = await window.ymaps.geocode(location, { results: 1 })
+      const geoObject = res.geoObjects.get(0)
+      const bounds = geoObject.properties.get('boundedBy')
+
+      window.myMap.setBounds(bounds)
+    }
+  }
 }
 </script>
 
@@ -297,7 +310,7 @@ export default {
         width: calc(50% - 10px);
       }
     }
-    &-map-box {
+    &-map {
       display: none;
       background-color: #e3e3e3;
       margin-left: auto;

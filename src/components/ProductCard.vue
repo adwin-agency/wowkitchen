@@ -150,7 +150,7 @@
         <AppButton
           :size="!large ? 'small' : ''"
           :bordered="!large"
-          title="Рассчитать проект"
+          :title="noPrice ? 'Рассчитать стоимость' : 'Рассчитать проект'"
           modalName="calc"
           class="product-card__btn"
           @click="handleBtnClick"

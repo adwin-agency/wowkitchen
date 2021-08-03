@@ -47,7 +47,7 @@
             :key="name"
             class="details__characteristic"
           >
-            <span>{{feature.title}}</span>{{feature.value}}
+            <span>{{feature.title}}</span>{{feature.title === 'Фасад' ? 'Egger' : feature.value}}
           </p>
         </div>
       </div>
