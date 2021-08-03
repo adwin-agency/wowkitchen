@@ -96,7 +96,7 @@
               >Ошибка отправки. Попробуйте еще раз</p>
             </fieldset>
             <div class="delivery__form-map-box">
-              <div class="delivery__form-map"></div>
+              <div class="delivery__form-map" id="map"></div>
             </div>
           </div>
           <p class="delivery__form-policy">
@@ -138,14 +138,31 @@ export default {
   },
   data() {
     return {
-      cities: [{ title: 'Санкт-Петербург' }, { title: 'Ленинградская область' }]
+      cities: [{ title: 'Санкт-Петербург' }, { title: 'Ленинградская область' }],
+      userCoords: null
     }
   },
   computed: {
     cityPhone() {
       return this.$store.state.cities[this.$store.state.activeCity]?.phone
+    },
+    activeCity() {
+      return this.$store.state.activeCity
+    },
+    activeCityCoords() {
+      return [this.$store.state.cities[this.activeCity]?.coords.lat,  this.$store.state.cities[this.activeCity]?.coords.long]
     }
-  }
+  },
+  // mounted() {
+  //   ymaps.ready(init)
+
+  //   function init(){
+  //     new ymaps.Map('map', {
+  //       center: [55.76, 37.64],
+  //       zoom: 7
+  //     })
+  //   }
+  // }
 }
 </script>
 
