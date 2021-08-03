@@ -10,7 +10,6 @@ export default function useForms() {
   const success = ref(false)
   const error = ref(false)
   const page = computed(() => route.path)
-  const product = computed(() => store.state.productData)
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -47,7 +46,6 @@ export default function useForms() {
     success,
     error,
     page,
-    product,
     handleSubmit
   }
 }

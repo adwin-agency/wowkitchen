@@ -457,7 +457,6 @@ export default {
       const formData = new FormData(this.$refs.form)
 
       formData.forEach((value, key) => (obj[key] = value))
-      console.log(obj)
       this.$store.commit('setConstructor', obj)
     }
   }

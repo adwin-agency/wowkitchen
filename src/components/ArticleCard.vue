@@ -253,6 +253,10 @@ export default {
   &__play-icon {
     position: static;
     margin-bottom: 15px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: $color-yellow;
   }
 
   &__content {

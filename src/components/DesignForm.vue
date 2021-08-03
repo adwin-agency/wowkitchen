@@ -13,24 +13,6 @@
       name="page"
       :value="page"
     >
-    <input
-      v-if="product"
-      type="hidden"
-      name="item"
-      :value="product.name"
-    >
-    <input
-      v-if="product"
-      type="hidden"
-      name="item_id"
-      :value="product.id"
-    >
-    <input
-      v-if="product"
-      type="hidden"
-      name="product_type"
-      :value="product.type"
-    >
     <p class="design-form__title">Оставить заявку</p>
     <div class="design-form__fields">
       <AppTextField
@@ -80,12 +62,11 @@ export default {
     AppButton
   },
   setup(props) {
-    const { sending, error, page, product, handleSubmit } = useForms(props)
+    const { sending, error, page, handleSubmit } = useForms(props)
     return {
       sending,
       error,
       page,
-      product,
       handleSubmit
     }
   }

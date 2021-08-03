@@ -29,8 +29,8 @@ export default {
   },
   methods: {
     handleBtnClick() {
-      const { name, id, type = 'Кухня' } = this.info
-      this.$store.commit('setProductData', { name, id, type })
+      const { name, id } = this.info
+      this.$store.commit('setProductData', { name, id })
     }
   }
 }

@@ -116,7 +116,9 @@
           <div class="technic-details__btns">
             <AppButton
               title="Купить"
+              modalName="designer"
               class="technic-details__btn"
+              @click="handleBtnClick"
             />
             <button
               type="button"
@@ -218,6 +220,11 @@ export default {
       }
 
       this.activeInfo = this.activeInfo !== ref ? ref : null
+    },
+
+    handleBtnClick() {
+      const { name, id } = this.info
+      this.$store.commit('setProductData', { name, id })
     }
   }
 }

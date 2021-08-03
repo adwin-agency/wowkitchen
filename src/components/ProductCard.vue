@@ -229,8 +229,8 @@ export default {
     },
 
     handleBtnClick() {
-      const { name, id, product_type: type } = this.info
-      this.$store.commit('setProductData', { name, id, type })
+      const { name, id } = this.info
+      this.$store.commit('setProductData', { name, id })
     },
 
     setSwiper(swiper) {

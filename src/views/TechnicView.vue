@@ -33,21 +33,12 @@ export default {
   },
   async created() {
     this.details = await api.loadDetails(this.$route)
-    const { name, id, product_type: type } = this.details.info
-    this.$store.commit('setProductData', { name, id, type } )
-
     this.setBreadCrumbs()
   },
   async beforeRouteUpdate(to) {
     this.details = null
     this.details = await api.loadDetails(to)
-    const { name, id, product_type: type } = this.details.info
-    this.$store.commit('setProductData', { name, id, type } )
-
     this.setBreadCrumbs()
-  },
-  unmounted() {
-    this.$store.commit('setProductData', null)
   },
   methods: {
     setBreadCrumbs() {

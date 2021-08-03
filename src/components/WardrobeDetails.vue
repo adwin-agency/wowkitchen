@@ -132,12 +132,14 @@
               title="Рассчитать проект"
               modalName="calc"
               class="wardrobe-details__btn"
+              @click="handleBtnClick"
             />
             <AppButton
               bordered
               title="Вызвать дизайнера"
               modalName="designer"
               class="wardrobe-details__btn"
+              @click="handleBtnClick"
             />
           </div>
         </div>
@@ -225,6 +227,11 @@ export default {
       }
 
       this.activeInfo = this.activeInfo !== ref ? ref : null
+    },
+
+    handleBtnClick() {
+      const { name, id } = this.info
+      this.$store.commit('setProductData', { name, id })
     }
   }
 }

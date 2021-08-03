@@ -26,22 +26,16 @@
             :value="page"
           >
           <input
-            v-if="product"
+            v-if="productData"
             type="hidden"
             name="item"
-            :value="product.name"
+            :value="productData.name"
           >
           <input
-            v-if="product"
+            v-if="productData"
             type="hidden"
             name="item_id"
-            :value="product.id"
-          >
-          <input
-            v-if="product"
-            type="hidden"
-            name="product_type"
-            :value="product.type"
+            :value="productData.id"
           >
           <AppIcon
             name="group"
@@ -123,22 +117,16 @@
             :value="page"
           >
           <input
-            v-if="product"
+            v-if="productData"
             type="hidden"
             name="item"
-            :value="product.name"
+            :value="productData.name"
           >
           <input
-            v-if="product"
+            v-if="productData"
             type="hidden"
             name="item_id"
-            :value="product.id"
-          >
-          <input
-            v-if="product"
-            type="hidden"
-            name="product_type"
-            :value="product.type"
+            :value="productData.id"
           >
           <template v-if="constructor">
             <input
@@ -311,13 +299,12 @@ export default {
     AppButton
   },
   setup() {
-    const { sending, success, error, page, product, handleSubmit } = useForms()
+    const { sending, success, error, page, handleSubmit } = useForms()
     return {
       sending,
       success,
       error,
       page,
-      product,
       handleSubmit
     }
   },
@@ -333,6 +320,9 @@ export default {
     },
     modalData() {
       return this.$store.state.modalData
+    },
+    productData() {
+      return this.$store.state.productData
     },
     constructor() {
       return this.$store.state.constructor

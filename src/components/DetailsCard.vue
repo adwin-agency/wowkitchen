@@ -38,12 +38,14 @@
           title="Рассчитать проект"
           modalName="calc"
           class="details-card__btn"
+          @click="handleBtnClick"
         />
         <AppButton
           color="gray"
           title="Вызвать дизайнера"
           modalName="designer"
           class="details-card__btn details-card__btn_add"
+          @click="handleBtnClick"
         />
         <button
           v-if="$_mobile"
@@ -108,6 +110,12 @@ export default {
     return {
       isFavorite,
       toggleFavorite
+    }
+  },
+  methods: {
+    handleBtnClick() {
+      const { name, id } = this.info
+      this.$store.commit('setProductData', { name, id })
     }
   }
 }

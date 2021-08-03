@@ -26,104 +26,118 @@
           :items="['Предоплата', 'Доплата']"
           class="payment-form__field"
         />
-        <AppTextField
-          label="Имя и фамилия"
-          placeholder="Как к вам обращаться?"
-          type="text"
-          name="name"
-          required
-          color="white"
-          bordered
-          class="payment-form__field"
-        />
-        <AppTextField
-          label="Номер договора"
-          :placeholder="['буквы', 'цифры']"
-          type="text"
-          :name="['contract-l', 'contract-n']"
-          required
-          color="white"
-          bordered
-          double
-          class="payment-form__field payment-form__field_small"
-        />
-        <AppTextField
-          label="Контактный телефон"
-          placeholder="+7(999)999-99-99"
-          type="tel"
-          name="phone"
-          required
-          color="white"
-          bordered
-          class="payment-form__field payment-form__field_small"
-        />
-        <AppTextField
-          label="Mail"
-          placeholder="sample@sample.ru"
-          type="email"
-          name="email"
-          required
-          :note="$_media.sm ? 'На него будет выслана квитанция после прохождения оплаты' : ''"
-          :sideNote="!$_media.sm ? 'На него будет выслана квитанция после прохождения оплаты' : ''"
-          color="white"
-          bordered
-          class="payment-form__field"
-        />
         <AppSelect
           :sideLabel="!$_media.sm && 'Город'"
-          :options="[{ title: 'Санкт-Петербург' }, { title: 'Москва' }]"
+          :options="cityOptions"
           color="white"
           class="payment-form__field payment-form__field_select"
+          @change="handleCityChange"
         />
-        <AppTextField
-          label="Адрес (как в договоре)"
-          type="text"
-          name="address"
-          required
-          color="white"
-          bordered
-          class="payment-form__field"
-        />
-        <AppTextField
-          label="Сумма, ₽"
-          type="text"
-          name="sum"
-          required
-          sideNote="Важно: минимальная сумма предоплаты 1000 ₽"
-          color="white"
-          bordered
-          class="payment-form__field"
-        />
-        <AppTextField
-          textarea
-          label="Комментарий (необязательно)"
-          name="comment"
-          size="small"
-          color="white"
-          bordered
-          class="payment-form__field"
-        />
-        <div class="payment-form__fields-footer">
-          <AppButton
-            title="Оплатить"
-            type="submit"
-            class="payment-form__btn"
+        <template v-if="activePayment">
+          <AppTextField
+            label="Имя и фамилия"
+            placeholder="Как к вам обращаться?"
+            type="text"
+            name="name"
+            required
+            color="white"
+            bordered
+            class="payment-form__field"
           />
+          <AppTextField
+            label="Номер договора"
+            :placeholder="['буквы', 'цифры']"
+            type="text"
+            :name="['contract-l', 'contract-n']"
+            required
+            color="white"
+            bordered
+            double
+            class="payment-form__field payment-form__field_small"
+          />
+          <AppTextField
+            label="Контактный телефон"
+            placeholder="+7(999)999-99-99"
+            type="tel"
+            name="phone"
+            required
+            color="white"
+            bordered
+            class="payment-form__field payment-form__field_small"
+          />
+          <AppTextField
+            label="Mail"
+            placeholder="sample@sample.ru"
+            type="email"
+            name="email"
+            required
+            :note="$_media.sm ? 'На него будет выслана квитанция после прохождения оплаты' : ''"
+            :sideNote="!$_media.sm ? 'На него будет выслана квитанция после прохождения оплаты' : ''"
+            color="white"
+            bordered
+            class="payment-form__field"
+          />
+          <AppTextField
+            label="Адрес (как в договоре)"
+            type="text"
+            name="address"
+            required
+            color="white"
+            bordered
+            class="payment-form__field"
+          />
+          <AppTextField
+            label="Сумма, ₽"
+            type="text"
+            name="sum"
+            required
+            sideNote="Важно: минимальная сумма предоплаты 1000 ₽"
+            color="white"
+            bordered
+            class="payment-form__field"
+          />
+          <AppTextField
+            textarea
+            label="Комментарий (необязательно)"
+            name="comment"
+            size="small"
+            color="white"
+            bordered
+            class="payment-form__field"
+          />
+          <div class="payment-form__fields-footer">
+            <AppButton
+              title="Оплатить"
+              type="submit"
+              class="payment-form__btn"
+            />
+            <p
+              v-if="error && $_media.sm"
+              class="payment-form__error"
+            >
+              Ошибка отправки. Попробуйте еще раз
+            </p>
+            <p class="payment-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с <a href="#">Политикой конфиденциальности</a></p>
+          </div>
           <p
-            v-if="error && $_media.sm"
+            v-if="error && !$_media.sm"
             class="payment-form__error"
           >
             Ошибка отправки. Попробуйте еще раз
           </p>
-          <p class="payment-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с <a href="#">Политикой конфиденциальности</a></p>
-        </div>
-        <p
-          v-if="error && !$_media.sm"
-          class="payment-form__error"
-        >
-          Ошибка отправки. Попробуйте еще раз
-        </p>
+        </template>
       </div>
+    </div>
+    <div
+      v-if="!activePayment"
+      class="payment-form__info"
+    >
+      <AppIcon
+        name="info-circle"
+        class="payment-form__info-icon"
+      />
+      <p class="payment-form__info-text">Для оплаты из этого региона, пожалуйста, ознакомьтесь с инструкцией в вашем договоре.</p>
+      <p class="payment-form__info-text">В случае возникновения вопросов, свяжитесь с нами по телефону {{phone}} (ежедневно с 9 до 22)</p>
     </div>
     <div class="payment-form__systems">
       <p class="payment-form__systems-title">Мы принимаем к оплате</p>
@@ -177,6 +191,33 @@ export default {
       error,
       page,
       handleSubmit
+    }
+  },
+  data() {
+    return {
+      selectedCity: null
+    }
+  },
+  computed: {
+    cities() {
+      return this.$store.state.cities
+    },
+    cityOptions() {
+      return Object.values(this.cities).length ? Object.values(this.cities).map((i) => ({ title: i.name, value: i.code })) : [{title: ''}]
+    },
+    activeCity() {
+      return this.selectedCity || (Object.values(this.cities).length && Object.values(this.cities)[0].code)
+    },
+    activePayment() {
+      return !!this.$store.state.cities[this.activeCity]?.shop_id
+    },
+    phone() {
+      return this.$store.state.cities[this.activeCity]?.phone
+    }
+  },
+  methods: {
+    handleCityChange(e) {
+      this.selectedCity = e
     }
   }
 }
@@ -234,6 +275,10 @@ export default {
 
   &__field {
     margin-bottom: 18px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__btn {
@@ -255,6 +300,32 @@ export default {
 
     a {
       text-decoration: underline;
+    }
+  }
+
+  &__info {
+    position: relative;
+    margin: 20px (-$container-padding) 0;
+    padding: 30px $container-padding;
+    background-color: rgba(#fff, .5);
+
+    &-icon {
+      position: absolute;
+      left: $container-padding;
+      top: 30px;
+      width: 40px;
+      height: 40px;
+    }
+
+    &-text {
+      padding-left: 55px;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: (22/14);
+
+      & + & {
+        margin-top: 10px;
+      }
     }
   }
 
@@ -367,6 +438,20 @@ export default {
       margin-top: 0;
       margin-left: 22px;
       margin-right: -10px;
+    }
+
+    &__info {
+      margin: 0;
+      padding: 40px 80px;
+
+      &-icon {
+        left: 80px;
+        top: 40px;
+      }
+      
+      &-text {
+        padding-left: 70px;
+      }
     }
 
     &__systems {
