@@ -65,6 +65,12 @@ const routes = [
     component: () => import('@/views/PaymentView.vue')
   },
   {
+    path: '/pay',
+    name: 'pay',
+    meta: { title: 'Оплата онлайн' },
+    component: () => import('@/views/PayView.vue')
+  },
+  {
     path: '/quiz',
     name: 'quiz',
     meta: { title: 'Подбор кухни' },

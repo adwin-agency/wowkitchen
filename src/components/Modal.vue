@@ -220,6 +220,7 @@
             autoplay
             controls
             controlsList="nodownload"
+            class="modal__video"
           ></video>
           <button
             type="button"
@@ -234,13 +235,37 @@
         </div>
 
         <div
-          v-if="modal === 'image'"
+          v-if="modal === 'images'"
           class="modal__media"
         >
-          <img
-            :src="$_basepath + modalData.image"
-            alt
+          <Swiper
+            :follow-finger="false"
+            :speed="0"
+            loop
+            navigation
+            :lazy="{ loadPrevNext: true }"
+            class="modal__slider"
+            @swiper="initSwiper($event, modalData.index)"
           >
+            <SwiperSlide
+              v-for="(image, index) in modalData.images"
+              :key="index"
+              class="modal__slide"
+            >
+              <img
+                v-if="index === modalData.index"
+                :src="$_basepath + ($_mobile ? image.medium.path : image.large.path)"
+                alt
+                class="modal__image"
+              >
+              <img
+                v-else
+                :data-src="$_basepath + ($_mobile ? image.medium.path : image.large.path)"
+                alt
+                class="modal__image swiper-lazy"
+              >
+            </SwiperSlide>
+          </Swiper>
           <button
             type="button"
             class="modal__close"
@@ -286,14 +311,20 @@
 </template>
 
 <script>
+import SwiperCore, { Navigation } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
 import useForms from '../composition/forms'
 
+SwiperCore.use([Navigation])
+
 export default {
   name: 'Modal',
   components: {
+    Swiper,
+    SwiperSlide,
     AppIcon,
     AppTextField,
     AppButton
@@ -329,6 +360,9 @@ export default {
     }
   },
   watch: {
+    $route() {
+      this.closeModal()
+    },
     success() {
       this.fileName = ''
       this.fileError = ''
@@ -366,6 +400,10 @@ export default {
 
         this.fileName = name
       }
+    },
+
+    initSwiper(swiper, index) {
+      swiper.slideTo(index + 1)
     }
   }
 }
@@ -405,7 +443,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(#000, 0.3);
+    background-color: rgba(#000, 0.7);
   }
 
   &__form {
@@ -478,12 +516,46 @@ export default {
   &__media {
     position: relative;
     overflow: hidden;
+  }
 
-    video,
-    img {
-      max-width: calc(100vw - 40px);
-      max-height: calc(100vh - 40px);
+  &__video {
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+  }
+
+  &__slider {
+    width: calc(100vw - 40px);
+    max-width: 1280px;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
     }
+
+    .swiper-button-prev {
+      left: 0;
+    }
+
+    .swiper-button-next {
+      right: 0;
+    }
+  }
+
+  &__slide {
+    position: relative;
+    padding-top: 56%;
+  }
+
+  &__image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   &__close {
@@ -495,6 +567,7 @@ export default {
     right: 20px;
     width: 36px;
     height: 36px;
+    z-index: 2;
 
     &-icon {
       width: 17px;
@@ -570,11 +643,18 @@ export default {
       box-shadow: 0px 19px 26px 0px rgba(0, 0, 0, 0.1);
     }
 
-    &__media {
-      video,
-      img {
-        max-width: 1280px;
-        max-height: calc(100vh - 100px);
+    &__video {
+      max-width: 1280px;
+      max-height: calc(100vh - 100px);
+    }
+
+    &__slider {
+      .swiper-button-prev {
+        left: 20px;
+      }
+
+      .swiper-button-next {
+        right: 20px;
       }
     }
 

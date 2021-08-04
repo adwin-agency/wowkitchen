@@ -64,6 +64,7 @@
           </div>
           <DetailsCard
             :info="info"
+            noPrice
             class="details__card"
           />
           <div
@@ -121,7 +122,10 @@
         </div>
       </div>
     </div>
-    <div class="details__gallery">
+    <div
+      ref="gallery"
+      class="details__gallery"
+    >
       <div class="container container_slider">
         <div
           v-if="$_media.sm && info.video_customer.desktop"
@@ -197,6 +201,7 @@
           >
             <video
               v-if="activeReview"
+              :class="{'is-active': activeReview}"
               :src="$_basepath + info.video_customer.desktop"
               autoplay
               controls
@@ -225,6 +230,7 @@
           >
             <video
               v-if="activeDrive"
+              :class="{'is-active': activeDrive}"
               :src="$_basepath + info.video_test_drive"
               autoplay
               controls
@@ -390,6 +396,8 @@ export default {
       if (this.gallerySwiper) {
         this.activeGalleryIndex = this.gallerySwiper.realIndex + 1
       }
+
+      this.$refs.gallery.querySelectorAll('video.is-active').forEach((i) => i.pause())
     },
 
     handleResize() {

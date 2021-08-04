@@ -2,10 +2,23 @@
   <div class="payment">
     <div class="payment__main">
       <div class="container container_side-fixed">
+        <router-link
+          :to="{name: 'pay'}"
+          custom
+          v-slot="{href, navigate}"
+        >
+          <AppButton
+            :href="href"
+            title="Оплата онлайн"
+            bordered
+            class="payment__btn"
+            @click="navigate"
+          />
+        </router-link>
         <div class="payment__section">
           <h2 class="payment__heading">Оплата наличными</h2>
           <p class="payment__desc">Для вашего удобства, оплата происходит в несколько этапов. Первая оплата производится при заключении договора представителю нашей компании.</p>
-          <p class="payment__desc">Последующие можно произвести как наличными в нашем офисе, так и 
+          <p class="payment__desc">Последующие можно произвести как наличными в нашем офисе, так и
             <a
               href="#"
               @click="scrollToForm"
@@ -60,6 +73,7 @@
           <AppButton
             title="Оставить заявку"
             size="small"
+            modalName="designer"
             class="payment__btn"
           />
           <div class="payment__features">
@@ -77,13 +91,13 @@
             </div>
           </div>
         </div>
-        <div
+        <!-- <div
           ref="form"
           class="payment__section"
         >
           <h2 class="payment__heading">Оплата онлайн</h2>
           <PaymentForm class="payment__form" />
-        </div>
+        </div> -->
       </div>
     </div>
     <Interesting payment />
@@ -94,14 +108,14 @@
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import Interesting from './Interesting.vue'
-import PaymentForm from './PaymentForm.vue'
+// import PaymentForm from './PaymentForm.vue'
 
 export default {
   name: 'Payment',
   components: {
     AppIcon,
     AppButton,
-    PaymentForm,
+    // PaymentForm,
     Interesting
   },
   methods: {
@@ -118,7 +132,7 @@ export default {
       function step(newTimestamp) {
         if (oldTimestamp !== null) {
           scrollCount += (Math.PI * (newTimestamp - oldTimestamp)) / 500
-          
+
           if (scrollCount >= Math.PI) {
             return
           }
@@ -145,11 +159,7 @@ export default {
   }
 
   &__section {
-    margin-bottom: 55px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+    margin-top: 55px;
   }
 
   &__desc {
@@ -244,8 +254,11 @@ export default {
     }
   }
 
-  &__btn {
+  &__desc + &__btn {
     margin-top: 16px;
+  }
+
+  &__btn {
     width: 100%;
 
     & + #{$b}__features {
@@ -264,7 +277,7 @@ export default {
     }
 
     &__section {
-      margin-bottom: 65px;
+      margin-top: 65px;
     }
 
     &__desc {
@@ -309,8 +322,11 @@ export default {
       }
     }
 
-    &__btn {
+    &__desc + &__btn {
       margin-top: 32px;
+    }
+
+    &__btn {
       width: auto;
       min-width: 225px;
 
@@ -331,7 +347,7 @@ export default {
     }
 
     &__section {
-      margin-bottom: 75px;
+      margin-top: 75px;
     }
 
     &__heading {
@@ -391,7 +407,7 @@ export default {
       }
     }
 
-    &__btn {
+    &__desc + &__btn {
       margin-top: 28px;
     }
 
@@ -406,7 +422,7 @@ export default {
     }
 
     &__section {
-      margin-bottom: 95px;
+      margin-top: 95px;
     }
 
     &__desc {

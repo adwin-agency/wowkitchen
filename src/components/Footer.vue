@@ -54,6 +54,19 @@
             >
               Политика конфиденциальности
             </a>
+            <router-link
+              :to="{name: 'pay'}"
+              custom
+              v-slot="{href, navigate}"
+            >
+              <AppButton
+                :href="href"
+                title="Оплата онлайн"
+                bordered
+                class="footer__pay-btn"
+                @click="navigate"
+              />
+            </router-link>
             <div class="footer__payment">
               <AppIcon
                 name="visa"
@@ -96,7 +109,7 @@
               :class="{'is-active': activeCityBox}"
               @apply="applyCity"
             />
-          </div>          
+          </div>
           <a
             :href="`tel:${cityPhone}`"
             class="footer__phone"
@@ -359,7 +372,7 @@ export default {
     font-size: 13px;
     color: #dedede;
     white-space: nowrap;
-    transition: color .3s ease;
+    transition: color 0.3s ease;
 
     &:hover {
       color: $color-lightviolet;
@@ -378,10 +391,15 @@ export default {
     text-decoration: underline;
   }
 
+  &__pay-btn {
+    margin-top: 20px;
+    width: 100%;
+  }
+
   &__payment {
     display: flex;
     justify-content: center;
-    margin-top: 4px;
+    margin-top: 14px;
   }
 
   &__payment-icon {
@@ -473,7 +491,7 @@ export default {
 
   &__social-link {
     margin-right: 17px;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
 
     &:last-child {
       margin-right: 0;
@@ -538,15 +556,25 @@ export default {
     }
 
     &__main-footer {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(2, auto);
       justify-content: space-between;
       align-items: center;
       margin-top: 50px;
     }
 
     &__policy {
-      margin-top: 16px;
+      margin-top: 0;
       margin-right: 20px;
+    }
+
+    &__pay-btn {
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+      margin-top: 0;
+      margin-left: auto;
+      margin-bottom: 15px;
+      width: 200px;
     }
 
     &__payment {
@@ -669,8 +697,14 @@ export default {
     }
 
     &__main-footer {
+      display: flex;
       margin-top: 60px;
       padding-right: 35px;
+    }
+
+    &__pay-btn {
+      margin-right: 30px;
+      margin-bottom: 0;
     }
 
     &__side {

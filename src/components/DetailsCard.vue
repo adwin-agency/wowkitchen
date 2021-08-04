@@ -16,7 +16,10 @@
           />
         </button>
       </p>
-      <div class="details-card__cost">
+      <div
+        v-if="!noPrice"
+        class="details-card__cost"
+      >
         <div class="details-card__prices">
           <p class="details-card__price">{{info.price}} ₽</p>
           <p
@@ -35,7 +38,7 @@
       </div>
       <div class="details-card__btns">
         <AppButton
-          title="Рассчитать проект"
+          :title="noPrice ? 'Рассчитать стоимость' : 'Рассчитать проект'"
           modalName="calc"
           class="details-card__btn"
           @click="handleBtnClick"
@@ -85,7 +88,7 @@
         />
         <span>Поделиться</span>
       </button>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -103,7 +106,8 @@ export default {
     AppBookmark
   },
   props: {
-    info: Object
+    info: Object,
+    noPrice: Boolean
   },
   setup(props) {
     const { isFavorite, toggleFavorite } = useFavorites(props)
@@ -138,7 +142,7 @@ export default {
   }
 
   &__favorite {
-    margin-left: 24px;    
+    margin-left: 24px;
 
     &-icon {
       width: 20px;
@@ -193,7 +197,7 @@ export default {
     }
   }
 
-  &__share {    
+  &__share {
     margin: 0 10px;
 
     &-icon {
@@ -238,7 +242,7 @@ export default {
       margin: 0 18px;
       font-size: 10px;
       color: #8b8b8b;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
 
       &:hover {
         opacity: 0.7;

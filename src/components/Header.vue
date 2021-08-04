@@ -50,7 +50,7 @@
                 <router-link :to="{name: 'wardrobes'}">Шкафы-купе</router-link>
               </span>
               <span class="header__nav-item">
-                <router-link :to="{name: 'quiz'}">Подбор кухни</router-link>
+                <router-link :to="{name: 'quiz'}">Расчет онлайн</router-link>
               </span>
               <span class="header__nav-item">
                 <router-link :to="{name: 'blog'}">Советы и идеи</router-link>
@@ -179,7 +179,7 @@
               :to="{name: 'quiz'}"
               class="header__nav-item"
             >
-              Подбор кухни
+              Расчет онлайн
             </router-link>
             <router-link
               :to="{name: 'blog'}"

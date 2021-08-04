@@ -43,7 +43,7 @@
             v-if="cardType === 'kitchen'"
             type="button"
             class="product-card__zoom-btn"
-            @click="openModalImage(picture)"
+            @click="openModalImages(index)"
           >
             <AppIcon
               name="zoom"
@@ -222,10 +222,10 @@ export default {
       this.hover = false
     },
 
-    openModalImage(picture) {
-      const imagePath = `${this.$_mobile ? picture.medium.path : picture.large.path}`
-      this.$store.commit('setModal', 'image')
-      this.$store.commit('setModalData', { image: imagePath })
+    openModalImages(index) {
+      console.log(index)
+      this.$store.commit('setModal', 'images')
+      this.$store.commit('setModalData', { images: this.info.pictures, index: index })
     },
 
     handleBtnClick() {

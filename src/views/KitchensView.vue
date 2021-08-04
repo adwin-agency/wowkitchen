@@ -49,6 +49,16 @@ const filterGroups = [
       { title: 'С барной стойкой', value: 's-barnoy-stoykoy' },
       { title: 'С островом', value: 's-ostrovom' }
     ]
+  },
+  {
+    id: 'tag',
+    title: 'Популярное',
+    items: [
+      { title: 'Маленькие кухни', value: 'mk' },
+      { title: 'ТОП-5 кухонь месяца', value: 'top5' },
+      { title: 'Гарнитуры для хрущёвок', value: 'hru' },
+      { title: 'Практичные кухни', value: 'pra' }
+    ]
   }
   // {
   //   id: 'style',

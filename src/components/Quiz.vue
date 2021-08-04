@@ -73,71 +73,23 @@
         :value="page"
       >
       <div class="quiz__screen">
-        <div class="quiz__step">
-          <div class="container">
-            <p
-              v-if="activeStep < steps.length - 1"
-              class="quiz__order"
-            >Вопрос {{activeStep + 1}} из {{steps.length - 1}}</p>
-            <h2 class="quiz__title">{{steps[activeStep].title}}</h2>
-            <div
-              v-show="activeStep === 0"
-              class="quiz__plan"
-            >
-              <div class="quiz__options">
-                <QuizOption
-                  v-for="(option, index) in planOptions"
-                  :key="index"
-                  shadow
-                  name="plan"
-                  :image="option.image"
-                  :value="option.title"
-                  :title="option.title"
-                  class="quiz__option"
-                  @change="handleRadioChange('plan', $event)"
-                />
-              </div>
-              <AppButton
-                title="Далее"
-                size="small"
-                class="quiz__next"
-                :disabled="!isCompletedStep"
-                @click="goToNextStep"
-              />
-            </div>
-            <div
-              v-show="activeStep === 1"
-              class="quiz__size"
-            >
-              <div class="quiz__area">
-                <img
-                  v-if="sizeImage"
-                  :src="require(`@/assets/img/${sizeImage}`)"
-                  alt
-                >
-              </div>
-              <div class="quiz__fields">
-                <div class="quiz__fields-group">
-                  <p class="quiz__fields-title">Габариты</p>
-                  <AppTextField
-                    v-for="(size, index) in values.sizes"
+        <div class="quiz__steps">
+          <div class="quiz__step">
+            <div class="container">
+              <p class="quiz__order">Вопрос 1 из 3</p>
+              <h2 class="quiz__title">Выберите планировку кухни</h2>
+              <div class="quiz__plan">
+                <div class="quiz__options">
+                  <QuizOption
+                    v-for="(option, index) in planOptions"
                     :key="index"
-                    type="text"
-                    :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
-                    placeholder="Размер в см"
-                    class="quiz__field"
-                    @input="handleSizeInput(index, $event)"
-                  />
-                </div>
-                <div class="quiz__fields-group">
-                  <p class="quiz__fields-title">Дополнительный конструктив</p>
-                  <AppControl
-                    type="checkbox"
-                    name="construct"
-                    color="gray"
-                    :items="['+ Барная стойка', '+ Остров']"
-                    class="quiz__control"
-                    @change="handleCheckboxChange('construct', $event)"
+                    shadow
+                    name="plan"
+                    :image="option.image"
+                    :value="option.title"
+                    :title="option.title"
+                    class="quiz__option"
+                    @change="handleRadioChange('plan', $event)"
                   />
                 </div>
                 <AppButton
@@ -149,94 +101,149 @@
                 />
               </div>
             </div>
-            <div
-              v-show="activeStep === 2"
-              class="quiz__style"
-            >
-              <div class="quiz__options quiz__options_wide">
-                <QuizOption
-                  v-for="(option, index) in styleOptions"
-                  :key="index"
-                  small
-                  name="style"
-                  :image="option.image"
-                  :value="option.title"
-                  :title="option.title"
-                  class="quiz__option"
-                  @change="handleRadioChange('style', $event)"
-                />
-              </div>
-              <AppButton
-                title="Далее"
-                size="small"
-                class="quiz__next"
-                :disabled="!isCompletedStep"
-                @click="goToNextStep"
-              />
-            </div>
-            <div
-              v-show="activeStep === 3"
-              class="quiz__elements"
-            >
-              <div class="quiz__options quiz__options_wide">
-                <QuizOption
-                  v-for="(option, index) in addOptions"
-                  :key="index"
-                  checkbox
-                  small
-                  name="elements"
-                  :image="option.image"
-                  :value="option.title"
-                  :title="option.title"
-                  class="quiz__option"
-                  @change="handleCheckboxChange('elements', $event)"
-                />
-              </div>
-              <AppButton
-                title="Далее"
-                size="small"
-                class="quiz__next"
-                :disabled="!isCompletedStep"
-                @click="goToNextStep"
-              />
-            </div>
-            <div
-              v-if="activeStep === steps.length - 1"
-              class="quiz__calc"
-            >
-              <div
-                v-if="$_media.sm"
-                class="quiz__summary"
-              >
-                <p class="quiz__summary-title">Параметры вашей будущей кухни:</p>
-                <ol class="quiz__progress">
-                  <li class="quiz__progress-item is-active">Тип кухни: {{values.plan}}</li>
-                  <li class="quiz__progress-item is-active">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</li>
-                  <li class="quiz__progress-item is-active">Стиль: {{values.style}}</li>
-                  <li
-                    v-if="values.elements.length"
-                    class="quiz__progress-item is-active"
+          </div>
+          <div class="quiz__step">
+            <div class="container">
+              <p class="quiz__order">Вопрос 2 из 3</p>
+              <h2 class="quiz__title">Введите ориентировочные размеры</h2>
+              <div class="quiz__size">
+                <div class="quiz__area">
+                  <img
+                    v-if="sizeImage"
+                    :src="require(`@/assets/img/${sizeImage}`)"
+                    alt
                   >
-                    Дополнительно: {{values.elements.join(', ')}}
-                  </li>
-                </ol>
+                </div>
+                <div class="quiz__fields">
+                  <div class="quiz__fields-group">
+                    <p class="quiz__fields-title">Габариты</p>
+                    <AppTextField
+                      v-for="(size, index) in values.sizes"
+                      :key="index"
+                      type="text"
+                      :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
+                      placeholder="Размер в см"
+                      class="quiz__field"
+                      @input="handleSizeInput(index, $event)"
+                    />
+                  </div>
+                  <div class="quiz__fields-group">
+                    <p class="quiz__fields-title">Дополнительный конструктив</p>
+                    <AppControl
+                      type="checkbox"
+                      name="construct"
+                      color="gray"
+                      :items="['+ Барная стойка', '+ Остров']"
+                      class="quiz__control"
+                      @change="handleCheckboxChange('construct', $event)"
+                    />
+                  </div>
+                  <AppButton
+                    title="Далее"
+                    size="small"
+                    class="quiz__next"
+                    :disabled="!isCompletedStep"
+                    @click="goToNextStep"
+                  />
+                </div>
               </div>
-              <QuizResult
-                :error="error"
-                class="quiz__result"
-              />
-              <button
-                v-if="$_media.sm"
-                type="button"
-                class="quiz__reset"
-                @click="resetQuiz"
-              >
-                <AppIcon
-                  name="refresh"
-                  class="quiz__reset-icon"
+            </div>
+          </div>
+          <div class="quiz__step">
+            <div class="container">
+              <p class="quiz__order">Вопрос 3 из 3</p>
+              <h2 class="quiz__title">Давайте выберем стиль</h2>
+              <div class="quiz__style">
+                <div class="quiz__options quiz__options_wide">
+                  <QuizOption
+                    v-for="(option, index) in styleOptions"
+                    :key="index"
+                    small
+                    name="style"
+                    :image="option.image"
+                    :value="option.title"
+                    :title="option.title"
+                    class="quiz__option"
+                    @change="handleRadioChange('style', $event)"
+                  />
+                </div>
+                <AppButton
+                  title="Далее"
+                  size="small"
+                  class="quiz__next"
+                  :disabled="!isCompletedStep"
+                  @click="goToNextStep"
                 />
-                Посчитать еще раз
-              </button>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="quiz__step">
+            <div class="container">
+              <p class="quiz__order">Вопрос 4 из 4</p>
+              <h2 class="quiz__title">Выберите дополнительные элементы:</h2>
+              <div class="quiz__elements">
+                <div class="quiz__options quiz__options_wide">
+                  <QuizOption
+                    v-for="(option, index) in addOptions"
+                    :key="index"
+                    checkbox
+                    small
+                    name="elements"
+                    :image="option.image"
+                    :value="option.title"
+                    :title="option.title"
+                    class="quiz__option"
+                    @change="handleCheckboxChange('elements', $event)"
+                  />
+                </div>
+                <AppButton
+                  title="Далее"
+                  size="small"
+                  class="quiz__next"
+                  :disabled="!isCompletedStep"
+                  @click="goToNextStep"
+                />
+              </div>
+            </div>
+          </div> -->
+          <div class="quiz__step">
+            <div class="container">
+              <h2 class="quiz__title">Расчёт стоимости</h2>
+              <div class="quiz__calc">
+                <div
+                  v-if="$_media.sm"
+                  class="quiz__summary"
+                >
+                  <p class="quiz__summary-title">Параметры вашей будущей кухни:</p>
+                  <ol class="quiz__progress">
+                    <li class="quiz__progress-item is-active">Тип кухни: {{values.plan}}</li>
+                    <li class="quiz__progress-item is-active">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</li>
+                    <li class="quiz__progress-item is-active">Стиль: {{values.style}}</li>
+                    <li
+                      v-if="values.elements.length"
+                      class="quiz__progress-item is-active"
+                    >
+                      Дополнительно: {{values.elements.join(', ')}}
+                    </li>
+                  </ol>
+                </div>
+                <QuizResult
+                  :error="error"
+                  class="quiz__result"
+                />
+                <button
+                  v-if="$_media.sm"
+                  type="button"
+                  class="quiz__reset"
+                  @click="resetQuiz"
+                >
+                  <AppIcon
+                    name="refresh"
+                    class="quiz__reset-icon"
+                  />
+                  Посчитать еще раз
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -245,7 +252,7 @@
           class="quiz__side"
         >
           <div class="quiz__note">
-            <p class="quiz__note-title">{{steps[activeStep].noteTitle}}</p>
+            <p class="quiz__note-title">{{notes[activeStep - 1]}}</p>
             <p
               v-if="activeStep < steps.length - 1"
               class="quiz__note-desc"
@@ -306,6 +313,34 @@ import QuizOption from './QuizOption.vue'
 import QuizResult from './QuizResult.vue'
 import useForms from '../composition/forms'
 
+const notes = [
+  '4 простых шага',
+  'Ещё 3 простых шага',
+  'Ещё 2 простых шага',
+  'Остался всего 1 шаг',
+  'Параметры вашей будущей кухни:'
+]
+
+const planOptions = [
+  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Прямая планировка' },
+  { image: { name: 'quiz-corner.jpg', alt: 'Угловая' }, title: 'Угловая планировка' },
+  { image: { name: 'quiz-shaped.jpg', alt: 'П-образная' }, title: 'П-образная планировка' }
+]
+
+const styleOptions = [
+  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Минимализм' },
+  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Неоклассика' },
+  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Лофт' },
+  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Скандинавский' }
+]
+
+// const addOptions = [
+//   { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Стеновая панель МДФ' },
+//   { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Встроенная подсветка' },
+//   { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Техника' },
+//   { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Мойка' }
+// ]
+
 export default {
   name: 'Quiz',
   components: {
@@ -327,32 +362,11 @@ export default {
   },
   data() {
     return {
-      steps: [
-        { required: true, title: 'Выберите планировку кухни', noteTitle: '4 простых шага' },
-        { required: true, title: 'Введите ориентировочные размеры', noteTitle: 'Ещё 3 простых шага' },
-        { required: true, title: 'Давайте выберем стиль', noteTitle: 'Ещё 2 простых шага' },
-        { title: 'Выберите дополнительные элементы:', noteTitle: 'Остался всего 1 шаг' },
-        { title: 'Расчёт стоимости', noteTitle: 'Параметры вашей будущей кухни:' }
-      ],
-      planOptions: [
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Прямая планировка' },
-        { image: { name: 'quiz-corner.jpg', alt: 'Угловая' }, title: 'Угловая планировка' },
-        { image: { name: 'quiz-shaped.jpg', alt: 'П-образная' }, title: 'П-образная планировка' }
-      ],
-      styleOptions: [
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Минимализм' },
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Неоклассика' },
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Лофт' },
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Скандинавский' }
-      ],
-      addOptions: [
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Стеновая панель МДФ' },
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Встроенная подсветка' },
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Техника' },
-        { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Мойка' }
-      ],
-
-      activeStep: null,
+      notes: notes,
+      planOptions: planOptions,
+      styleOptions: styleOptions,
+      // addOptions: addOptions,
+      activeStep: 0,
       isCompletedStep: false,
       sizeImage: '',
       values: {
@@ -360,7 +374,7 @@ export default {
         sizes: [],
         construct: [],
         style: '',
-        elements: [],
+        // elements: [],
         email: ''
       }
     }
@@ -368,7 +382,7 @@ export default {
   methods: {
     startQuiz() {
       window.scrollTo(0, 0)
-      this.activeStep = 0
+      this.activeStep = 1
     },
 
     handleRadioChange(name, event) {
