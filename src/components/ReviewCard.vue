@@ -84,6 +84,7 @@ export default {
     #{$b} {
       &__content {
         width: 100%;
+        min-height: 0;
         height: auto;
         padding: 22px 30px;
       }
@@ -142,7 +143,8 @@ export default {
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
-    height: 310px;
+    min-height: 310px;
+    height: 100%;
     padding: 32px;
     font-weight: 500;
   }
@@ -219,7 +221,7 @@ export default {
           justify-content: flex-start;
           flex: 1;
           margin-left: 20px;
-          height: 138px;
+          min-height: 138px;
           padding: 10px 0;
         }
 
@@ -257,7 +259,7 @@ export default {
     &_big {
       #{$b} {
         &__content {
-          height: 285px;
+          min-height: 285px;
           padding: 28px 32px 28px 48px;
         }
 
@@ -282,7 +284,8 @@ export default {
 
       #{$b} {
         &__content {
-          height: 260px;
+          min-height: 260px;
+          height: 100%;
           padding: 26px 32px;
         }
 
@@ -301,7 +304,7 @@ export default {
     }
 
     &__content {
-      height: 310px;
+      min-height: 310px;
       padding: 32px 30px;
     }
 
@@ -325,7 +328,7 @@ export default {
         }
 
         &__content {
-          height: 186px;
+          min-height: 186px;
           padding: 30px 0;
         }
 
@@ -352,6 +355,7 @@ export default {
     &_big {
       #{$b} {
         &__content {
+          min-height: 392px;
           padding: 36px 54px 36px 48px;
         }
 
@@ -370,7 +374,7 @@ export default {
     }
 
     &__content {
-      height: 400px;
+      min-height: 395px;
       padding: 44px 40px;
     }
   }
@@ -384,7 +388,7 @@ export default {
 
         &__content {
           margin-left: 40px;
-          height: 210px;
+          min-height: 210px;
         }
 
         &__footer {
@@ -400,6 +404,7 @@ export default {
     &_big {
       #{$b} {
         &__content {
+          min-height: 450px;
           padding: 36px 82px 54px 48px;
         }
       }
@@ -408,14 +413,14 @@ export default {
     &_sample {
       #{$b} {
         &__content {
-          height: 300px;
+          min-height: 300px;
           padding: 35px 40px;
         }
       }
     }
 
     &__content {
-      height: 480px;
+      min-height: 480px;
       padding: 40px 60px 40px 40px;
     }
   }

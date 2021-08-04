@@ -48,6 +48,7 @@
           <div class="delivery__form-container">
             <fieldset class="delivery__form-box">
               <AppSelect
+                v-if="cities"
                 :options="cities"
                 color="white"
                 name="city"
@@ -61,6 +62,7 @@
                 name="street"
                 required
                 class="delivery__form-field"
+                @change="handleAddressChange('street', $event)"
               />
               <AppTextField
                 label="Дом"
@@ -69,14 +71,18 @@
                 name="building"
                 required
                 class="delivery__form-field delivery__form-field_sm"
+                @input="handleNumberInput"
+                @change="handleAddressChange('building', $event)"
               />
               <AppTextField
                 label="Корпус"
                 color="white"
                 type="text"
-                name="building-c"
+                name="corp"
                 required
                 class="delivery__form-field delivery__form-field_sm"
+                @input="handleNumberInput"
+                @change="handleAddressChange('corp', $event)"
               />
               <AppTextField
                 label="Контактный телефон"
@@ -141,35 +147,76 @@ export default {
   data() {
     return {
       map: null,
-      userCoords: null
+      city: Object.values(this.$store.state.cities).length ? Object.values(this.$store.state.cities)[0] : null,
+      street: '',
+      building: '',
+      corp: ''
     }
   },
   computed: {
     cities() {
-      return Object.values(this.$store.state.cities).length ? Object.values(this.$store.state.cities).map((i) => ({ title: i.name, value: i.code })) : [{ title: '' }]
+      return Object.values(this.$store.state.cities).length ? Object.values(this.$store.state.cities).map((i) => ({ title: i.name, value: i.code })) : null
     },
     cityPhone() {
-      return this.$store.state.cities[this.$store.state.activeCity]?.phone
+      return this.city?.phone
+    },
+    location() {
+      const address = []
+
+      this.street && address.push(this.street)
+      this.street && this.building && address.push(this.building)
+      this.street && this.building && this.corp && address.push('к' + this.corp)
+
+      return this.city?.name + (address.length ? ', ' + address.join(', ') : '')
+    }
+  },
+  watch: {
+    cities() {
+      this.city = Object.values(this.$store.state.cities)[0]
+
+      if (!window.myMap) {
+        this.initMap()
+      }
     }
   },
   mounted() {
-    window.ymaps.ready(() => {
-      window.myMap = new window.ymaps.Map('map', {
-        center: [55.76, 37.64],
-        zoom: 7
-      })
-    })
+    if (this.city) {
+      this.initMap()
+    }
+  },
+  unmounted() {
+    window.myMap = null
   },
   methods: {
-    handleCityChange(e) {
-      const code = e
-      const city = this.$store.state.cities[code].name
-
-      this.setMap(city)
+    handleCityChange(code) {
+      this.city = this.$store.state.cities[code]
+      this.setMap()
     },
 
-    async setMap(location) {
-      const res = await window.ymaps.geocode(location, { results: 1 })
+    handleNumberInput(event) {
+      event.target.value = event.target.value.replace(/\D/, '')
+    },
+
+    handleAddressChange(name, event) {
+      this[name] = event.target.value
+      this.setMap()
+    },
+
+    initMap() {
+      const coords = [this.city.coords.lat, this.city.coords.long]
+
+      window.ymaps.ready(() => {
+        window.myMap = new window.ymaps.Map('map', {
+          center: coords,
+          controls: [],
+          zoom: 9
+        })
+      })
+    },
+
+    async setMap() {
+      console.log(this.location)
+      const res = await window.ymaps.geocode(this.location, { results: 1 })
       const geoObject = res.geoObjects.get(0)
       const bounds = geoObject.properties.get('boundedBy')
 
