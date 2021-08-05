@@ -29,7 +29,14 @@
         />
       </span>
       <p class="review-card__category">Кухня</p>
-      <p class="review-card__title">{{ cardData.element_name }}</p>
+      <p class="review-card__title">
+        <router-link
+          :to="cardData.element_link"
+          @click.stop
+        >
+          {{cardData.element_name}}
+        </router-link>
+      </p>
       <div class="review-card__footer">
         <p class="review-card__author">Владелец: {{cardData.customer}}</p>
         <div class="review-card__watch">
@@ -77,7 +84,7 @@ export default {
     display: flex;
 
     &::before {
-      content: "";
+      content: '';
       padding-top: 70%;
     }
 
@@ -163,7 +170,7 @@ export default {
     &-icon {
       width: 100%;
       height: 100%;
-      transition: transform .3s ease;
+      transition: transform 0.3s ease;
     }
   }
 

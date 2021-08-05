@@ -59,11 +59,24 @@
       >
         <div class="nav-menu__side-col">
           <p class="nav-menu__title">Акции</p>
-          <div class="nav-menu__card"></div>
+          <router-link
+            to="/discount"
+            class="nav-menu__card"
+          >
+            <img
+              src="@/assets/img/discount-50.jpg"
+              alt="Скидка 50%"
+            >
+          </router-link>
         </div>
         <div class="nav-menu__side-col">
           <p class="nav-menu__title">Советы и идеи</p>
-          <div class="nav-menu__card"></div>
+          <ArticleCard
+            v-if="article"
+            :cardData="article"
+            mod="nav"
+            class="nav-menu__card"
+          />
         </div>
       </div>
     </div>
@@ -71,17 +84,29 @@
 </template>
 
 <script>
+import ArticleCard from './ArticleCard.vue'
 import AppIcon from './base/AppIcon.vue'
+import api from '../api'
 
 export default {
   name: 'NavMenu',
   components: {
-    AppIcon
+    AppIcon,
+    ArticleCard
   },
   props: {
     menu: Object
   },
-  emits: ['close-menu', 'close-submenu']
+  emits: ['close-menu', 'close-submenu'],
+  data() {
+    return {
+      article: null
+    }
+  },
+  async created() {
+    const response = await api.loadCards({name: 'blog'})
+    this.article = response.goods[0]
+  },
 }
 </script>
 
@@ -204,9 +229,12 @@ export default {
 
     &__side {
       display: flex;
+      align-self: flex-start;
     }
 
     &__side-col {
+      display: flex;
+      flex-direction: column;
       margin-right: 40px;
 
       &:last-child {
@@ -215,11 +243,21 @@ export default {
     }
 
     &__card {
+      display: block;
+      position: relative;
       margin-top: 20px;
       width: 300px;
-      padding-top: 73%;
+      height: 100%;
       border-radius: 4px;
-      background-color: #ccc;
+
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 

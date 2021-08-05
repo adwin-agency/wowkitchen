@@ -565,6 +565,12 @@ export default {
       }
     }
 
+    &_nav {
+      #{$b}__content {
+        min-height: 220px;
+      }
+    }
+
     &__image {
       transition: box-shadow 0.3s ease;
     }
