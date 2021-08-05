@@ -1,7 +1,7 @@
 <template>
   <div class="quiz">
     <div
-      v-if="activeStep === null"
+      v-if="activeStep === 0"
       class="quiz__main"
     >
       <div class="quiz__image">
@@ -46,7 +46,7 @@
         <div class="container">
           <div class="quiz__main-inner">
             <h1 class="quiz__heading">Подбор кухни</h1>
-            <p class="quiz__desc">Пройдите тест из {{steps.length - 1}} вопросов и получите <b>бесплатный онлайн-расчёт</b> проекта, а так же закрепите за собой дополнительную <b>скидку 5%</b></p>
+            <p class="quiz__desc">Пройдите тест из 3 вопросов и получите <b>бесплатный онлайн-расчёт</b> проекта, а так же закрепите за собой дополнительную <b>скидку 5%</b></p>
             <AppButton
               title="Начать тест"
               class="quiz__start"
@@ -74,110 +74,100 @@
       >
       <div class="quiz__screen">
         <div class="quiz__steps">
-          <div class="quiz__step">
-            <div class="container">
-              <p class="quiz__order">Вопрос 1 из 3</p>
-              <h2 class="quiz__title">Выберите планировку кухни</h2>
-              <div class="quiz__plan">
-                <div class="quiz__options">
-                  <QuizOption
-                    v-for="(option, index) in planOptions"
-                    :key="index"
-                    shadow
-                    name="plan"
-                    :image="option.image"
-                    :value="option.title"
-                    :title="option.title"
-                    class="quiz__option"
-                    @change="handleRadioChange('plan', $event)"
-                  />
-                </div>
-                <AppButton
-                  title="Далее"
-                  size="small"
-                  class="quiz__next"
-                  :disabled="!isCompletedStep"
-                  @click="goToNextStep"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="quiz__step">
-            <div class="container">
-              <p class="quiz__order">Вопрос 2 из 3</p>
-              <h2 class="quiz__title">Введите ориентировочные размеры</h2>
-              <div class="quiz__size">
-                <div class="quiz__area">
-                  <img
-                    v-if="sizeImage"
-                    :src="require(`@/assets/img/${sizeImage}`)"
-                    alt
-                  >
-                </div>
-                <div class="quiz__fields">
-                  <div class="quiz__fields-group">
-                    <p class="quiz__fields-title">Габариты</p>
-                    <AppTextField
-                      v-for="(size, index) in values.sizes"
+          <div
+            class="quiz__steps-wrapper"
+            :style="`transform: translateX(${(activeStep - 1) * -100}%)`"
+          >
+            <div class="quiz__step">
+              <div class="container">
+                <p class="quiz__order">Вопрос 1 из 3</p>
+                <h2 class="quiz__title">Выберите планировку кухни</h2>
+                <div class="quiz__plan">
+                  <div class="quiz__options">
+                    <QuizOption
+                      v-for="(option, index) in planOptions"
                       :key="index"
-                      type="text"
-                      :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
-                      placeholder="Размер в см"
-                      class="quiz__field"
-                      @input="handleSizeInput(index, $event)"
+                      shadow
+                      name="plan"
+                      :image="option.image"
+                      :value="option.title"
+                      :title="option.title"
+                      class="quiz__option"
+                      @change="handleRadioChange('plan', $event)"
                     />
                   </div>
-                  <div class="quiz__fields-group">
-                    <p class="quiz__fields-title">Дополнительный конструктив</p>
-                    <AppControl
-                      type="checkbox"
-                      name="construct"
-                      color="gray"
-                      :items="['+ Барная стойка', '+ Остров']"
-                      class="quiz__control"
-                      @change="handleCheckboxChange('construct', $event)"
-                    />
-                  </div>
-                  <AppButton
-                    title="Далее"
-                    size="small"
-                    class="quiz__next"
-                    :disabled="!isCompletedStep"
-                    @click="goToNextStep"
-                  />
                 </div>
               </div>
             </div>
-          </div>
-          <div class="quiz__step">
-            <div class="container">
-              <p class="quiz__order">Вопрос 3 из 3</p>
-              <h2 class="quiz__title">Давайте выберем стиль</h2>
-              <div class="quiz__style">
-                <div class="quiz__options quiz__options_wide">
-                  <QuizOption
-                    v-for="(option, index) in styleOptions"
-                    :key="index"
-                    small
-                    name="style"
-                    :image="option.image"
-                    :value="option.title"
-                    :title="option.title"
-                    class="quiz__option"
-                    @change="handleRadioChange('style', $event)"
-                  />
+            <div class="quiz__step">
+              <div class="container">
+                <p class="quiz__order">Вопрос 2 из 3</p>
+                <h2 class="quiz__title">Введите ориентировочные размеры</h2>
+                <div class="quiz__size">
+                  <div class="quiz__area">
+                    <img
+                      v-if="sizeImage"
+                      :src="require(`@/assets/img/${sizeImage}`)"
+                      alt
+                    >
+                  </div>
+                  <div class="quiz__fields">
+                    <div class="quiz__fields-group">
+                      <p class="quiz__fields-title">Габариты</p>
+                      <AppTextField
+                        v-for="(size, index) in values.sizes"
+                        :key="index"
+                        type="text"
+                        :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
+                        placeholder="Размер в см"
+                        class="quiz__field"
+                        @input="handleSizeInput(index, $event)"
+                      />
+                    </div>
+                    <div class="quiz__fields-group">
+                      <p class="quiz__fields-title">Дополнительный конструктив</p>
+                      <AppControl
+                        type="checkbox"
+                        name="construct"
+                        color="gray"
+                        :items="['+ Барная стойка', '+ Остров']"
+                        class="quiz__control"
+                        @change="handleCheckboxChange('construct', $event)"
+                      />
+                    </div>
+                    <AppButton
+                      title="Далее"
+                      size="small"
+                      class="quiz__next"
+                      :disabled="!isCompletedStep"
+                      @click="goToNextStep"
+                    />
+                  </div>
                 </div>
-                <AppButton
-                  title="Далее"
-                  size="small"
-                  class="quiz__next"
-                  :disabled="!isCompletedStep"
-                  @click="goToNextStep"
-                />
               </div>
             </div>
-          </div>
-          <!-- <div class="quiz__step">
+            <div class="quiz__step">
+              <div class="container">
+                <p class="quiz__order">Вопрос 3 из 3</p>
+                <h2 class="quiz__title">Давайте выберем стиль</h2>
+                <div class="quiz__style">
+                  <div class="quiz__options quiz__options_wide">
+                    <QuizOption
+                      v-for="(option, index) in styleOptions"
+                      :key="index"
+                      small
+                      name="style"
+                      :image="option.image"
+                      :value="option.title"
+                      :title="option.title"
+                      class="quiz__option"
+                      @change="handleRadioChange('style', $event)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="quiz__step">
             <div class="container">
               <p class="quiz__order">Вопрос 4 из 4</p>
               <h2 class="quiz__title">Выберите дополнительные элементы:</h2>
@@ -206,43 +196,44 @@
               </div>
             </div>
           </div> -->
-          <div class="quiz__step">
-            <div class="container">
-              <h2 class="quiz__title">Расчёт стоимости</h2>
-              <div class="quiz__calc">
-                <div
-                  v-if="$_media.sm"
-                  class="quiz__summary"
-                >
-                  <p class="quiz__summary-title">Параметры вашей будущей кухни:</p>
-                  <ol class="quiz__progress">
-                    <li class="quiz__progress-item is-active">Тип кухни: {{values.plan}}</li>
-                    <li class="quiz__progress-item is-active">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</li>
-                    <li class="quiz__progress-item is-active">Стиль: {{values.style}}</li>
-                    <li
-                      v-if="values.elements.length"
-                      class="quiz__progress-item is-active"
-                    >
-                      Дополнительно: {{values.elements.join(', ')}}
-                    </li>
-                  </ol>
-                </div>
-                <QuizResult
-                  :error="error"
-                  class="quiz__result"
-                />
-                <button
-                  v-if="$_media.sm"
-                  type="button"
-                  class="quiz__reset"
-                  @click="resetQuiz"
-                >
-                  <AppIcon
-                    name="refresh"
-                    class="quiz__reset-icon"
+            <div class="quiz__step">
+              <div class="container">
+                <h2 class="quiz__title">Расчёт стоимости</h2>
+                <div class="quiz__calc">
+                  <div
+                    v-if="$_media.sm"
+                    class="quiz__summary"
+                  >
+                    <p class="quiz__summary-title">Параметры вашей будущей кухни:</p>
+                    <ol class="quiz__progress">
+                      <li class="quiz__progress-item is-active">Тип кухни: {{values.plan}}</li>
+                      <li class="quiz__progress-item is-active">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</li>
+                      <li class="quiz__progress-item is-active">Стиль: {{values.style}}</li>
+                      <!-- <li
+                        v-if="values.elements.length"
+                        class="quiz__progress-item is-active"
+                      >
+                        Дополнительно: {{values.elements.join(', ')}}
+                      </li> -->
+                    </ol>
+                  </div>
+                  <QuizResult
+                    :error="error"
+                    class="quiz__result"
                   />
-                  Посчитать еще раз
-                </button>
+                  <button
+                    v-if="$_media.sm"
+                    type="button"
+                    class="quiz__reset"
+                    @click="resetQuiz"
+                  >
+                    <AppIcon
+                      name="refresh"
+                      class="quiz__reset-icon"
+                    />
+                    Посчитать еще раз
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -254,7 +245,7 @@
           <div class="quiz__note">
             <p class="quiz__note-title">{{notes[activeStep - 1]}}</p>
             <p
-              v-if="activeStep < steps.length - 1"
+              v-if="activeStep < 4"
               class="quiz__note-desc"
             >
               до бесплатного расчёта проекта онлайн и дополнительной скидки 5%
@@ -263,31 +254,31 @@
           <ol class="quiz__progress">
             <li
               class="quiz__progress-item"
-              :class="{'is-active': activeStep > 0}"
-            >
-              {{activeStep > 0 ? `Тип кухни: ${values.plan}` : ''}}
-            </li>
-            <li
-              class="quiz__progress-item"
               :class="{'is-active': activeStep > 1}"
             >
-              {{activeStep > 1 ? `Размеры: ${values.sizes.join('x')} см ${values.construct.join(' ')}` : ''}}
+              {{activeStep > 1 ? `Тип кухни: ${values.plan}` : ''}}
             </li>
             <li
               class="quiz__progress-item"
               :class="{'is-active': activeStep > 2}"
             >
-              {{activeStep > 2 ? `Стиль: ${values.style}`: ''}}
+              {{activeStep > 2 ? `Размеры: ${values.sizes.join('x')} см ${values.construct.join(' ')}` : ''}}
             </li>
             <li
               class="quiz__progress-item"
               :class="{'is-active': activeStep > 3}"
             >
-              {{activeStep > 3 ? `Дополнительно: ${values.elements.join(', ')}`: ''}}
+              {{activeStep > 3 ? `Стиль: ${values.style}`: ''}}
             </li>
+            <!-- <li
+              class="quiz__progress-item"
+              :class="{'is-active': activeStep > 4}"
+            >
+              {{activeStep > 4 ? `Дополнительно: ${values.elements.join(', ')}`: ''}}
+            </li> -->
           </ol>
           <button
-            v-if="activeStep === steps.length - 1"
+            v-if="activeStep === 4"
             type="button"
             class="quiz__reset"
             @click="resetQuiz"
@@ -314,8 +305,8 @@ import QuizResult from './QuizResult.vue'
 import useForms from '../composition/forms'
 
 const notes = [
-  '4 простых шага',
-  'Ещё 3 простых шага',
+  // '4 простых шага',
+  '3 простых шага',
   'Ещё 2 простых шага',
   'Остался всего 1 шаг',
   'Параметры вашей будущей кухни:'
@@ -368,7 +359,7 @@ export default {
       // addOptions: addOptions,
       activeStep: 0,
       isCompletedStep: false,
-      sizeImage: '',
+      sizeImage: 'size-I.png',
       values: {
         plan: '',
         sizes: [],
@@ -399,6 +390,7 @@ export default {
 
       this.values[name] = event.target.value
       this.isCompletedStep = true
+      this.goToNextStep()
     },
 
     handleCheckboxChange(name, event) {
@@ -430,20 +422,14 @@ export default {
     },
 
     goToNextStep() {
-      window.scrollTo(0, 0)
       this.activeStep++
-
-      if (this.steps[this.activeStep].required) {
-        this.isCompletedStep = false
-      }
+      this.isCompletedStep = false
     },
 
     resetQuiz() {
-      window.scrollTo(0, 0)
       this.$refs.quizform.reset()
-      this.activeStep = 0
+      this.activeStep = 1
       this.isCompletedStep = false
-      this.sizeImage = ''
       this.values = {
         plan: '',
         sizes: [],
@@ -514,7 +500,18 @@ export default {
     width: 100%;
   }
 
+  &__steps {
+    overflow: hidden;
+  }
+
+  &__steps-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
   &__step {
+    flex-shrink: 0;
+    width: 100%;
     padding: 20px 0 35px;
   }
 
@@ -743,8 +740,12 @@ export default {
       display: flex;
     }
 
+    &__steps {
+      width: calc(100% - 320px);
+    }
+
     &__step {
-      flex: 1;
+      min-height: 720px;
       padding: 55px 0 95px;
 
       .container {
@@ -913,7 +914,12 @@ export default {
       margin-top: 65px;
     }
 
+    &__steps {
+      width: calc(100% - 400px);
+    }
+
     &__step {
+      min-height: 850px;
       padding: 75px 0 145px;
 
       .container {

@@ -156,7 +156,7 @@
           @click="handleBtnClick"
         />
         <p
-          v-if="cardType === 'kitchen' && !slide && !noPrice"
+          v-if="cardType === 'kitchen' && !slide"
           class="product-card__calc-desc"
         >Бесплатный расчёт проекта по вашим размерам</p>
       </div>

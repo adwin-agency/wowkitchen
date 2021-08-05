@@ -5,7 +5,7 @@
         <h1 class="reviews-top__heading">Отзывы</h1>
       </div>
     </div>
-    <div class="reviews-top__bar">
+    <!-- <div class="reviews-top__bar">
       <div class="container">
         <AppTabs
           :tabs="categories"
@@ -13,7 +13,7 @@
           class="reviews-top__tabs"
         />
       </div>
-    </div>
+    </div> -->
     <div class="reviews-top__main">
       <div class="container">
         <div class="reviews-top__top-cards">
@@ -43,14 +43,14 @@
 </template>
 
 <script>
-import AppTabs from './base/AppTabs.vue'
+// import AppTabs from './base/AppTabs.vue'
 import ReviewCard from './ReviewCard.vue'
 
 export default {
   name: 'ReviewsTop',
   components: {
     ReviewCard,
-    AppTabs
+    // AppTabs
   },
   props: {
     categories: Array,

@@ -44,14 +44,14 @@ export default {
     const response = await api.loadCards(this.$route)
     this.reviews = response.reviews
     this.pages = response.pages
-    this.setBreadCrumbs(this.$route)
+    // this.setBreadCrumbs(this.$route)
   },
   async beforeRouteUpdate(to) {
     const response = await api.loadCards(to)
     this.reviews = response.reviews
     this.pages = response.pages
     this.currentPage = 1
-    this.setBreadCrumbs(to)
+    // this.setBreadCrumbs(to)
   },
   methods: {
     setBreadCrumbs(route) {
