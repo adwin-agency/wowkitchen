@@ -4,18 +4,18 @@
       <div class="reviews-main__top-cards">
         <ReviewForm class="reviews-main__form" />
         <ReviewCard
-          v-for="(card, index) in cards.slice(0, 2)"
+          v-for="(review, index) in reviews.slice(0, 2)"
           :key="index"
-          :cardData="card"
+          :cardData="review"
           mod="small"
           class="reviews-main__card reviews-main__card_small"
         />
       </div>
       <div class="reviews-main__bottom-cards">
         <ReviewCard
-          v-for="(card, index) in cards.slice(2)"
+          v-for="(review, index) in reviews.slice(2)"
           :key="index"
-          :cardData="card"
+          :cardData="review"
           class="reviews-main__card"
         />
       </div>
@@ -45,6 +45,7 @@ export default {
     AppButton
   },
   props: {
+    reviews: Array,
     showBtn: Boolean
   },
   emits: [

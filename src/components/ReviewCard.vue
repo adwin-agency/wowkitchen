@@ -113,6 +113,7 @@ export default {
     top: 0;
     right: 0;
     bottom: 0;
+    background-position: center;
     background-size: cover;
     border-radius: 8px;
     overflow: hidden;
