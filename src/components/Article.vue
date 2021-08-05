@@ -1006,6 +1006,13 @@ export default {
     margin: 30px auto;
 
     // Рамка (прямоугольная)
+    & > h5 {
+      padding: 20px 0 12px;
+      margin-right: 20px;
+      @include media(sm) {
+        padding: 0 27px;
+    }
+    }
     & > h5 + a {
       font-size: 14px;
       line-height: 1.286;
@@ -1015,10 +1022,7 @@ export default {
 
       @include media(sm) {
         max-width: 300px;
-      }
-
-      @include media(md) {
-        margin-left: 0px;
+        margin-right: auto;
         padding: 27px 0 27px 20px;
       }
 
