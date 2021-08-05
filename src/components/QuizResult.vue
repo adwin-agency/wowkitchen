@@ -1,7 +1,7 @@
 <template>
   <div class="quiz-result">
     <p class="quiz-result__title">Примерная стоимость вашей кухни</p>
-    <p class="quiz-result__price">100 500 ₽</p>
+    <p class="quiz-result__price">{{price}}</p>
     <p class="quiz-result__desc">Мы дарим вам скидку <b>5%</b> на финальню стоимость: оставьте e-mail и мы пришлём на него код для получения скидки</p>
     <div class="quiz-result__footer">
       <AppTextField
@@ -39,6 +39,7 @@ export default {
     AppButton
   },
   props: {
+    price: String,
     error: Boolean
   }
 }

@@ -2,10 +2,10 @@
   <div class="v-reviews">
     <ReviewsTop
       :categories="categories"
-      :reviews="reviews"
+      :reviews="reviews.slice(0, 6)"
     />
     <ReviewsMain
-      :reviews="reviews"
+      :reviews="reviews.slice(6)"
       :showBtn="currentPage < pages"
       @show-more="showMore"
     />

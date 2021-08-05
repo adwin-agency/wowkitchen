@@ -124,7 +124,10 @@
                         @input="handleSizeInput(index, $event)"
                       />
                     </div>
-                    <div class="quiz__fields-group">
+                    <div
+                      ref="construct"
+                      class="quiz__fields-group"
+                    >
                       <p class="quiz__fields-title">Дополнительный конструктив</p>
                       <AppControl
                         type="checkbox"
@@ -132,7 +135,7 @@
                         color="gray"
                         :items="['+ Барная стойка', '+ Остров']"
                         class="quiz__control"
-                        @change="handleCheckboxChange('construct', $event)"
+                        @change="handleCheckRadioChange('construct', $event)"
                       />
                     </div>
                     <AppButton
@@ -218,6 +221,7 @@
                     </ol>
                   </div>
                   <QuizResult
+                    :price="price"
                     :error="error"
                     class="quiz__result"
                   />
@@ -370,6 +374,20 @@ export default {
       }
     }
   },
+  computed: {
+    price() {
+      const mmPrice = 13
+      const addPrice = 5000
+      const diff = 5000
+      const discount = 0.5
+
+      const sizeSum = this.values.sizes.reduce((sum, current) => sum + +current, 0)
+      const min = sizeSum * 10 * mmPrice + this.values.construct.length * addPrice * discount
+      const max = min + diff
+
+      return new Intl.NumberFormat().format(min) + ' - ' + new Intl.NumberFormat().format(max) + '₽'
+    }
+  },
   methods: {
     startQuiz() {
       window.scrollTo(0, 0)
@@ -391,6 +409,20 @@ export default {
       this.values[name] = event.target.value
       this.isCompletedStep = true
       this.goToNextStep()
+    },
+
+    handleCheckRadioChange(name, event) {
+      if (event.target.checked) {
+        this.$refs[name].querySelectorAll('input').forEach(input => {
+          if (input !== event.target) {
+            input.checked = false
+          }
+        })
+
+        this.values[name] = [event.target.value]
+      } else {
+        this.values[name] = []
+      }
     },
 
     handleCheckboxChange(name, event) {
@@ -439,6 +471,61 @@ export default {
         email: ''
       }
     }
+
+    /*
+    setSum(num) { // num - сумма размеров кухни
+      var dataDiscount = 50
+      var odds = 5000 // вилка
+      var icon = '₽'
+      var resultMin = 0
+      var resultMax = 0
+
+      resultMin = Math.floor(num * 1000 * 13) // вроде погонный метр
+      resultMax = resultMin + odds
+      setPrice(resultMin, resultMax)
+
+      function setPrice(min, max) {
+        var priceMin = (min * 100) / (100 - dataDiscount)
+        var priceMax = priceMin + odds
+
+        var currentMin = document.querySelector('.price-current-min-js')
+        var currentMax = document.querySelector('.price-current-max-js')
+        var currentMaxSecond = document.querySelector('.price-current-max-second-js')
+        var oldMin = document.querySelector('.price-old-min-js')
+        var oldMax = document.querySelector('.price-old-max-js')
+
+        var current = currentMax.setAttribute('data-element-value', max)
+
+        if (currentMaxSecond) {
+          currentMaxSecond.setAttribute('data-element-value', max)
+        }
+
+        formTo(currentMax)
+
+        if (currentMin) {
+          currentMin.innerHTML = new Intl.NumberFormat().format(min) + ' ' + icon
+        }
+
+        if (currentMax || currentMaxSecond) {
+          currentMax.innerHTML = new Intl.NumberFormat().format(max) + ' ' + icon
+          if (currentMaxSecond) {
+            currentMaxSecond.innerHTML = new Intl.NumberFormat().format(max) + ' ' + icon
+          }
+        }
+
+        if (oldMin) {
+          oldMin.innerHTML = new Intl.NumberFormat().format(priceMin) + ' ' + icon
+        }
+
+        if (oldMax) {
+          oldMax.innerHTML = new Intl.NumberFormat().format(priceMax) + ' ' + icon
+        }
+
+        // console.log('Cтарая цена:' + priceMin + ' - ' + priceMax);
+        // console.log('Актуальная цена:' + min + ' - ' + max);
+      }
+    }
+    */
   }
 }
 </script>
