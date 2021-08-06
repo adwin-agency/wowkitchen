@@ -253,7 +253,7 @@ export default {
 
     &__lead {
       display: flex;
-      align-self: center;
+      align-items: center;
       margin-right: -40px;
 
       #{$b} {
@@ -264,11 +264,13 @@ export default {
 
         &__content {
           flex: 1;
+          margin-bottom: 20px;
           padding-left: 26px;
         }
 
         &__text {
           margin-left: -135px;
+          margin-top: 0;
         }
 
         &__name {
