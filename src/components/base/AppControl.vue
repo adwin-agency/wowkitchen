@@ -1,10 +1,11 @@
 <template>
   <div class="control">
     <p
-      v-if="label"
+      v-if="label || sideLabel"
       class="control__label"
+      :class="{'control__label_side': sideLabel}"
     >
-      {{label}}
+      {{label || sideLabel}}
     </p>
     <div class="control__items">
       <label
@@ -20,7 +21,13 @@
           :checked="type === 'radio' && index === 0"
           @change="$emit('change', $event)"
         >
-        <span :class="['control__btn', {[`control__btn_${color}`]: color}]">{{item}}</span>
+        <span
+          :class="[
+            'control__btn',
+            {[`control__btn_${color}`]: color},
+            {[`control__btn_${size}`]: size}
+          ]"
+        >{{item}}</span>
       </label>
     </div>
   </div>
@@ -31,6 +38,8 @@ export default {
   name: 'AppControl',
   props: {
     label: String,
+    sideLabel: String,
+    size: String,
     type: String,
     name: String,
     color: String,
@@ -44,10 +53,21 @@ export default {
 .control {
   $b: &;
 
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
   &__label {
+    width: 100%;
     margin-bottom: 8px;
     font-weight: 500;
     font-size: 13px;
+
+    &_side {
+      width: auto;
+      margin-right: 40px;
+      margin-bottom: 0;
+    }
   }
 
   &__items {
@@ -81,6 +101,10 @@ export default {
     background-color: #fff;
     transition: color 0.3s ease, background-color 0.3s ease;
     cursor: pointer;
+
+    &_lg {
+      padding: 17px 30px;
+    }
 
     &_gray {
       background-color: $color-lightgray;

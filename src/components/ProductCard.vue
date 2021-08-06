@@ -339,6 +339,7 @@ export default {
       }
 
       &__prices {
+        margin-left: 30px;
         text-align: right;
       }
 
@@ -432,14 +433,15 @@ export default {
   }
 
   &__header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: start;
+    margin-right: auto;
     margin-bottom: 5px;
   }
 
   &__category {
-    width: 100%;
+    grid-column: 1 / 3;
     font-size: 12px;
   }
 
@@ -836,6 +838,7 @@ export default {
         }
 
         &__category {
+          grid-column: auto;
           margin-bottom: 2px;
           font-weight: 500;
           font-size: 10px;

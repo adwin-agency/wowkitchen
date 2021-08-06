@@ -96,6 +96,9 @@ export default {
   },
   methods: {
     handleInput(e) {
+      e.target.classList.remove('is-error')
+
+      // телефон
       if (this.type === 'tel') {
         let val = e.target.value.replace(/\D/g, '')
 
@@ -110,11 +113,13 @@ export default {
 
         e.target.value = val
 
+      // договор буквы
       } else if (e.target.name === 'contract-l') {
         let val = e.target.value.replace(/[^А-ЯЁ]/gi, '')
         val = val.toUpperCase()
         e.target.value = val
 
+      // договор цифры
       } else if (e.target.name === 'contract-n') {
         let val = e.target.value.replace(/[^0-9-]/g, '')
 
@@ -168,6 +173,7 @@ export default {
     border-radius: 4px;
     font-size: 14px;
     background-color: $color-lightgray;
+    transition: box-shadow .3s ease;
 
     &::placeholder {
       font-size: 13px;
@@ -203,6 +209,10 @@ export default {
       margin-left: auto;
       width: calc(100% - 100px);
     }
+
+    &.is-error {
+      box-shadow: inset 0 0 0 1px #f16969;
+    }
   }
 
   &__note {
@@ -222,7 +232,7 @@ export default {
   @include media(md) {
     &__input {
       &_side {
-        width: 45%;
+        width: 49%;
       }
     }
 

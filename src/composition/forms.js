@@ -14,6 +14,23 @@ export default function useForms() {
   async function handleSubmit(e) {
     e.preventDefault()
 
+    const required = e.target.querySelectorAll('[required]')
+
+    for (let input of required) {
+      if (input.type === 'tel' && input.value.length < 16) {
+        input.classList.add('is-error')
+
+        const rectTop = input.getBoundingClientRect().top
+        const headerHeight = document.querySelector('.header').offsetHeight
+
+        if (rectTop < headerHeight + 50) {
+          window.scrollTo(0, rectTop + window.scrollY - headerHeight - 50)
+        }
+        
+        return
+      }
+    }
+
     if (sending.value) {
       return
     }

@@ -1,9 +1,16 @@
 <template>
-  <div class="v-pay"></div>
+  <div class="v-pay">
+    <Pay />
+  </div>
 </template>
 
 <script>
+import Pay from '../components/Pay.vue'
+
 export default {
-  name: 'PayView'
+  name: 'PayView',
+  components: {
+    Pay
+  }
 }
 </script>
