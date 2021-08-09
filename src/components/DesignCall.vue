@@ -100,7 +100,7 @@
             </p>
           </div>
           <div class="design-call__footer">
-            <p class="design-call__policy">Нажимая на кнопку «Отправить заявку», вы соглашаетесь с <a href="#">Политикой конфиденциальности</a></p>
+            <p class="design-call__policy">Нажимая на кнопку «Отправить заявку», вы соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
             <AppButton
               v-if="$_media.md"
               title="Отправить заявку"

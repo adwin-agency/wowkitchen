@@ -103,17 +103,19 @@ export default {
     }
   },
   async created() {
+    this.setBreadCrumbs(this.$route)
+
     const response = await api.loadCards(this.$route)
     this.cards = response.goods
-    this.pages = response.pages
-    this.setBreadCrumbs(this.$route)
+    this.pages = response.pages    
   },
   async beforeRouteUpdate(to) {
+    this.setBreadCrumbs(to)
+
     const response = await api.loadCards(to)
     this.cards = response.goods
     this.pages = response.pages
-    this.currentPage = 1
-    this.setBreadCrumbs(to)
+    this.currentPage = 1   
   },
   methods: {
     setBreadCrumbs(route) {

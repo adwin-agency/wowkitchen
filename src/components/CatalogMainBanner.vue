@@ -6,7 +6,7 @@
     <div class="catalog-main-banner__inner">
       <p class="catalog-main-banner__title">{{title}}</p>
       <template v-if="type !== 'technics'">
-        <p class="catalog-main-banner__discount">скидки на всё</p>
+        <p class="catalog-main-banner__discount">скидки на всё 50%</p>
         <p class="catalog-main-banner__date">до конца месяца</p>
       </template>
     </div>

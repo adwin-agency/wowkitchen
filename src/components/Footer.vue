@@ -48,7 +48,7 @@
           </nav>
           <div class="footer__main-footer">
             <a
-              href="#"
+              href="/policy.pdf"
               class="footer__policy"
               target="_blank"
             >
