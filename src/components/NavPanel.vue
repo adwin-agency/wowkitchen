@@ -125,7 +125,7 @@ const menu = [
   {
     title: 'О компании',
     submenu: [
-      { route: 'main', title: 'Производство' },
+      { route: 'about', title: 'Производство' },
       { route: 'materials', title: 'Материалы' },
       { route: 'team', title: 'Команда' },
       { route: 'payment', title: 'Оплата' },

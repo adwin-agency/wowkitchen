@@ -19,6 +19,13 @@
           {{item.title}}
         </router-link>
       </nav>
+      <AppVideoButton
+        v-if="!$_media.sm && pageData.video"
+        title="О производстве"
+        :video="pageData.video"
+        simple
+        class="side-fixed__video"
+      />
     </div>
     <div
       ref="content"
@@ -27,7 +34,7 @@
     >
       <div
         v-if="$_media.sm"
-        class="side-fixed__menu"
+        class="side-fixed__menu side-fixed__menu_video"
       >
         <nav class="side-fixed__menu-list">
           <router-link
@@ -40,7 +47,7 @@
           </router-link>
         </nav>
       </div>
-      <div class="side-fixed__header">
+      <div class="side-fixed__header side-fixed__header_video">
         <div class="container container_side-fixed">
           <p
             v-if="!$_media.sm"
@@ -49,6 +56,13 @@
             О компании
           </p>
           <h1 class="side-fixed__heading">{{pageData.heading}}</h1>
+          <AppVideoButton
+            v-if="$_media.sm && pageData.video"
+            title="О производстве"
+            :video="pageData.video"
+            simple
+            class="side-fixed__video"
+          />
           <p
             v-for="(item, index) in pageData.desc"
             :key="index"
@@ -66,8 +80,10 @@
 </template>
 
 <script>
+import AppVideoButton from './base/AppVideoButton.vue'
+
 const menu = [
-  { title: 'Производство', route: 'main' },
+  { title: 'Производство', route: 'about' },
   { title: 'Материалы', route: 'materials' },
   { title: 'Команда', route: 'team' },
   { title: 'Оплата', route: 'payment' },
@@ -77,6 +93,9 @@ const menu = [
 
 export default {
   name: 'SideFixed',
+  components: {
+    AppVideoButton
+  },
   props: {
     pageData: Object
   },
@@ -110,7 +129,7 @@ export default {
   },
   methods: {
     disableContent() {
-      this.isAnim = true        
+      this.isAnim = true
       this.$store.commit('setIntroEffect', true)
       this.isActiveContent = false
 
@@ -123,7 +142,7 @@ export default {
       this.isAnim = true
       this.isActiveContent = true
 
-      setTimeout(() => {        
+      setTimeout(() => {
         this.$store.commit('setIntroEffect', false)
       }, 200)
 
@@ -263,12 +282,16 @@ export default {
   &__menu,
   &__header {
     transform: translateY(calc(100vh - #{$header-bar-height + 200px}));
-    transition: transform .5s ease .5s;
+    transition: transform 0.5s ease 0.5s;
+
+    &_video {
+      transform: translateY(calc(100vh - #{$header-bar-height + 280px}));
+    }
   }
 
   &__menu {
     margin-bottom: 8px;
-    padding-top: 50px;    
+    padding-top: 50px;
     overflow: hidden;
   }
 
@@ -308,6 +331,10 @@ export default {
   &__heading {
     color: #fff;
     transition: color 0.5s ease 0.5s;
+  }
+
+  &__video {
+    margin-top: 20px;
   }
 
   &__desc {
@@ -410,6 +437,11 @@ export default {
       opacity: 1;
       transition: color 0.5s ease 0.5s;
       pointer-events: all;
+    }
+
+    &__video {
+      margin-top: 50px;
+      margin-left: 30px;
     }
   }
 

@@ -8,6 +8,12 @@ const routes = [
     component: () => import('@/views/MainView.vue')
   },
   {
+    path: '/about',
+    name: 'about',
+    meta: { title: 'Производство' },
+    component: () => import('@/views/AboutView.vue')
+  },
+  {
     path: '/blog/:code',
     name: 'article',
     meta: { introEffect: true },

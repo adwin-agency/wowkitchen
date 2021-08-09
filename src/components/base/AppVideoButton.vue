@@ -5,6 +5,7 @@
       'video-btn',
       {'video-btn_expand': expand},
       {'video-btn_round': round},
+      {'video-btn_simple': simple},
       {[`video-btn_${size}`]: size}
     ]"
     @click="openModal"
@@ -32,7 +33,8 @@ export default {
     title: String,
     video: String,
     size: String,
-    round: Boolean
+    round: Boolean,
+    simple: Boolean    
   },
   methods: {
     openModal() {
@@ -131,6 +133,21 @@ export default {
 
       &__icon {
         margin-right: 0;
+      }
+    }
+  }
+
+  &_simple {
+    font-size: 12px;
+    
+    &::before {
+      display: none;
+    }
+
+    #{$b} {
+      &__icon {
+        width: 60px;
+        height: 60px;
       }
     }
   }
