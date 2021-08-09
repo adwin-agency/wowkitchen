@@ -26,7 +26,10 @@
         class="service-step__btn"
       />
     </div>
-    <div class="service-step__stat">
+    <div
+      v-if="stepData.stat"
+      class="service-step__stat"
+    >
       <AppIcon
         v-if="stepData.stat.icon"
         :name="stepData.stat.icon"

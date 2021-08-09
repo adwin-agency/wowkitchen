@@ -14,33 +14,36 @@
     </div>
     <div class="service-top__content">
       <div class="container">
-        <h1 class="service-top__heading">Замер</h1>
-        <p class="service-top__desc">Наш квалифицированный специалист приедет к вам и произведет все необходимые замеры по принципу «Семь раз отмерь – один раз замерь». Благодаря этому действию, ваш гарнитур встанет в отведенное ему место как влитой.</p>
-        <div class="service-top__services">
-          <div class="service-top__service">
-            <p class="service-top__service-title">Услуга бесплатна</p>
-            <p class="service-top__service-desc">Вне зависимости от того, заключён договор или нет</p>
-          </div>
-          <div class="service-top__service">
-            <p class="service-top__service-title">В удобное время у вас дома</p>
-            <p class="service-top__service-desc">Без опозданий и переносов</p>
+        <h1 class="service-top__heading">{{heading}}</h1>
+        <p class="service-top__desc">{{desc}}</p>
+        <div class="service-top__info">
+          <div
+            v-for="(item, index) in info"
+            :key="index"
+            class="service-top__info-item"
+          >
+            <p class="service-top__info-title">{{item.title}}</p>
+            <p class="service-top__info-desc">{{item.desc}}</p>
           </div>
         </div>
       </div>
     </div>
-    <ServiceFeatures />
+    <slot></slot>
   </div>
 </template>
 
 <script>
 import AppVideoButton from './base/AppVideoButton.vue'
-import ServiceFeatures from './ServiceFeatures.vue'
 
 export default {
   name: 'ServiceTop',
   components: {
-    AppVideoButton,
-    ServiceFeatures
+    AppVideoButton
+  },
+  props: {
+    heading: String,
+    desc: String,
+    info: Array
   }
 }
 </script>
@@ -83,15 +86,15 @@ export default {
     line-height: (32/16);
   }
 
-  &__services {
+  &__info {
     margin-top: 30px;
-  }
 
-  &__service {
-    margin-bottom: 20px;
+    &-item {
+      margin-bottom: 20px;
 
-    &:last-child {
-      margin-bottom: 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     &-title {
@@ -111,14 +114,14 @@ export default {
       padding-top: 56%;
     }
 
-    &__services {
+    &__info {
       display: flex;
-    }
 
-    &__service {
-      width: 50%;
-      padding-right: 30px;
-      margin-bottom: 0;
+      &-item {
+        width: 50%;
+        padding-right: 30px;
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -155,7 +158,7 @@ export default {
       font-size: 16px;
     }
 
-    &__services {
+    &__info {
       margin-top: 50px;
     }
   }
@@ -171,7 +174,7 @@ export default {
       }
     }
 
-    &__services {
+    &__info {
       margin-top: 95px;
     }
   }

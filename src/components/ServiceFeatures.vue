@@ -1,7 +1,7 @@
 <template>
   <div class="service-features">
     <div class="container">
-      <p class="service-features__title">3 причины, почему замер нужен</p>
+      <p class="service-features__title">{{title}}</p>
       <template v-if="$_media.sm">
         <div
           v-for="(feature, index) in features"
@@ -42,22 +42,15 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 
 SwiperCore.use([Navigation])
 
-const features = [
-  'Максимальная персонализация проекта: всё под ваши потребности и бюджет',
-  'Наш специалист привезет с собой образцы материалов – выберете на месте',
-  'Профессиональный замер помещения, так что изделие встанет как влитое'
-]
-
 export default {
   name: 'ServiceFeatures',
   components: {
     Swiper,
     SwiperSlide
   },
-  data() {
-    return {
-      features: features
-    }
+  props: {
+    title: String,
+    features: Array
   }
 }
 </script>
