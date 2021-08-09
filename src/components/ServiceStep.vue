@@ -1,20 +1,20 @@
 <template>
-  <div class="sizing-step">
-    <span class="sizing-step__num">{{stepData.num}}</span>
-    <div class="sizing-step__content">
-      <p class="sizing-step__title">{{stepData.title}}</p>
+  <div class="service-step">
+    <span class="service-step__num">{{stepData.num}}</span>
+    <div class="service-step__content">
+      <p class="service-step__title">{{stepData.title}}</p>
       <template v-if="Array.isArray(stepData.desc)">
         <p
           v-for="(item, index) in stepData.desc"
           :key="index"
-          class="sizing-step__desc"
+          class="service-step__desc"
         >
           {{item}}
         </p>
       </template>
       <p
         v-else
-        class="sizing-step__desc"
+        class="service-step__desc"
       >
         {{stepData.desc}}
       </p>
@@ -23,22 +23,22 @@
         :title="stepData.btn.title"
         :modalName="stepData.btn.modalName"
         color="pink"
-        class="sizing-step__btn"
+        class="service-step__btn"
       />
     </div>
-    <div class="sizing-step__stat">
+    <div class="service-step__stat">
       <AppIcon
         v-if="stepData.stat.icon"
         :name="stepData.stat.icon"
-        class="sizing-step__stat-icon"
+        class="service-step__stat-icon"
       />
       <p
         v-else
-        class="sizing-step__stat-num"
+        class="service-step__stat-num"
       >
         {{stepData.stat.num}}<span v-if="stepData.stat.unit">{{stepData.stat.unit}}</span>
       </p>
-      <p class="sizing-step__stat-title">{{stepData.stat.title}}</p>
+      <p class="service-step__stat-title">{{stepData.stat.title}}</p>
     </div>
   </div>
 </template>
@@ -48,7 +48,7 @@ import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 
 export default {
-  name: 'SizingStep',
+  name: 'ServiceStep',
   components: {
     AppButton,
     AppIcon
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-.sizing-step {
+.service-step {
   position: relative;
 
   &__num {

@@ -1,5 +1,5 @@
 <template>
-  <div class="v-sizing">
+  <div class="v-installing">
     <ServiceTop />
     <ServiceMain />
     <Steps />
@@ -15,7 +15,7 @@ import Steps from '../components/Steps.vue'
 import api from '../api'
 
 export default {
-  name: 'SizingView',
+  name: 'InstallingView',
   components: {
     ServiceTop,
     ServiceMain,
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss">
-.v-sizing {
+.v-installing {
   .rated-reviews {
     margin-top: 85px;
     margin-bottom: 50px;

@@ -1,16 +1,16 @@
 <template>
-  <div class="sizing-main">
-    <div class="sizing-main__pattern"></div>
-    <div class="sizing-main__pattern"></div>
-    <div class="sizing-main__pattern"></div>
+  <div class="service-main">
+    <div class="service-main__pattern"></div>
+    <div class="service-main__pattern"></div>
+    <div class="service-main__pattern"></div>
     <div class="container">
-      <h2 class="sizing-main__heading">Как происходит замер и что в него включено? <br>Всё очень просто.</h2>
-      <div class="sizing-main__steps">
-        <SizingStep
+      <h2 class="service-main__heading">Как происходит замер и что в него включено? <br>Всё очень просто.</h2>
+      <div class="service-main__steps">
+        <ServiceStep
           v-for="(step, index) in steps"
           :key="index"
           :stepData="step"
-          class="sizing-main__step"
+          class="service-main__step"
         />
       </div>
     </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import SizingStep from './SizingStep.vue'
+import ServiceStep from './ServiceStep.vue'
 
 const steps = [
   {
@@ -64,9 +64,9 @@ const steps = [
 ]
 
 export default {
-  name: 'SizingMain',
+  name: 'ServiceMain',
   components: {
-    SizingStep
+    ServiceStep
   },
   data() {
     return {
@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss">
-.sizing-main {
+.service-main {
   position: relative;
   padding: 50px 0 60px;
 

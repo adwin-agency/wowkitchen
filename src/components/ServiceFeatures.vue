@@ -1,29 +1,29 @@
 <template>
-  <div class="sizing-features">
+  <div class="service-features">
     <div class="container">
-      <p class="sizing-features__title">3 причины, почему замер нужен</p>
+      <p class="service-features__title">3 причины, почему замер нужен</p>
       <template v-if="$_media.sm">
         <div
           v-for="(feature, index) in features"
           :key="index"
-          class="sizing-features__item"
+          class="service-features__item"
         >
-          <p class="sizing-features__num">#{{index + 1}}</p>
-          <p class="sizing-features__desc">{{feature}}</p>
+          <p class="service-features__num">#{{index + 1}}</p>
+          <p class="service-features__desc">{{feature}}</p>
         </div>
       </template>
       <template v-else>
         <Swiper
           navigation
-          class="sizing-features__slider"
+          class="service-features__slider"
         >
           <SwiperSlide
             v-for="(feature, index) in features"
             :key="index"
-            class="sizing-features__slide"
+            class="service-features__slide"
           >
-            <p class="sizing-features__num">#{{index + 1}}</p>
-            <p class="sizing-features__desc">{{feature}}</p>
+            <p class="service-features__num">#{{index + 1}}</p>
+            <p class="service-features__desc">{{feature}}</p>
           </SwiperSlide>
         </Swiper>
       </template>
@@ -31,7 +31,7 @@
     <img
       src="@/assets/img/tape.png"
       alt
-      class="sizing-features__img"
+      class="service-features__img"
     >
   </div>
 </template>
@@ -49,7 +49,7 @@ const features = [
 ]
 
 export default {
-  name: 'SizingFeatures',
+  name: 'ServiceFeatures',
   components: {
     Swiper,
     SwiperSlide
@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style lang="scss">
-.sizing-features {
+.service-features {
   position: relative;
   padding: 30px 0 50px;
 

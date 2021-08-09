@@ -20,6 +20,12 @@ const routes = [
     component: () => import('@/views/ArticleView.vue')
   },
   {
+    path: '/installing',
+    name: 'installing',
+    meta: { title: 'Сборка' },
+    component: () => import('@/views/InstallingView.vue')
+  },
+  {
     path: '/blog',
     name: 'blog',
     component: () => import('@/views/BlogView.vue')

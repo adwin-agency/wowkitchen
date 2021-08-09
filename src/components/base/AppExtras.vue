@@ -10,7 +10,7 @@
         {{desc}}
         <br><br>
         <router-link
-          to="/"
+          to="/sizing"
           class="extras__link"
         >
           Расскажите по-подробнее

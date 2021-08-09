@@ -83,7 +83,7 @@
 import AppVideoButton from './base/AppVideoButton.vue'
 
 const menu = [
-  { title: 'Производство', route: 'about' },
+  { title: 'О нас', route: 'about' },
   { title: 'Материалы', route: 'materials' },
   { title: 'Команда', route: 'team' },
   { title: 'Оплата', route: 'payment' },

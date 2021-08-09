@@ -15,7 +15,7 @@
           @click="showModal('designer')"
         />
         <router-link
-          :to="{name: 'main'}"
+          :to="{name: 'about'}"
           custom
           v-slot="{href, navigate}"
         >
@@ -44,7 +44,7 @@
           />
         </router-link>
         <router-link
-          :to="{name: 'main'}"
+          :to="{name: 'installing'}"
           custom
           v-slot="{href, navigate}"
         >

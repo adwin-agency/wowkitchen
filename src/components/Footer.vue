@@ -223,10 +223,10 @@ const menu = [
     title: 'Компания',
     submenu: [
       { title: 'Блог', route: 'blog' },
-      { title: 'О производстве', route: 'main' },
+      { title: 'О нас', route: 'about' },
       { title: 'Вакансии', route: 'vacancy' },
       { title: 'Доставка', route: 'delivery' },
-      { title: 'Сборка', route: 'main' },
+      { title: 'Сборка', route: 'installing' },
       { title: 'Гарантия', route: 'guarantee' },
       { title: 'Материалы', route: 'materials' },
       { title: 'Подбор кухни', route: 'quiz', accented: true },

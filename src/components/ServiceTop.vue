@@ -1,52 +1,52 @@
 <template>
-  <div class="sizing-top">
-    <div class="sizing-top__box">
+  <div class="service-top">
+    <div class="service-top__box">
       <img
         src="@/assets/img/sizing.jpg"
         alt
-        class="sizing-top__image"
+        class="service-top__image"
       >
       <AppVideoButton
         round
         video="/assets/video/intro.mp4"
-        class="sizing-top__play"
+        class="service-top__play"
       />
     </div>
-    <div class="sizing-top__content">
+    <div class="service-top__content">
       <div class="container">
-        <h1 class="sizing-top__heading">Замер</h1>
-        <p class="sizing-top__desc">Наш квалифицированный специалист приедет к вам и произведет все необходимые замеры по принципу «Семь раз отмерь – один раз замерь». Благодаря этому действию, ваш гарнитур встанет в отведенное ему место как влитой.</p>
-        <div class="sizing-top__services">
-          <div class="sizing-top__service">
-            <p class="sizing-top__service-title">Услуга бесплатна</p>
-            <p class="sizing-top__service-desc">Вне зависимости от того, заключён договор или нет</p>
+        <h1 class="service-top__heading">Замер</h1>
+        <p class="service-top__desc">Наш квалифицированный специалист приедет к вам и произведет все необходимые замеры по принципу «Семь раз отмерь – один раз замерь». Благодаря этому действию, ваш гарнитур встанет в отведенное ему место как влитой.</p>
+        <div class="service-top__services">
+          <div class="service-top__service">
+            <p class="service-top__service-title">Услуга бесплатна</p>
+            <p class="service-top__service-desc">Вне зависимости от того, заключён договор или нет</p>
           </div>
-          <div class="sizing-top__service">
-            <p class="sizing-top__service-title">В удобное время у вас дома</p>
-            <p class="sizing-top__service-desc">Без опозданий и переносов</p>
+          <div class="service-top__service">
+            <p class="service-top__service-title">В удобное время у вас дома</p>
+            <p class="service-top__service-desc">Без опозданий и переносов</p>
           </div>
         </div>
       </div>
     </div>
-    <SizingFeatures />
+    <ServiceFeatures />
   </div>
 </template>
 
 <script>
 import AppVideoButton from './base/AppVideoButton.vue'
-import SizingFeatures from './SizingFeatures.vue'
+import ServiceFeatures from './ServiceFeatures.vue'
 
 export default {
-  name: 'SizingTop',
+  name: 'ServiceTop',
   components: {
     AppVideoButton,
-    SizingFeatures
+    ServiceFeatures
   }
 }
 </script>
 
 <style lang="scss">
-.sizing-top {
+.service-top {
   &__box {
     position: relative;
     padding-top: 75%;
