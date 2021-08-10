@@ -5,8 +5,8 @@
       :reviews="reviews.slice(0, 6)"
     />
     <ReviewsMain
-      :reviews="reviews.slice(6)"
-      :showBtn="currentPage < pages"
+      :reviews="reviews.slice(6, count)"
+      :showBtn="reviews.length > count"
       @show-more="showMore"
     />
     <Design />
@@ -36,42 +36,20 @@ export default {
     return {
       categories: categories,
       reviews: [],
-      pages: 1,
-      currentPage: 1
+      count: 11
     }
   },
   async created() {
     const response = await api.loadCards(this.$route)
     this.reviews = response.reviews
-    this.pages = response.pages
-    // this.setBreadCrumbs(this.$route)
   },
   async beforeRouteUpdate(to) {
     const response = await api.loadCards(to)
     this.reviews = response.reviews
-    this.pages = response.pages
-    this.currentPage = 1
-    // this.setBreadCrumbs(to)
   },
   methods: {
-    setBreadCrumbs(route) {
-      const query = route.query
-      let crumbs
-
-      if (query.category) {
-        const categoryTitle = categories.find(i => i.value === query.category).title
-        crumbs = [{ path: '/reviews', title: 'Отзывы' }, { title: categoryTitle }]
-      } else {
-        crumbs = [{ title: 'reviews' }]
-      }
-    
-      this.$store.commit('setBreadCrumbs', crumbs)
-    },
-
     async showMore() {
-      this.currentPage++
-      const response = await api.loadCards(this.$route, this.currentPage)
-      this.reviews = [...this.reviews, ...response.reviews]
+      this.count += 6
     }
   }
 }

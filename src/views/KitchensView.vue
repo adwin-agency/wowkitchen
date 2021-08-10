@@ -112,7 +112,7 @@ export default {
     this.pages = kitchensResponse.pages
 
     const articlesResponse = await api.loadCards({ name: 'blog' })
-    this.articles = articlesResponse.goods.slice(0, 3)
+    this.articles = articlesResponse.populars.slice(0, 3)
 
     const reviewsResponse = await api.loadCards({ name: 'reviews' })
     this.reviews = reviewsResponse.reviews.slice(0, 4)
