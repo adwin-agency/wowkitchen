@@ -411,6 +411,7 @@ export default {
     font-size: 15px;
     background-color: $color-pink;
     color: $color-lightgray;
+    z-index: 1;
   }
 
   &__video-btn {

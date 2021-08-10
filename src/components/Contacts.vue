@@ -6,8 +6,14 @@
         <div class="contacts__info-item">
           <h3 class="contacts__info-title">Адрес</h3>
           <p class="contacts__info-text">
-            <a v-if="$_media.sm && activeCity === 'spb'" href="maps://yandex.ru/map-widget/v1/-/CCUerMt0DA">{{cityAddress}}</a>
-            <a v-else-if="$_media.sm && activeCity === 'msk'" href="maps://yandex.ru/map-widget/v1/-/CCUerQRICB">{{cityAddress}}</a>
+            <a
+              v-if="$_media.sm && activeCity === 'spb'"
+              href="maps://yandex.ru/map-widget/v1/-/CCUerMt0DA"
+            >{{cityAddress}}</a>
+            <a
+              v-else-if="$_media.sm && activeCity === 'msk'"
+              href="maps://yandex.ru/map-widget/v1/-/CCUerQRICB"
+            >{{cityAddress}}</a>
             <span v-else>{{cityAddress}}</span>
           </p>
         </div>
@@ -53,8 +59,11 @@
           </a>
         </div>
       </div>
-      <div class="contacts__map">
-        <div
+      <div
+        class="contacts__map"
+        id="map"
+      >
+        <!-- <div
           v-if="activeCity === 'spb'"
           style="position:relative;overflow:hidden;"
         >
@@ -89,7 +98,7 @@
             allowfullscreen="true"
             style="position:relative;"
           ></iframe>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -104,6 +113,9 @@ export default {
     AppIcon
   },
   computed: {
+    cities() {
+      return this.$store.state.cities
+    },
     activeCity() {
       return this.$store.state.activeCity
     },
@@ -112,6 +124,22 @@ export default {
     },
     cityPhone() {
       return this.$store.state.cities[this.$store.state.activeCity]?.phone
+    }
+  },
+  mounted() {
+    window.ymaps.ready(init)
+
+    function init() {
+      new window.ymaps.Map('map', {
+        // Координаты центра карты.
+        // Порядок по умолчанию: «широта, долгота».
+        // Чтобы не определять координаты центра карты вручную,
+        // воспользуйтесь инструментом Определение координат.
+        center: [55.76, 37.64],
+        // Уровень масштабирования. Допустимые значения:
+        // от 0 (весь мир) до 19.
+        zoom: 7
+      })
     }
   }
 }

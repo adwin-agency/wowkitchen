@@ -45,10 +45,10 @@
       <div class="quiz__main-content">
         <div class="container">
           <div class="quiz__main-inner">
-            <h1 class="quiz__heading">Подбор кухни</h1>
+            <h1 class="quiz__heading">Расчет онлайн</h1>
             <p class="quiz__desc">Пройдите тест из 3 вопросов и получите <b>бесплатный онлайн-расчёт</b> проекта, а так же закрепите за собой дополнительную <b>скидку 5%</b></p>
             <AppButton
-              title="Начать тест"
+              title="Рассчитать"
               class="quiz__start"
               @click="startQuiz"
             />
@@ -414,9 +414,9 @@ export default {
     },
 
     price() {
-      const mmPrice = 13
-      const addPrice = 5000
-      const diff = 5000
+      const mmPrice = 15
+      const addPrice = 10000
+      const diff = 15000
       const discount = 0.5
 
       const sizeSum = this.values.sizes.reduce((sum, current) => sum + +current, 0)

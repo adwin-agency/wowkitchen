@@ -27,15 +27,13 @@
         </router-link>
         <img
           v-if="type === 'kitchens'"
-          srcset="@/assets/img/quiz-preview-k.png, @/assets/img/quiz-preview-k@2x.png 2x"
-          src="@/assets/img/quiz-preview-k.png"
+          src="@/assets/img/quiz-preview-k@2x.png"
           alt
           class="quiz-preview__img quiz-preview__img_photos"
         >
         <img
           v-if="type === 'wardrobes'"
-          srcset="@/assets/img/quiz-preview-w.png, @/assets/img/quiz-preview-w@2x.png 2x"
-          src="@/assets/img/quiz-preview-w.png"
+          src="@/assets/img/quiz-preview-w@2x.png"
           alt
           class="quiz-preview__img quiz-preview__img_photos"
         >
