@@ -8,7 +8,6 @@
       type="kitchens"
       cardType="kitchen"
       switcher
-      :sortOptions="sortOptions"
       :filterGroups="filterGroups"
       :cards="cards"
       :showBtn="currentPage < pages"
@@ -35,7 +34,7 @@ import Steps from '../components/Steps.vue'
 import Projects from '../components/Projects.vue'
 import api from '../api'
 
-const sortOptions = [{ title: 'Сначала дешёвые' }, { title: 'Сначала популярные' }, { title: 'Сначала дорогие' }, { title: 'Сначала новые' }]
+// const sortOptions = [{ title: 'Сначала дешёвые' }, { title: 'Сначала популярные' }, { title: 'Сначала дорогие' }, { title: 'Сначала новые' }]
 
 const filterGroups = [
   {
@@ -96,7 +95,7 @@ export default {
   },
   data() {
     return {
-      sortOptions: sortOptions,
+      // sortOptions: sortOptions,
       filterGroups: filterGroups,
       cards: [],
       pages: 1,

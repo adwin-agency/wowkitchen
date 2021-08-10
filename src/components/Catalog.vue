@@ -20,7 +20,10 @@
           ref="controls"
           class="catalog__controls"
         >
-          <div class="catalog__select">
+          <div
+            v-if="sortOptions"
+            class="catalog__select"
+          >
             <AppSelect :options="sortOptions" />
           </div>
           <button
@@ -276,6 +279,7 @@ export default {
 
   &__controls {
     display: flex;
+    justify-content: flex-end;
   }
 
   &__select {
@@ -307,7 +311,7 @@ export default {
       text-transform: uppercase;
       color: #fff;
       background-color: $color-green;
-      transition: transform .3s ease;
+      transition: transform 0.3s ease;
       z-index: 90;
 
       #{$b} {
@@ -451,7 +455,6 @@ export default {
 
     &__select {
       flex: 0 1 auto;
-      margin-left: auto;
       margin-right: 0;
       width: auto;
       min-width: 230px;

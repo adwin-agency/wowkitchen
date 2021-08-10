@@ -30,6 +30,7 @@
              cardType="kitchen"
              :disabled="!isVisible"
              :info="product"
+             noPrice
             />
           </SwiperSlide>
         </Swiper>

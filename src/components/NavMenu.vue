@@ -63,10 +63,11 @@
             to="/discount"
             class="nav-menu__card"
           >
-            <img
-              src="@/assets/img/discount-50.jpg"
-              alt="Скидка 50%"
-            >
+            <div class="nav-menu__discount">
+              <span class="nav-menu__discount-num">50%</span>
+              <span class="nav-menu__discount-title">на кухни и шкафы</span>
+              <span class="nav-menu__discount-note">до конца месяца</span>
+            </div>
           </router-link>
         </div>
         <div class="nav-menu__side-col">
@@ -104,9 +105,9 @@ export default {
     }
   },
   async created() {
-    const response = await api.loadCards({name: 'blog'})
+    const response = await api.loadCards({ name: 'blog' })
     this.article = response.goods[0]
-  },
+  }
 }
 </script>
 
@@ -249,14 +250,41 @@ export default {
       width: 300px;
       height: 100%;
       border-radius: 4px;
+    }
 
-      img {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    &__discount {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background-color: #f6f6f6;
+
+      &-num {
+        padding: 15px 30px;
+        border-radius: 30px 0 30px 0;
+        font-size: 30px;
+        font-weight: bold;
+        color: #fff;
+        background-color: $color-pink;
+      }
+
+      &-title {
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1.2;
+        margin-top: 10px;
+      }
+
+      &-note {
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1.875;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f6e43e;
       }
     }
   }

@@ -1,15 +1,19 @@
 <template>
   <div class="service-top">
     <div class="service-top__box">
-      <img
-        src="@/assets/img/sizing.jpg"
-        alt
-        class="service-top__image"
-      >
+      <video
+        ref="video"
+        src="/assets/video/intro.mp4"
+        autoplay
+        loop
+        muted
+        class="service-top__video"
+      ></video>
       <AppVideoButton
         round
         video="/assets/video/intro.mp4"
         class="service-top__play"
+        @click="handleVideoClick"
       />
     </div>
     <div class="service-top__content">
@@ -44,6 +48,23 @@ export default {
     heading: String,
     desc: String,
     info: Array
+  },
+  computed: {
+    isModal() {
+      return !!this.$store.state.modal
+    }
+  },
+  watch: {
+    isModal(newStatus) {
+      if (!newStatus) {
+        this.$refs.video.play()
+      }
+    }
+  },
+  methods: {
+    handleVideoClick() {
+      this.$refs.video.pause()
+    }
   }
 }
 </script>
@@ -53,15 +74,15 @@ export default {
   &__box {
     position: relative;
     padding-top: 75%;
+  }
 
-    img {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  &__video {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   &__play {

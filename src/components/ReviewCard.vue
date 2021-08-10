@@ -183,6 +183,14 @@ export default {
   &__title {
     font-size: 22px;
     color: $color-green;
+
+    a {
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
   }
 
   &__footer {

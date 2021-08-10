@@ -125,7 +125,7 @@
           class="product-card__prop"
         >
           <span>{{feature.title}}</span>
-          {{feature.title === 'Фасад' ? 'Egger' : feature.value}}
+          {{cardType === 'kitchen' && feature.title === 'Фасад' ? 'Egger' : feature.value}}
         </p>
       </div>
       <div v-if="!noPrice" class="product-card__prices">
@@ -156,7 +156,7 @@
           @click="handleBtnClick"
         />
         <p
-          v-if="cardType === 'kitchen' && !slide"
+          v-if="cardType === 'kitchen'"
           class="product-card__calc-desc"
         >Бесплатный расчёт проекта по вашим размерам</p>
       </div>
@@ -435,6 +435,7 @@ export default {
   &__header {
     display: grid;
     grid-template-columns: auto auto;
+    justify-content: start;
     align-items: start;
     margin-right: auto;
     margin-bottom: 5px;

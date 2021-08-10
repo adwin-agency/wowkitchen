@@ -80,7 +80,9 @@
           >
             <div class="quiz__step">
               <div class="container">
-                <p class="quiz__order">Вопрос 1 из 3</p>
+                <div class="quiz__step-header">
+                  <p class="quiz__order">Вопрос 1 из 3</p>
+                </div>
                 <h2 class="quiz__title">Выберите планировку кухни</h2>
                 <div class="quiz__plan">
                   <div class="quiz__options">
@@ -94,6 +96,7 @@
                       :title="option.title"
                       class="quiz__option"
                       @change="handleRadioChange('plan', $event)"
+                      @click="handleRadioClick('plan', option.title, $event)"
                     />
                   </div>
                 </div>
@@ -101,7 +104,20 @@
             </div>
             <div class="quiz__step">
               <div class="container">
-                <p class="quiz__order">Вопрос 2 из 3</p>
+                <div class="quiz__step-header">
+                  <p class="quiz__order">Вопрос 2 из 3</p>
+                  <button
+                    class="quiz__back"
+                    type="button"
+                    @click="goToPrevStep"
+                  >
+                    <AppIcon
+                      name="angle-down"
+                      class="quiz__back-icon"
+                    />
+                    Назад
+                  </button>
+                </div>
                 <h2 class="quiz__title">Введите ориентировочные размеры</h2>
                 <div class="quiz__size">
                   <div class="quiz__area">
@@ -142,7 +158,7 @@
                       title="Далее"
                       size="small"
                       class="quiz__next"
-                      :disabled="!isCompletedStep"
+                      :disabled="!completedSizes"
                       @click="goToNextStep"
                     />
                   </div>
@@ -151,7 +167,20 @@
             </div>
             <div class="quiz__step">
               <div class="container">
-                <p class="quiz__order">Вопрос 3 из 3</p>
+                <div class="quiz__step-header">
+                  <p class="quiz__order">Вопрос 3 из 3</p>
+                  <button
+                    class="quiz__back"
+                    type="button"
+                    @click="goToPrevStep"
+                  >
+                    <AppIcon
+                      name="angle-down"
+                      class="quiz__back-icon"
+                    />
+                    Назад
+                  </button>
+                </div>
                 <h2 class="quiz__title">Давайте выберем стиль</h2>
                 <div class="quiz__style">
                   <div class="quiz__options quiz__options_wide">
@@ -362,7 +391,6 @@ export default {
       styleOptions: styleOptions,
       // addOptions: addOptions,
       activeStep: 0,
-      isCompletedStep: false,
       sizeImage: 'size-I.png',
       values: {
         plan: '',
@@ -375,6 +403,16 @@ export default {
     }
   },
   computed: {
+    completedSizes() {
+      for (let size of this.values.sizes) {
+        if (size === '') {
+          return false
+        }
+      }
+
+      return true
+    },
+
     price() {
       const mmPrice = 13
       const addPrice = 5000
@@ -407,13 +445,18 @@ export default {
       }
 
       this.values[name] = event.target.value
-      this.isCompletedStep = true
       this.goToNextStep()
+    },
+
+    handleRadioClick(name, value, event) {
+      if (this.values[name] === value && event.target.tagName === 'INPUT') {
+        this.goToNextStep()
+      }
     },
 
     handleCheckRadioChange(name, event) {
       if (event.target.checked) {
-        this.$refs[name].querySelectorAll('input').forEach(input => {
+        this.$refs[name].querySelectorAll('input').forEach((input) => {
           if (input !== event.target) {
             input.checked = false
           }
@@ -442,26 +485,19 @@ export default {
       } else {
         event.target.value = this.values.sizes[index]
       }
+    },
 
-      for (let size of this.values.sizes) {
-        if (size === '') {
-          this.isCompletedStep = false
-          return
-        }
-      }
-
-      this.isCompletedStep = true
+    goToPrevStep() {
+      this.activeStep--
     },
 
     goToNextStep() {
       this.activeStep++
-      this.isCompletedStep = false
     },
 
     resetQuiz() {
       this.$refs.quizform.reset()
       this.activeStep = 1
-      this.isCompletedStep = false
       this.values = {
         plan: '',
         sizes: [],
@@ -471,61 +507,6 @@ export default {
         email: ''
       }
     }
-
-    /*
-    setSum(num) { // num - сумма размеров кухни
-      var dataDiscount = 50
-      var odds = 5000 // вилка
-      var icon = '₽'
-      var resultMin = 0
-      var resultMax = 0
-
-      resultMin = Math.floor(num * 1000 * 13) // вроде погонный метр
-      resultMax = resultMin + odds
-      setPrice(resultMin, resultMax)
-
-      function setPrice(min, max) {
-        var priceMin = (min * 100) / (100 - dataDiscount)
-        var priceMax = priceMin + odds
-
-        var currentMin = document.querySelector('.price-current-min-js')
-        var currentMax = document.querySelector('.price-current-max-js')
-        var currentMaxSecond = document.querySelector('.price-current-max-second-js')
-        var oldMin = document.querySelector('.price-old-min-js')
-        var oldMax = document.querySelector('.price-old-max-js')
-
-        var current = currentMax.setAttribute('data-element-value', max)
-
-        if (currentMaxSecond) {
-          currentMaxSecond.setAttribute('data-element-value', max)
-        }
-
-        formTo(currentMax)
-
-        if (currentMin) {
-          currentMin.innerHTML = new Intl.NumberFormat().format(min) + ' ' + icon
-        }
-
-        if (currentMax || currentMaxSecond) {
-          currentMax.innerHTML = new Intl.NumberFormat().format(max) + ' ' + icon
-          if (currentMaxSecond) {
-            currentMaxSecond.innerHTML = new Intl.NumberFormat().format(max) + ' ' + icon
-          }
-        }
-
-        if (oldMin) {
-          oldMin.innerHTML = new Intl.NumberFormat().format(priceMin) + ' ' + icon
-        }
-
-        if (oldMax) {
-          oldMax.innerHTML = new Intl.NumberFormat().format(priceMax) + ' ' + icon
-        }
-
-        // console.log('Cтарая цена:' + priceMin + ' - ' + priceMax);
-        // console.log('Актуальная цена:' + min + ' - ' + max);
-      }
-    }
-    */
   }
 }
 </script>
@@ -602,10 +583,29 @@ export default {
     padding: 20px 0 35px;
   }
 
+  &__step-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__order {
     font-weight: 500;
     font-size: 14px;
     color: $color-green;
+  }
+
+  &__back {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+
+    &-icon {
+      margin-right: 5px;
+      width: 9px;
+      height: 9px;
+      fill: currentColor;
+      transform: rotate(90deg);
+    }
   }
 
   &__title {
@@ -864,7 +864,6 @@ export default {
     &__area {
       margin: 0;
       width: 58%;
-      height: 280px;
     }
 
     &__fields {
@@ -1044,7 +1043,6 @@ export default {
 
     &__area {
       width: 61%;
-      height: 365px;
     }
 
     &__fields {
@@ -1163,7 +1161,6 @@ export default {
 
     &__area {
       width: 57.5%;
-      height: 420px;
     }
 
     &__fields {

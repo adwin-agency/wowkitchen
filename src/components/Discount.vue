@@ -8,7 +8,7 @@
           <div class="discount__box">
             <span class="discount__percent discount__percent_accent">50<span class="discount__percent-icon">&#37;</span>
             </span>
-            <h5 class="discount__main-title">На кухни, шкафы и бытовую технику</h5>
+            <h5 class="discount__main-title">На кухни и шкафы</h5>
             <h6 class="discount__main-ending discount__main-ending_accent">До конца месяца</h6>
           </div>
         </div>

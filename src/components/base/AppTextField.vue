@@ -202,12 +202,12 @@ export default {
     }
 
     &_double-sm {
-      width: 90px;
+      width: 110px;
     }
 
     &_double-lg {
       margin-left: auto;
-      width: calc(100% - 100px);
+      width: calc(100% - 120px);
     }
 
     &.is-error {
