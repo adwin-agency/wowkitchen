@@ -270,6 +270,7 @@
           <NavMenu
             class="header__nav-menu"
             :menu="kitchensMenu"
+            :article="article"
             @close-menu="toggleNavMenu"
           />
         </div>
@@ -283,6 +284,7 @@
           <NavMenu
             class="header__nav-menu"
             :menu="technicsMenu"
+            :article="article"
             @close-menu="toggleNavMenu"
           />
         </div>
@@ -298,6 +300,7 @@ import AppIcon from './base/AppIcon.vue'
 import Favorites from './Favorites.vue'
 import NavMenu from './NavMenu.vue'
 import NavPanel from './NavPanel.vue'
+import api from '../api'
 
 const kitchensMenu = {
   main: { path: 'kitchens', title: 'Кухни' },
@@ -369,7 +372,8 @@ export default {
       activeNavMenu: null,
       activeFavorite: false,
       scrollY: window.scrollY,
-      isShort: false
+      isShort: false,
+      article: null
     }
   },
   computed: {
@@ -402,9 +406,12 @@ export default {
       }
     }
   },
-  created() {
+  async created() {
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
+
+    const response = await api.loadCards({ name: 'blog' })
+    this.article = response.goods[0]
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)

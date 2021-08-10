@@ -7,7 +7,7 @@
         <div class="about__manage">
           <div class="about__box">
             <img
-              src=""
+              src="@/assets/img/team-bogdan.jpg"
               alt
               class="about__image"
             >
@@ -28,8 +28,9 @@
         <p class="about__title">Никаких больше шоу-румов </p>
         <p class="about__desc">Стремление быть первыми оказалось заложено в генетическом коде нашей компании – именно поэтому в какой-то момент мы приняли решение отказаться от шоу-румов и стали первым интернет-магазином, который специализируется исключительно на кухнях. Это позволило снизить стоимость гарнитуров, не теряя при этом в качестве. Скорее наоборот – сосредоточенность исключительно на собственном производстве и установке гарнитуров нашим клиентам позволило вывести итоговый результат на новый уровень. </p>
         <AppExtras
-          title="Название"
-          desc="Описание"
+          title="Правила жизни компании"
+          desc="- Счастливый клиент – каждый клиент<br>- Качество каждому - брак никому!<br>- Семь раз отмерь, один раз замерь<br>- Оставляем после себе классный гарнитур, а мусор забираем<br>- Пусть к сердцу клиенте лежит через его кухню<br>- Улыбка клиента – счастье сборщика, радость дизайнера, восторг менеджера<br>- Каждый фасад важен"
+          smallDesc
           class="about__extras"
         />
         <p class="about__title">Наши цеха – наша гордость!</p>
@@ -149,9 +150,20 @@ export default {
   }
 
   &__box {
+    position: relative;
     padding-top: 58%;
-    border-bottom-right-radius: 120px;
-    background-color: #fec507;
+    border-bottom-right-radius: 60px;
+    overflow: hidden;
+  }
+
+  &__image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
   }
 
   &__quote {
@@ -292,6 +304,7 @@ export default {
     &__box {
       height: 450px;
       padding-top: 0;
+      border-bottom-right-radius: 120px;
     }
 
     &__quote {
@@ -319,14 +332,14 @@ export default {
 
       #{$b}__title,
       #{$b}__desc {
-        max-width: calc(76vw - 360px);
+        max-width: calc(76vw - 380px);
       }
     }
 
     &__extras {
       position: absolute;
       top: 270px;
-      right: -20px;
+      right: 10px;
       z-index: 2;
     }
 
@@ -424,6 +437,10 @@ export default {
           max-width: calc(75vw - 460px);
         }
       }
+    }
+
+    &__extras {
+      right: -10px;
     }
 
     &__slider {

@@ -319,6 +319,7 @@ export default {
     border-radius: 100px;
     font-weight: 500;
     font-size: 12px;
+    white-space: nowrap;
     color: #d8d8d8;
 
     &.is-active {

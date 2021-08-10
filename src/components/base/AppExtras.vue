@@ -6,15 +6,20 @@
     <div class="extras__circle"></div>
     <div class="extras__box">
       <p class="extras__title">{{title}}</p>
-      <p class="extras__desc">
-        {{desc}}
-        <br><br>
-        <router-link
-          to="/sizing"
-          class="extras__link"
-        >
-          Расскажите по-подробнее
-        </router-link>
+      <p
+        class="extras__desc"
+        :class="{'extras__desc_small': smallDesc}"
+      >
+        <span v-html="desc"></span>
+        <template v-if="link">
+          <br><br>
+          <router-link
+            :to="link.url"
+            class="extras__link"
+          >
+            {{link.title}}
+          </router-link>
+        </template>
       </p>
     </div>
     <div
@@ -31,7 +36,9 @@ export default {
   name: 'AppExtras',
   props: {
     title: String,
-    desc: String
+    desc: String,
+    smallDesc: Boolean,
+    link: Object
   },
   data() {
     return {
@@ -94,13 +101,11 @@ export default {
 
   &__box {
     position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 200px;
+    left: 50%;
+    top: 50%;
+    width: 240px;
     height: 260px;
+    transform: translate(-50%, -50%);
   }
 
   &__title {
@@ -108,7 +113,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin: auto;
-    width: 148px;
+    width: 155px;
     height: 60px;
     font-weight: bold;
     font-size: 16px;
@@ -130,6 +135,10 @@ export default {
     transform: scale(0);
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &_small {
+      font-size: 11px;
+    }
   }
 
   &__link {
@@ -166,7 +175,7 @@ export default {
     z-index: 1;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -203,6 +212,10 @@ export default {
     &__desc {
       height: 240px;
       font-size: 16px;
+
+      &_small {
+        font-size: 13px;
+      }
     }
 
     &__link {
@@ -232,8 +245,18 @@ export default {
       }
     }
 
+    &__box {
+      width: 300px;
+    }
+
     &__title {
       font-size: 18px;
+    }
+
+    &__desc {
+      &_small {
+        font-size: 14px;
+      }
     }
 
     &__expand {

@@ -87,7 +87,6 @@
 <script>
 import ArticleCard from './ArticleCard.vue'
 import AppIcon from './base/AppIcon.vue'
-import api from '../api'
 
 export default {
   name: 'NavMenu',
@@ -96,18 +95,10 @@ export default {
     ArticleCard
   },
   props: {
-    menu: Object
+    menu: Object,
+    article: Object
   },
-  emits: ['close-menu', 'close-submenu'],
-  data() {
-    return {
-      article: null
-    }
-  },
-  async created() {
-    const response = await api.loadCards({ name: 'blog' })
-    this.article = response.goods[0]
-  }
+  emits: ['close-menu', 'close-submenu']
 }
 </script>
 
