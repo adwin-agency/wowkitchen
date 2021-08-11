@@ -187,8 +187,6 @@
           :slides-per-view="$_media.sm ? 'auto' : 1"
           :space-between="$_media.sm ? 10 : $_media.md ? 30 : 50"
           watch-slides-visibility
-          loop
-          :looped-slides="2"
           navigation
           :lazy="{ loadPrevNext: true, loadPrevNextAmount: 3 }"
           class="details__gallery-slider"

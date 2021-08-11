@@ -52,6 +52,7 @@
         <input
           ref="file"
           type="file"
+          name="file"
           class="review-form__file-input"
           multiple
           @change="handleFile"

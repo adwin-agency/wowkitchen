@@ -111,6 +111,7 @@
                 <input
                   ref="file"
                   type="file"
+                  name="file"
                   class="guarantee__file-input"
                   @change="handleFile"
                 >

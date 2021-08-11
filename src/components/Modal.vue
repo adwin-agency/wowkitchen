@@ -174,6 +174,7 @@
               <input
                 ref="file"
                 type="file"
+                name="file"
                 class="modal__file-input"
                 @change="handleFile"
               >
