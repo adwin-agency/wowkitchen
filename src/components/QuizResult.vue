@@ -15,7 +15,7 @@
       <AppTextField
         placeholder="Телефон"
         type="tel"
-        name="tel"
+        name="phone"
         required
         color="white"
         class="quiz-result__field"

@@ -85,7 +85,7 @@ const routes = [
   {
     path: '/quiz',
     name: 'quiz',
-    meta: { title: 'Подбор кухни' },
+    meta: { title: 'Расчет онлайн' },
     component: () => import('@/views/QuizView.vue')
   },
   {

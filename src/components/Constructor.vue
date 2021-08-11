@@ -12,18 +12,18 @@
             class="constructor__form"
           >
             <div
-              v-for="(setting, index) in settings"
-              :key="index"
+              v-for="(setting, name) in settings"
+              :key="name"
               class="constructor__setting"
-              :class="`constructor__setting_${setting.id}`"
+              :class="`constructor__setting_${name}`"
             >
               <template v-if="$_media.sm">
                 <AppSelect
                   color="green"
                   :options="setting.options"
-                  :name="setting.id"
+                  :name="name"
                   class="constructor__select"
-                  @change="handleSelectChange(setting.id, $event)"
+                  @change="handleSelectChange(name, $event)"
                 />
                 <div
                   v-if="setting.additions"
@@ -38,8 +38,8 @@
                     <input
                       type="checkbox"
                       name="addition"
-                      :value="addition.value"
-                      @change="handleAdditionChange($event)"
+                      :value="addition.title"
+                      @change="handleAdditionChange(addition.code, $event)"
                     >
                     <span>{{addition.title}}</span>
                   </label>
@@ -55,10 +55,10 @@
                   >
                     <input
                       type="radio"
-                      :name="setting.id"
-                      :value="option.value"
+                      :name="name"
+                      :value="option.title"
                       :checked="index === 0"
-                      @change="handleSettingChange(setting.id, $event)"
+                      @change="handleSettingChange(name, $event)"
                     >
                     <span>{{option.title}}</span>
                   </label>
@@ -76,8 +76,8 @@
                     <input
                       type="checkbox"
                       name="addition"
-                      :value="addition.value"
-                      @change="handleAdditionChange($event)"
+                      :value="addition.title"
+                      @change="handleAdditionChange(addition.code, $event)"
                     >
                     <span>{{addition.title}}</span>
                   </label>
@@ -98,7 +98,7 @@
         </div>
         <div class="constructor__area">
           <img
-            :src="require(`@/assets/img/${style}-${composition + (addition || '')}-${colors}.jpg`)"
+            :src="require(`@/assets/img/${style}-${category + (addition || '')}-${colors}.jpg`)"
             alt=""
             class="constructor__img"
           >
@@ -157,39 +157,38 @@
 import AppButton from './base/AppButton.vue'
 import AppSelect from './base/AppSelect.vue'
 
-const settings = [
-  {
-    id: 'style',
+const settings = {
+  style: {
     title: 'Стиль',
     options: [
-      { title: 'Минимализм', value: 'minimal' },
-      { title: 'Скандинавский', value: 'scandy' },
-      { title: 'Лофт', value: 'loft' },
-      { title: 'Неоклассика', value: 'neoclassic' }
+      { title: 'Минимализм', code: 'minimal' },
+      { title: 'Скандинавский', code: 'scandy' },
+      { title: 'Лофт', code: 'loft' },
+      { title: 'Неоклассика', code: 'neoclassic' }
     ]
   },
-  {
-    id: 'composition',
+  category: {
+    id: 'category',
     title: 'Компоновка',
     options: [
-      { title: 'Прямая', value: 'straight' },
-      { title: 'Угловая', value: 'corner' },
-      { title: 'П-образная', value: 'shaped' }
+      { title: 'Прямая', code: 'straight' },
+      { title: 'Угловая', code: 'corner' },
+      { title: 'П-образная', code: 'shaped' }
     ],
     additions: [
-      { title: 'Барная стойка', value: 'bar' },
-      { title: 'Остров', value: 'island' }
+      { title: 'Барная стойка', code: 'bar' },
+      { title: 'Остров', code: 'island' }
     ]
   },
-  {
+  colors: {
     id: 'colors',
     title: 'Цвет',
     options: [
-      { title: 'Светлые тона', value: 'light' },
-      { title: 'Тёмные тона', value: 'dark' }
+      { title: 'Светлые тона', code: 'light' },
+      { title: 'Тёмные тона', code: 'dark' }
     ]
   }
-]
+}
 
 const points = {
   minimal: {
@@ -381,7 +380,7 @@ export default {
       activeSelects: this.$_media.sm,
       settings: settings,
       style: 'minimal',
-      composition: 'straight',
+      category: 'straight',
       addition: null,
       colors: 'light',
       points: points,
@@ -390,7 +389,7 @@ export default {
   },
   computed: {
     activePoints() {
-      return this.points[this.style][this.composition + (this.addition || '')]
+      return this.points[this.style][this.category + (this.addition || '')]
     }
   },
   created() {
@@ -431,14 +430,14 @@ export default {
     },
 
     handleSelectChange(id, value) {
-      this[id] = value
+      this[id] = this.settings[id].options.find(i => i.title === value).code
       this.closeTooltip()
     },
     handleSettingChange(id, event) {
-      this[id] = event.target.value
+      this[id] = this.settings[id].options.find(i => i.title === event.target.value).code
       this.closeTooltip()
     },
-    handleAdditionChange(event) {
+    handleAdditionChange(code, event) {
       const target = event.target
       const inputs = this.$refs.additions.querySelectorAll('input')
 
@@ -448,7 +447,7 @@ export default {
         }
       }
 
-      this.addition = target.checked ? target.value : null
+      this.addition = target.checked ? code : null
       this.closeTooltip()
     },
 

@@ -58,13 +58,13 @@ const api = {
   async sendForm(form) {
     const formData = new FormData(form)
 
-    // if (window.Comagic) {
-    //   const comagicData = window.Comagic.getCredentials()
+    if (window.Comagic) {
+      const comagicData = window.Comagic.getCredentials()
 
-    //   for (let item in comagicData) {
-    //     formData.append(item, comagicData[item])
-    //   }
-    // }
+      for (let item in comagicData) {
+        formData.append(item, comagicData[item])
+      }
+    }
 
     const formType = formData.get('type')
     const url = formType === 'payment' ? '/include/kassa.yandex/payment.php' : '/send.php'

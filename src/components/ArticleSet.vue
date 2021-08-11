@@ -48,9 +48,9 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 
 const cards = [
   { id: 'layfxaki', title: 'Лайфхаки' },
-  { id: 'spornye-voprosy', title: 'Спорные вопросы' },
+  // { id: 'spornye-voprosy', title: 'Спорные вопросы' },
   { id: 'ot-eksperta', title: 'От эксперта' },
-  { id: 'planirovki', title: 'Планировки' },
+  // { id: 'planirovki', title: 'Планировки' },
   { id: 'idei-dlya-kukhni', title: 'Идеи для кухни' },
   { id: 'videos', title: 'Видео' },
   { id: 'populyarnoe', title: 'Популярное' }

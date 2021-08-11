@@ -59,7 +59,7 @@
           <input
             type="hidden"
             name="type"
-            value="designer-call"
+            value="designer-inner"
           >
           <input
             type="hidden"

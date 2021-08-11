@@ -134,6 +134,7 @@
                         v-for="(size, index) in values.sizes"
                         :key="index"
                         type="text"
+                        :name="`size${['A', 'B', 'C'][index]}`"
                         :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
                         placeholder="Размер в см"
                         class="quiz__field"
@@ -147,7 +148,7 @@
                       <p class="quiz__fields-title">Дополнительный конструктив</p>
                       <AppControl
                         type="checkbox"
-                        name="construct"
+                        name="addition"
                         color="gray"
                         :items="['+ Барная стойка', '+ Остров']"
                         class="quiz__control"
