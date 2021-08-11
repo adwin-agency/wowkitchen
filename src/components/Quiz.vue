@@ -72,6 +72,11 @@
         name="page"
         :value="page"
       >
+      <input
+        type="hidden"
+        name="price"
+        :value="price"
+      >
       <div class="quiz__screen">
         <div class="quiz__steps">
           <div
@@ -134,7 +139,7 @@
                         v-for="(size, index) in values.sizes"
                         :key="index"
                         type="text"
-                        :name="`size${['A', 'B', 'C'][index]}`"
+                        name="size[]"
                         :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
                         placeholder="Размер в см"
                         class="quiz__field"
@@ -416,15 +421,14 @@ export default {
 
     price() {
       const coef = 15
-      const additionPrice = 10000
+      const additionPrice = 5000
       const priceDiff = 15000
-      const discount = 0.5
 
       const sizeSum = this.values.sizes.reduce((sum, current) => sum + +current, 0)
-      const min = (sizeSum * 10 * coef + this.values.construct.length * additionPrice) * discount
+      const min = sizeSum * 10 * coef + this.values.construct.length * additionPrice
       const max = min + priceDiff
 
-      return new Intl.NumberFormat().format(min) + ' - ' + new Intl.NumberFormat().format(max) + '₽'
+      return min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽ - ' + max.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
     }
   },
   methods: {

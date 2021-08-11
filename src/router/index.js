@@ -71,6 +71,11 @@ const routes = [
     component: () => import('@/views/MaterialsView.vue')
   },
   {
+    path: '/notfound',
+    name: 'notfound',
+    component: () => import('@/views/NotFoundView.vue')
+  },
+  {
     path: '/payment',
     name: 'payment',
     meta: { title: 'Оплата', introEffect: true },

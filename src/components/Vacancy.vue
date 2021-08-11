@@ -46,7 +46,7 @@
                   </li>
                 </ul>
               </div>
-              <p class="vacancy__contact">Присылайте свое резюме на почту <a href="#">blah-blah@sample.ru</a></p>
+              <p class="vacancy__contact">Присылайте свое резюме на почту <a href="mailto:op@wowkitchen.ru">op@wowkitchen.ru</a></p>
             </div>
           </div>
         </div>

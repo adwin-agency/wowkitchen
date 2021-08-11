@@ -6,7 +6,7 @@
           <div class="nav-panel__items-group">
             <div
               class="nav-panel__item nav-panel__item_dd"
-              :class="{'is-active': activeSubmenu}"
+              :class="{'is-open': activeSubmenu}"
             >
               <span
                 class="nav-panel__dd-expand"
@@ -220,12 +220,16 @@ export default {
       width: 100%;
     }
 
-    &.is-active {
+    &.is-open {
       #{$b} {
         &__arrow {
           transform: rotate(180deg);
         }
       }
+    }
+
+    &.is-active {
+      color: $color-green;
     }
   }
 
@@ -265,6 +269,10 @@ export default {
 
     &:last-child {
       margin-bottom: 0;
+    }
+
+    a.is-active {
+      color: $color-green;
     }
   }
 

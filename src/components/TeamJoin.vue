@@ -7,7 +7,7 @@
     <div class="team-join__box">
       <p class="team-join__title">Становитесь частью команды</p>
       <p class="team-join__text">Мы всегда рады новичкам в наших рядах. Посмотрите список вакансий, возможно, мы ищем именно вас?</p>
-      <p class="team-join__text">Отправляйте свои резюме на почту<a class="team-join__link"> sample@sample.com </a>с пометкой «Хочу в команду»</p>
+      <p class="team-join__text">Отправляйте свои резюме на почту<a href="mailto:op@wowkitchen.ru" class="team-join__link"> op@wowkitchen.ru </a>с пометкой «Хочу в команду»</p>
     </div>
   </div>
 </template>

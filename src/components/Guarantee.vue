@@ -40,6 +40,7 @@
               <input
                 type="radio"
                 name="case"
+                value="Я по гарантии"
                 checked
                 class="guarantee__radio-input"
               >
@@ -54,6 +55,7 @@
               <input
                 type="radio"
                 name="case"
+                value="Я просто спросить"
                 class="guarantee__radio-input"
               >
               <span
