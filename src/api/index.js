@@ -77,8 +77,8 @@ const api = {
     // window.fbq && window.fbq('track', 'Lead')
     // window.VK && window.VK.Retargeting.Event('lead')
     // window.gtag && window.gtag('event', formType, {event_category: 'Forms'})
-    // window.ym && window.ym(73257226, 'reachGoal', formType)
-    // window.ym && window.ym(73257226, 'reachGoal', 'lead')
+    // window.ym && window.ym(34624840, 'reachGoal', formType)
+    // window.ym && window.ym(34624840, 'reachGoal', 'lead')
     // window.dataLayer = window.dataLayer || []
     // window.dataLayer.push({'event': 'formSubmit'})
     // window.dataLayer.push({'event': formType})

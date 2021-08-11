@@ -378,7 +378,7 @@ export default {
   },
   computed: {
     breadCrumbs() {
-      return this.$route.name !== 'main' && this.$route.name !== 'notfound' && this.$store.state.breadCrumbs
+      return this.$route.name !== 'main' && this.$route.name !== 'not-found' && this.$store.state.breadCrumbs
     },
     favoritesLength() {
       return this.$store.state.favoriteItems.length

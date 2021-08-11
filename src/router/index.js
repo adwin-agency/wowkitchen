@@ -71,8 +71,8 @@ const routes = [
     component: () => import('@/views/MaterialsView.vue')
   },
   {
-    path: '/notfound',
-    name: 'notfound',
+    path: '/not-found',
+    name: 'not-found',
     component: () => import('@/views/NotFoundView.vue')
   },
   {
@@ -86,6 +86,18 @@ const routes = [
     name: 'pay',
     meta: { title: 'Оплата онлайн' },
     component: () => import('@/views/PayView.vue')
+  },
+  {
+    path: '/pay-success',
+    name: 'pay-success',
+    meta: { title: 'Оплата онлайн' },
+    component: () => import('@/views/PaySuccessView.vue')
+  },
+  {
+    path: '/pay-error',
+    name: 'pay-error',
+    meta: { title: 'Оплата онлайн' },
+    component: () => import('@/views/PayErrorView.vue')
   },
   {
     path: '/quiz',

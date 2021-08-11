@@ -62,7 +62,6 @@ export default {
 
 <style lang="scss">
 .not-found {
-  text-align: center;
   padding-bottom: 50px;
 
   &__image {
@@ -87,12 +86,14 @@ export default {
 
     span {
       flex-shrink: 0;
-      animation: running-line 10s linear infinite;
+      animation: running-line 20s linear infinite;
     }
   }
 
   &__desc {
-    margin-top: 25px;
+    margin: 25px auto 0;
+    max-width: 300px;
+    text-align: center;
     font-weight: 500;
     font-size: 16px;
     line-height: (22/18);
@@ -140,6 +141,7 @@ export default {
     }
 
     &__desc {
+      max-width: 500px;
       font-size: 18px;
     }
   }
