@@ -57,7 +57,6 @@ const api = {
 
   async sendForm(form) {
     const formData = new FormData(form)
-    // const formType = formData.get('type')
 
     // if (window.Comagic) {
     //   const comagicData = window.Comagic.getCredentials()
@@ -67,7 +66,10 @@ const api = {
     //   }
     // }
 
-    const response = await fetch(`${sendPath}/send.php`, {
+    const formType = formData.get('type')
+    const url = formType === 'payment' ? '/include/kassa.yandex/payment.php' : '/send.php'
+
+    const response = await fetch(sendPath + url, {
       method: 'POST',
       body: formData
     })

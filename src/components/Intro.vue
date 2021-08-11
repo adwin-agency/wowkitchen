@@ -112,13 +112,14 @@
               name="shape-13"
               :style="`transform:translateY(${shapeFrontTranslate}px)`"
             />
-            <AppVideoButton
-              v-if="!$_media.sm"
-              title="Смотреть видео"
-              video="/assets/video/intro.mp4"
-              class="intro__video-btn"
-              @click="handleVideoClick"
-            />
+            <div class="intro__video-btn">
+              <AppVideoButton
+                v-if="!$_media.sm"
+                title="Смотреть видео"
+                video="/assets/video/intro.mp4"
+                @click="handleVideoClick"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -244,32 +245,8 @@ export default {
   }
 
   &__video-btn {
-    display: flex;
-    align-items: center;
-    position: relative;
     margin-top: 84px;
     margin-left: 18px;
-    border-radius: 100px;
-    font-weight: bold;
-    font-size: 11px;
-    background-color: $color-yellow;
-    box-shadow: 0px 5px 5px 0px rgba(53, 53, 53, 0.36);
-    z-index: 1;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      width: 74px;
-      height: 74px;
-      border: 1px solid $color-yellow;
-      border-radius: 50%;
-      opacity: 0.3;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: -1;
-    }
   }
 
   &__play-icon {

@@ -11,6 +11,7 @@
               :space-between="$_media.md ? 5 : 8"
               watch-slides-visibility
               watch-slides-progress
+              loop
               @swiper="setThumbsSwiper"
               class="wardrobe-details__thumbs-slider"
             >
@@ -40,6 +41,7 @@
             navigation
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
+            loop
             @swiper="setMainSwiper"
             @slideChangeTransitionStart="thumbsSwiper.updateSlidesClasses()"
             class="wardrobe-details__slider"

@@ -19,6 +19,7 @@
               :space-between="8"
               watch-slides-visibility
               watch-slides-progress
+              loop
               @swiper="setThumbsSwiper"
               class="technic-details__thumbs-slider"
             >
@@ -45,6 +46,7 @@
             navigation
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
+            loop
             @slideChangeTransitionStart="thumbsSwiper.updateSlidesClasses()"
             class="technic-details__slider"
           >

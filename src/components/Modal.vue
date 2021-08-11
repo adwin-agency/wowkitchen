@@ -18,7 +18,7 @@
           <input
             type="hidden"
             name="type"
-            value="designer-m"
+            value="designer"
           >
           <input
             type="hidden"
@@ -88,7 +88,10 @@
           >
             Ошибка отправки. Попробуйте еще раз
           </p>
-          <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
+          <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a
+              href="/policy.pdf"
+              target="_blank"
+            >Политикой конфиденциальности</a></p>
           <button
             type="button"
             class="modal__close"
@@ -197,7 +200,10 @@
           >
             Ошибка отправки. Попробуйте еще раз
           </p>
-          <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
+          <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a
+              href="/policy.pdf"
+              target="_blank"
+            >Политикой конфиденциальности</a></p>
           <button
             type="button"
             class="modal__close"
@@ -360,6 +366,15 @@ export default {
     }
   },
   watch: {
+    // modal(newModal) {
+    //   if (newModal === 'designer' || newModal === 'calc') {
+    //     window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
+    //     window.VK && window.VK.Goal('initiate_checkout')
+    //     window.dataLayer = window.dataLayer || []
+    //     window.dataLayer.push({ event: 'open_' + newModal })
+    //     window.dataLayer.push({ event: 'open_form' })
+    //   }
+    // },
     $route() {
       this.closeModal()
     },

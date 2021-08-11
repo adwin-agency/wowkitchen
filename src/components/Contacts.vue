@@ -124,21 +124,58 @@ export default {
     },
     cityPhone() {
       return this.$store.state.cities[this.$store.state.activeCity]?.phone
+    },
+    coords() {
+      return this.$store.state.cities[this.$store.state.activeCity]?.coords
+    }
+  },
+  watch: {
+    coords() {
+      if (window.myMap) {
+        window.myMap.setCenter([this.coords.lat, this.coords.long])
+        window.myPlacemark.geometry.setCoordinates([this.coords.lat, this.coords.long])
+      } else {
+        this.initMap()
+      }
     }
   },
   mounted() {
-    window.ymaps.ready(init)
+    if (this.coords) {
+      this.initMap()
+    }
+  },
+  unmounted() {
+    window.myMap.destroy()
+    window.myMap = null
+    window.myPlacemark = null
+  },
+  methods: {
+    initMap() {
+      window.ymaps.ready(() => {
+        window.myMap = new window.ymaps.Map(
+          'map',
+          {
+            center: [this.coords.lat, this.coords.long],
+            controls: [],
+            zoom: 14
+          },
+          {
+            suppressMapOpenBlock: true
+          }
+        )
 
-    function init() {
-      new window.ymaps.Map('map', {
-        // Координаты центра карты.
-        // Порядок по умолчанию: «широта, долгота».
-        // Чтобы не определять координаты центра карты вручную,
-        // воспользуйтесь инструментом Определение координат.
-        center: [55.76, 37.64],
-        // Уровень масштабирования. Допустимые значения:
-        // от 0 (весь мир) до 19.
-        zoom: 7
+        window.myPlacemark = new window.ymaps.Placemark(
+          [this.coords.lat, this.coords.long],
+          {},
+          {
+            iconLayout: 'default#image',
+            iconImageHref: '/assets/img/pin.svg',
+            iconImageSize: [44, 57],
+            iconImageOffset: [-22, -57]
+          }
+        )
+
+        window.myMap.geoObjects.add(window.myPlacemark)
       })
     }
   }

@@ -69,14 +69,16 @@
       >
         -{{info.discount}}%
       </span>
-      <AppVideoButton
-        v-if="info.video"
-        :expand="!large"
-        :title="large ? 'Смотреть видеообзор' : 'Видеообзор'"
-        :video="$_mobile ? info.video.mobile : info.video.desktop"
-        class="product-card__video-btn"
-        :class="{'is-active': !large && hover}"
-      />
+      <div class="product-card__video-btn">
+        <AppVideoButton
+          v-if="info.video"
+          :expand="!large"
+          :title="large ? 'Смотреть видеообзор' : 'Видеообзор'"
+          :video="$_mobile ? info.video.mobile : info.video.desktop"
+          :class="{'is-active': !large && hover}"
+        />
+      </div>
+
     </div>
     <div class="product-card__content">
       <div class="product-card__header">
@@ -128,7 +130,10 @@
           {{cardType === 'kitchen' && feature.title === 'Фасад' ? 'Egger' : feature.value}}
         </p>
       </div>
-      <div v-if="!noPrice" class="product-card__prices">
+      <div
+        v-if="!noPrice"
+        class="product-card__prices"
+      >
         <p class="product-card__price">{{info.price}} ₽</p>
         <p
           v-if="info.old_price"
@@ -610,6 +615,7 @@ export default {
         }
 
         &__calc {
+          grid-row: auto;
           margin-top: 6px;
           width: auto;
         }

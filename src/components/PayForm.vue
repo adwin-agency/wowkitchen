@@ -13,6 +13,11 @@
       name="page"
       :value="page"
     >
+    <input
+      type="hidden"
+      name="shop_id"
+      :value="shopId"
+    >
     <div class="pay-form__header">
       <AppControl
         :label="$_media.sm ? 'Тип оплаты' : ''"
@@ -33,7 +38,7 @@
       />
     </div>
     <div
-      v-if="activePayment"
+      v-if="shopId"
       class="pay-form__fields"
     >
       <AppTextField
@@ -182,8 +187,8 @@ export default {
     activeCity() {
       return this.selectedCity || Object.values(this.cities).length && Object.values(this.cities)[0].code
     },
-    activePayment() {
-      return !!this.$store.state.cities[this.activeCity]?.shop_id
+    shopId() {
+      return this.$store.state.cities[this.activeCity]?.shop_id
     },
     phone() {
       return this.$store.state.cities[this.activeCity]?.phone

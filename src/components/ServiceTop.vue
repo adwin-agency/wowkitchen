@@ -1,20 +1,29 @@
 <template>
   <div class="service-top">
     <div class="service-top__box">
-      <video
-        ref="video"
-        src="/assets/video/intro.mp4"
-        autoplay
-        loop
-        muted
-        class="service-top__video"
-      ></video>
-      <AppVideoButton
-        round
-        video="/assets/video/intro.mp4"
-        class="service-top__play"
-        @click="handleVideoClick"
-      />
+      <template v-if="video">
+        <video
+          ref="video"
+          :src="video"
+          autoplay
+          loop
+          muted
+          class="service-top__video"
+        ></video>
+        <div class="service-top__play">
+          <AppVideoButton
+            round
+            :video="video"
+            @click="handleVideoClick"
+          />
+        </div>
+      </template>
+      <img
+        v-if="image"
+        :src="image"
+        alt
+        class="service-top__image"
+      >
     </div>
     <div class="service-top__content">
       <div class="container">
@@ -45,6 +54,8 @@ export default {
     AppVideoButton
   },
   props: {
+    video: String,
+    image: String,
     heading: String,
     desc: String,
     info: Array
@@ -76,7 +87,8 @@ export default {
     padding-top: 75%;
   }
 
-  &__video {
+  &__video,
+  &__image {
     position: absolute;
     left: 0;
     top: 0;

@@ -82,7 +82,7 @@
             v-for="(card, index) in cards"
             :key="index"
             :info="card"
-            :noPrice="cardType === 'kitchen'"
+            :noPrice="cardType !== 'technic'"
             :cardType="cardType"
             :large="catalogType === 'list'"
             class="catalog__card"

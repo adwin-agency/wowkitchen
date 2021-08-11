@@ -5,9 +5,17 @@
     <p class="quiz-result__desc">Мы дарим вам скидку <b>5%</b> на финальню стоимость: оставьте e-mail и мы пришлём на него код для получения скидки</p>
     <div class="quiz-result__footer">
       <AppTextField
-        placeholder="sample@sample/com"
+        placeholder="Имя"
         type="text"
-        name="email"
+        name="name"
+        required
+        color="white"
+        class="quiz-result__field"
+      />
+      <AppTextField
+        placeholder="Телефон"
+        type="tel"
+        name="tel"
         required
         color="white"
         class="quiz-result__field"
@@ -84,7 +92,7 @@ export default {
   }
 
   @include media(md) {
-    padding: 50px 90px 50px 60px;
+    padding: 50px 60px;
     border-bottom-right-radius: 70px;
     background-color: $color-lightgray;
 
@@ -95,23 +103,24 @@ export default {
 
     &__footer {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
       margin-top: 25px;
     }
 
     &__field {
-      flex: 1;
+      width: calc(50% - 10px);
       margin-top: 0;
-      margin-right: 30px;
     }
 
     &__btn {
-      margin-top: 0;
+      margin-top: 20px;
       width: auto;
       min-width: 220px;
     }
 
     &__error {
-      text-align: right;
+      text-align: left;
     }
   }
 

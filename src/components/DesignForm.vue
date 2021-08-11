@@ -6,7 +6,7 @@
     <input
       type="hidden"
       name="type"
-      value="designer"
+      value="designer-main"
     >
     <input
       type="hidden"

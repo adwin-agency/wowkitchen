@@ -20,11 +20,11 @@
             <p class="favorites__name">
               <router-link :to="item.url" target="_blank">{{item.name}}</router-link>
             </p>
-            <p class="favorites__price">{{item.price}} ₽</p>
-            <p
+            <!-- <p class="favorites__price">{{item.price}} ₽</p> -->
+            <!-- <p
               v-if="item.oldPrice"
               class="favorites__discount"
-            >{{item.oldPrice}} ₽</p>            
+            >{{item.oldPrice}} ₽</p>             -->
           </div>
           <button
             type="button"

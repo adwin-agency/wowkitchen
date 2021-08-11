@@ -414,14 +414,14 @@ export default {
     },
 
     price() {
-      const mmPrice = 15
-      const addPrice = 10000
-      const diff = 15000
+      const coef = 15
+      const additionPrice = 10000
+      const priceDiff = 15000
       const discount = 0.5
 
       const sizeSum = this.values.sizes.reduce((sum, current) => sum + +current, 0)
-      const min = sizeSum * 10 * mmPrice + this.values.construct.length * addPrice * discount
-      const max = min + diff
+      const min = (sizeSum * 10 * coef + this.values.construct.length * additionPrice) * discount
+      const max = min + priceDiff
 
       return new Intl.NumberFormat().format(min) + ' - ' + new Intl.NumberFormat().format(max) + '₽'
     }

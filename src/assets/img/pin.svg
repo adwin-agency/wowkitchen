@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="63" viewBox="0 0 50 63">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #04b991;
+        stroke: #12a181;
+        stroke-width: 2px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="pin" class="cls-1" d="M2473,541a24,24,0,0,1,24,24c0,13.255-24,37-24,37s-24-23.745-24-37A24,24,0,0,1,2473,541Zm0,13a9,9,0,1,1-9,9A9,9,0,0,1,2473,554Z" transform="translate(-2448 -540)"/>
+</svg>

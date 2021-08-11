@@ -27,12 +27,13 @@
               class="swiper-lazy"
             >
           </SwiperSlide>
-          <AppVideoButton
-            title="Видеообзор проекта"
-            :video="$_mobile ? info.video?.mobile : info.video?.desktop"
-            size="large"
-            class="details__video-btn"
-          />
+          <div class="details__video-btn">
+            <AppVideoButton
+              title="Видеообзор проекта"
+              :video="$_mobile ? info.video?.mobile : info.video?.desktop"
+              size="large"
+            />
+          </div>
           <AppIcon
             name="wow-pattern"
             class="details__pattern"

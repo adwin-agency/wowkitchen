@@ -69,21 +69,25 @@
             </router-link>
             <div class="footer__payment">
               <AppIcon
-                name="visa"
-                class="footer__payment-icon"
+                name="visa-color"
+                class="footer__payment-icon footer__payment-icon_visa"
+                viewBox="0 0 282 92.637756"
               />
               <AppIcon
-                name="mastercard"
-                class="footer__payment-icon"
+                name="maestro-color"
+                class="footer__payment-icon footer__payment-icon_maestro"
+                viewBox="0 0 256 199"
               />
               <AppIcon
-                name="visa"
-                class="footer__payment-icon"
+                name="mastercard-color"
+                class="footer__payment-icon footer__payment-icon_mastercard"
+                viewBox="0 0 256 199"
               />
-              <AppIcon
-                name="mastercard"
-                class="footer__payment-icon"
-              />
+              <img
+                src="@/assets/img/mir-color.svg"
+                alt
+                class="footer__payment-icon footer__payment-icon_mir"
+              >
             </div>
           </div>
         </div>
