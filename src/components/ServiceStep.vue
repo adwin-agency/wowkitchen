@@ -152,7 +152,8 @@ export default {
     }
 
     &__content {
-      flex: 1;
+      margin-right: auto;
+      width: calc(100% - 400px);
     }
 
     &__title {
@@ -166,7 +167,6 @@ export default {
 
     &__stat {
       align-items: flex-start;
-      margin-left: 100px;
       width: 220px;
 
       &-icon {
@@ -187,6 +187,9 @@ export default {
   }
 
   @include media(lg) {
+    &__content {
+      width: calc(100% - 500px);
+    }
     &__title {
       font-size: 24px;
     }
@@ -194,10 +197,6 @@ export default {
     &__desc {
       margin-top: 30px;
       font-size: 16px;
-    }
-
-    &__stat {
-      margin-left: 200px;
     }
   }
 }

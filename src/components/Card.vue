@@ -68,6 +68,7 @@ export default {
     width: 30px;
     height: 30px;
     fill: #f6e43e;
+    stroke: #f6e43e;
   }
 
   @include media(md) {

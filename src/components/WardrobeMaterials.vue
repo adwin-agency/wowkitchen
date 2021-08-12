@@ -71,9 +71,9 @@ export default {
   data() {
     return {
       slides: [
-        { num: { icon: 'dotted-01', viewBox: '0 0 101.594 73.87' }, image: 'materials1-pic.jpg', title: 'Корпус из ДСП класса безопасности Е1', desc: 'Отличатся отличной термо-, влаго- и паростойкостью, высокой прочностью, устойчив к воздействию химических средств, экологичен и богат на самые разные расцветки', examples: ['cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg'], count: 15 },
-        { num: { icon: 'dotted-02', viewBox: '0 0 121.129 72.22' }, image: 'materials2-pic.jpg', title: 'Фурнитура и профили', desc: 'Алюминиевый профиль в отличие от стального обеспечивает плавное открывание и бесшумный ход дверей купе. Нижняя направляющая оснащена стопорами для каждой двери, они не будут откатываться.' },
-        { num: {icon: 'dotted-03', viewBox: '0 0 126.218 75.18' }, image: 'materials3-pic.jpg', title: 'Фасады', desc: 'Самая распространенная разновидность фасада отличается небольшой стоимостью. добротностью, прочностью и многообразием красок.', examples: ['cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg'], count: 200 },
+        { num: { icon: 'dotted-01', viewBox: '0 0 101.594 73.87' }, image: 'materials-1.jpg', title: 'Корпус из ДСП класса безопасности Е1', desc: 'Отличатся отличной термо-, влаго- и паростойкостью, высокой прочностью, устойчив к воздействию химических средств, экологичен и богат на самые разные расцветки', examples: ['cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg'], count: 15 },
+        { num: { icon: 'dotted-02', viewBox: '0 0 121.129 72.22' }, image: 'materials-2.jpg', title: 'Фурнитура и профили', desc: 'Алюминиевый профиль в отличие от стального обеспечивает плавное открывание и бесшумный ход дверей купе. Нижняя направляющая оснащена стопорами для каждой двери, они не будут откатываться.' },
+        { num: {icon: 'dotted-03', viewBox: '0 0 126.218 75.18' }, image: 'materials-3.jpg', title: 'Фасады', desc: 'Широкий выбор материалов и возможность их комбинировать даст вам возможность создать свой уникальный дизайн. Отдельно стоит отметить безопасность и экологичность всех используемых материалов. ЛДСП имеет класс эмиссии, допустимый даже в медицинских учреждениях. А используемые зеркала имеют специальное антивандальное покрытие: даже при разбитии, оно не осыпается, а остаётся на плёнке.', examples: ['cupb-material.jpg', 'cupb-material.jpg', 'cupb-material.jpg'], count: 200 },
       ]
     }
   }
@@ -98,7 +98,7 @@ export default {
 
   &__image {
     position: relative;
-    padding-top: 65%;
+    padding-top: 100%;
 
     img {
       position: absolute;

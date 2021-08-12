@@ -2,7 +2,7 @@
   <div class="quiz-result">
     <p class="quiz-result__title">Примерная стоимость вашей кухни</p>
     <p class="quiz-result__price">{{price}}</p>
-    <p class="quiz-result__desc">Мы дарим вам скидку <b>5%</b> на финальню стоимость: оставьте e-mail и мы пришлём на него код для получения скидки</p>
+    <p class="quiz-result__desc">Финальную стоимость стоимость вам озвучит наш менеджер: оставьте телефон и мы свяжемся с вами в ближайшее время для более подробной консультации</p>
     <div class="quiz-result__footer">
       <AppTextField
         placeholder="Имя"

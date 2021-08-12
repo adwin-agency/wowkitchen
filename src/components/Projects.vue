@@ -54,8 +54,8 @@ const cards = [
   { route: '/kitchens?category=uglovye', image: 'L.jpg', title: 'Угловые кухни', icon: 'kit1' },
   { route: '/kitchens?category=pryamye', image: 'I.jpg', title: 'Прямые кухни', icon: 'kit2' },
   { route: '/kitchens?category=p-obraznye', image: 'U.jpg', title: 'П-образные', icon: 'kit3' },
-  { route: '/kitchens?category=s-barnoy-stoykoy', image: 'bar.jpg', title: 'С барной стойкой' },
-  { route: '/kitchens?category=s-ostrovom', image: 'island.jpg', title: 'С островом' }
+  { route: '/kitchens?category=s-barnoy-stoykoy', image: 'bar.jpg', title: 'С барной стойкой', icon: 'kit4' },
+  { route: '/kitchens?category=s-ostrovom', image: 'island.jpg', title: 'С островом', icon: 'kit5' }
 ]
 
 export default {

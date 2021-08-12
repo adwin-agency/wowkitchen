@@ -366,6 +366,7 @@ export default {
     height: 15px;
     margin-right: 18px;
     fill: currentColor;
+    stroke: currentColor;
   }
 
   &__tag-remove {

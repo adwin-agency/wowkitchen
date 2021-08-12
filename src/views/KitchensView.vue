@@ -45,8 +45,8 @@ const filterGroups = [
       { title: 'Угловые', value: 'uglovye', icon: 'kit1' },
       { title: 'Прямые', value: 'pryamye', icon: 'kit2' },
       { title: 'П-образные', value: 'p-obraznye', icon: 'kit3' },
-      { title: 'С барной стойкой', value: 's-barnoy-stoykoy' },
-      { title: 'С островом', value: 's-ostrovom' }
+      { title: 'С барной стойкой', value: 's-barnoy-stoykoy', icon: 'kit4' },
+      { title: 'С островом', value: 's-ostrovom', icon: 'kit5' }
     ]
   },
   {

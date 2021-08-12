@@ -2,7 +2,9 @@
   <div class="wardrobe-features">
     <img
       v-if="!$_media.sm"
-      src="@/assets/img/wardrobe-features.jpg" alt="" class="wardrobe-features__image"
+      src="@/assets/img/wardrobe-features.jpg"
+      alt=""
+      class="wardrobe-features__image"
     >
     <div class="wardrobe-features__content">
       <div class="container">
@@ -17,12 +19,15 @@
               class="wardrobe-features__item"
               :style="!$_media.sm && `left: ${item.coords[0]}%; top: ${item.coords[1]}%`"
             >
-              <img
+              <div
                 v-if="$_media.sm"
-                :src="require(`@/assets/img/${item.image}`)"
-                alt=""
                 class="wardrobe-features__item-img"
               >
+                <img
+                  :src="require(`@/assets/img/${item.image}`)"
+                  alt=""
+                >
+              </div>
               <div
                 class="wardrobe-features__panel"
                 :class="{'wardrobe-features__panel_l': item.coords[0] > 50}"
@@ -34,7 +39,7 @@
                 >
                   {{item.desc}}
                 </p>
-              </div>            
+              </div>
               <span
                 v-if="!$_media.sm"
                 class="wardrobe-features__circle"
@@ -49,11 +54,17 @@
 
 <script>
 const items = [
-  { coords: [41, 22], image: 'wardrobe-part.jpg', title: 'Алюминиевые система дверей-купе и направляющий профиль', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем.' },
-  { coords: [46, 59], image: 'wardrobe-part.jpg', title: 'Мягкие щётки на торцах дверей', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем.' },
-  { coords: [77, 11], image: 'wardrobe-part.jpg', title: 'Задняя стенка из ХДФ', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем.' },
-  { coords: [78, 45], image: 'wardrobe-part.jpg', title: 'Стопорные механизмы дверей', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем.' },
-  { coords: [83, 69], image: 'wardrobe-part.jpg', title: 'Запил под плинтус', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем.' },
+  { coords: [47, 38], image: 'w-feature-01.jpg', title: 'Задняя стенка из МДФ', desc: 'придаёт конструкции дополнительную жёсткость и не деформируется со временем' },
+  { coords: [40, 74], image: 'w-feature-02.jpg', title: 'Класс Эмиссии ЛДСП Е1', desc: 'низкое содержание смол и формальдегидов, его используют в медучреждения и детских садах' },
+  { coords: [41, 26], image: 'w-feature-03.jpg', title: 'Пластиковая кромка ABS 2мм', desc: 'препятствует попаданию влаги , а также делает торцы изделия более ударопрочными' },
+  {
+    coords: [60, 60],
+    image: 'w-feature-04.jpg',
+    title: 'Бельгийское зеркало AGC Mirox 3G',
+    desc: 'третье поколение зеркал, которое покрыто специальной антивандальной пленкой (при разбитии зеркало не осыпается, а остается на пленке), вы можете быть спокойны за ваших близких'
+  },
+  { coords: [73, 89], image: 'w-feature-05.jpg', title: 'Алюминиевый профиль', desc: 'придает шкафу легкий и плавный ход, также защищает от сколов и делает конструкцию более жесткой и надежной' },
+  { coords: [88, 45], image: 'w-feature-06.jpg', title: 'Буферная лента «Шлегель»', desc: 'смягчает удар при закрытии, а также препятствует попаданию пыли' }
 ]
 
 export default {
@@ -93,7 +104,18 @@ export default {
     margin-bottom: 20px;
 
     &-img {
-      border-radius: 4px;
+      position: relative;
+      padding-top: 75%;
+
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        object-fit: cover;
+      }
     }
   }
 
@@ -166,10 +188,10 @@ export default {
       margin-top: 0;
       width: 366px;
       padding: 50px;
-      background-color: rgba(#fff, .8);
+      background-color: rgba(#fff, 0.8);
       opacity: 0;
       pointer-events: none;
-      transition: opacity .3s ease;
+      transition: opacity 0.3s ease;
 
       &_l {
         left: auto;
@@ -200,11 +222,11 @@ export default {
       transform: translate(-50%, -50%);
 
       &::after {
-        content: "";
+        content: '';
         margin: auto;
         width: 13px;
         height: 13px;
-        border-radius: 50%;      
+        border-radius: 50%;
         background-color: #fff;
         box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.46);
       }
@@ -213,7 +235,7 @@ export default {
 
   @include media(lg) {
     min-height: 500px;
-    
+
     &__content {
       padding: 50px 0 120px;
     }
