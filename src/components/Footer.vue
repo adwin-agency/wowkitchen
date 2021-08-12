@@ -233,7 +233,7 @@ const menu = [
       { title: 'Сборка', route: 'installing' },
       { title: 'Гарантия', route: 'guarantee' },
       { title: 'Материалы', route: 'materials' },
-      { title: 'Подбор кухни', route: 'quiz', accented: true },
+      { title: 'Расчет онлайн', route: 'quiz', accented: true },
       { title: 'Контакты', route: 'contacts' }
     ]
   }

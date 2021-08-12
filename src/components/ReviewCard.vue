@@ -6,7 +6,7 @@
   >
     <div
       class="review-card__image"
-      :style="cardData.preview_image && `background-image: url(http://wowkitchen.beget.tech${cardData.preview_image})`"
+      :style="cardData.preview_image && `background-image: url(${$_basepath + cardData.preview_image})`"
     >
       <span
         v-if="!$_media.sm && mod === 'small'"

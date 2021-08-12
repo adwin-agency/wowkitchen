@@ -17,12 +17,12 @@
           >
             <img
               v-if="index === 0"
-              :src="`http://wowkitchen.beget.tech${$_mobile ? picture.small.path : picture.large.path}`"
+              :src="$_basepath + ($_mobile ? picture.small.path : picture.large.path)"
               alt
             >
             <img
               v-else
-              :data-src="`http://wowkitchen.beget.tech${$_mobile ? picture.small.path : picture.large.path}`"
+              :data-src="$_basepath + ($_mobile ? picture.small.path : picture.large.path)"
               alt
               class="swiper-lazy"
             >
@@ -262,12 +262,12 @@
           >
             <img
               v-if="index === 0"
-              :src="`http://wowkitchen.beget.tech${$_mobile ? picture.small.path : picture.medium.path}`"
+              :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
               alt
             >
             <img
               v-else
-              :data-src="`http://wowkitchen.beget.tech${$_mobile ? picture.small.path : picture.medium.path}`"
+              :data-src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
               alt
               class="swiper-lazy"
             >
