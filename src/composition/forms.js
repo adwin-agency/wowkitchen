@@ -60,7 +60,12 @@ export default function useForms() {
       sending.value = false
       success.value = true
       e.target.reset()
-      store.commit('setModal', 'success')
+
+      if (responseJson.confirmation_url) {
+        window.location.href = responseJson.confirmation_url
+      } else {
+        store.commit('setModal', 'success')
+      }
 
     } catch {
       sending.value = false
