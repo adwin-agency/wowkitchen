@@ -47,7 +47,6 @@
             <AppTextField
               type="text"
               name="name"
-              required
               label="Ваше имя"
               placeholder="Как к вам обращаться?"
               class="modal__field"
@@ -63,7 +62,6 @@
             <AppTextField
               type="text"
               name="address"
-              required
               label="Адрес"
               placeholder="Адрес"
               class="modal__field"

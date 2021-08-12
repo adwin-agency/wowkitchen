@@ -73,7 +73,6 @@
               placeholder="Как к вам обращаться?"
               type="text"
               name="name"
-              required
               class="design-call__field"
             />
             <AppTextField

@@ -97,11 +97,6 @@ const routes = [
     component: MaterialsView
   },
   {
-    path: '/not-found',
-    name: 'not-found',
-    component: NotFoundView
-  },
-  {
     path: '/payment',
     name: 'payment',
     meta: { title: 'Оплата', introEffect: true },
@@ -174,6 +169,11 @@ const routes = [
     path: '/wardrobes/:code',
     name: 'wardrobe',
     component: WardrobeView
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    component: NotFoundView
   }
 ]
 

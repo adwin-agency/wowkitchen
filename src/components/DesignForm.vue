@@ -21,7 +21,6 @@
         placeholder="Как к вам обращаться?"
         type="text"
         name="name"
-        required
         color="white"
       />
       <AppTextField
