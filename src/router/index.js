@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import MainView from '../views/MainView'
 import AboutView from '../views/AboutView'
 import ArticleView from '../views/ArticleView'
@@ -178,7 +178,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
   linkActiveClass: 'is-active',
   linkExactActiveClass: '',
