@@ -41,7 +41,7 @@
             name="group"
             class="modal__icon"
           />
-          <p class="modal__title">Пригласить дизайнера</p>
+          <p class="modal__title">Консультация дизайнера</p>
           <p class="modal__desc">Замеры производятся БЕСПЛАТНО <br>ежедневно с 9.00 до 21.00.</p>
           <div class="modal__fields">
             <AppTextField
@@ -68,14 +68,14 @@
               placeholder="Адрес"
               class="modal__field"
             />
-            <AppTextField
+            <!-- <AppTextField
               type="text"
               name="time"
               required
               label="Предпочитаемое время"
               placeholder="Время"
               class="modal__field"
-            />
+            /> -->
           </div>
           <AppButton
             title="Отправить"
