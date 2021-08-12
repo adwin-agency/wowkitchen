@@ -76,7 +76,7 @@
         </div>
         <div class="wardrobe-details__main">
           <h1 class="wardrobe-details__title">{{info.name}}</h1>
-          <div class="wardrobe-details__cost">
+          <!-- <div class="wardrobe-details__cost">
             <div class="wardrobe-details__prices">
               <p class="wardrobe-details__price">{{info.price}} ₽</p>
               <p
@@ -88,7 +88,7 @@
               v-if="info.discount"
               class="wardrobe-details__discount"
             >-{{info.discount}}%</span>
-          </div>
+          </div> -->
           <p
             v-if="$_media.sm"
             class="wardrobe-details__expand"

@@ -129,6 +129,11 @@ export default {
 
         e.target.value = val
 
+      // сумма
+      } else if (e.target.name === 'sum') {
+        let val = e.target.value.replace(/[^0-9-]/g, '')
+        e.target.value = val
+
       } else {
         this.$emit('input', e)
       }

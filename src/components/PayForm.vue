@@ -32,6 +32,7 @@
       <AppSelect
         v-if="cityOptions"
         :sideLabel="!$_media.sm && 'Город'"
+        name="city"
         :options="cityOptions"
         class="pay-form__select"
         @change="handleCityChange"

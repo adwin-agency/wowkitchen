@@ -63,12 +63,12 @@
           class="product-card__link"
         ></router-link>
       </template>
-      <span
+      <!-- <span
         v-if="!large && info.discount"
         class="product-card__discount"
       >
         -{{info.discount}}%
-      </span>
+      </span> -->
       <div class="product-card__video-btn">
         <AppVideoButton
           v-if="info.video"
@@ -132,12 +132,12 @@
         >
           {{info.old_price}} ₽
         </p>
-        <span
+        <!-- <span
           v-if="large && info.discount"
           class="product-card__discount"
         >
           -{{info.discount}}%
-        </span>
+        </span> -->
       </div>
       <div
         v-if="cardType !== 'technic'"

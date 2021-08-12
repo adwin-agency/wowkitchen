@@ -29,12 +29,12 @@
             {{info.old_price}} ₽
           </p>
         </div>
-        <span
+        <!-- <span
           v-if="info.discount"
           class="details-card__discount"
         >
           -{{info.discount}}%
-        </span>
+        </span> -->
       </div>
       <div class="details-card__btns">
         <AppButton
