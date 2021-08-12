@@ -171,7 +171,7 @@ const routes = [
     component: WardrobeView
   },
   {
-    path: '*',
+    path: '/:pathMatch(.*)',
     name: 'not-found',
     component: NotFoundView
   }

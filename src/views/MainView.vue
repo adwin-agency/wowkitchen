@@ -3,7 +3,7 @@
     <Intro />
     <Projects />
     <!-- <Solutions /> -->
-    <ArticleSet />
+    <!-- <ArticleSet /> -->
     <Design />
     <Equipment />
     <Steps />
@@ -19,7 +19,7 @@ import Design from '../components/Design.vue'
 import Equipment from '../components/Equipment.vue'
 import Steps from '../components/Steps.vue'
 import RatedReviews from '../components/RatedReviews.vue'
-import ArticleSet from '../components/ArticleSet.vue'
+// import ArticleSet from '../components/ArticleSet.vue'
 import api from '../api'
 
 export default {
@@ -32,7 +32,7 @@ export default {
     Equipment,
     Steps,
     RatedReviews,
-    ArticleSet
+    // ArticleSet
   },
   data() {
     return {
@@ -58,7 +58,7 @@ export default {
   }
 
   .design {
-    margin-top: 65px;
+    margin-top: 205px;
   }
 
   .steps {
@@ -85,7 +85,7 @@ export default {
     }
 
     .design {
-      margin-top: 85px;
+      margin-top: 150px;
     }
 
     .equipment {
@@ -133,10 +133,6 @@ export default {
     .solutions,
     .article-set {
       margin-top: 150px;
-    }
-
-    .design {
-      margin-top: 110px;
     }
 
     .equipment {

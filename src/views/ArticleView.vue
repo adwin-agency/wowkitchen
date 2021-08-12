@@ -14,13 +14,13 @@
       :cards="details.populars"
     />
     <DesignCall v-if="details && !details.info.video" />
-    <ArticleSet />
+    <!-- <ArticleSet /> -->
   </div>
 </template>
 
 <script>
 import Article from '../components/Article.vue'
-import ArticleSet from '../components/ArticleSet.vue'
+// import ArticleSet from '../components/ArticleSet.vue'
 import DesignCall from '../components/DesignCall.vue'
 import PopularArticles from '../components/PopularArticles.vue'
 import RelatedArticles from '../components/RelatedArticles.vue'
@@ -33,7 +33,7 @@ export default {
     RelatedArticles,
     PopularArticles,
     DesignCall,
-    ArticleSet
+    // ArticleSet
   },
   data() {
     return {
@@ -88,6 +88,7 @@ export default {
 
     .design-call {
       margin-top: 90px;
+      margin-bottom: 60px;
     }
 
     .article-set {
@@ -116,6 +117,7 @@ export default {
 
     .design-call {
       margin-top: 200px;
+      margin-bottom: 100px;
     }
 
     .article-set {

@@ -12,14 +12,14 @@
       :showBtn="currentPage < pages"
       @show-more="showMore"
     />
-    <ArticleSet />
+    <!-- <ArticleSet /> -->
     <QuizPreview type="kitchens" />
   </div>
 </template>
 
 <script>
 import BlogCards from '../components/BlogCards.vue'
-import ArticleSet from '../components/ArticleSet.vue'
+// import ArticleSet from '../components/ArticleSet.vue'
 import BlogTop from '../components/BlogTop.vue'
 import DesignCall from '../components/DesignCall.vue'
 import QuizPreview from '../components/QuizPreview.vue'
@@ -42,7 +42,7 @@ export default {
     BlogTop,
     BlogCards,
     DesignCall,
-    ArticleSet,
+    // ArticleSet,
     QuizPreview
   },
   data() {

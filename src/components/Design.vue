@@ -20,6 +20,7 @@
                 type="button"
                 title="Пригласить дизайнера"
                 color="yellow"
+                modalName="designer"
               />
             </div>
             <img src="@/assets/img/form-pic.png" alt="" class="design__image">
