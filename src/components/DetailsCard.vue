@@ -50,16 +50,10 @@
           class="details-card__btn details-card__btn_add"
           @click="handleBtnClick"
         />
-        <button
+        <AppShare
           v-if="$_mobile"
-          type="button"
           class="details-card__share"
-        >
-          <AppIcon
-            name="share"
-            class="details-card__share-icon"
-          />
-        </button>
+        />
       </div>
       <p class="details-card__note">Обе эти услуги совершенно <span>бесплатны!</span></p>
     </div>
@@ -78,32 +72,26 @@
         />
         <span>В подборку</span>
       </button>
-      <button
-        type="button"
-        class="details-card__action"
-      >
-        <AppIcon
-          name="share"
-          class="details-card__action-icon"
-        />
-        <span>Поделиться</span>
-      </button>
+      <AppShare
+        titled
+        class="details-card__share"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
 import AppBookmark from './base/AppBookmark.vue'
+import AppShare from './base/AppShare.vue'
 import useFavorites from '../composition/favorites'
 
 export default {
   name: 'DetailsCard',
   components: {
     AppButton,
-    AppIcon,
-    AppBookmark
+    AppBookmark,
+    AppShare
   },
   props: {
     info: Object,
@@ -198,7 +186,7 @@ export default {
   }
 
   &__share {
-    margin: 0 10px;
+    margin: 0 15px;
 
     &-icon {
       width: 20px;

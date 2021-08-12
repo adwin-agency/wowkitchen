@@ -137,6 +137,7 @@
             :src="$_basepath + info.video_customer.desktop"
             autoplay
             controls
+            controlsList="nodownload"
           ></video>
           <video
             v-else
@@ -164,6 +165,7 @@
             :src="$_basepath + info.video_test_drive"
             autoplay
             controls
+            controlsList="nodownload"
           ></video>
           <video
             v-else
@@ -204,6 +206,7 @@
               :src="$_basepath + info.video_customer.desktop"
               autoplay
               controls
+              controlsList="nodownload"
             ></video>
             <video
               v-else
@@ -233,6 +236,7 @@
               :src="$_basepath + info.video_test_drive"
               autoplay
               controls
+              controlsList="nodownload"
             ></video>
             <video
               v-else

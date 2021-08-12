@@ -145,7 +145,7 @@
         </form>
       </div>
     </div>
-    <div class="guarantee__docs">
+    <!-- <div class="guarantee__docs">
       <div class="container container_side-fixed">
         <p class="guarantee__docs-title">Документация по эксплуатации</p>
         <div class="guarantee__docs-list">
@@ -228,7 +228,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <Interesting />
   </div>
 </template>
@@ -337,6 +337,7 @@ export default {
   }
 
   &__write {
+    margin-bottom: 50px;
     padding: 36px 0 22px;
     background-color: $color-lightgray;
   }
@@ -546,6 +547,7 @@ export default {
     }
 
     &__write {
+      margin-bottom: 80px;
       padding: 0;
       background-color: transparent;
     }

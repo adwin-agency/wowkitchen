@@ -105,16 +105,7 @@
               :class="{'is-active': isFavorite}"
             />
           </button>
-          <button
-            v-if="large"
-            type="button"
-            class="product-card__action"
-          >
-            <AppIcon
-              name="share"
-              class="product-card__action-icon"
-            />
-          </button>
+          <AppShare v-if="large" class="product-card__share" />
         </div>
       </div>
       <div
@@ -176,6 +167,7 @@ import AppBookmark from './base/AppBookmark.vue'
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppVideoButton from './base/AppVideoButton.vue'
+import AppShare from './base/AppShare.vue'
 import useFavorites from '../composition/favorites'
 
 SwiperCore.use([Navigation, Lazy])
@@ -188,7 +180,8 @@ export default {
     AppButton,
     AppIcon,
     AppVideoButton,
-    AppBookmark
+    AppBookmark,
+    AppShare
   },
   props: {
     info: Object,

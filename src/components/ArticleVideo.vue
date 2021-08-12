@@ -6,6 +6,7 @@
         :src="$_basepath + info.video"
         autoplay
         controls
+        controlsList="nodownload"
       ></video>
       <video
         v-else

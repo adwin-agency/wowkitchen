@@ -152,23 +152,10 @@ const routes = [
 ]
 
 const router = createRouter({
-  // history: createWebHistory('/wow-build/'),
-  // history: createWebHashHistory('/wow-build/'),
   history: createWebHashHistory(),
   routes,
   linkActiveClass: 'is-active',
   linkExactActiveClass: '',
-  // scrollBehavior(to, from, savedPosition) {
-  //   if (to.meta.introEffect) {
-  //     return { top: 0 }
-  //   }
-
-  //   if (savedPosition) {
-  //     return savedPosition
-  //   } else {
-  //     return { top: 0 }
-  //   }
-  // }
   scrollBehavior() {
     return { top: 0 }
   }
