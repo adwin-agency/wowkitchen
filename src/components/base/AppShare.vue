@@ -142,7 +142,7 @@ export default {
     this.share = window.Ya.share2(this.$refs.share, {
       content: {
         title: this.shareTitle,
-        url: this.shareUrl
+        url: 'http://wowkitchen.ru' + this.shareUrl
       },
       theme: {
         services: 'facebook,vkontakte',
@@ -248,7 +248,7 @@ export default {
       height: 36px;
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 20px 20px;
+      background-size: auto 20px;
     }
 
     .ya-share2__item_service_vkontakte .ya-share2__icon {      

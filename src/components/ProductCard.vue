@@ -108,7 +108,7 @@
           <AppShare
             v-if="large"
             :shareTitle="info.name"
-            :shareUrl="$_basepath + '/' + cardType + '/' + info.url"
+            :shareUrl="'/' + cardType + '/' + info.url"
             class="product-card__share"
           />
         </div>

@@ -53,7 +53,7 @@
         <AppShare
           v-if="$_mobile"
           :shareTitle="info.name"
-          :shareUrl="$_basepath + $route.path"
+          :shareUrl="$route.path"
           class="details-card__share"
         />
       </div>
@@ -77,7 +77,7 @@
       <AppShare
         titled
         :shareTitle="info.name"
-        :shareUrl="$_basepath + $route.path"
+        :shareUrl="$route.path"
         class="details-card__share"
       />
     </div>
