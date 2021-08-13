@@ -15,14 +15,7 @@
       </div>
     </div>
     <div class="article__container">
-      <ArticleVideo
-        v-if="info.video"
-        :info="info"
-      />
-      <div
-        v-else
-        class="article__wrap"
-      >
+      <div class="article__wrap">
         <div class="container">
           <div class="article__inner">
             <div class="article__section-container">
@@ -328,14 +321,12 @@
 import ArticleAside from './ArticleAside.vue'
 import StickySidebar from 'sticky-sidebar'
 import AppIcon from './base/AppIcon.vue'
-import ArticleVideo from './ArticleVideo.vue'
 
 export default {
   name: 'Article',
   components: {
     ArticleAside,
-    AppIcon,
-    ArticleVideo
+    AppIcon
   },
   props: {
     info: Object,
@@ -367,7 +358,7 @@ export default {
     window.addEventListener('touchstart', this.handleTouchstart)
     window.addEventListener('touchend', this.handleTouchend)
 
-    if (!this.$_media.sm && !this.info.video) {
+    if (!this.$_media.sm) {
       this.initSidebar()
     }
   },
@@ -422,10 +413,6 @@ export default {
     },
 
     handleResize() {
-      if (this.info.video) {
-        return
-      }
-
       if (this.$_media.sm) {
         if (window.sidebar) {
           window.sidebar.destroy()
@@ -471,10 +458,6 @@ export default {
     },
 
     initImages() {
-      if (this.info.video) {
-        return
-      }
-
       // START DEVELOPE CODE
 
       const container = document.querySelector('.article__section')

@@ -42,7 +42,6 @@ const routes = [
   {
     path: '/blog/:code',
     name: 'article',
-    meta: { introEffect: true },
     component: ArticleView
   },
   {
@@ -77,7 +76,7 @@ const routes = [
   {
     path: '/guarantee',
     name: 'guarantee',
-    meta: { title: 'Гарантии', introEffect: true },
+    meta: { title: 'Гарантии' },
     component: GuaranteeView
   },
   {
@@ -93,13 +92,13 @@ const routes = [
   {
     path: '/materials',
     name: 'materials',
-    meta: { title: 'Материалы', introEffect: true },
+    meta: { title: 'Материалы' },
     component: MaterialsView
   },
   {
     path: '/payment',
     name: 'payment',
-    meta: { title: 'Оплата', introEffect: true },
+    meta: { title: 'Оплата' },
     component: PaymentView
   },
   {
@@ -141,7 +140,7 @@ const routes = [
   {
     path: '/team',
     name: 'team',
-    meta: { title: 'Команда', introEffect: true },
+    meta: { title: 'Команда' },
     component: TeamView
   },
   {
@@ -157,7 +156,7 @@ const routes = [
   {
     path: '/vacancy',
     name: 'vacancy',
-    meta: { title: 'Вакансии', introEffect: true },
+    meta: { title: 'Вакансии' },
     component: VacancyView
   },
   {

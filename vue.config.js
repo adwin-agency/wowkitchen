@@ -1,10 +1,12 @@
 const path = require('path')
 
 module.exports = {
-  // publicPath: '/wow-build/',
   assetsDir: 'assets',
   filenameHashing: false,
   productionSourceMap: false,
+  devServer: {
+    proxy: 'http://wowkitchen.ru'
+  },
   pluginOptions: {
     'style-resources-loader': {
       'preProcessor': 'scss',

@@ -95,13 +95,13 @@ export default {
     position: absolute;
     left: 50%;
     bottom: 20px;
-    width: 356px;
+    width: 280px;
     max-width: calc(100% - 20px);
-    height: 84px;
-    padding-right: 30px;
+    height: 60px;
+    padding-right: 20px;
     border-radius: 100px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     color: #000;
     background-color: $color-yellow;
     transform: translateX(-50%) translateZ(0);
@@ -115,8 +115,8 @@ export default {
 
     svg {
       flex-shrink: 0;
-      width: 84px;
-      height: 84px;
+      width: 60px;
+      height: 60px;
       transition: transform 0.3s ease;
     }
 
@@ -153,6 +153,20 @@ export default {
 
   &__product {
     margin-top: 33px;
+  }
+
+  @include media(xs) {
+    &__play {
+      width: 356px;
+      height: 84px;
+      padding-right: 30px;
+      font-size: 16px;
+
+      svg {
+        width: 84px;
+        height: 84px;
+      }
+    }
   }
 
   @include media(md) {

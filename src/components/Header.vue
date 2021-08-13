@@ -148,6 +148,7 @@
               :class="{'is-menu-active': activeNavMenu === 'kitchens'}"
               @touchend.prevent="toggleNavMenu('kitchens')"
               @mouseenter="openNavMenu('kitchens')"
+              @mouseleave="checkNavHover"
               @click="navigate('kitchens')"
             >
               Кухни
@@ -161,6 +162,7 @@
               :class="{'is-menu-active': activeNavMenu === 'technics'}"
               @touchend.prevent="toggleNavMenu('technics')"
               @mouseenter="openNavMenu('technics')"
+              @mouseleave="checkNavHover"
               @click="navigate('technics')"
             >
               Техника
@@ -455,6 +457,14 @@ export default {
       this.activeNavMenu === menu ? this.closeNavMenu() : this.openNavMenu(menu)
     },
 
+    checkNavHover(e) {
+      const to = e.toElement
+      
+      if (!to.classList.contains('nav-menu')) {
+        this.closeNavMenu()
+      }
+    },
+
     toggleFavorite() {
       if (this.activeMobileMenu) {
         this.toggleMobileMenu()
@@ -624,7 +634,7 @@ export default {
     align-items: center;
     position: relative;
     height: $header-bar-height;
-    border-bottom: 1px solid $color-lightgray;
+    box-shadow: inset 0 0 0 1px $color-lightgray;
     background-color: #fff;
     z-index: 1;
   }
@@ -877,6 +887,14 @@ export default {
 
     &__bar {
       height: $header-bar-height-lg;
+
+      .container {
+        height: 100%;
+      }
+    }
+
+    &__row {
+      height: 100%;
     }
 
     &__menu-btn {
@@ -885,6 +903,10 @@ export default {
 
     &__logo {
       width: 145px;
+    }
+
+    &__nav {
+      height: 100%;
     }
 
     &__nav-item {

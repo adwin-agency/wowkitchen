@@ -1,20 +1,21 @@
 <template>
   <div class="v-article">
-    <Article
-      v-if="details"
-      :info="details.info"
-      :cards="details.populars"
-    />
-    <RelatedArticles
-      v-if="details && !details.info.video"
-      :cards="details.similars.slice(0, 2)"
-    />
-    <PopularArticles
-      v-if="$_media.sm && details && !details.info.video"
-      :cards="details.populars"
-    />
-    <DesignCall v-if="details && !details.info.video" />
-    <!-- <ArticleSet /> -->
+    <template v-if="details.info && details.info.video">
+      <ArticleVideo :info="details.info" />
+    </template>
+    <template v-else-if="details.info">
+      <Article
+        :info="details.info"
+        :cards="details.populars"
+      />
+      <RelatedArticles :cards="details.similars.slice(0, 2)"/>
+      <PopularArticles
+        v-if="$_media.sm"
+        :cards="details.populars"
+      />
+      <DesignCall />
+      <!-- <ArticleSet /> -->
+    </template>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import Article from '../components/Article.vue'
 import DesignCall from '../components/DesignCall.vue'
 import PopularArticles from '../components/PopularArticles.vue'
 import RelatedArticles from '../components/RelatedArticles.vue'
+import ArticleVideo from '../components/ArticleVideo.vue'
 import api from '../api'
 
 export default {
@@ -33,12 +35,12 @@ export default {
     RelatedArticles,
     PopularArticles,
     DesignCall,
+    ArticleVideo
     // ArticleSet
   },
   data() {
     return {
       details: {
-        info: {},
         similars: [],
         populars: []
       }
@@ -46,17 +48,23 @@ export default {
   },
   async created() {
     this.details = await api.loadDetails(this.$route)
-    
+
     const info = this.details.info
-    const crumbs = [{ path: '/blog', title: 'Блог' }, { path: '/blog?category=' + info.category, title: info.category_rus }]
+    const crumbs = [
+      { path: '/blog', title: 'Блог' },
+      { path: '/blog?category=' + info.category, title: info.category_rus }
+    ]
     this.$store.commit('setBreadCrumbs', crumbs)
   },
   async beforeRouteUpdate(to) {
     this.details = null
     this.details = await api.loadDetails(to)
-    
+
     const info = this.details.info
-    const crumbs = [{ path: '/blog', title: 'Блог' }, { path: '/blog?category=' + info.category, title: info.category_rus }]
+    const crumbs = [
+      { path: '/blog', title: 'Блог' },
+      { path: '/blog?category=' + info.category, title: info.category_rus }
+    ]
     this.$store.commit('setBreadCrumbs', crumbs)
   }
 }
