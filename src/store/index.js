@@ -23,7 +23,8 @@ export default createStore({
     activeFilters: false,
     productData: null,
     breadCrumbs: null,
-    constructor: null
+    constructor: null,
+    modalFavorites: null
   },
 
   getters: {
@@ -91,6 +92,10 @@ export default createStore({
 
     setConstructor(state, data) {
       state.constructor = data
+    },
+
+    setModalFavorites(state, data) {
+      state.modalFavorites = data
     }
   }
 })

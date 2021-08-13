@@ -138,6 +138,15 @@
               :value="value"
             >
           </template>
+          <template v-if="modalFavorites">
+            <input
+              v-for="(value, name) in modalFavorites"
+              :key="name"
+              type="hidden"
+              :name="name"
+              :value="value"
+            >
+          </template>
           <AppIcon
             name="live-chat"
             class="modal__icon"
@@ -361,6 +370,9 @@ export default {
     },
     constructor() {
       return this.$store.state.constructor
+    },
+    modalFavorites() {
+      return this.$store.state.modalFavorites
     }
   },
   watch: {
@@ -393,6 +405,7 @@ export default {
       this.$store.commit('setModalData', null)
       this.$store.commit('setProductData', null)
       this.$store.commit('setConstructor', null)
+      this.$store.commit('setModalFavorites', null)
     },
 
     handleFile(e) {

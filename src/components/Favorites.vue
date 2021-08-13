@@ -44,6 +44,7 @@
         title="Рассчитать мой проект"
         modalName="calc"
         class="favorites__button"
+        @click="handleCalcBtnClick"
       />
       <AppButton
         title="Продолжить просмотр"
@@ -73,6 +74,27 @@ export default {
   methods: {
     removeFavorite(item) {
       this.$store.commit('setFavoriteItem', item)
+    },
+    
+    handleCalcBtnClick() {
+      if (!this.items.length) {
+        return
+      }
+
+      const names = []
+      const urls = []
+
+      for (let item of this.items) {
+        names.push(item.name)
+        urls.push(item.url)
+      }
+
+      const obj = {
+        names: names.join(','),
+        urls: urls.join(',')
+      }
+
+      this.$store.commit('setModalFavorites', obj)
     }
   }
 }
