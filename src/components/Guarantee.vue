@@ -129,7 +129,7 @@
                 >{{fileError}}</span>
               </label>
               <AppButton
-                title="Отправить"
+                :title="sending ? 'Отправляем...' : 'Отправить'"
                 type="submit"
                 class="guarantee__form-btn"
               />

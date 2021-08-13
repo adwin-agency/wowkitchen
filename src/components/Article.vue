@@ -266,48 +266,22 @@
                   <span class="article__stats-views-count">1290</span>
                 </div>
               </div>
-              <div
+              <ArticleShare
                 v-if="$_media.sm"
+                :shareTitle="info.name"
+                :shareUrl="info.url"
                 class="article__share"
-              >
-                <p class="article__share-title">Поделиться</p>
-                <div class="article__share-btns">
-                  <a
-                    href="#"
-                    class="article__share-btn"
-                  >
-                    <AppIcon
-                      name="vk"
-                      class="article__share-icon"
-                    />
-                  </a>
-                  <a
-                    href="#"
-                    class="article__share-btn"
-                  >
-                    <AppIcon
-                      name="facebook"
-                      class="article__share-icon"
-                    />
-                  </a>
-                  <a
-                    href="#"
-                    class="article__share-btn"
-                  >
-                    <AppIcon
-                      name="link"
-                      class="article__share-icon"
-                    />
-                  </a>
-                </div>
-              </div>
+              />
             </div>
             <div
               v-if="!$_media.sm"
               class="article__aside"
             >
               <div class="article__aside-inner">
-                <ArticleAside :cards="cards" />
+                <ArticleAside
+                  :info="info"
+                  :cards="cards"
+                />
               </div>
             </div>
           </div>
@@ -318,15 +292,15 @@
 </template>
 
 <script>
-import ArticleAside from './ArticleAside.vue'
 import StickySidebar from 'sticky-sidebar'
-import AppIcon from './base/AppIcon.vue'
+import ArticleAside from './ArticleAside.vue'
+import ArticleShare from './ArticleShare.vue'
 
 export default {
   name: 'Article',
   components: {
     ArticleAside,
-    AppIcon
+    ArticleShare
   },
   props: {
     info: Object,
@@ -361,6 +335,10 @@ export default {
     if (!this.$_media.sm) {
       this.initSidebar()
     }
+
+    setTimeout(() => {
+      this.initImages()
+    })
   },
   unmounted() {
     if (window.sidebar) {
@@ -473,7 +451,7 @@ export default {
           element.classList.remove('article__desc-vertical')
           element.classList.add('article__desc-horizontal')
         }
-        
+
         window.sidebar?.updateSticky()
       }
 
@@ -994,7 +972,7 @@ export default {
       margin-right: 20px;
       @include media(sm) {
         padding: 0 27px;
-    }
+      }
     }
     & > h5 + a {
       font-size: 14px;

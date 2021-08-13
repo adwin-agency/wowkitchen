@@ -36,7 +36,7 @@
     <AppButton
       class="design-form__btn"
       type="submit"
-      title="Пригласить дизайнера"
+      :title="sending ? 'Отправляем...' : 'Пригласить дизайнера'"
       color="pink"
     />
     <p

@@ -257,6 +257,7 @@
                   </div>
                   <QuizResult
                     :price="price"
+                    :sending="sending"
                     :error="error"
                     class="quiz__result"
                   />

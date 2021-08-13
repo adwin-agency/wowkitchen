@@ -43,74 +43,34 @@
         v-if="card.video"
         class="article-aside__play"
       >
-        <AppIcon name="play" class="article-aside__play-icon" />
+        <AppIcon
+          name="play"
+          class="article-aside__play-icon"
+        />
       </button>
       <h4 class="article-aside__title">{{card.name}}</h4>
     </router-link>
-    <div class="article-aside__share">
-      <p class="article-aside__share-text">Поделиться</p>
-      <a
-        class="article-aside__share-link"
-        href="#"
-      >
-        <img
-          class="article-aside__share-icon"
-          src="@/assets/img/articles/icons/vk.svg"
-          alt="vk"
-        >
-      </a>
-      <a
-        class="article-aside__share-link"
-        href="#"
-      >
-        <img
-          class="article-aside__share-icon"
-          src="@/assets/img/articles/icons/facebook.svg"
-          alt="facebook"
-        >
-      </a>
-      <a
-        class="article-aside__share-link"
-        href="#"
-      >
-        <img
-          class="article-aside__share-icon"
-          src="@/assets/img/articles/icons/link_round.svg"
-          alt="another"
-        >
-      </a>
-    </div>
+    <ArticleShare
+      :shareTitle="info.name"
+      :shareUrl="info.url"
+      class="article-aside__share"
+    />
   </aside>
 </template>
 
 <script>
+import ArticleShare from './ArticleShare.vue'
 import AppIcon from './base/AppIcon.vue'
+
 export default {
   name: 'ArticleAside',
   components: {
-    AppIcon
+    AppIcon,
+    ArticleShare
   },
   props: {
+    info: Object,
     cards: Array
-  },
-  methods: {
-    openSearch() {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth + 'px'
-      const search = this.$refs.search
-
-      document.body.style.overflow = 'hidden'
-      document.body.style.paddingRight = scrollbarWidth
-
-      search.style.left = `${search.offsetLeft}px`
-      search.style.top = `${search.offsetTop}px`
-      search.style.width = `${search.offsetWidth}px`
-      search.style.height = `${search.offsetHeight}px`
-
-      setTimeout(() => {
-        this.activeSearch = true
-        search.style.cssText = null
-      })
-    }
   }
 }
 </script>
@@ -189,7 +149,7 @@ export default {
     overflow: hidden;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -236,35 +196,11 @@ export default {
   }
 
   &__share {
-    display: flex;
-    align-items: center;
     margin-top: 30px;
-
-    &-text {
-      margin-right: 40px;
-      font-size: 13px;
-      color: $color-lightviolet;
-      font-weight: bold;
-    }
-
-    &-link {
-      margin-right: 30px;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
   }
-
-  // @include media(lg) {
-  //   &__heading {
-  //     margin-top: 68px;
-  //   }
-  // }
 
   @include media(xl) {
     &__heading {
-      // margin-top: 60px;
       font-size: 24px;
     }
 

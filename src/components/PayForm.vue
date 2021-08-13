@@ -114,7 +114,7 @@
       />
       <div class="pay-form__fields-footer">
         <AppButton
-          title="Оплатить"
+          :title="sending ? 'Отправляем...' : 'Оплатить'"
           type="submit"
           class="pay-form__btn"
         />

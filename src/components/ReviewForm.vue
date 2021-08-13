@@ -34,6 +34,7 @@
         type="text"
         name="id"
         note="Эти данные нужны для идентификации и не будут опубликованы"
+        required
         class="review-form__field review-form__field_note"
       />
       <AppTextField
@@ -87,7 +88,7 @@
         </div>
       </label>
       <AppButton
-        title="Опубликовать"
+        :title="sending ? 'Отправляем...' : 'Опубликовать'"
         type="submit"
         class="review-form__btn"
       />

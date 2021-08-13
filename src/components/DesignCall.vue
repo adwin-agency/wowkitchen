@@ -46,7 +46,7 @@
         </p>
         <AppButton
           v-if="$_media.sm"
-          title="Отправить заявку"
+          :title="sending ? 'Отправляем...' : 'Отправить заявку'"
           color="yellow"
           modalName="designer"
           class="design-call__btn"
@@ -86,7 +86,7 @@
             />
             <AppButton
               v-if="$_desktop"
-              title="Отправить заявку"
+              :title="sending ? 'Отправляем...' : 'Отправить заявку'"
               color="yellow"
               type="submit"
               class="design-call__btn"
@@ -102,7 +102,7 @@
             <p class="design-call__policy">Нажимая на кнопку «Отправить заявку», вы соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
             <AppButton
               v-if="$_media.md"
-              title="Отправить заявку"
+              :title="sending ? 'Отправляем...' : 'Отправить заявку'"
               color="yellow"
               type="submit"
               class="design-call__btn"

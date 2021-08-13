@@ -1,9 +1,9 @@
 <template>
-  <div class="v-article">
-    <template v-if="details.info && details.info.video">
+  <div v-if="details" class="v-article">
+    <template v-if="details.info.video">
       <ArticleVideo :info="details.info" />
     </template>
-    <template v-else-if="details.info">
+    <template v-else>
       <Article
         :info="details.info"
         :cards="details.populars"
@@ -40,10 +40,7 @@ export default {
   },
   data() {
     return {
-      details: {
-        similars: [],
-        populars: []
-      }
+      details: null
     }
   },
   async created() {

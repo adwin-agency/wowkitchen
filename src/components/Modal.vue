@@ -76,7 +76,7 @@
             /> -->
           </div>
           <AppButton
-            title="Отправить"
+            :title="sending ? 'Отправляем...' : 'Отправить'"
             type="submit"
             class="modal__btn"
           />
@@ -188,7 +188,7 @@
             </label>
           </div>
           <AppButton
-            title="Отправить"
+            :title="sending ? 'Отправляем...' : 'Отправить'"
             type="submit"
             class="modal__btn"
           />
@@ -364,15 +364,21 @@ export default {
     }
   },
   watch: {
-    // modal(newModal) {
-    //   if (newModal === 'designer' || newModal === 'calc') {
-    //     window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
-    //     window.VK && window.VK.Goal('initiate_checkout')
-    //     window.dataLayer = window.dataLayer || []
-    //     window.dataLayer.push({ event: 'open_' + newModal })
-    //     window.dataLayer.push({ event: 'open_form' })
-    //   }
-    // },
+    modal(newModal) {
+      //   if (newModal === 'designer' || newModal === 'calc') {
+      //     window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
+      //     window.VK && window.VK.Goal('initiate_checkout')
+      //     window.dataLayer = window.dataLayer || []
+      //     window.dataLayer.push({ event: 'open_' + newModal })
+      //     window.dataLayer.push({ event: 'open_form' })
+      //   }
+
+      if (newModal) {
+        this.sending = false
+        this.success = false
+        this.error = false
+      }
+    },
     $route() {
       this.closeModal()
     },

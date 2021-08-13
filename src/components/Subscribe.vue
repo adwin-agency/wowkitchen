@@ -228,6 +228,10 @@ export default {
       margin-top: 24px;
     }
 
+    &__input {
+      width: calc(100% - 88px);
+    }
+
     &__btn {
       margin-right: 22px;
     }

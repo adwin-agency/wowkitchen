@@ -23,7 +23,7 @@ export default function useForms() {
         isError = true
       }
 
-      if (input.name === 'contract-l' && !/^Д?С$/.test(input.value)) {
+      if (input.name === 'contract-l' && !/^(Д|Ш|ДШ)?С$/.test(input.value)) {
         input.classList.add('is-error')
         isError = true
       }
@@ -49,28 +49,30 @@ export default function useForms() {
     success.value = false
     error.value = false
 
-    try {
-      const response = await api.sendForm(e.target)
-      const responseJson = await response.json()
-
-      if (responseJson.status !== 'ok') {
-        throw new Error()
+    setTimeout(async () => {
+      try {
+        const response = await api.sendForm(e.target)
+        const responseJson = await response.json()
+  
+        if (responseJson.status !== 'ok') {
+          throw new Error()
+        }
+  
+        sending.value = false
+        success.value = true
+        e.target.reset()
+  
+        if (responseJson.confirmation_url) {
+          window.location.href = responseJson.confirmation_url
+        } else {
+          store.commit('setModal', 'success')
+        }
+  
+      } catch {
+        sending.value = false
+        error.value = true
       }
-
-      sending.value = false
-      success.value = true
-      e.target.reset()
-
-      if (responseJson.confirmation_url) {
-        window.location.href = responseJson.confirmation_url
-      } else {
-        store.commit('setModal', 'success')
-      }
-
-    } catch {
-      sending.value = false
-      error.value = true
-    }
+    }, 500)
   }
 
   return {

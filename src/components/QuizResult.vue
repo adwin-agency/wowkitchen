@@ -22,7 +22,7 @@
       />
       <AppButton
         type="submit"
-        title="Далее"
+        :title="sending ? 'Отправляем...' : 'Отправить'"
         size="small"
         class="quiz-result__btn"
       />
@@ -48,6 +48,7 @@ export default {
   },
   props: {
     price: String,
+    sending: Boolean,
     error: Boolean
   }
 }
