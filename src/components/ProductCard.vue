@@ -105,7 +105,12 @@
               :class="{'is-active': isFavorite}"
             />
           </button>
-          <AppShare v-if="large" class="product-card__share" />
+          <AppShare
+            v-if="large"
+            :shareTitle="info.name"
+            :shareUrl="$_basepath + '/' + cardType + '/' + info.url"
+            class="product-card__share"
+          />
         </div>
       </div>
       <div

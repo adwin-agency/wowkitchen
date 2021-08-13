@@ -17,10 +17,11 @@
         />
       </button>
       <div
+        ref="share"
         class="share__list"
         :style="`filter: url(#shadowed-goo${id})`"
       >
-        <a
+        <!-- <a
           href="#"
           class="share__item"
         >
@@ -37,7 +38,7 @@
             name="vk"
             class="share__icon"
           />
-        </a>
+        </a> -->
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -110,6 +111,7 @@
       v-if="titled"
       class="share__title"
     >Поделиться</span>
+    <!-- <div ref="share"></div> -->
   </div>
 </template>
 
@@ -122,16 +124,34 @@ export default {
     AppIcon
   },
   props: {
-    titled: Boolean
+    titled: Boolean,
+    shareTitle: String,
+    shareUrl: String
   },
   data() {
     return {
       id: null,
-      isActive: false
+      isActive: false,
+      share: null
     }
   },
   created() {
     this.id = Date.now()
+  },
+  mounted() {
+    this.share = window.Ya.share2(this.$refs.share, {
+      content: {
+        title: this.shareTitle,
+        url: this.shareUrl
+      },
+      theme: {
+        services: 'facebook,vkontakte',
+        bare: true
+      }
+    })
+  },
+  unmounted() {
+    this.share.destroy()
   },
   methods: {
     toggleShare() {
@@ -169,7 +189,8 @@ export default {
         transform: scale(0.9);
       }
 
-      #{$b}__item {
+      #{$b}__item,
+      .ya-share2__item {
         @for $i from 1 through $menu-items {
           $angle: (($pi - $opening-angle)/2)+ (($opening-angle/($menu-items - 1)) * ($i - 1));
 
@@ -183,7 +204,8 @@ export default {
   }
 
   &__btn,
-  &__item {
+  &__item,
+  .ya-share2__item {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -215,9 +237,31 @@ export default {
     height: 90px;
     transform: translateX(-50%);
     pointer-events: none;
+
+    .ya-share2__title {
+      display: none;
+    }
+
+    .ya-share2__icon {
+      display: block;
+      width: 36px;
+      height: 36px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+    }
+
+    .ya-share2__item_service_vkontakte .ya-share2__icon {      
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iOTYuNDk2cHgiIGhlaWdodD0iOTYuNDk2cHgiIHZpZXdCb3g9IjAgMCA5Ni40OTYgOTYuNDk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA5Ni40OTYgOTYuNDk2OyINCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8cGF0aCBkPSJNOTIuNDk5LDY1LjE3OGMtMi44NzMtMy40NDYtNi4yNTQtNi4zODctOS40NTMtOS41MWMtMi44ODYtMi44MTUtMy4wNjgtNC40NDgtMC43NDgtNy42OTcNCgkJYzIuNTMyLTMuNTQ2LDUuMjU1LTYuOTU2LDcuODEtMTAuNDg2YzIuMzg1LTMuMjk5LDQuODIzLTYuNTg5LDYuMDc4LTEwLjUzOWMwLjc5Ni0yLjUxMywwLjA5Mi0zLjYyMy0yLjQ4NS00LjA2Mw0KCQljLTAuNDQ0LTAuMDc3LTAuOTAzLTAuMDgxLTEuMzU1LTAuMDgxbC0xNS4yODktMC4wMThjLTEuODgzLTAuMDI4LTIuOTI0LDAuNzkzLTMuNTksMi40NjJjLTAuODk5LDIuMjU2LTEuODI2LDQuNTEtMi44OTcsNi42ODcNCgkJYy0yLjQzLDQuOTM2LTUuMTQ0LDkuNzA3LTguOTQ5LDEzLjc0N2MtMC44MzksMC44OTEtMS43NjcsMi4wMTctMy4xNjksMS41NTNjLTEuNzU0LTAuNjQtMi4yNzEtMy41My0yLjI0Mi00LjUwN2wtMC4wMTUtMTcuNjQ3DQoJCWMtMC4zNC0yLjUyMS0wLjg5OS0zLjY0NS0zLjQwMi00LjEzNWwtMTUuODgyLDAuMDAzYy0yLjEyLDAtMy4xODMsMC44MTktNC4zMTUsMi4xNDVjLTAuNjUzLDAuNzY2LTAuODUsMS4yNjMsMC40OTIsMS41MTcNCgkJYzIuNjM2LDAuNSw0LjEyMSwyLjIwNiw0LjUxNSw0Ljg0OWMwLjYzMiw0LjIyMywwLjU4OCw4LjQ2MywwLjIyNCwxMi43MDNjLTAuMTA3LDEuMjM4LTAuMzIsMi40NzMtMC44MTEsMy42MjkNCgkJYy0wLjc2OCwxLjgxNy0yLjAwOCwyLjE4Ny0zLjYzNywxLjA2OWMtMS40NzUtMS4wMTItMi41MTEtMi40NC0zLjUyNS0zLjg3NGMtMy44MDktNS4zODItNi44NDgtMTEuMTg2LTkuMzI2LTE3LjI4NQ0KCQljLTAuNzE2LTEuNzYyLTEuOTUxLTIuODMtMy44MTgtMi44NTljLTQuNTg3LTAuMDczLTkuMTc1LTAuMDg1LTEzLjc2MiwwLjAwNGMtMi43NiwwLjA1Mi0zLjU4MywxLjM5Mi0yLjQ1OSwzLjg5NA0KCQljNC45OTYsMTEuMTEzLDEwLjU1NywyMS45MTcsMTcuODE2LDMxLjc1OWMzLjcyNyw1LjA1MSw4LjAwNiw5LjUxLDEzLjUzNCwxMi42N2M2LjI2NSwzLjU4MiwxMy4wMDksNC42NiwyMC4xMTIsNC4zMjgNCgkJYzMuMzI2LTAuMTU2LDQuMzI1LTEuMDIxLDQuNDc5LTQuMzM2YzAuMTA0LTIuMjY4LDAuMzYxLTQuNTIzLDEuNDgtNi41NjFjMS4wOTgtMiwyLjc2MS0yLjM4MSw0LjY3OC0xLjEzNw0KCQljMC45NTksMC42MjMsMS43NjcsMS40MTYsMi41MywyLjI1MmMxLjg3MiwyLjA0OCwzLjY3Nyw0LjE1OCw1LjYyLDYuMTM3YzIuNDM3LDIuNDgsNS4zMjQsMy45NDUsOC45NTQsMy42NDZMOTMuNzQ0LDc1LjUNCgkJYzIuMjY0LTAuMTQ4LDMuNDM4LTIuOTI0LDIuMTM4LTUuNDUxQzk0Ljk2OSw2OC4yNzksOTMuNzcxLDY2LjcwMyw5Mi40OTksNjUuMTc4eiIgZmlsbD0iI2ZmZmZmZiIvPg0KPC9nPg0KPC9zdmc+DQo=);
+    }
+
+    .ya-share2__item_service_facebook .ya-share2__icon {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMi40MSIgaGVpZ2h0PSIyMy43OCIgdmlld0JveD0iMCAwIDEyLjQxIDIzLjc4Ij4NCiAgPHBhdGggaWQ9IkZvcm1hXzEiIGRhdGEtbmFtZT0iRm9ybWEgMSIgY2xhc3M9ImNscy0xIiBkPSJNMjQ1OS4yLDIzODkuOTVoLTIuMjRjLTEuNzYsMC0yLjEuODMtMi4xLDIuMDV2Mi43aDQuMmwtMC4wMSw0LjIzaC00LjE5djEwLjg0aC00LjM4di0xMC44NGgtMy42NnYtNC4yM2gzLjY2di0zLjEyYzAtMy42MSwyLjIyLTUuNTgsNS40NS01LjU4aDMuMjd2My45NWgwWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI0NDYuODEgLTIzODYpIiBmaWxsPSIjZmZmZmZmIi8+DQo8L3N2Zz4NCg==);
+    }
   }
 
-  &__item {
+  &__item,
+  .ya-share2__item {
     position: absolute;
     left: 37px;
     width: 36px;
