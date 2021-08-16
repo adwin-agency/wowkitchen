@@ -1,7 +1,7 @@
 <template>
   <div class="v-sizing">
     <ServiceTop
-      preview="/assets/video/intro.mp4"
+      preview="/assets/video/sizing-preview.mp4"
       video="/assets/video/sizing.mp4"
       heading="Замер"
       desc="Наш квалифицированный специалист приедет к вам и произведет все необходимые замеры по принципу «Семь раз отмерь – один раз замерь». Благодаря этому действию, ваш гарнитур встанет в отведенное ему место как влитой."
