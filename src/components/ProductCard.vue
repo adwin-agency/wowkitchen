@@ -69,12 +69,14 @@
       >
         -{{info.discount}}%
       </span> -->
-      <div class="product-card__video-btn">
+      <div
+        v-if="info.video?.desktop"
+        class="product-card__video-btn"
+      >
         <AppVideoButton
-          v-if="info.video"
           :expand="!large"
           :title="large ? 'Смотреть видеообзор' : 'Видеообзор'"
-          :video="$_mobile ? info.video.mobile : info.video.desktop"
+          :video="$_mobile ? info.video.mobile || info.video.desktop : info.video.desktop"
           :class="{'is-active': !large && hover}"
         />
       </div>

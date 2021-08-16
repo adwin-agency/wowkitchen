@@ -194,7 +194,7 @@ export default {
 .nav-panel {
   $b: &;
 
-  padding: 35px 0 28px;
+  padding: 35px 0 130px;
   background-color: $color-lightgray;
 
   &__items-group {
@@ -361,7 +361,7 @@ export default {
 
   @include media(md) {
     display: flex;
-    padding: 65px 0;
+    padding: 65px 0 130px;
 
     .container {
       margin-left: 0;

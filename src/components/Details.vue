@@ -29,10 +29,13 @@
               class="swiper-lazy"
             >
           </SwiperSlide>
-          <div class="details__video-btn">
+          <div
+            v-if="info.video?.desktop"
+            class="details__video-btn"
+          >
             <AppVideoButton
               title="Видеообзор проекта"
-              :video="$_mobile ? info.video?.mobile : info.video?.desktop"
+              :video="$_mobile ? info.video.mobile || info.video.desktop : info.video.desktop"
               size="large"
             />
           </div>
@@ -379,7 +382,7 @@ export default {
 
     handleMainSlideChange() {
       if (this.mainSwiper) {
-        this.activeMainIndex = this.mainSwiper.realIndex 
+        this.activeMainIndex = this.mainSwiper.realIndex
       }
     },
 
