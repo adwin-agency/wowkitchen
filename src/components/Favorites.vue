@@ -91,7 +91,7 @@ export default {
 
       const obj = {
         names: names.join(','),
-        urls: urls.join(',')
+        urls: urls.join(',\n')
       }
 
       this.$store.commit('setModalFavorites', obj)

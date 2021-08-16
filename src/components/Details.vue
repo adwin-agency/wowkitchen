@@ -142,6 +142,7 @@
             autoplay
             controls
             controlsList="nodownload"
+            playsinline
           ></video>
           <video
             v-else
@@ -171,6 +172,7 @@
             autoplay
             controls
             controlsList="nodownload"
+            playsinline
           ></video>
           <video
             v-else
@@ -213,6 +215,7 @@
               autoplay
               controls
               controlsList="nodownload"
+              playsinline
             ></video>
             <video
               v-else
@@ -244,6 +247,7 @@
               autoplay
               controls
               controlsList="nodownload"
+              playsinline
             ></video>
             <video
               v-else
@@ -374,7 +378,9 @@ export default {
     },
 
     handleMainSlideChange() {
-      this.activeMainIndex = this.mainSwiper.realIndex
+      if (this.mainSwiper) {
+        this.activeMainIndex = this.mainSwiper.realIndex 
+      }
     },
 
     onExpandClick(id) {
