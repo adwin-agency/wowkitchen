@@ -110,7 +110,7 @@
           <input
             type="hidden"
             name="type"
-            value="calc"
+            :value="modalFavorites ? 'favorite' : 'calc'"
           >
           <input
             type="hidden"

@@ -15,7 +15,7 @@ app.config.globalProperties.$_breakpoints = {
   xl: 1610
 }
 
-app.config.globalProperties.$_basepath = process.env.NODE_ENV === 'production' ? '' : 'http://wowkitchen.ru'
+app.config.globalProperties.$_basepath = process.env.NODE_ENV === 'production' ? '' : 'https://wowkitchen.ru'
 
 app.directive('intro-effect', {
   mounted(el) {			

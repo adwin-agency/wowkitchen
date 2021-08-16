@@ -5,7 +5,7 @@ module.exports = {
   filenameHashing: false,
   productionSourceMap: false,
   devServer: {
-    proxy: 'http://wowkitchen.ru'
+    proxy: 'https://wowkitchen.ru'
   },
   pluginOptions: {
     'style-resources-loader': {

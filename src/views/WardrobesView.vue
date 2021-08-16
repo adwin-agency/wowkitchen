@@ -7,11 +7,13 @@
     <Catalog
       type="wardrobes"
       cardType="wardrobe"
-      :sortOptions="sortOptions"
       :filterGroups="filterGroups"
       :cards="cards"
       :showBtn="currentPage < pages"
+      :pages="pages"
+      :currentPage="currentPage"
       @show-more="showMore"
+      @change-page="changePage"
     />
     <WardrobeMaterials />
     <QuizPreview
@@ -30,10 +32,10 @@ import QuizPreview from '../components/QuizPreview.vue'
 import WardrobeMaterials from '../components/WardrobeMaterials.vue'
 import api from '../api'
 
-const sortOptions = [
-  { title: 'По популярности' },
-  { title: 'По цене' }
-]
+// const sortOptions = [
+//   { title: 'По популярности' },
+//   { title: 'По цене' }
+// ]
 
 const filterGroups = [
   {
@@ -95,11 +97,12 @@ export default {
   },
   data() {
     return {
-      sortOptions: sortOptions,
+      // sortOptions: sortOptions,
       filterGroups: filterGroups,
       cards: [],
       pages: 1,
-      currentPage: 1
+      currentPage: 1,
+      isMobile: this.$_mobile
     }
   },
   async created() {
@@ -107,7 +110,9 @@ export default {
 
     const response = await api.loadCards(this.$route)
     this.cards = response.goods
-    this.pages = response.pages    
+    this.pages = response.pages
+
+    window.addEventListener('resize', this.handleResize)
   },
   async beforeRouteUpdate(to) {
     this.setBreadCrumbs(to)
@@ -116,6 +121,9 @@ export default {
     this.cards = response.goods
     this.pages = response.pages
     this.currentPage = 1   
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
     setBreadCrumbs(route) {
@@ -136,6 +144,24 @@ export default {
       this.currentPage++
       const response = await api.loadCards(this.$route, this.currentPage)
       this.cards = [...this.cards, ...response.goods]
+    },
+
+    async changePage(num) {
+      window.scrollTo(0, 0)
+      this.currentPage = num
+      const response = await api.loadCards(this.$route, this.currentPage)
+      this.cards = response.goods
+    },
+
+    async handleResize() {
+      if (this.isMobile !== this.$_mobile) {
+        window.scrollTo(0, 0)
+        this.isMobile = this.$_mobile
+        
+        this.currentPage = 1
+        const response = await api.loadCards(this.$route, this.currentPage)
+        this.cards = response.goods
+      }
     }
   }
 }

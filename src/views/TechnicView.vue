@@ -7,7 +7,7 @@
     <OtherProducts
       v-if="details"
       heading="Отлично подойдёт для этих кухонь"
-      :products="details.similars"
+      :products="details.kitchens"
     />
     <Steps />
   </div>

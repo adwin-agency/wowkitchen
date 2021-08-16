@@ -17,72 +17,62 @@
               class="constructor__setting"
               :class="`constructor__setting_${name}`"
             >
-              <template v-if="$_media.sm">
-                <AppSelect
-                  color="green"
-                  :options="setting.options"
-                  :name="name"
-                  class="constructor__select"
-                  @change="handleSelectChange(name, $event)"
-                />
-                <div
-                  v-if="setting.additions"
-                  ref="additions"
-                  class="constructor__additions"
+              <p
+                v-if="!$_media.sm"
+                class="constructor__setting-title"
+              >
+                {{setting.title}}
+              </p>
+
+              <AppSelect
+                v-if="$_media.sm && setting.select"
+                color="green"
+                :options="setting.options"
+                :name="name"
+                class="constructor__select"
+                @change="handleSelectChange(name, $event)"
+              />
+
+              <div
+                v-else
+                class="constructor__options"
+              >
+                <label
+                  v-for="(option, index) in setting.options"
+                  :key="$_media.sm ? index + 'sm' : index"
+                  class="constructor__option"
                 >
-                  <label
-                    v-for="(addition, index) in setting.additions"
-                    :key="index"
-                    class="constructor__addition"
+                  <input
+                    type="radio"
+                    :name="name"
+                    :value="option.title"
+                    :checked="index === 0"
+                    @change="handleSettingChange(name, $event)"
                   >
-                    <input
-                      type="checkbox"
-                      name="addition"
-                      :value="addition.title"
-                      @change="handleAdditionChange(addition.code, $event)"
-                    >
-                    <span>{{addition.title}}</span>
-                  </label>
-                </div>
-              </template>
-              <template v-else>
-                <p class="constructor__setting-title">{{setting.title}}</p>
-                <div class="constructor__options">
-                  <label
-                    v-for="(option, index) in setting.options"
-                    :key="index"
-                    class="constructor__option"
-                  >
-                    <input
-                      type="radio"
-                      :name="name"
-                      :value="option.title"
-                      :checked="index === 0"
-                      @change="handleSettingChange(name, $event)"
-                    >
-                    <span>{{option.title}}</span>
-                  </label>
-                </div>
-                <div
-                  v-if="setting.additions"
-                  ref="additions"
-                  class="constructor__additions"
+                  <span>{{option.title}}</span>
+                </label>
+              </div>
+
+              <div
+                v-if="setting.additions"
+                ref="additions"
+                class="constructor__additions"
+              >
+                <label
+                  v-for="(addition, index) in setting.additions"
+                  :key="$_media.sm ? index + 'sm' : index"
+                  class="constructor__addition"
                 >
-                  <label
-                    v-for="(addition, index) in setting.additions"
-                    :key="index"
-                    class="constructor__addition"
+                  <input
+                    type="checkbox"
+                    name="addition"
+                    :value="addition.title"
+                    @change="handleAdditionChange(addition.code, $event)"
                   >
-                    <input
-                      type="checkbox"
-                      name="addition"
-                      :value="addition.title"
-                      @change="handleAdditionChange(addition.code, $event)"
-                    >
-                    <span>{{addition.title}}</span>
-                  </label>
-                </div>
-              </template>
+                  <span>{{addition.title}}</span>
+                </label>
+              </div>
+
             </div>
           </form>
           <AppButton
@@ -159,6 +149,7 @@ import AppSelect from './base/AppSelect.vue'
 
 const settings = {
   style: {
+    select: true,
     title: 'Стиль',
     options: [
       { title: 'Минимализм', code: 'minimal' },
@@ -168,7 +159,7 @@ const settings = {
     ]
   },
   category: {
-    id: 'category',
+    select: true,
     title: 'Компоновка',
     options: [
       { title: 'Прямая', code: 'straight' },
@@ -181,7 +172,6 @@ const settings = {
     ]
   },
   colors: {
-    id: 'colors',
     title: 'Цвет',
     options: [
       { title: 'Светлые тона', code: 'light' },
@@ -400,9 +390,9 @@ export default {
   },
   methods: {
     resetSettings() {
-      this.style = 'minimal',
-      this.composition = 'straight',
-      this.addition = null,
+      this.style = 'minimal'
+      this.composition = 'straight'
+      this.addition = null
       this.colors = 'light'
     },
 
@@ -430,11 +420,11 @@ export default {
     },
 
     handleSelectChange(id, value) {
-      this[id] = this.settings[id].options.find(i => i.title === value).code
+      this[id] = this.settings[id].options.find((i) => i.title === value).code
       this.closeTooltip()
     },
     handleSettingChange(id, event) {
-      this[id] = this.settings[id].options.find(i => i.title === event.target.value).code
+      this[id] = this.settings[id].options.find((i) => i.title === event.target.value).code
       this.closeTooltip()
     },
     handleAdditionChange(code, event) {
@@ -488,7 +478,38 @@ export default {
     }
   }
 
-  &__option,
+  &__options {
+    display: flex;
+    margin-right: -15px;
+  }
+
+  &__option {
+    flex: 1;
+    margin-right: 15px;
+    cursor: pointer;
+
+    input {
+      display: none;
+
+      &:checked + span {
+        color: $color-lightgray;
+        background-color: $color-green;
+      }
+    }
+
+    span {
+      display: block;
+      border-radius: 100px;
+      text-align: center;
+      padding: 17px 20px;
+      white-space: nowrap;
+      font-weight: bold;
+      font-size: 13px;
+      background-color: #ecedf4;
+      transition: color 0.3s ease, background-color 0.3s ease;
+    }
+  }
+
   &__addition {
     margin-right: 15px;
     cursor: pointer;
@@ -505,7 +526,7 @@ export default {
     span {
       display: inline-block;
       border-radius: 20px;
-      padding: 8px 25px;
+      padding: 8px 20px;
       font-weight: bold;
       font-size: 11px;
       background-color: #ecedf4;
@@ -677,6 +698,16 @@ export default {
       display: flex;
       flex-wrap: wrap;
       margin-top: 18px;
+      margin-right: 0;
+    }
+
+    &__option {
+      flex: 0;
+
+      span {
+        padding: 8px 25px;
+        font-size: 11px;
+      }
     }
 
     &__option,

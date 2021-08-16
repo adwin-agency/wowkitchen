@@ -80,6 +80,18 @@ export default {
   position: relative;
   cursor: pointer;
 
+  &:hover {
+    #{$b} {
+      &__play-icon {
+        transform: scale(1.15);
+      }
+
+      &__arrow {
+        transform: translateX(15px);
+      }
+    }
+  }
+
   &_sample {
     display: flex;
 
@@ -163,10 +175,6 @@ export default {
     border-radius: 50%;
     background-color: $color-yellow;
 
-    &:hover &-icon {
-      transform: scale(1.15);
-    }
-
     &-icon {
       width: 100%;
       height: 100%;
@@ -213,6 +221,7 @@ export default {
     width: 44px;
     height: 12px;
     fill: currentColor;
+    transition: transform 0.3s ease;
   }
 
   @include media(md) {

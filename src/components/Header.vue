@@ -75,7 +75,7 @@
             <NavMenu
               class="header__nav-menu"
               :menu="kitchensMenu"
-              @close-menu="toggleMobileMenu"
+              @close-menu="closeMobileMenu"
               @close-submenu="toggleNavMenu"
             />
           </div>
@@ -88,7 +88,7 @@
             <NavMenu
               class="header__nav-menu"
               :menu="technicsMenu"
-              @close-menu="toggleMobileMenu"
+              @close-menu="closeMobileMenu"
               @close-submenu="toggleNavMenu"
             />
           </div>
@@ -332,10 +332,9 @@ const kitchensMenu = {
       icon: 'crown',
       title: 'Популярное',
       items: [
-        { path: 'kitchens', title: 'Маленькие кухни' },
-        { path: 'kitchens', title: 'ТОП-5 кухонь месяца' },
-        { path: 'kitchens', title: 'Гарнитуры для хрущёвок' },
-        { path: 'kitchens', title: 'Практичные кухни' }
+        { path: 'kitchens', query: { tag: 'malenkie-kukhni' }, title: 'Маленькие кухни' },
+        { path: 'kitchens', query: { tag: 'praktichnye-kukhni' }, title: 'Практичные кухни' },
+        { path: 'kitchens', query: { tag: 'top-5-kukhon-mesyatsa' }, title: 'ТОП-5 кухонь месяца' }        
       ]
     }
   ]
@@ -396,7 +395,7 @@ export default {
   watch: {
     $route() {
       if (this.activeMobileMenu) {
-        this.toggleMobileMenu()
+        this.closeMobileMenu()
       }
 
       if (this.activeNavMenu) {
@@ -429,6 +428,11 @@ export default {
     handleScroll() {
       this.isShort = window.scrollY > this.scrollY
       this.scrollY = window.scrollY
+    },
+
+    closeMobileMenu() {
+      this.activeMobileMenu = false
+      this.$store.commit('setMobileMenu', false)
     },
 
     toggleMobileMenu() {

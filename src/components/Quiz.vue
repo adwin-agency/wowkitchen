@@ -432,6 +432,11 @@ export default {
       return min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽ - ' + max.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
     }
   },
+  watch: {
+    success() {
+      this.activeStep = 0
+    }
+  },
   methods: {
     startQuiz() {
       window.scrollTo(0, 0)

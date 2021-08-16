@@ -1,6 +1,7 @@
 <template>
   <div class="details-card">
     <div class="details-card__box">
+      <span class="details-card__count">{{currentSlide}} из {{slides}}</span>
       <p class="details-card__type">Кухня</p>
       <p class="details-card__title">
         {{info.name}}
@@ -99,7 +100,9 @@ export default {
   },
   props: {
     info: Object,
-    noPrice: Boolean
+    noPrice: Boolean,
+    slides: Number,
+    currentSlide: Number
   },
   setup(props) {
     const { isFavorite, toggleFavorite } = useFavorites(props)
@@ -119,6 +122,24 @@ export default {
 
 <style lang="scss">
 .details-card {
+  &__box {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    background-color: rgba(172, 168, 195, 0.4);
+  }
+
   &__type {
     font-weight: 500;
     font-size: 10px;
@@ -216,6 +237,13 @@ export default {
       padding: 40px 40px 25px;
       background-color: #fff;
       box-shadow: 0px 20px 38px 0px rgba(53, 53, 53, 0.11);
+    }
+
+    &__count {
+      width: 130px;
+      padding: 18px 20px;
+      border-radius: 0 0 0 50px;
+      font-size: 15px;
     }
 
     &__note {

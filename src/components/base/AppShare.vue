@@ -19,7 +19,7 @@
       <div
         ref="share"
         class="share__list"
-        :style="`filter: url(#shadowed-goo${id})`"
+        :style="$_media.sm ? `filter: url(#share-filter${id})` : ''"
       >
         <!-- <a
           href="#"
@@ -41,12 +41,13 @@
         </a> -->
       </div>
       <svg
+        v-if="!$_media.sm"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         class="share__filter"
       >
         <defs>
-          <filter :id="`shadowed-goo${id}`">
+          <filter :id="`share-filter${id}`">
             <feGaussianBlur
               in="SourceGraphic"
               result="blur"
@@ -86,7 +87,7 @@
               result="mix"
             />
           </filter>
-          <filter :id="`goo${id}`">
+          <filter :id="`share-blur${id}`">
             <feGaussianBlur
               in="SourceGraphic"
               result="blur"
@@ -142,7 +143,7 @@ export default {
     this.share = window.Ya.share2(this.$refs.share, {
       content: {
         title: this.shareTitle,
-        url: 'http://wowkitchen.ru' + this.shareUrl
+        url: 'https://wowkitchen.ru' + this.shareUrl
       },
       theme: {
         services: 'facebook,vkontakte',

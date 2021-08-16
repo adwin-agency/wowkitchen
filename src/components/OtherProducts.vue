@@ -3,7 +3,7 @@
     <div class="other-products__header">
       <div class="container">
         <h2 class="other-products__heading">{{heading}}</h2>
-        <a href='#' class="other-products__link">Перейти в каталог кухонь</a>
+        <router-link to='/kitchens' class="other-products__link">Перейти в каталог кухонь</router-link>
       </div>
     </div>
     <div class="other-products__cards">

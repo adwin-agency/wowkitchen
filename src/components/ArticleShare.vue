@@ -43,7 +43,7 @@ export default {
     this.share = window.Ya.share2(this.$refs.share, {
       content: {
         title: this.shareTitle,
-        url: 'http://wowkitchen.ru/blog/' + this.shareUrl
+        url: 'https://wowkitchen.ru/blog/' + this.shareUrl
       },
       theme: {
         services: 'vkontakte,facebook',
@@ -59,7 +59,7 @@ export default {
       clearTimeout(this.tooltipTimeout)
 
       this.activeTooltip = true
-      navigator.clipboard.writeText('http://wowkitchen.ru/blog/' + this.shareUrl)
+      navigator.clipboard.writeText('https://wowkitchen.ru/blog/' + this.shareUrl)
 
       this.tooltipTimeout = setTimeout(() => {
         this.activeTooltip = false

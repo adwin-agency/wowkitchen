@@ -14,6 +14,7 @@
         autoplay
         loop
         muted
+        playsinline
       ></video>
       <button
         v-if="!activeVideo"

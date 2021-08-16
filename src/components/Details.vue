@@ -9,6 +9,8 @@
           navigation
           :lazy="{ loadPrevNext: true }"
           class="details__slider"
+          @swiper="setMainSwiper"
+          @slideChange="handleMainSlideChange"
         >
           <SwiperSlide
             v-for="(picture, index) in info.pictures"
@@ -66,6 +68,8 @@
           <DetailsCard
             :info="info"
             noPrice
+            :slides="info.pictures.length"
+            :currentSlide="activeMainIndex + 1"
             class="details__card"
           />
           <div
@@ -145,6 +149,7 @@
             autoplay
             loop
             muted
+            playsinline
           ></video>
           <button
             v-if="!activeReview"
@@ -173,6 +178,7 @@
             autoplay
             loop
             muted
+            playsinline
           ></video>
           <button
             v-if="!activeDrive"
@@ -214,6 +220,7 @@
               autoplay
               loop
               muted
+              playsinline
             ></video>
             <button
               v-if="!activeReview"
@@ -244,6 +251,7 @@
               autoplay
               loop
               muted
+              playsinline
             ></video>
             <button
               v-if="!activeDrive"
@@ -344,6 +352,8 @@ export default {
   },
   data() {
     return {
+      mainSwiper: null,
+      activeMainIndex: 0,
       activeExpand: null,
       expandTimeout: null,
       activeReview: false,
@@ -359,6 +369,14 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    setMainSwiper(swiper) {
+      this.mainSwiper = swiper
+    },
+
+    handleMainSlideChange() {
+      this.activeMainIndex = this.mainSwiper.realIndex
+    },
+
     onExpandClick(id) {
       clearTimeout(this.expandTimeout)
 

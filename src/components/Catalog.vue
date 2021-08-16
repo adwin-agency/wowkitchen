@@ -29,14 +29,10 @@
           <button
             type="button"
             class="catalog__filters-btn"
-            :class="[
-              {'is-fixed': fixedFiltersBtn},
-              {'is-active': activeFixedFiltersBtn}
-            ]"
             @click="openFilters"
           >
             <span class="catalog__filters-icon">
-              <AppIcon :name="fixedFiltersBtn ? 'filters-mobile' : 'filters'" />
+              <AppIcon name="filters" />
               <span
                 v-if="filtersLength"
                 class="catalog__filters-badge"
@@ -44,7 +40,27 @@
                 {{filtersLength}}
               </span>
             </span>
-            {{fixedFiltersBtn ? 'Параметры поиска' : ''}}
+          </button>
+          <button
+            v-if="$_media.sm"
+            v-show="fixedFiltersBtn"
+            type="button"
+            class="catalog__filters-btn catalog__filters-btn_fixed"
+            :class="[
+              {'is-active': activeFixedFiltersBtn}
+            ]"
+            @click="openFilters"
+          >
+            <span class="catalog__filters-icon">
+              <AppIcon name="filters-mobile" />
+              <span
+                v-if="filtersLength"
+                class="catalog__filters-badge"
+              >
+                {{filtersLength}}
+              </span>
+            </span>
+            Параметры поиска
           </button>
           <div
             v-if="switcher"
@@ -89,29 +105,37 @@
           />
         </div>
         <div
-          v-if="showBtn"
+          v-if="$_mobile && showBtn"
           class="catalog__footer"
         >
           <AppButton
             icon="plus"
-            color="gray"
+            color="lightv"
             title="Показать больше"
             class="catalog__show-btn"
             @click="$emit('show-more')"
           />
         </div>
+        <Pagination
+          v-if="$_desktop && pages > 1"
+          :pages="pages"
+          :currentPage="currentPage"
+          class="catalog__pagination"
+          @change-page="$emit('change-page', $event)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import StickySidebar from 'sticky-sidebar'
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppSelect from './base/AppSelect.vue'
 import Filters from './Filters.vue'
 import ProductCard from './ProductCard.vue'
-import StickySidebar from 'sticky-sidebar'
+import Pagination from './Pagination.vue'
 
 export default {
   name: 'Catalog',
@@ -120,7 +144,8 @@ export default {
     AppIcon,
     AppSelect,
     Filters,
-    ProductCard
+    ProductCard,
+    Pagination
   },
   props: {
     type: String,
@@ -130,9 +155,11 @@ export default {
     filterCategories: Array,
     filterGroups: Array,
     cards: Array,
-    showBtn: Boolean
+    showBtn: Boolean,
+    pages: Number,
+    currentPage: Number
   },
-  emits: ['show-more'],
+  emits: ['show-more', 'change-page'],
   data() {
     return {
       activeFilters: false,
@@ -196,7 +223,7 @@ export default {
 
     initSidebar() {
       window.sidebar = new StickySidebar('.catalog__side', {
-        topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 130 : 170,
+        topSpacing: this.$_media.md ? 70 : this.$_media.lg ? 100 : 130,
         bottomSpacing: 0,
         containerSelector: '.catalog',
         innerWrapperSelector: '.catalog__side-inner'
@@ -222,7 +249,7 @@ export default {
       }
 
       if (!this.$_media.sm && window.sidebar) {
-        window.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 130 : 170
+        window.sidebar.options.topSpacing = this.$_media.md ? 70 : this.$_media.lg ? 100 : 130
       }
 
       if (this.$_media.sm && window.sidebar) {
@@ -298,7 +325,7 @@ export default {
     border-radius: 50px;
     background-color: $color-lightgray;
 
-    &.is-fixed {
+    &_fixed {
       position: fixed;
       left: 0;
       top: 0;
@@ -379,6 +406,10 @@ export default {
 
   &__show-btn {
     width: 100%;
+  }
+
+  &__pagination {
+    margin-top: 40px;
   }
 
   @include media(md) {

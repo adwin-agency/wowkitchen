@@ -86,7 +86,7 @@ export default {
 
       for (let item of this.items) {
         names.push(item.name)
-        urls.push(item.url)
+        urls.push('https://wowkitchen.ru' + item.url)
       }
 
       const obj = {

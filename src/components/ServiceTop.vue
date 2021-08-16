@@ -4,10 +4,11 @@
       <template v-if="video">
         <video
           ref="video"
-          :src="video"
+          :src="preview || video"
           autoplay
           loop
           muted
+          playsinline
           class="service-top__video"
         ></video>
         <div class="service-top__play">
@@ -54,6 +55,7 @@ export default {
     AppVideoButton
   },
   props: {
+    preview: String,
     video: String,
     image: String,
     heading: String,

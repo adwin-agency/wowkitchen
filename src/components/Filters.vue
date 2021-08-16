@@ -205,6 +205,12 @@ export default {
       if (this.activeOptions[group] === value || value === 'all') {
         delete this.activeOptions[group]
       } else {
+        for (let key in this.activeOptions) {
+          if (key !== group) {
+            delete this.activeOptions[key]
+          }
+        }
+
         this.activeOptions[group] = value
       }
 

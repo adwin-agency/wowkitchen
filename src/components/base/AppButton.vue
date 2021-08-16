@@ -124,6 +124,15 @@ export default {
     }
   }
 
+  &_lightv {
+    color: #fff;
+    background-color: $color-lightviolet;
+
+    &:hover {
+      background-color: #b9b8c3;
+    }
+  }
+
   &_bordered {    
     color: $color-green;
     background-color: transparent;

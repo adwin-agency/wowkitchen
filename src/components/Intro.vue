@@ -39,6 +39,7 @@
               autoplay
               loop
               muted
+              playsinline
             ></video>
             <AppIcon
               class="intro__shape intro__shape_2"
