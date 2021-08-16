@@ -29,7 +29,7 @@
                   <router-link
                     v-for="(submenuItem, index) in item.submenu"
                     :key="index"
-                    :to="{name: submenuItem.route}"
+                    :to="{ name: submenuItem.route, query: submenuItem.query }"
                     class="footer__submenu-item"
                     :class="{'footer__submenu-item_accented': submenuItem.accented}"
                   >
@@ -195,11 +195,12 @@ const menu = [
     id: 'kitchens',
     title: 'Кухни',
     submenu: [
-      { title: 'Прямые', route: 'kitchens' },
-      { title: 'Угловые', route: 'kitchens' },
-      { title: 'П-образные', route: 'kitchens' },
-      { title: 'С барной стойкой', route: 'kitchens' },
-      { title: 'С островом', route: 'kitchens' }
+      { title: 'Все кухни', route: 'kitchens' },
+      { title: 'Прямые', route: 'kitchens', query: { category: 'pryamye' } },
+      { title: 'Угловые', route: 'kitchens', query: { category: 'uglovye' } },
+      { title: 'П-образные', route: 'kitchens', query: { category: 'p-obraznye' } },
+      { title: 'С барной стойкой', route: 'kitchens', query: { category: 's-barnoy-stoykoy' } },
+      { title: 'С островом', route: 'kitchens', query: { category: 's-ostrovom' } }
     ]
   },
   {
@@ -211,12 +212,12 @@ const menu = [
     id: 'technics',
     title: 'Техника',
     submenu: [
-      { title: 'Плиты', route: 'technics' },
-      { title: 'Варочные панели', route: 'technics' },
-      { title: 'Вытяжки', route: 'technics' },
-      { title: 'Посудомоечные машины', route: 'technics' },
-      { title: 'Мойки', route: 'technics' },
-      { title: 'Смесители', route: 'technics' }
+      { title: 'Вся техника', route: 'technics' },
+      { title: 'Варочные панели', route: 'technics', query: { category: 'varochnye-paneli' } },
+      { title: 'Духовые шкафы', route: 'technics', query: { category: 'dukhovye-shkafy' } },
+      { title: 'Холодильники', route: 'technics', query: { category: 'kholodilniki' } },
+      { title: 'Посудомоечные машины', route: 'technics', query: { category: 'posudomoechnye-mashiny' } },      
+      { title: 'Вытяжки', route: 'technics', query: { category: 'vytyazhki' } }
     ]
   },
   {
@@ -673,7 +674,7 @@ export default {
       border: none;
 
       &_link {
-        margin-top: 8px;
+        margin-top: 20px;
         order: 1;
       }
 

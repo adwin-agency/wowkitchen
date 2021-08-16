@@ -345,7 +345,8 @@ const technicsMenu = {
   groups: [
     {
       items: [
-        { path: 'technics', query: { category: 'varochnye-paneli' }, title: 'Варочые панели' },
+        { path: 'technics', query: {  }, title: 'Вся техника' },
+        { path: 'technics', query: { category: 'varochnye-paneli' }, title: 'Варочные панели' },
         { path: 'technics', query: { category: 'dukhovye-shkafy' }, title: 'Духовые шкафы' },
         { path: 'technics', query: { category: 'kholodilniki' }, title: 'Холодильники' },
         { path: 'technics', query: { category: 'posudomoechnye-mashiny' }, title: 'Посудомоечные машины' },

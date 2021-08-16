@@ -34,7 +34,8 @@ const sortOptions = [
 ]
 
 const filterCategories = [
-  { title: 'Варочые панели', value: 'varochnye-paneli' },
+  { title: 'Вся техника', value: 'all' },
+  { title: 'Варочные панели', value: 'varochnye-paneli' },
   { title: 'Духовые шкафы', value: 'dukhovye-shkafy' },
   { title: 'Холодильники', value: 'kholodilniki' },
   { title: 'Посудомоечные машины', value : 'posudomoechnye-mashiny' },

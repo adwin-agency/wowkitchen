@@ -4,10 +4,10 @@
       :categories="categories"
       :cards="cards.slice(0, 3)"
     />
-    <BlogCards :cards="cards.slice(3, 8)" />
+    <BlogCards :cards="cards.slice(3, 9)" />
     <DesignCall />
     <BlogCards
-      :cards="cards.slice(8)"
+      :cards="cards.slice(9)"
       subscribe
       :showBtn="currentPage < pages"
       @show-more="showMore"

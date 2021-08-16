@@ -40,7 +40,7 @@
           :key="index"
           type="button"
           class="filters__category"
-          :class="{'is-active': activeOptions.category === category.value}"
+          :class="{'is-active': category.value === 'all' ? !activeOptions.category : activeOptions.category === category.value}"
           @click="toggleCategory(category.value)"
         >
           {{category.title}}
@@ -157,7 +157,11 @@ export default {
     },
 
     toggleCategory(category) {
-      if (this.activeOptions.category === category) {
+      if (!this.activeOptions.category && category === 'all') {
+        return
+      }
+
+      if (this.activeOptions.category === category || category === 'all') {
         delete this.activeOptions.category
       } else {
         this.activeOptions.category = category
