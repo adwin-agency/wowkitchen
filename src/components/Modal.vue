@@ -103,14 +103,14 @@
         </form>
 
         <form
-          v-if="modal === 'calc'"
+          v-if="modal === 'calc' || modal === 'favorite'"
           class="modal__form"
           @submit="handleSubmit"
         >
           <input
             type="hidden"
             name="type"
-            :value="modalFavorites ? 'favorite' : 'calc'"
+            :value="modal"
           >
           <input
             type="hidden"
@@ -377,7 +377,7 @@ export default {
   },
   watch: {
     modal(newModal) {
-      if (newModal === 'designer' || newModal === 'calc') {
+      if (newModal === 'designer' || newModal === 'calc' || newModal === 'favorite') {
         window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
         window.VK && window.VK.Goal('initiate_checkout')
         window.dataLayer = window.dataLayer || []
