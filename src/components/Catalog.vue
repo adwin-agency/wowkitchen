@@ -24,7 +24,11 @@
             v-if="sortOptions"
             class="catalog__select"
           >
-            <AppSelect :options="sortOptions" />
+            <AppSelect
+              :options="sortOptions"
+              :initial="initialSort"
+              @change="$emit('sort-change', $event)"
+            />
           </div>
           <button
             type="button"
@@ -152,6 +156,7 @@ export default {
     cardType: String,
     switcher: Boolean,
     sortOptions: Array,
+    initialSort: String,
     filterCategories: Array,
     filterGroups: Array,
     cards: Array,
@@ -159,7 +164,7 @@ export default {
     pages: Number,
     currentPage: Number
   },
-  emits: ['show-more', 'change-page'],
+  emits: ['sort-change', 'show-more', 'change-page'],
   data() {
     return {
       activeFilters: false,

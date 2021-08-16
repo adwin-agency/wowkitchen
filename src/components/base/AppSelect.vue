@@ -19,6 +19,7 @@
         :key="index"
         :disabled="option.disabled"
         :value="option.value || option.title"
+        :selected="selectedOption === option.title"
       >
         {{option.title}}
       </option>
@@ -76,6 +77,7 @@ export default {
     AppIcon
   },
   props: {
+    initial: String,
     label: String,
     sideLabel: String,
     color: String,
@@ -90,7 +92,7 @@ export default {
     return {
       isActive: false,
       isArrowActive: false,
-      selectedOption: this.options[0].title,
+      selectedOption: this.options.find(i => (i.value || i.title) === this.initial)?.title || this.options[0].title,
       isClosing: false
     }
   },
@@ -278,7 +280,8 @@ export default {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &.is-active {
       background-color: rgba($color-lightgray, 0.2);
     }
   }

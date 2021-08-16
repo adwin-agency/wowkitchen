@@ -8,11 +8,13 @@
       type="technics"
       cardType="technic"
       :sortOptions="sortOptions"
+      :initialSort="initialSort"
       :filterCategories="filterCategories"
       :cards="cards"
       :showBtn="currentPage < pages"
       :pages="pages"
       :currentPage="currentPage"
+      @sort-change="sortChange"
       @show-more="showMore"
       @change-page="changePage"
     />
@@ -29,8 +31,9 @@ import Steps from '../components/Steps.vue'
 import api from '../api'
 
 const sortOptions = [
-  { title: 'По популярности' },
-  { title: 'По цене' }
+  { title: 'Сначала популярные', value: 'default' },
+  { title: 'Сначала дешёвые', value: 'min_to_max' },
+  { title: 'Сначала дорогие', value: 'max_to_min' }
 ]
 
 const filterCategories = [
@@ -53,6 +56,7 @@ export default {
   data() {
     return {
       sortOptions: sortOptions,
+      initialSort: null,
       filterCategories: filterCategories,
       title: '',
       cards: [],
@@ -63,6 +67,8 @@ export default {
   },
   async created() {
     this.setBreadCrumbs(this.$route)
+
+    this.initialSort = this.$route.query.price || 'default'
 
     const response = await api.loadCards(this.$route)
     this.cards = response.goods
@@ -96,6 +102,18 @@ export default {
       }
     
       this.$store.commit('setBreadCrumbs', crumbs)
+    },
+
+    async sortChange(value) {
+      const query = {...this.$route.query}
+      
+      if (value === 'default') {
+        delete query.price
+      } else {
+        query.price = value
+      }
+
+      this.$router.push({ query })
     },
 
     async showMore() {
