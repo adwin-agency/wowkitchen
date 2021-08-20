@@ -13,6 +13,7 @@
     <div class="product-card__img-box">
       <Swiper
         v-if="cardType !== 'technic' && !slide && !wardrobeslide"
+        :key="info.id"
         loop
         navigation
         :lazy="{ loadPrevNext: true }"

@@ -255,15 +255,15 @@
                 >Планировки</a>
               </div>
               <div class="article__stats">
-                <p class="article__stats-author article__stats-el">Автор<span class="article__stats-author-name">Ксения абрамова</span></p>
-                <p class="article__stats-date article__stats-el">Дата публикации<span class="article__stats-date-value">16 декабря 2020</span></p>
+                <p class="article__stats-author article__stats-el">Автор<span class="article__stats-author-name">{{info.author}}</span></p>
+                <p class="article__stats-date article__stats-el">Дата публикации<span class="article__stats-date-value">{{info.date_public}}</span></p>
                 <div class="article__stats-views article__stats-el">
                   <img
                     class="article__stats-views-icon"
                     src="@/assets/img/articles/icons/view_simple.svg"
                     alt="image-views"
                   >
-                  <span class="article__stats-views-count">1290</span>
+                  <span class="article__stats-views-count">{{info.views}}</span>
                 </div>
               </div>
               <ArticleShare
