@@ -3,6 +3,7 @@
     :class="[
       'select',
       {[`select_${color}`]: color},
+      {[`select_${size}`]: size},
       {'select_up': up},
       {'is-active': isActive},
       {'is-closing': isClosing}
@@ -28,7 +29,8 @@
       v-if="label || sideLabel"
       :class="[
         'select__label',
-        {'select__label_side': sideLabel}
+        {'select__label_side': sideLabel},
+        {[`select__label_${labelSize}`]: labelSize}
       ]"
     >
       {{label || sideLabel}}
@@ -51,7 +53,10 @@
         ref="dropdown"
         class="select__dropdown"
       >
-        <ul class="select__list">
+        <ul
+          class="select__list"
+          :class="{'select__list_scrollable': scrollable}"
+        >
           <li
             v-for="(option, index) in options"
             v-show="!option.disabled"
@@ -79,20 +84,21 @@ export default {
   props: {
     initial: String,
     label: String,
+    labelSize: String,
     sideLabel: String,
     color: String,
+    size: String,
     up: Boolean,
     options: Array,
-    name: String
+    name: String,
+    scrollable: Boolean
   },
-  emits: [
-    'change'
-  ],
+  emits: ['change'],
   data() {
     return {
       isActive: false,
       isArrowActive: false,
-      selectedOption: this.options.find(i => (i.value || i.title) === this.initial)?.title || this.options[0].title,
+      selectedOption: this.options.find((i) => (i.value || i.title) === this.initial)?.title || this.options[0].title,
       isClosing: false
     }
   },
@@ -191,6 +197,15 @@ export default {
     }
   }
 
+  &_sm {
+    #{$b} {
+      &__trigger,
+      &__item {
+        font-size: 12px;
+      }
+    }
+  }
+
   &.is-active {
     transition: z-index 0.3s step-start;
     z-index: 10;
@@ -210,12 +225,17 @@ export default {
   }
 
   &__label {
+    margin-bottom: 4px;
     font-weight: 500;
     font-size: 13px;
 
     &_side {
       min-width: 60px;
       margin-right: 10px;
+    }
+
+    &_sm {
+      font-size: 12px;
     }
   }
 
@@ -268,6 +288,11 @@ export default {
   &__list {
     padding: 35px 10px 15px;
     background-color: $color-green;
+
+    &_scrollable {
+      max-height: 126px;
+      overflow-y: auto;
+    }
   }
 
   &__item {

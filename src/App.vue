@@ -3,20 +3,23 @@
   <RouterView />
   <Footer />
   <Modal />
+  <SitePhone class="app-site-phone" />
 </template>
 
 <script>
+import api from './api'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import Modal from './components/Modal.vue'
-import api from './api'
+import SitePhone from './components/SitePhone.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
     Footer,
-    Modal
+    Modal,
+    SitePhone
   },
   computed: {
     scrollLock() {
@@ -30,6 +33,7 @@ export default {
         document.body.style.overflow = 'hidden'
         document.body.style.paddingRight = scrollbarWidth
         document.querySelector('.app-header').style.right = scrollbarWidth
+        document.querySelector('.app-site-phone').style.right = scrollbarWidth
 
         const sideFixedImg = document.querySelector('.side-fixed__img')
         
@@ -41,6 +45,7 @@ export default {
           document.body.style.overflow = ''
           document.body.style.paddingRight = ''
           document.querySelector('.app-header').style.right = ''
+          document.querySelector('.app-site-phone').style.right = ''
 
           const sideFixedImg = document.querySelector('.side-fixed__img')
         
@@ -113,6 +118,13 @@ export default {
   left: 0;
   top: 0;
   right: 0;
+  z-index: 100;
+}
+
+.app-site-phone {
+  position: fixed;
+  right: 0;
+  bottom: 0;
   z-index: 100;
 }
 </style>

@@ -24,12 +24,13 @@ export default createStore({
     productData: null,
     breadCrumbs: null,
     constructor: null,
-    modalFavorites: null
+    modalFavorites: null,
+    activeSitePhone: false
   },
 
   getters: {
     scrollLock(state) {
-      return !!state.modal || state.mobileMenu || state.activeFavorites || state.activeFilters
+      return !!state.modal || state.mobileMenu || state.activeFavorites || state.activeFilters || state.activeSitePhone
     }
   },
 
@@ -96,6 +97,10 @@ export default createStore({
 
     setModalFavorites(state, data) {
       state.modalFavorites = data
+    },
+
+    setActiveSitePhone(state, status)  {
+      state.activeSitePhone = status
     }
   }
 })

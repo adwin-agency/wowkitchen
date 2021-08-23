@@ -34,6 +34,7 @@
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
+        {[`text-field__input_${size}`]: size},
         {[`text-field__input_bordered`]: bordered},
         {[`text-field__input_side`]: sideNote},
         {[`text-field__input_double-sm`]: double}
@@ -49,6 +50,7 @@
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
+        {[`text-field__input_${size}`]: size},
         {[`text-field__input_bordered`]: bordered},
         {[`text-field__input_side`]: sideNote},
         {[`text-field__input_double-lg`]: double}
@@ -213,6 +215,11 @@ export default {
     &_double-lg {
       margin-left: auto;
       width: calc(100% - 120px);
+    }
+
+    &_sm {
+      height: 50px;
+      font-size: 12px;
     }
 
     &.is-error {
