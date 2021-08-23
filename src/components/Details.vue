@@ -131,7 +131,6 @@
       </div>
     </div>
     <div
-      ref="gallery"
       class="details__gallery"
     >
       <div class="container container_slider">
@@ -202,6 +201,8 @@
           watch-slides-visibility
           navigation
           :lazy="{ loadPrevNext: true, loadPrevNextAmount: 3 }"
+          loop
+          :looped-slides="2"
           class="details__gallery-slider"
           @swiper="setGallerySwiper"
           @slideChange="handleGalleryChange"
@@ -210,12 +211,12 @@
             v-if="!$_media.sm && info.video_customer.desktop"
             class="details__gallery-item"
             style="background: gray"
+            v-slot="{ isVisible }"
           >
             <video
-              v-if="activeReview"
-              :class="{'is-active': activeReview}"
+              v-if="activeReview && isVisible"
+              ref="videoreview"
               :src="$_basepath + info.video_customer.desktop"
-              autoplay
               controls
               controlsList="nodownload"
               playsinline
@@ -242,12 +243,12 @@
             v-if="!$_media.sm && info.video_test_drive"
             class="details__gallery-item"
             style="background: gray"
+            v-slot="{ isVisible }"
           >
             <video
-              v-if="activeDrive"
-              :class="{'is-active': activeDrive}"
+              v-if="activeDrive && isVisible"
+              ref="videodrive"
               :src="$_basepath + info.video_test_drive"
-              autoplay
               controls
               controlsList="nodownload"
               playsinline
@@ -414,9 +415,23 @@ export default {
 
     playReview() {
       this.activeReview = true
+
+      this.$refs.videodrive?.pause()
+      this.activeDrive = false
+
+      setTimeout(() => {
+        this.$refs.videoreview?.play()
+      }, 100)
     },
     playDrive() {
       this.activeDrive = true
+
+      this.$refs.videoreview?.pause()
+      this.activeReview = false
+
+      setTimeout(() => {
+        this.$refs.videodrive?.play()
+      }, 100)
     },
 
     setGallerySwiper(swiper) {
@@ -427,7 +442,11 @@ export default {
         this.activeGalleryIndex = this.gallerySwiper.realIndex + 1
       }
 
-      this.$refs.gallery.querySelectorAll('video.is-active').forEach((i) => i.pause())
+      this.$refs.videoreview?.pause()
+      this.$refs.videodrive?.pause()
+
+      this.activeReview = false
+      this.activeDrive = false
     },
 
     handleResize() {
