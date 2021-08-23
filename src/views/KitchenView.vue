@@ -1,9 +1,6 @@
 <template>
   <div class="v-kitchen">
-    <Details
-      v-if="details"
-      :info="details.info"
-    />
+    <Details :info="details?.info" />
     <Constructor />
     <Equipment />
     <Design />
