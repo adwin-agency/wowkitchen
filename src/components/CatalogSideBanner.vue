@@ -8,7 +8,7 @@
             name="done"
             class="catalog-side-banner__feature-icon"
           />
-          Безопасно
+          Точно
         </p>
         <p class="catalog-side-banner__feature">
           <AppIcon
@@ -26,7 +26,7 @@
         </p>
       </div>
     </div>
-    <img src="@/assets/img/catalog-side-banner.png" alt="Работник" class="catalog-side-banner__img">
+    <img src="@/assets/img/side-banner.png" alt class="catalog-side-banner__img">
   </div>
 </template>
 

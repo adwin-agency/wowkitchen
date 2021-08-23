@@ -67,7 +67,7 @@ export default {
   methods: {
     openModal() {
       this.$store.commit('setModal', 'video')
-      this.$store.commit('setModalData', { video: this.$_mobile ? this.cardData.video_customer.mobile : this.cardData.video_customer.desktop })
+      this.$store.commit('setModalData', { video: this.cardData.video_customer.desktop })
     }
   }
 }

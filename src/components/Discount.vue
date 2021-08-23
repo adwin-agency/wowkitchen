@@ -17,12 +17,12 @@
           <div class="discount__box">
             <h6 class="discount__mini-title discount__mini-title_bold">Бесплатные замер <br> и 3D-проект у вас дома</h6>
             <div class="discount__mini-pills-container">
-              <p class="discount__mini-pills">&#10004; Безопасно</p>
+              <p class="discount__mini-pills">&#10004; Точно</p>
               <p class="discount__mini-pills">&#10004; Быстро</p>
               <p class="discount__mini-pills">&#10004; Удобно</p>
             </div>
             <img
-              src="@/assets/img/discount/man_1920.png"
+              src="@/assets/img/side-banner.png"
               alt
               class="discount__mini-img"
             >
