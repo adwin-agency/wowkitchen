@@ -292,6 +292,18 @@ export default {
     &_scrollable {
       max-height: 126px;
       overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: $color-gray;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color:$color-lightviolet;
+      }
     }
   }
 

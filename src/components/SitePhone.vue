@@ -236,8 +236,8 @@ export default {
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 100% 0 0 0;
     background-color: $color-yellow;
     box-shadow: 0px 4px 44px rgba(0, 0, 0, 0.15);
@@ -259,10 +259,10 @@ export default {
 
     &-icon {
       position: absolute;
-      left: 40px;
-      top: 40px;
-      width: 36px;
-      height: 36px;
+      left: 30px;
+      top: 30px;
+      width: 30px;
+      height: 30px;
     }
   }
 
@@ -273,18 +273,17 @@ export default {
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
     overflow-y: auto;
   }
 
   &__form {
     position: relative;
-    margin-top: auto;
-    margin-left: auto;
+    margin: auto;
     width: 340px;
     max-width: 100%;
     border-top: 4px solid $color-pink;
-    padding: 30px;
+    padding: 60px 30px;
     background-color: #fff;
   }
 
@@ -376,7 +375,21 @@ export default {
   }
 
   @include media(md) {
+    &__open {
+      width: 100px;
+      height: 100px;
+
+      &-icon {
+        left: 40px;
+        top: 40px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+
     &__form {
+      margin-right: 0;
+      margin-bottom: 0;
       padding: 36px 40px 30px;
     }
   }
