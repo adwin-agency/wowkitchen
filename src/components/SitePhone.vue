@@ -222,6 +222,16 @@ export default {
     }
   }
 
+  @keyframes site-phone {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+
   &__open {
     position: absolute;
     right: 0;
@@ -230,17 +240,21 @@ export default {
     height: 100px;
     border-radius: 100% 0 0 0;
     background-color: $color-yellow;
+    box-shadow: 0px 4px 44px rgba(0, 0, 0, 0.15);
 
     &::before {
       content: '';
       position: absolute;
-      left: -16px;
-      top: -16px;
+      left: 0;
+      top: 0;
       right: 0;
       bottom: 0;
       border-top: 1px solid $color-yellow;
       border-left: 1px solid $color-yellow;
       border-radius: inherit;
+      transform-origin: right bottom;
+      animation: site-phone 1s infinite;
+      pointer-events: none;
     }
 
     &-icon {
