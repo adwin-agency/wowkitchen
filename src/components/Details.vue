@@ -1,146 +1,228 @@
 <template>
   <div class="details">
-    <template v-if="info">
-      <div class="details__top">
-        <div class="container">
-          <Swiper
-            :key="info.id"
-            :scrollbar="{ hide: false }"
-            loop
-            navigation
-            :lazy="{ loadPrevNext: true }"
-            class="details__slider"
-            @swiper="setMainSwiper"
-            @slideChange="handleMainSlideChange"
+    <div class="details__top">
+      <div class="container">
+        <Swiper
+          v-if="info"
+          :key="info.id"
+          :scrollbar="{ hide: false }"
+          loop
+          navigation
+          :lazy="{ loadPrevNext: true }"
+          class="details__slider"
+          @swiper="setMainSwiper"
+          @slideChange="handleMainSlideChange"
+        >
+          <SwiperSlide
+            v-for="(picture, index) in info.pictures"
+            :key="index"
+            class="details__slide"
           >
-            <SwiperSlide
-              v-for="(picture, index) in info.pictures"
-              :key="index"
-              class="details__slide"
+            <img
+              v-if="index === 0"
+              :src="$_basepath + ($_mobile ? picture.small.path : picture.large.path)"
+              alt
             >
-              <img
-                v-if="index === 0"
-                :src="$_basepath + ($_mobile ? picture.small.path : picture.large.path)"
-                alt
-              >
-              <img
-                v-else
-                :data-src="$_basepath + ($_mobile ? picture.small.path : picture.large.path)"
-                alt
-                class="swiper-lazy"
-              >
-            </SwiperSlide>
-            <div
-              v-if="info.video?.desktop"
-              class="details__video-btn"
+            <img
+              v-else
+              :data-src="$_basepath + ($_mobile ? picture.small.path : picture.large.path)"
+              alt
+              class="swiper-lazy"
             >
-              <AppVideoButton
-                title="Видеообзор проекта"
-                :video="$_mobile ? info.video.mobile || info.video.desktop : info.video.desktop"
-                size="large"
-              />
-            </div>
-            <AppIcon
-              name="wow-pattern"
-              class="details__pattern"
+          </SwiperSlide>
+          <div
+            v-if="info.video?.desktop"
+            class="details__video-btn"
+          >
+            <AppVideoButton
+              title="Видеообзор проекта"
+              :video="$_mobile ? info.video.mobile || info.video.desktop : info.video.desktop"
+              size="large"
             />
-          </Swiper>
+          </div>
+          <AppIcon
+            name="wow-pattern"
+            class="details__pattern"
+          />
+        </Swiper>
+        <div
+          v-else
+          class="details__slider"
+        >
+          <div class="details__slide"></div>
+        </div>
+        <div
+          v-if="!$_media.sm"
+          class="details__characteristics"
+        >
+          <p
+            v-for="(feature, name) in info?.features"
+            :key="name"
+            class="details__characteristic"
+          >
+            <span>{{feature.title}}</span>{{feature.title === 'Фасад' ? 'Egger' : feature.value}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="details__main">
+      <div class="container">
+        <div class="details__content">
           <div
             v-if="!$_media.sm"
-            class="details__characteristics"
+            class="details__info"
           >
-            <p
-              v-for="(feature, name) in info.features"
-              :key="name"
-              class="details__characteristic"
-            >
-              <span>{{feature.title}}</span>{{feature.title === 'Фасад' ? 'Egger' : feature.value}}
-            </p>
+            <h2 class="details__title">О кухне</h2>
+            <p class="details__desc">{{info?.description}}</p>
           </div>
-        </div>
-      </div>
-      <div class="details__main">
-        <div class="container">
-          <div class="details__content">
-            <div
-              v-if="!$_media.sm"
-              class="details__info"
-            >
-              <h2 class="details__title">О кухне</h2>
-              <p class="details__desc">{{info.description}}</p>
-            </div>
-            <DetailsCard
-              :info="info"
-              noPrice
-              :slides="info.pictures.length"
-              :currentSlide="activeMainIndex + 1"
-              class="details__card"
-            />
-            <div
-              v-if="$_media.sm"
-              class="details__items"
-            >
-              <div class="details__item">
-                <p
-                  class="details__expand"
-                  @click="onExpandClick('char')"
-                >
-                  Характеристики
-                  <AppIcon
-                    :name="activeExpand === 'char' ? 'minus' : 'plus'"
-                    class="details__expand-icon"
-                  />
-                </p>
-                <div
-                  ref="char"
-                  class="details__hidden"
-                >
-                  <div class="details__characteristics">
-                    <p
-                      v-for="(feature, index) in info.features"
-                      :key="index"
-                      class="details__characteristic"
-                    >
-                      <span>{{feature.title}}</span>{{feature.value}}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="details__item">
-                <p
-                  class="details__expand"
-                  @click="onExpandClick('info')"
-                >
-                  Описание
-                  <AppIcon
-                    :name="activeExpand === 'info' ? 'minus' : 'plus'"
-                    class="details__expand-icon"
-                  />
-                </p>
-                <div
-                  ref="info"
-                  class="details__hidden"
-                >
-                  <div class="details__info">
-                    <h2 class="details__title">О кухне</h2>
-                    <p class="details__desc">{{info.description}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="details__gallery">
-        <div class="container container_slider">
+          <DetailsCard
+            :info="info"
+            noPrice
+            :slides="info?.pictures.length"
+            :currentSlide="activeMainIndex + 1"
+            class="details__card"
+          />
           <div
-            v-if="$_media.sm && info.video_customer.desktop"
-            class="details__gallery-video"
+            v-if="$_media.sm"
+            class="details__items"
+          >
+            <div class="details__item">
+              <p
+                class="details__expand"
+                @click="onExpandClick('char')"
+              >
+                Характеристики
+                <AppIcon
+                  :name="activeExpand === 'char' ? 'minus' : 'plus'"
+                  class="details__expand-icon"
+                />
+              </p>
+              <div
+                ref="char"
+                class="details__hidden"
+              >
+                <div class="details__characteristics">
+                  <p
+                    v-for="(feature, index) in info?.features"
+                    :key="index"
+                    class="details__characteristic"
+                  >
+                    <span>{{feature.title}}</span>{{feature.value}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="details__item">
+              <p
+                class="details__expand"
+                @click="onExpandClick('info')"
+              >
+                Описание
+                <AppIcon
+                  :name="activeExpand === 'info' ? 'minus' : 'plus'"
+                  class="details__expand-icon"
+                />
+              </p>
+              <div
+                ref="info"
+                class="details__hidden"
+              >
+                <div class="details__info">
+                  <h2 class="details__title">О кухне</h2>
+                  <p class="details__desc">{{info?.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="details__gallery">
+      <div class="container container_slider">
+        <div
+          v-if="$_media.sm && info?.video_customer.desktop"
+          class="details__gallery-video"
+        >
+          <video
+            v-if="activeReview"
+            :src="$_basepath + info.video_customer.desktop"
+            autoplay
+            controls
+            controlsList="nodownload"
+            playsinline
+          ></video>
+          <video
+            v-else
+            :src="$_basepath + info.video_prewiew_rewiew"
+            autoplay
+            loop
+            muted
+            playsinline
+          ></video>
+          <button
+            v-if="!activeReview"
+            type="button"
+            class="details__gallery-play"
+            @click="playReview"
+          >
+            <AppIcon name="play" />
+            <span>Видеоотзыв клиента</span>
+          </button>
+        </div>
+        <div
+          v-if="$_media.sm && info?.video_test_drive"
+          class="details__gallery-video"
+        >
+          <video
+            v-if="activeDrive"
+            :src="$_basepath + info.video_test_drive"
+            autoplay
+            controls
+            controlsList="nodownload"
+            playsinline
+          ></video>
+          <video
+            v-else
+            :src="$_basepath + info.video_prewiew_test_drive"
+            autoplay
+            loop
+            muted
+            playsinline
+          ></video>
+          <button
+            v-if="!activeDrive"
+            type="button"
+            class="details__gallery-play"
+            @click="playDrive"
+          >
+            <AppIcon name="play" />
+            <span>Кулинарный тест-драйв</span>
+          </button>
+        </div>
+        <Swiper
+          v-if="info"
+          :key="info.id + 1"
+          :slides-per-view="$_media.sm ? 'auto' : 1"
+          :space-between="$_media.sm ? 10 : $_media.md ? 30 : 50"
+          watch-slides-visibility
+          navigation
+          :lazy="{ loadPrevNext: true, loadPrevNextAmount: 3 }"
+          loop
+          :looped-slides="2"
+          class="details__gallery-slider"
+          @swiper="setGallerySwiper"
+          @slideChange="handleGalleryChange"
+        >
+          <SwiperSlide
+            v-if="!$_media.sm && info.video_customer.desktop"
+            class="details__gallery-item"
+            style="background: gray"
+            v-slot="{ isVisible }"
           >
             <video
-              v-if="activeReview"
+              v-if="activeReview && isVisible"
+              ref="videoreview"
               :src="$_basepath + info.video_customer.desktop"
-              autoplay
               controls
               controlsList="nodownload"
               playsinline
@@ -162,15 +244,17 @@
               <AppIcon name="play" />
               <span>Видеоотзыв клиента</span>
             </button>
-          </div>
-          <div
-            v-if="$_media.sm && info.video_test_drive"
-            class="details__gallery-video"
+          </SwiperSlide>
+          <SwiperSlide
+            v-if="!$_media.sm && info.video_test_drive"
+            class="details__gallery-item"
+            style="background: gray"
+            v-slot="{ isVisible }"
           >
             <video
-              v-if="activeDrive"
+              v-if="activeDrive && isVisible"
+              ref="videodrive"
               :src="$_basepath + info.video_test_drive"
-              autoplay
               controls
               controlsList="nodownload"
               playsinline
@@ -192,179 +276,58 @@
               <AppIcon name="play" />
               <span>Кулинарный тест-драйв</span>
             </button>
-          </div>
-          <Swiper
-            :key="info.id"
-            :slides-per-view="$_media.sm ? 'auto' : 1"
-            :space-between="$_media.sm ? 10 : $_media.md ? 30 : 50"
-            watch-slides-visibility
-            navigation
-            :lazy="{ loadPrevNext: true, loadPrevNextAmount: 3 }"
-            loop
-            :looped-slides="2"
-            class="details__gallery-slider"
-            @swiper="setGallerySwiper"
-            @slideChange="handleGalleryChange"
+          </SwiperSlide>
+          <SwiperSlide
+            v-for="(picture, index) in info.second_pictures"
+            :key="index"
+            class="details__gallery-item"
           >
-            <SwiperSlide
-              v-if="!$_media.sm && info.video_customer.desktop"
-              class="details__gallery-item"
-              style="background: gray"
-              v-slot="{ isVisible }"
+            <img
+              v-if="index === 0"
+              :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
+              alt
             >
-              <video
-                v-if="activeReview && isVisible"
-                ref="videoreview"
-                :src="$_basepath + info.video_customer.desktop"
-                controls
-                controlsList="nodownload"
-                playsinline
-              ></video>
-              <video
-                v-else
-                :src="$_basepath + info.video_prewiew_rewiew"
-                autoplay
-                loop
-                muted
-                playsinline
-              ></video>
-              <button
-                v-if="!activeReview"
-                type="button"
-                class="details__gallery-play"
-                @click="playReview"
-              >
-                <AppIcon name="play" />
-                <span>Видеоотзыв клиента</span>
-              </button>
-            </SwiperSlide>
-            <SwiperSlide
-              v-if="!$_media.sm && info.video_test_drive"
-              class="details__gallery-item"
-              style="background: gray"
-              v-slot="{ isVisible }"
+            <img
+              v-else
+              :data-src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
+              alt
+              class="swiper-lazy"
             >
-              <video
-                v-if="activeDrive && isVisible"
-                ref="videodrive"
-                :src="$_basepath + info.video_test_drive"
-                controls
-                controlsList="nodownload"
-                playsinline
-              ></video>
-              <video
-                v-else
-                :src="$_basepath + info.video_prewiew_test_drive"
-                autoplay
-                loop
-                muted
-                playsinline
-              ></video>
-              <button
-                v-if="!activeDrive"
-                type="button"
-                class="details__gallery-play"
-                @click="playDrive"
-              >
-                <AppIcon name="play" />
-                <span>Кулинарный тест-драйв</span>
-              </button>
-            </SwiperSlide>
-            <SwiperSlide
-              v-for="(picture, index) in info.second_pictures"
-              :key="index"
-              class="details__gallery-item"
-            >
-              <img
-                v-if="index === 0"
-                :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
-                alt
-              >
-              <img
-                v-else
-                :data-src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
-                alt
-                class="swiper-lazy"
-              >
-              <div
-                v-if="!$_media.sm"
-                class="details__gallery-info"
-              >
-                <div class="details__gallery-info-badge">
-                  <AppIcon
-                    name="info"
-                    class="details__gallery-info-icon"
-                  />
-                </div>
-                <p class="details__gallery-desc">{{picture.caption}}</p>
-              </div>
-            </SwiperSlide>
-          </Swiper>
-          <div
-            v-if="$_media.sm"
-            class="details__gallery-info"
-          >
-            <p
-              v-for="n in info.second_pictures.length"
-              :key="n"
-              class="details__gallery-desc"
-              :class="{'is-active': activeGalleryIndex === n}"
-            >
-              {{info.second_pictures[n - 1].caption}}
-            </p>
-          </div>
-        </div>
-      </div>
-    </template>
-    <template v-else>
-      <div class="details__top">
-        <div class="container">
-          <div class="details__slider">
-            <div class="details__slide"></div>
-          </div>
-          <div
-            v-if="!$_media.sm"
-            class="details__characteristics"
-          >
-            <p class="details__characteristic"></p>
-          </div>
-        </div>
-      </div>
-      <div class="details__main">
-        <div class="container">
-          <div class="details__content">
             <div
               v-if="!$_media.sm"
-              class="details__info"
+              class="details__gallery-info"
             >
-              <h2 class="details__title"></h2>
-              <p class="details__desc"></p>
-            </div>
-            <div
-              v-if="$_media.sm"
-              class="details__items"
-            >
-              <div class="details__item">
-                <p class="details__expand"></p>
+              <div class="details__gallery-info-badge">
+                <AppIcon
+                  name="info"
+                  class="details__gallery-info-icon"
+                />
               </div>
+              <p class="details__gallery-desc">{{picture.caption}}</p>
             </div>
-          </div>
+          </SwiperSlide>
+        </Swiper>
+        <div
+          v-else
+          class="details__gallery-slider"
+        >
+          <div class="details__gallery-item"></div>
         </div>
-      </div>
-      <div class="details__gallery">
-        <div class="container container_slider">
-          <div class="details__gallery-slider">
-            <div class="details__gallery-item"></div>
-          </div>
-          <div
-            v-if="$_media.sm"
-            class="details__gallery-info"
+        <div
+          v-if="$_media.sm"
+          class="details__gallery-info"
+        >
+          <p
+            v-for="n in info?.second_pictures.length"
+            :key="n"
+            class="details__gallery-desc"
+            :class="{'is-active': activeGalleryIndex === n}"
           >
-            <p class="details__gallery-desc"></p>
-          </div>
+            {{info.second_pictures[n - 1].caption}}
+          </p>
         </div>
       </div>
-    </template>
+    </div>
     <div class="details__features">
       <div class="container">
         <div class="details__features-list">

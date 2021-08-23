@@ -4,7 +4,7 @@
       <span class="details-card__count">{{currentSlide}} из {{slides}}</span>
       <p class="details-card__type">Кухня</p>
       <p class="details-card__title">
-        {{info.name}}
+        {{info?.name}}
         <button
           v-if="$_media.sm"
           type="button"
@@ -53,7 +53,7 @@
         />
         <AppShare
           v-if="$_media.sm"
-          :shareTitle="info.name"
+          :shareTitle="info?.name"
           :shareUrl="$route.path"
           class="details-card__share"
         />
@@ -77,7 +77,7 @@
       </button>
       <AppShare
         titled
-        :shareTitle="info.name"
+        :shareTitle="info?.name"
         :shareUrl="$route.path"
         class="details-card__share"
       />
@@ -113,6 +113,10 @@ export default {
   },
   methods: {
     handleBtnClick() {
+      if (!this.info) {
+        return
+      }
+      
       const { name, id } = this.info
       this.$store.commit('setProductData', { name, id })
     }

@@ -1,9 +1,6 @@
 <template>
   <div class="v-technic">
-    <TechnicDetails
-      v-if="details"
-      :info="details.info"
-    />
+    <TechnicDetails :info="details?.info" />
     <OtherProducts
       v-if="details"
       heading="Отлично подойдёт для этих кухонь"

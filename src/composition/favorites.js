@@ -3,9 +3,13 @@ import { useStore } from 'vuex'
 
 export default function useFavorites(props) {
   const store = useStore()
-  const isFavorite = computed(() => store.state.favoriteItems.find(i => i.id === props.info.id))
+  const isFavorite = computed(() => store.state.favoriteItems.find(i => i.id === props.info?.id))
 
   function toggleFavorite(data) {
+    if (!data) {
+      return
+    }
+    
     const item = {
       id: data.id,
       image: data.pictures[0].small.path,

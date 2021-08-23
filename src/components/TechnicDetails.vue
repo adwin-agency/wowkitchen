@@ -12,8 +12,7 @@
         <div class="technic-details__gallery">
           <div class="technic-details__thumbs">
             <Swiper
-              v-if="info.pictures"
-              :key="info.id"
+              v-if="info"
               direction="vertical"
               :slides-per-view="4"
               :space-between="8"
@@ -39,10 +38,15 @@
                 /> -->
               </SwiperSlide>
             </Swiper>
-          </div>          
+            <div
+              v-else
+              class="technic-details__thumbs-slider"
+            >
+              <div class="technic-details__thumbs-slide"></div>
+            </div>
+          </div>
           <Swiper
-            v-if="info.pictures"
-            :key="info.id"
+            v-if="info"
             navigation
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
@@ -58,16 +62,22 @@
               <img
                 :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
                 alt
-              >         
+              >
             </SwiperSlide>
             <span
-              v-if="!$_media.sm && info.discount"
+              v-if="!$_media.sm && info?.discount"
               class="technic-details__discount"
             >
               %
             </span>
           </Swiper>
-        </div>        
+          <div
+            v-else
+            class="technic-details__slider"
+          >
+            <div class="technic-details__slide"></div>
+          </div>
+        </div>
         <div class="technic-details__main">
           <router-link
             v-if="!$_media.sm"
@@ -76,17 +86,17 @@
           >
             Вернуться в каталог
           </router-link>
-          <h1 class="technic-details__title">{{info.name}}</h1>
+          <h1 class="technic-details__title">{{info?.name}}</h1>
           <div class="technic-details__cost">
             <div class="technic-details__prices">
-              <p class="technic-details__price">{{info.price}} ₽</p>
+              <p class="technic-details__price">{{info?.price}} ₽</p>
               <p
-                v-if="info.old_price"
+                v-if="info?.old_price"
                 class="technic-details__old-price"
               >{{info.old_price}} ₽</p>
             </div>
             <span
-              v-if="$_media.sm && info.discount"
+              v-if="$_media.sm && info?.discount"
               class="technic-details__discount"
             >
               %
@@ -108,7 +118,7 @@
             class="technic-details__props"
           >
             <p
-              v-for="(feature, index) in info.features"
+              v-for="(feature, index) in info?.features"
               :key="index"
               class="technic-details__prop"
             >
@@ -142,7 +152,7 @@
 
 <script>
 import SwiperCore, { Navigation, Scrollbar, Thumbs } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/vue' 
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import AppIcon from './base/AppIcon.vue'
 import AppButton from './base/AppButton.vue'
 import AppBookmark from './base/AppBookmark.vue'
@@ -177,7 +187,7 @@ export default {
         { image: 'technics-card-03.jpg' },
         { image: 'technics-card-04.jpg' },
         { image: 'technics-card-05.jpg' },
-        { image: 'technics-card-06.jpg' },
+        { image: 'technics-card-06.jpg' }
       ],
       props: [
         { title: 'Габариты', desc: '60 x 51' },
@@ -186,7 +196,7 @@ export default {
         { title: 'Конфорки', desc: '4' },
         { title: 'Материал', desc: 'Закалённое стекло' },
         { title: 'Цвет', desc: 'Черный' },
-        { title: 'Особенности', desc: 'Газ-контроль, автоматический электроподжиг' },
+        { title: 'Особенности', desc: 'Газ-контроль, автоматический электроподжиг' }
       ],
 
       thumbsSwiper: null,
@@ -196,7 +206,7 @@ export default {
   },
   methods: {
     setThumbsSwiper(swiper) {
-      this.thumbsSwiper = swiper;
+      this.thumbsSwiper = swiper
     },
 
     toggleInfo(ref) {
@@ -204,7 +214,7 @@ export default {
       const opening = this.activeInfo !== ref ? this.$refs[ref] : null
 
       clearTimeout(this.infoTimeout)
-      
+
       if (closing) {
         closing.style.height = `${closing.scrollHeight}px`
 
@@ -225,6 +235,10 @@ export default {
     },
 
     handleBtnClick() {
+      if (!this.info) {
+        return
+      }
+      
       const { name, id } = this.info
       this.$store.commit('setProductData', { name, id, product: 'technic' })
     }
@@ -352,7 +366,7 @@ export default {
 
   &__props {
     height: 0;
-    transition: height .3s ease;
+    transition: height 0.3s ease;
     overflow: hidden;
   }
 
@@ -391,7 +405,7 @@ export default {
     font-weight: 500;
     font-size: 12px;
     color: $color-lightviolet;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
 
     &:hover {
       opacity: 0.7;
@@ -433,14 +447,14 @@ export default {
       padding: 8px;
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         border: 5px solid transparent;
-        transition: border-color .3s ease;
+        transition: border-color 0.3s ease;
       }
 
       img {
@@ -595,7 +609,7 @@ export default {
     }
   }
 
-  @include media(xl) {    
+  @include media(xl) {
     &__inner {
       margin: 0 80px;
     }

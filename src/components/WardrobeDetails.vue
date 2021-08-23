@@ -5,7 +5,7 @@
         <div class="wardrobe-details__gallery">
           <div class="wardrobe-details__thumbs">
             <Swiper
-              v-if="info.pictures"
+              v-if="info"
               direction="vertical"
               :slides-per-view="$_media.md ? 3 : $_media.lg ? 4 : 5"
               :space-between="$_media.md ? 5 : 8"
@@ -31,13 +31,19 @@
                 /> -->
               </SwiperSlide>
             </Swiper>
+            <div
+              v-else
+              class="wardrobe-details__thumbs-slider"
+            >
+              <div class="wardrobe-details__thumbs-slide"></div>
+            </div>
             <AppIcon
               name="long-arrow"
               class="wardrobe-details__thumbs-arrow"
             />
           </div>
           <Swiper
-            v-if="info.pictures"
+            v-if="info"
             navigation
             scrollbar
             :thumbs="{ swiper: thumbsSwiper }"
@@ -56,6 +62,7 @@
                 alt
               >
               <button
+                v-if="!$_media.sm"
                 type="button"
                 class="wardrobe-details__zoom-btn"
                 @click="openModalImages(index)"
@@ -83,9 +90,15 @@
               />
             </button> -->
           </Swiper>
+          <div
+            v-else
+            class="wardrobe-details__slider"
+          >
+            <div class="wardrobe-details__slide"></div>
+          </div>
         </div>
         <div class="wardrobe-details__main">
-          <h1 class="wardrobe-details__title">{{info.name}}</h1>
+          <h1 class="wardrobe-details__title">{{info?.name}}</h1>
           <!-- <div class="wardrobe-details__cost">
             <div class="wardrobe-details__prices">
               <p class="wardrobe-details__price">{{info.price}} ₽</p>
@@ -114,7 +127,7 @@
             ref="desc"
             class="wardrobe-details__desc"
           >
-            <p>{{info.description}}</p>
+            <p>{{info?.description}}</p>
           </div>
           <p
             v-if="$_media.sm"
@@ -132,7 +145,7 @@
             class="wardrobe-details__props"
           >
             <p
-              v-for="(feature, name) in info.features"
+              v-for="(feature, name) in info?.features"
               :key="name"
               class="wardrobe-details__prop"
             >
@@ -242,11 +255,19 @@ export default {
     },
 
     handleBtnClick() {
+      if (!this.info) {
+        return
+      }
+      
       const { name, id } = this.info
       this.$store.commit('setProductData', { name, id, product: 'wardrobe' })
     },
 
     openModalImages(index) {
+      if (!this.info) {
+        return
+      }
+
       this.$store.commit('setModal', 'images')
       this.$store.commit('setModalData', { images: this.info.pictures, index: index })
     }

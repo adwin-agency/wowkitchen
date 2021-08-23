@@ -1,9 +1,6 @@
 <template>
   <div class="v-wardrobe">
-    <WardrobeDetails
-      v-if="details"
-      :info="details.info"
-    />
+    <WardrobeDetails :info="details?.info" />
     <WardrobeParts />
     <WardrobeMaterials />
     <WardrobeFeatures />
