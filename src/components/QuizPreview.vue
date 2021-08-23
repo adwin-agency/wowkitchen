@@ -10,7 +10,7 @@
     <div class="container">
       <div class="quiz-preview__inner">
         <h2 class="quiz-preview__heading">{{preview[type].title}}</h2>
-        <p class="quiz-preview__desc">Пройтиде тест из 4 вопросов и получите бесплатный <span>онлайн-рассчёт</span> проекта и{{'\xa0'}}дополнительную скидку 5%</p>
+        <p class="quiz-preview__desc">Пройдите простой тест из 3 вопросов и получите бесплатный онлайн-расчёт проекта, а так же закрепите за собой самые выгодные условия на гарнитур!</p>
         <router-link
           :to="{name: 'quiz'}"
           custom
@@ -52,8 +52,8 @@ import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 
 const preview = {
-  kitchens: { title: 'Подберите кухню своей мечты за пару минут!', btn: 'Подобрать кухню' },
-  wardrobes: { title: 'Подберите шкаф своей мечты за пару минут!', btn: 'Подобрать шкаф' }
+  kitchens: { title: 'Узнайте цену онлайн', btn: 'Перейти' },
+  wardrobes: { title: 'Узнайте цену онлайн', btn: 'Перейти' }
 }
 
 export default {

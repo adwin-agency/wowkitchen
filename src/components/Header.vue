@@ -53,7 +53,7 @@
                 <router-link :to="{name: 'quiz'}">Расчет онлайн</router-link>
               </span>
               <span class="header__nav-item">
-                <router-link :to="{name: 'blog'}">Советы и идеи</router-link>
+                <router-link :to="{name: 'reviews'}">Отзывы</router-link>
               </span>
             </nav>
             <AppButton
@@ -184,10 +184,10 @@
               Расчет онлайн
             </router-link>
             <router-link
-              :to="{name: 'blog'}"
+              :to="{name: 'reviews'}"
               class="header__nav-item"
             >
-              Советы и идеи
+              Отзывы
             </router-link>
           </nav>
 

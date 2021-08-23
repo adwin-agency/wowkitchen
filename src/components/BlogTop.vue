@@ -2,7 +2,7 @@
   <div class="blog-top">
     <div class="blog-top__header">
       <div class="container">
-        <h1 class="blog-top__heading">Советы и идеи</h1>
+        <h1 class="blog-top__heading">Блог</h1>
       </div>
     </div>
     <div class="blog-top__bar">

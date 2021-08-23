@@ -71,7 +71,7 @@
           </router-link>
         </div>
         <div class="nav-menu__side-col">
-          <p class="nav-menu__title">Советы и идеи</p>
+          <p class="nav-menu__title">Блог</p>
           <ArticleCard
             v-if="article"
             :cardData="article"

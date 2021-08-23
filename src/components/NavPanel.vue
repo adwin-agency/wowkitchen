@@ -137,7 +137,7 @@ const menu = [
   { route: 'delivery', title: 'Доставка' },
   { route: 'installing', title: 'Сборка' },
   { route: 'discount', title: 'Акции' },
-  { route: 'reviews', title: 'Отзывы' },
+  { route: 'blog', title: 'Блог' },
   { route: 'contacts', title: 'Контакты' }
 ]
 
