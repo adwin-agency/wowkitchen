@@ -689,6 +689,8 @@ export default {
     }
 
     &__slider {
+      width: calc(100vw - 100px);
+
       .swiper-button-prev {
         left: 20px;
       }

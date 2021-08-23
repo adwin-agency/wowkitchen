@@ -55,6 +55,16 @@
                 :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
                 alt
               >
+              <button
+                type="button"
+                class="wardrobe-details__zoom-btn"
+                @click="openModalImages(index)"
+              >
+                <AppIcon
+                  name="zoom"
+                  class="wardrobe-details__zoom-icon"
+                />
+              </button>
               <!-- <template v-if="slide.video">
                 <video
                   src=""
@@ -234,6 +244,11 @@ export default {
     handleBtnClick() {
       const { name, id } = this.info
       this.$store.commit('setProductData', { name, id, product: 'wardrobe' })
+    },
+
+    openModalImages(index) {
+      this.$store.commit('setModal', 'images')
+      this.$store.commit('setModalData', { images: this.info.pictures, index: index })
     }
   }
 }
@@ -241,6 +256,8 @@ export default {
 
 <style lang="scss">
 .wardrobe-details {
+  $b: &;
+
   &__thumbs {
     display: none;
   }
@@ -517,6 +534,36 @@ export default {
 
     &__slide {
       height: 376px;
+      padding-top: 0;
+
+      &:hover {
+        #{$b}__zoom-btn {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+    }
+
+    &__zoom-btn {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: rgba(#fff, 0.5);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+
+    &__zoom-icon {
+      margin: 1px 0 0 2px;
+      width: 100%;
+      height: 100%;
     }
 
     &__main {

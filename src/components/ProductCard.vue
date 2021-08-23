@@ -229,7 +229,6 @@ export default {
     },
 
     openModalImages(index) {
-      console.log(index)
       this.$store.commit('setModal', 'images')
       this.$store.commit('setModalData', { images: this.info.pictures, index: index })
     },
