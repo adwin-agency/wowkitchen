@@ -359,10 +359,10 @@ const planOptions = [
 ]
 
 const styleOptions = [
-  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Минимализм' },
-  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Неоклассика' },
-  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Лофт' },
-  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Скандинавский' }
+  { image: { name: 'minimal.jpg', alt: 'Минимализм' }, title: 'Минимализм' },
+  { image: { name: 'neoclassic.jpg', alt: 'Неоклассика' }, title: 'Неоклассика' },
+  { image: { name: 'loft.jpg', alt: 'Лофт' }, title: 'Лофт' },
+  { image: { name: 'scandy.jpg', alt: 'Скандинавский' }, title: 'Скандинавский' }
 ]
 
 // const addOptions = [

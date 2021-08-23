@@ -6,7 +6,7 @@
       <p class="details-card__title">
         {{info.name}}
         <button
-          v-if="$_mobile"
+          v-if="$_media.sm"
           type="button"
           class="details-card__favorite"
           @click="toggleFavorite(info)"
@@ -52,7 +52,7 @@
           @click="handleBtnClick"
         />
         <AppShare
-          v-if="$_mobile"
+          v-if="$_media.sm"
           :shareTitle="info.name"
           :shareUrl="$route.path"
           class="details-card__share"
@@ -61,7 +61,7 @@
       <p class="details-card__note">Обе эти услуги совершенно <span>бесплатны!</span></p>
     </div>
     <div
-      v-if="!$_mobile"
+      v-if="!$_media.sm"
       class="details-card__actions"
     >
       <button
@@ -124,7 +124,6 @@ export default {
 .details-card {
   &__box {
     position: relative;
-    overflow: hidden;
   }
 
   &__count {
