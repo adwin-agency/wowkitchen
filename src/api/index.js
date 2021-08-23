@@ -67,8 +67,13 @@ const api = {
       }
     }
 
-    const formType = formData.get('type')
+    let formType = formData.get('type')
     const url = formType === 'payment' ? '/include/kassa.yandex/payment.php' : '/send.php'
+    const product = form.getAttribute('data-product')
+
+    if (product && product !== 'kitchen') {
+      formType += '_' + product
+    }
 
     const response = await fetch(sendPath + url, {
       method: 'POST',

@@ -13,6 +13,7 @@
         <form
           v-if="modal === 'designer'"
           class="modal__form"
+          :data-product="productData?.product"
           @submit="handleSubmit"
         >
           <input
@@ -105,6 +106,7 @@
         <form
           v-if="modal === 'calc' || modal === 'favorite'"
           class="modal__form"
+          :data-product="productData?.product"
           @submit="handleSubmit"
         >
           <input
@@ -378,11 +380,17 @@ export default {
   watch: {
     modal(newModal) {
       if (newModal === 'designer' || newModal === 'calc' || newModal === 'favorite') {
+        let product = '';
+
+        if (this.productData?.product && this.productData.product !== 'kitchen') {
+          product += '_' + this.productData.product
+        }
+
         window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
         window.VK && window.VK.Goal('initiate_checkout')
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({ event: 'open_form' })
-        window.dataLayer.push({ event: 'open_' + newModal })
+        window.dataLayer.push({ event: 'open_' + newModal + product })
       }
 
       if (newModal) {
