@@ -190,6 +190,7 @@ export default {
     },
 
     closeSitePhone() {
+      this.exactTime = false
       this.$store.commit('setActiveSitePhone', false)
     },
 
