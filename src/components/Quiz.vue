@@ -421,13 +421,13 @@ export default {
     },
 
     price() {
-      const coef = 15
-      const additionPrice = 5000
-      const priceDiff = 15000
+      const minCoef = 17
+      const maxCoef = 22
+      const additionPrice = 10000
 
       const sizeSum = this.values.sizes.reduce((sum, current) => sum + +current, 0)
-      const min = sizeSum * 10 * coef + this.values.construct.length * additionPrice
-      const max = min + priceDiff
+      const min = sizeSum * 10 * minCoef + this.values.construct.length * additionPrice
+      const max = sizeSum * 10 * maxCoef + this.values.construct.length * additionPrice
 
       return min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽ - ' + max.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
     }
