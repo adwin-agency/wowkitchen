@@ -10,7 +10,7 @@ const api = {
     return responseJson
   },
 
-  async loadCards(route, page) {
+  async loadCards(route) {
     const fileNames = {
       kitchens: 'kitchens',
       wardrobes: 'closets',
@@ -23,10 +23,6 @@ const api = {
 
     for (let key in route.query) {
       search.push(`${key}=${route.query[key]}`)
-    }
-
-    if (page) {
-      search.push(`page=${page}`)
     }
 
     search = search.join('&')

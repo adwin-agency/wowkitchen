@@ -1,39 +1,37 @@
 <template>
   <div class="pagination">
-    <button
+    <router-link
+      :to="{query: {...$route.query, page: currentPage - 1}}"
       class="pagination__prev"
       :class="{'is-disabled': currentPage === 1}"
-      type="button"
-      @click="$emit('change-page', currentPage - 1)"
     >
       <AppIcon
         name="arrow"
         class="pagination__icon"
       />
       Назад
-    </button>
-    <button
+    </router-link>
+    <router-link
       v-for="n in pages"
       :key="n"
+      :to="{query: {...$route.query, page: n}}"
+      active-class=""
       class="pagination__btn"
       :class="{'is-active': currentPage === n}"
-      type="button"
-      @click="$emit('change-page', n)"
     >
       {{n}}
-    </button>
-    <button
+    </router-link>
+    <router-link
+      :to="{query: {...$route.query, page: currentPage + 1}}"
       class="pagination__next"
       :class="{'is-disabled': currentPage === pages}"
-      type="button"
-      @click="$emit('change-page', currentPage + 1)"
     >
       Вперёд
       <AppIcon
         name="arrow"
         class="pagination__icon"
       />
-    </button>
+    </router-link>
   </div>
 </template>
 
@@ -48,8 +46,7 @@ export default {
   props: {
     pages: Number,
     currentPage: Number
-  },
-  emits: ['change-page']
+  }
 }
 </script>
 

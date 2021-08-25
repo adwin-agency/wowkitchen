@@ -150,7 +150,9 @@ export default {
       this.activeOptions = {}
 
       for (let key in query) {
-        this.activeOptions[key] = query[key]
+        if (key !== 'page') {
+          this.activeOptions[key] = query[key]
+        }
       }
 
       this.selectedOptions = { ...this.activeOptions }

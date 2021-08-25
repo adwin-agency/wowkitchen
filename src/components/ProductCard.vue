@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="info"
     :class="[
       'product-card',
       {'product-card_large': large},
@@ -166,6 +167,33 @@
       </div>
     </div>
   </div>
+  <div
+    v-else
+    :class="[
+      'product-card',
+      {'product-card_large': large},
+      {'product-card_slide': slide},
+      {[`product-card_${cardType}`]: cardType !== 'kitchen'},
+      'is-placeholder'
+    ]"
+  >
+    <div class="product-card__img-box"></div>
+    <div class="product-card__content">
+      <div class="product-card__header"></div>
+      <div
+        v-if="($_desktop && !large || large && noPrice || cardType === 'technic' || $_media.md && cardType === 'wardrobe')"
+        class="product-card__props"
+      ></div>
+      <div
+        v-if="!noPrice"
+        class="product-card__prices"
+      ></div>
+      <div
+        v-if="cardType !== 'technic'"
+        class="product-card__calc"
+      ></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -249,6 +277,53 @@ export default {
 .product-card {
   $b: &;
 
+  @keyframes loading-placeholder {
+    from {
+      transform: translateX(-70%);
+    }
+    to {
+      transform: translateX(70%);
+    }
+  }
+
+  &.is-placeholder {
+    pointer-events: none;
+    
+    #{$b} {
+      &__img-box,
+      &__header,
+      &__props,
+      &__prices,
+      &__calc {
+        position: relative;
+        border: none;
+        background-color: #ddd;
+        overflow: hidden;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(to right, transparent 30%, #fff 50%, transparent 70%);
+          animation: loading-placeholder 1s infinite;
+        }
+      }
+
+      &__header {
+        width: 100px;
+        height: 36px;
+      }
+
+      &__calc {
+        width: 180px;
+        height: 96px;
+      }
+    }
+  }
+
   &_slide {
     #{$b} {
       &__video-btn {
@@ -310,6 +385,18 @@ export default {
         padding-top: 16px;
       }
     }
+
+    &.is-placeholder {
+      #{$b} {
+        &__header {
+          height: 20px;
+        }
+
+        &__calc {
+          height: 56px;
+        }
+      }
+    }
   }
 
   &_technic {
@@ -351,6 +438,23 @@ export default {
       &__props {
         margin-top: 14px;
         padding-top: 10px;
+      }
+    }
+
+    &.is-placeholder {
+      #{$b} {
+        &__header {
+          height: 20px;
+        }
+
+        &__prices {
+          width: 90px;
+          height: 40px;
+        }
+
+        &__props {
+          height: 25px;
+        }
       }
     }
   }
@@ -555,6 +659,28 @@ export default {
   }
 
   @include media(md) {
+    &.is-disabled {
+      #{$b} {
+        &__video-btn {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        &__content {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+    }
+
+    &.is-placeholder {
+      #{$b} {
+        &__calc {
+          width: 215px;
+        }
+      }
+    }
+
     &_slide {
       transition: opacity 0.3s ease;
 
@@ -648,6 +774,19 @@ export default {
           }
         }
       }
+
+      &.is-placeholder {
+        #{$b} {
+          &__calc {
+            width: 162px;
+            height: 50px;
+          }
+
+          &__props {
+            height: 40px;
+          }
+        }
+      }
     }
 
     &_technic {
@@ -697,21 +836,7 @@ export default {
           min-width: 80px;
         }
       }
-    }
-
-    &.is-disabled {
-      #{$b} {
-        &__video-btn {
-          opacity: 0;
-          pointer-events: none;
-        }
-
-        &__content {
-          opacity: 0;
-          pointer-events: none;
-        }
-      }
-    }
+    }    
 
     &__img-box {
       padding-top: 0;
@@ -807,6 +932,15 @@ export default {
         &__zoom-btn {
           opacity: 1;
           pointer-events: all;
+        }
+      }
+    }
+
+    &.is-placeholder {
+      #{$b} {
+        &__props {
+          width: 200px;
+          height: 20px;
         }
       }
     }
@@ -908,6 +1042,19 @@ export default {
           width: 100%;
         }
       }
+
+      &.is-placeholder {
+        #{$b} {
+          &__header {
+            width: 100%;
+          }
+
+          &__calc {
+            width: 100%;
+            height: 85px;
+          }
+        }
+      }
     }
 
     &_slide {
@@ -955,6 +1102,15 @@ export default {
           }
         }
       }
+
+      &.is-placeholder {
+        #{$b} {
+          &__props {
+            width: 100%;
+            height: 40px;
+          }
+        }
+      }
     }
 
     &_technic {
@@ -986,6 +1142,15 @@ export default {
         #{$b} {
           &__img-box {
             box-shadow: none;
+          }
+        }
+      }
+
+      &.is-placeholder {
+        #{$b} {
+          &__props {
+            width: 100%;
+            height: 30px;
           }
         }
       }
@@ -1124,6 +1289,15 @@ export default {
 
         &__prop {
           min-width: 90px;
+        }
+      }
+
+      &.is-placeholder {
+        #{$b} {
+          &__calc {
+            width: 220px;
+            height: 60px;
+          }
         }
       }
     }

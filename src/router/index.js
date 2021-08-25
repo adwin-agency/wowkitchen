@@ -181,8 +181,10 @@ const router = createRouter({
   routes,
   linkActiveClass: 'is-active',
   linkExactActiveClass: '',
-  scrollBehavior() {
-    return { top: 0 }
+  scrollBehavior(to) {
+    if (!to.params.showMore) {
+      return { top: 0 }
+    }
   }
 })
 

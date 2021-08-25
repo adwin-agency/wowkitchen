@@ -10,11 +10,12 @@
       switcher
       :filterGroups="filterGroups"
       :cards="cards"
-      :showBtn="currentPage < pages"
+      :showBtn="isShowBtn && currentPage < pages"
+      :pagination="!isShowBtn && pages > 1"
       :pages="pages"
       :currentPage="currentPage"
+      :loading="loading"
       @show-more="showMore"
-      @change-page="changePage"
     />
     <Projects catalog />
     <QuizPreview type="kitchens" />
@@ -101,35 +102,33 @@ export default {
       filterGroups: filterGroups,
       cards: [],
       pages: 1,
-      currentPage: 1,
       articles: [],
       reviews: [],
-      isMobile: this.$_mobile
+      isMobile: this.$_mobile,
+      loading: false
+    }
+  },
+  computed: {
+    isShowBtn() {
+      return this.$_mobile
+    },
+    currentPage() {
+      return +this.$route.query.page || 1
     }
   },
   async created() {
-    this.setBreadCrumbs(this.$route)
-
-    const kitchensResponse = await api.loadCards(this.$route)
-    this.cards = kitchensResponse.goods
-    this.pages = kitchensResponse.pages
-
-    const articlesResponse = await api.loadCards({ name: 'blog' })
-    this.articles = articlesResponse.populars.slice(0, 3)
-
-    const reviewsResponse = await api.loadCards({ name: 'reviews' })
-    this.reviews = reviewsResponse.reviews.slice(0, 4)
+    this.$watch(
+      () => this.$route,
+      () => {
+        if (this.$route.name === 'kitchens') {
+          this.setBreadCrumbs(this.$route)
+          this.fetchData(this.$route)
+        }
+      },
+      { immediate: true }
+    )
 
     window.addEventListener('resize', this.handleResize)
-  },
-  async beforeRouteUpdate(to) {
-    this.setBreadCrumbs(to)
-    this.cards = null
-
-    const response = await api.loadCards(to)
-    this.cards = response.goods
-    this.pages = response.pages
-    this.currentPage = 1
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)
@@ -149,27 +148,61 @@ export default {
       this.$store.commit('setBreadCrumbs', crumbs)
     },
 
-    async showMore() {
-      this.currentPage++
-      const response = await api.loadCards(this.$route, this.currentPage)
-      this.cards = [...this.cards, ...response.goods]
+    async fetchData(route) {
+      this.loading = true
+
+      if (!this.articles.length) {
+        const articlesResponse = await api.loadCards({ name: 'blog' })
+        this.articles = articlesResponse.populars.slice(0, 3)
+      }
+
+      if (!this.reviews.length) {
+        const reviewsResponse = await api.loadCards({ name: 'reviews' })
+        this.reviews = reviewsResponse.reviews.slice(0, 4)
+      }
+
+      if (route.params.showMore) {
+        const response = await api.loadCards(route)
+        this.cards = [...this.cards, ...response.goods]
+        this.pages = response.pages
+        this.loading = false
+
+        return
+      }
+
+      if (this.isShowBtn) {
+        const response = await api.loadCards({...route, query: {...route.query, all: true}})
+        this.cards = response.goods
+        this.pages = response.pages
+        this.loading = false
+
+        if (this.currentPage > 1) {
+          this.$nextTick(() => {
+            const targetCard = document.querySelector(`.catalog__card:nth-child(${this.cards.length - response.last + 1})`)
+            const header = document.querySelector('.header')
+
+            if (targetCard) {
+              window.scrollTo(0, targetCard.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 20)
+            }
+          })
+        }
+
+        return
+      }
+
+      const response = await api.loadCards(route)
+      this.cards = response.goods
+      this.pages = response.pages
+      this.loading = false
     },
 
-    async changePage(num) {
-      window.scrollTo(0, 0)
-      this.currentPage = num
-      const response = await api.loadCards(this.$route, this.currentPage)
-      this.cards = response.goods
+    async showMore() {
+      this.$router.push({ params: { showMore: true }, query: { ...this.$route.query, page: this.currentPage + 1 } })
     },
 
     async handleResize() {
       if (this.isMobile !== this.$_mobile) {
-        window.scrollTo(0, 0)
-        this.isMobile = this.$_mobile
-        
-        this.currentPage = 1
-        const response = await api.loadCards(this.$route, this.currentPage)
-        this.cards = response.goods
+        this.fetchData(this.$route)
       }
     }
   }

@@ -98,18 +98,31 @@
           class="catalog__cards"
           :class="[{'catalog__cards_list': catalogType === 'list'}]"
         >
-          <ProductCard
-            v-for="(card, index) in cards"
-            :key="index"
-            :info="card"
-            :noPrice="cardType !== 'technic'"
-            :cardType="cardType"
-            :large="catalogType === 'list'"
-            class="catalog__card"
-          />
+          <template v-if="cards.length">
+            <ProductCard
+              v-for="(card, index) in cards"
+              :key="index"
+              :info="card"
+              :noPrice="cardType !== 'technic'"
+              :cardType="cardType"
+              :large="catalogType === 'list'"
+              :loading="loading"
+              class="catalog__card"
+              :class="{'is-loading': loading}"
+            />
+          </template>
+          <template v-else>
+            <ProductCard
+              v-for="n in placeholderCount"
+              :key="n + 'p'"
+              :noPrice="cardType !== 'technic'"
+              :cardType="cardType"
+              class="catalog__card"
+            />
+          </template>
         </div>
         <div
-          v-if="$_mobile && showBtn"
+          v-if="showBtn"
           class="catalog__footer"
         >
           <AppButton
@@ -121,11 +134,10 @@
           />
         </div>
         <Pagination
-          v-if="$_desktop && pages > 1"
+          v-if="pagination"
           :pages="pages"
           :currentPage="currentPage"
           class="catalog__pagination"
-          @change-page="$emit('change-page', $event)"
         />
       </div>
     </div>
@@ -161,8 +173,10 @@ export default {
     filterGroups: Array,
     cards: Array,
     showBtn: Boolean,
+    pagination: Boolean,
     pages: Number,
-    currentPage: Number
+    currentPage: Number,
+    loading: Boolean
   },
   emits: ['sort-change', 'show-more', 'change-page'],
   data() {
@@ -175,7 +189,24 @@ export default {
   },
   computed: {
     filtersLength() {
-      return Object.keys(this.$route.query).length
+      return Object.keys(this.$route.query).filter((i) => i !== 'page').length
+    },
+    placeholderCount() {
+      let count = 1
+
+      if (this.$_desktop && this.catalogType !== 'list') {
+        count = 2
+      }
+
+      if ((this.$_media.md && this.cardType === 'wardrobe') || this.cardType === 'technic') {
+        count = 2
+      }
+
+      if ((this.$_desktop && this.cardType === 'wardrobe') || this.cardType === 'technic') {
+        count = 3
+      }
+
+      return count
     }
   },
   watch: {
@@ -403,6 +434,12 @@ export default {
 
   &__card {
     margin-bottom: 45px;
+    transition: opacity .3s ease;
+
+    &.is-loading {
+      opacity: 0.5;
+      pointer-events: none;
+    }
   }
 
   &__footer {
