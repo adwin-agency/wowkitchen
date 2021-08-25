@@ -142,7 +142,7 @@ const tags = [
   { route: 'kitchens?style=scandinaviya', title: 'Скандинавский стиль', color: 'green' },
   { route: 'kitchens?category=s-barnoy-stoykoy', title: 'С барной стойкой', color: 'gray' },
   { route: 'kitchens?style=minimalizm', title: 'Стиль минимализм', color: 'green' },
-  { route: 'kitchens?style=sovremenniy', title: 'Современная классика', color: 'green' }
+  // { route: 'kitchens?style=sovremenniy', title: 'Современная классика', color: 'green' }
 ]
 
 export default {
