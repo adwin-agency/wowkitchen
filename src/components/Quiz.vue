@@ -397,7 +397,7 @@ export default {
       planOptions: planOptions,
       styleOptions: styleOptions,
       // addOptions: addOptions,
-      activeStep: 0,
+      activeStep: this.$route.params.start ? 1 : 0,
       sizeImage: 'size-I.png',
       values: {
         plan: '',
