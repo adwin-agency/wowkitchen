@@ -1,7 +1,7 @@
 <template>
   <div class="materials-partners">
     <div class="container container_side-fixed">
-      <p class="materials-partners__title">Надежные поставщики со всего мира – нашего друзья</p>
+      <p class="materials-partners__title">Надежные поставщики со всего мира – наши друзья</p>
       <p class="materials-partners__desc">Мы сотрудничаем только с проверенными и лучшими в своих направлениях поставщиками. Прямое взаимодействие с ними позволяет снизить стоимость наших гарнитуров (нет посредников – нет проблем), а также быть уверенными в отличном качество используемых материалов. </p>
       <div class="materials-partners__items">
         <img src="@/assets/img/logo-egger.svg" alt="Egger" class="materials-partners__img">
