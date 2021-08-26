@@ -437,6 +437,15 @@ export default {
       this.activeStep = 0
     }
   },
+  created() {
+    if (this.$route.params.start) {
+      window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
+      window.VK && window.VK.Goal('initiate_checkout')
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event: 'open_form' })
+      window.dataLayer.push({ event: 'open_quiz' })
+    }
+  },
   methods: {
     startQuiz() {
       window.scrollTo(0, 0)
