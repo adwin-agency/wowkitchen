@@ -10,12 +10,12 @@
       switcher
       :filterGroups="filterGroups"
       :cards="cards"
-      :showBtn="isShowBtn && currentPage < pages"
+      :showBtn="isShowBtn && currentPage > 2 && currentPage < pages"
       :pagination="!isShowBtn && pages > 1"
       :pages="pages"
       :currentPage="currentPage"
       :loading="loading"
-      @show-more="showMore"
+      @show-more="showMore(true)"
     />
     <Projects catalog />
     <QuizPreview type="kitchens" />
@@ -129,9 +129,11 @@ export default {
     )
 
     window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     setBreadCrumbs(route) {
@@ -162,6 +164,7 @@ export default {
       }
 
       if (route.params.showMore) {
+        console.log(111)
         const response = await api.loadCards(route)
         this.cards = [...this.cards, ...response.goods]
         this.pages = response.pages
@@ -171,7 +174,7 @@ export default {
       }
 
       if (this.isShowBtn) {
-        const response = await api.loadCards({...route, query: {...route.query, all: true}})
+        const response = await api.loadCards({ ...route, query: { ...route.query, all: true } })
         this.cards = response.goods
         this.pages = response.pages
         this.loading = false
@@ -196,18 +199,34 @@ export default {
       this.loading = false
     },
 
-    async showMore() {
-      window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
-      window.VK && window.VK.Goal('initiate_checkout')
-      window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({ event: 'show_more' })
+    async showMore(clicked) {
+      if (clicked) {
+        window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
+        window.VK && window.VK.Goal('initiate_checkout')
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({ event: 'show_more' })
+      }
 
       this.$router.push({ params: { showMore: true }, query: { ...this.$route.query, page: this.currentPage + 1 } })
     },
 
-    async handleResize() {
+    handleResize() {
       if (this.isMobile !== this.$_mobile) {
-        this.fetchData(this.$route)
+        this.$router.go()
+      }
+    },
+
+    handleScroll() {
+      if (!this.isShowBtn || this.currentPage > 2) {
+        return
+      }
+
+      const scrollY = window.scrollY
+      const catalog = document.querySelector('.catalog')
+      const targetY = catalog.getBoundingClientRect().bottom + scrollY - window.innerHeight
+
+      if (scrollY >= targetY) {
+        this.showMore()
       }
     }
   }

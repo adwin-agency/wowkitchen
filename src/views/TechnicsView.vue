@@ -15,6 +15,7 @@
       :pagination="!isShowBtn && pages > 1"
       :pages="pages"
       :currentPage="currentPage"
+      :loading="loading"
       @sort-change="sortChange"
       @show-more="showMore"
     />
@@ -163,9 +164,9 @@ export default {
       this.$router.push({ params: { showMore: true }, query: { ...this.$route.query, page: this.currentPage + 1 } })
     },
 
-    async handleResize() {
+    handleResize() {
       if (this.isMobile !== this.$_mobile) {
-        this.fetchData(this.$route)
+        this.$router.go()
       }
     }
   }

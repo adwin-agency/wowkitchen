@@ -111,7 +111,7 @@
               :class="{'is-loading': loading}"
             />
           </template>
-          <template v-else>
+          <template v-if="isPlaceholder">
             <ProductCard
               v-for="n in placeholderCount"
               :key="n + 'p'"
@@ -122,12 +122,12 @@
           </template>
         </div>
         <div
-          v-if="showBtn"
+          v-if="showBtn && !loading"
           class="catalog__footer"
         >
           <AppButton
             icon="plus"
-            color="lightv"
+            color="pink"
             title="Показать больше"
             class="catalog__show-btn"
             @click="$emit('show-more')"
@@ -190,6 +190,9 @@ export default {
   computed: {
     filtersLength() {
       return Object.keys(this.$route.query).filter((i) => i !== 'page').length
+    },
+    isPlaceholder() {
+      return !this.cards.length || (this.loading && this.$_mobile)
     },
     placeholderCount() {
       let count = 1
@@ -434,12 +437,6 @@ export default {
 
   &__card {
     margin-bottom: 45px;
-    transition: opacity .3s ease;
-
-    &.is-loading {
-      opacity: 0.5;
-      pointer-events: none;
-    }
   }
 
   &__footer {
@@ -647,6 +644,12 @@ export default {
     &__card {
       width: calc(50% - 20px);
       margin-bottom: 60px;
+      transition: opacity 0.3s ease;
+
+      &.is-loading {
+        opacity: 0.5;
+        pointer-events: none;
+      }
     }
   }
 

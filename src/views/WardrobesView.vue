@@ -188,9 +188,9 @@ export default {
       this.$router.push({ params: { showMore: true }, query: { ...this.$route.query, page: this.currentPage + 1 } })
     },
 
-    async handleResize() {
+    handleResize() {
       if (this.isMobile !== this.$_mobile) {
-        this.fetchData(this.$route)
+        this.$router.go()
       }
     }
   }
