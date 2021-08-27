@@ -217,7 +217,7 @@ export default {
     },
 
     handleScroll() {
-      if (!this.isShowBtn || this.currentPage > 2) {
+      if (!this.isShowBtn || this.currentPage > 2 || this.loading) {
         return
       }
 
