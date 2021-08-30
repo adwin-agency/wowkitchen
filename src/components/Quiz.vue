@@ -142,6 +142,7 @@
                         name="size[]"
                         :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
                         placeholder="Размер в см"
+                        inputmode="numeric"
                         class="quiz__field"
                         @input="handleSizeInput(index, $event)"
                       />

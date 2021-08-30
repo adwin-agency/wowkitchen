@@ -31,6 +31,7 @@
       :placeholder="Array.isArray(placeholder) ? placeholder[0] : placeholder"
       :name="Array.isArray(name) ? name[0] : name"
       :required="required"
+      :inputmode="inputmode"
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
@@ -47,6 +48,7 @@
       :placeholder="Array.isArray(placeholder) ? placeholder[1] : placeholder"
       :name="Array.isArray(name) ? name[1] : name"
       :required="required"
+      :inputmode="inputmode"
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
@@ -86,7 +88,8 @@ export default {
     labelSize: String,
     note: String,
     sideNote: String,
-    double: Boolean
+    double: Boolean,
+    inputmode: String
   },
   emits: [
     'input'
