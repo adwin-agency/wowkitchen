@@ -105,6 +105,7 @@
             </button>
             <AppCity
               arrow
+              :up="$_mobile"
               class="nav-panel__city-box"
               :class="{'is-active': cityDetection || activeCityBox}"
               @apply="applyCity"
@@ -157,7 +158,7 @@ export default {
   },
   computed: {
     cityDetection() {
-      return this.$store.state.cityDetection
+      return this.$store.state.cityDetection && this.$_desktop
     },
     cityName() {
       return this.$store.state.cities[this.$store.state.activeCity]?.name

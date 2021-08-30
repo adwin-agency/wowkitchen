@@ -233,6 +233,12 @@
               >{{favoritesLength}}</span>
             </button>
           </div>
+          <AppCity
+            v-if="cityDetection"
+            class="header__city-box"
+            :class="{'is-active': cityDetection}"
+            @apply="applyCity"
+          />
         </div>
       </div>
     </div>
@@ -298,6 +304,7 @@
 
 <script>
 import AppButton from './base/AppButton.vue'
+import AppCity from './base/AppCity.vue'
 import AppIcon from './base/AppIcon.vue'
 import Favorites from './Favorites.vue'
 import NavMenu from './NavMenu.vue'
@@ -360,6 +367,7 @@ export default {
   name: 'AppHeader',
   components: {
     AppIcon,
+    AppCity,
     NavMenu,
     NavPanel,
     Favorites,
@@ -391,6 +399,9 @@ export default {
     activePhone() {
       const hours = new Date().getHours()
       return hours >= 10 && hours < 22
+    },
+    cityDetection() {
+      return this.$store.state.cityDetection && this.$_mobile
     }
   },
   watch: {
@@ -567,6 +578,7 @@ export default {
   &__row {
     display: flex;
     align-items: center;
+    position: relative;
   }
 
   &__menu-btn {
@@ -723,6 +735,13 @@ export default {
     &.is-active {
       transform: translateX(-100%);
     }
+  }
+
+  &__city-box {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 20px;
   }
 
   @include media(md) {

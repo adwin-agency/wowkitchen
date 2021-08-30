@@ -13,7 +13,7 @@
         @click="applyCity"
       />
       <AppSelect
-        :up="$_mobile"
+        :up="up"
         :options="options"
         class="city__select"
         @change="setCity"
@@ -33,7 +33,8 @@ export default {
     AppSelect
   },
   props: {
-    arrow: Boolean
+    arrow: Boolean,
+    up: Boolean
   },
   emits: [
     'apply'
