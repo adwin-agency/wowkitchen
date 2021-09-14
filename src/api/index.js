@@ -82,7 +82,9 @@ const api = {
     window.ym && window.ym(34624840, 'reachGoal', formType)
     window.ym && window.ym(34624840, 'reachGoal', 'lead')
     window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({'event': 'submit_form'})
+    if (formType !== 'guarantee' && formType !== 'payment' && formType !== 'review') {
+      window.dataLayer.push({'event': 'submit_form'})
+    }
     window.dataLayer.push({'event': formType})
 
     return response
