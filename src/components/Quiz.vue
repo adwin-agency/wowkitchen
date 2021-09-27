@@ -65,7 +65,7 @@
       <input
         type="hidden"
         name="type"
-        value="quiz"
+        :value="$route.params.open ? 'quiz' : 'quiz-initial'"
       >
       <input
         type="hidden"
@@ -398,7 +398,8 @@ export default {
       planOptions: planOptions,
       styleOptions: styleOptions,
       // addOptions: addOptions,
-      activeStep: this.$route.params.start ? 1 : 0,
+      activeStep: this.$route.params.open ? 1 : 0,
+      completedStep: 0,
       sizeImage: 'size-I.png',
       values: {
         plan: '',
@@ -436,10 +437,11 @@ export default {
   watch: {
     success() {
       this.activeStep = 0
+      this.completedStep = 0
     }
   },
   created() {
-    if (this.$route.params.start) {
+    if (this.$route.params.open) {
       window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
       window.VK && window.VK.Goal('initiate_checkout')
       window.dataLayer = window.dataLayer || []
@@ -451,6 +453,8 @@ export default {
     startQuiz() {
       window.scrollTo(0, 0)
       this.activeStep = 1
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event: 'start_quiz' })
     },
 
     handleRadioChange(name, event) {
@@ -513,12 +517,19 @@ export default {
     },
 
     goToNextStep() {
+      if (this.completedStep < this.activeStep) {
+        this.completedStep++
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({ event: (this.$route.params.open ? 'quiz_step_' : 'quiz-initial_step_') + this.completedStep })
+      }
+
       this.activeStep++
     },
 
     resetQuiz() {
       this.$refs.quizform.reset()
       this.activeStep = 1
+      this.completedStep = 0
       this.values = {
         plan: '',
         sizes: [],

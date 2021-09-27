@@ -12,7 +12,7 @@
         <h2 class="quiz-preview__heading">{{preview[type].title}}</h2>
         <p class="quiz-preview__desc">Ответьте всего на 3 вопроса и получите онлайн-расчет цены гарнитура по вашим размерам, а так же закрепите за собой скидку 50%</p>
         <router-link
-          :to="{name: 'quiz', params: {start: true}}"
+          :to="{name: 'quiz', params: {open: true}}"
           custom
           v-slot="{href, navigate}"
         >
