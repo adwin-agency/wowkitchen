@@ -2,7 +2,7 @@
   <div class="team">
     <div class="team__main">
       <div class="container container_side-fixed">
-        <div class="team__lead">
+        <!-- <div class="team__lead">
           <div class="team__img">
             <img
               src="@/assets/img/team-bogdan.jpg"
@@ -13,7 +13,7 @@
             <p class="team__name">Богдан, <br>руководитель компании WowKitchen</p>
             <p class="team__text">Забота о клиентах, отслеживание трендов и профессионализм сотрудников позволили нашей компании уверенно ворваться на рынок и достаточно быстро найти своего клиента.</p>
           </div>
-        </div>
+        </div> -->
         <div class="team__list">
           <div
             v-for="(item, index) in team"
