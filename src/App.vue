@@ -57,7 +57,6 @@ export default {
     }
   },
   async created() {
-    // document.cookie = 'city='
     window.addEventListener('resize', this.handleResize)
 
     const main = await api.loadMain()
@@ -78,6 +77,12 @@ export default {
       this.$store.commit('setActiveCity', detectedCity)
       this.$store.commit('setCityDetection', true)
     }
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('a[href^="tel"')) {
+        window.fbq && window.fbq('track', 'Contact')
+      }
+    })
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)

@@ -442,7 +442,6 @@ export default {
   },
   created() {
     if (this.$route.params.open) {
-      window.fbq && window.fbq('track', 'Lead', { content_name: 'micro' })
       window.VK && window.VK.Goal('initiate_checkout')
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({ event: 'open_form' })
