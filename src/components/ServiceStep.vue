@@ -34,12 +34,17 @@
         v-if="stepData.stat.icon"
         :name="stepData.stat.icon"
         class="service-step__stat-icon"
+        :class="{[`service-step__stat-icon_${stepData.stat.iconmod}`]: stepData.stat.iconmod}"
       />
       <p
         v-else
         class="service-step__stat-num"
       >
-        {{stepData.stat.num}}<span v-if="stepData.stat.unit">{{stepData.stat.unit}}</span>
+        {{stepData.stat.num}}<span
+          v-if="stepData.stat.unit"
+          class="service-step__stat-unit"
+          :class="{[`service-step__stat-unit_${stepData.stat.unitmod}`]: stepData.stat.unitmod}"
+        >{{stepData.stat.unit}}</span>
       </p>
       <p class="service-step__stat-title">{{stepData.stat.title}}</p>
     </div>
@@ -118,6 +123,11 @@ export default {
       width: 152px;
       height: 95px;
       margin-bottom: 10px;
+
+      &_small {
+        width: 87px;
+        height: 87px;
+      }
     }
 
     &-num {
@@ -125,12 +135,24 @@ export default {
       font-size: 90px;
       line-height: 1;
       color: $color-green;
+    }
 
-      span {
-        margin-left: -20px;
-        font-weight: 900;
-        font-size: 36px;
-        color: $color-primary;
+    &-unit {
+      position: relative;
+      margin-left: -20px;
+      font-size: 36px;
+      color: $color-primary;
+
+      &_top {
+        top: -38px;
+      }
+
+      &_left {
+        margin-left: -55px;
+      }
+
+      &_right {
+        margin-left: 0;
       }
     }
 
@@ -172,10 +194,25 @@ export default {
       &-icon {
         width: 182px;
         height: 115px;
+
+        &_small {
+          width: 87px;
+          height: 87px;
+        }
       }
 
       &-num {
         font-size: 106px;
+      }
+
+      &-unit {
+        &_top {
+          top: -48px;
+        }
+
+        &_left {
+          margin-left: -62px;
+        }
       }
 
       &-title {
