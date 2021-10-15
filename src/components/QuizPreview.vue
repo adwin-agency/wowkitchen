@@ -10,9 +10,9 @@
     <div class="container">
       <div class="quiz-preview__inner">
         <h2 class="quiz-preview__heading">{{preview[type].title}}</h2>
-        <p class="quiz-preview__desc">Ответьте всего на 3 вопроса и получите онлайн-расчет цены гарнитура по вашим размерам, а так же закрепите за собой скидку 50%</p>
+        <p class="quiz-preview__desc">Ответьте всего на 3 вопроса и получите онлайн-расчет цены {{type === 'kitchens' ? 'гарнитура' : 'шкафа'}} по вашим размерам, а так же закрепите за собой скидку 50%</p>
         <router-link
-          :to="{name: 'quiz', params: {open: true}}"
+          :to="{name: 'quiz', params: {open: true, wardrobe: type === 'wardrobes'}}"
           custom
           v-slot="{href, navigate}"
         >
@@ -35,7 +35,7 @@
           v-if="type === 'wardrobes'"
           src="@/assets/img/quiz-preview-w@2x.png"
           alt
-          class="quiz-preview__img quiz-preview__img_photos"
+          class="quiz-preview__img quiz-preview__img_wardrobes"
         >
         <img
           src="@/assets/img/flower.png"
@@ -53,7 +53,7 @@ import AppIcon from './base/AppIcon.vue'
 
 const preview = {
   kitchens: { title: 'Сколько стоит кухня вашей мечты? Узнайте за пару минут', btn: 'Получить расчет' },
-  wardrobes: { title: 'Сколько стоит кухня вашей мечты? Узнайте за пару минут', btn: 'Получить расчет' }
+  wardrobes: { title: 'Сколько стоит шкаф вашей мечты? Узнайте за пару минут', btn: 'Получить расчет' }
 }
 
 export default {
@@ -209,6 +209,13 @@ export default {
         right: 0;
         width: 220px;
       }
+
+      &_wardrobes {
+        display: block;
+        top: 0;
+        right: -10px;
+        height: 100%;
+      }
     }
   }
 
@@ -244,6 +251,10 @@ export default {
         width: 550px;
       }
 
+      &_wardrobes {
+        right: 108px;
+      }
+
       &_flower {
         top: 70px;
         right: 90px;
@@ -268,6 +279,10 @@ export default {
       &_photos {
         right: -70px;
         width: 700px;
+      }
+
+      &_wardrobes {
+        right: -70px;
       }
 
       &_flower {

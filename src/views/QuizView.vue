@@ -1,16 +1,19 @@
 <template>
   <div class="v-quiz">
-    <Quiz />
+    <Quiz v-if="!$route.params.wardrobe" />
+    <QuizWardrobe v-else />
   </div>
 </template>
 
 <script>
 import Quiz from '../components/Quiz.vue'
+import QuizWardrobe from '../components/QuizWardrobe.vue'
 
 export default {
   name: 'QuizView',
   components: {
-    Quiz
+    Quiz,
+    QuizWardrobe
   }
 }
 </script>

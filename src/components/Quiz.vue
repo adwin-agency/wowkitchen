@@ -143,6 +143,7 @@
                         :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
                         placeholder="Размер в см"
                         inputmode="numeric"
+                        autocomplete="off"
                         class="quiz__field"
                         @input="handleSizeInput(index, $event)"
                       />
@@ -289,7 +290,7 @@
               v-if="activeStep < 4"
               class="quiz__note-desc"
             >
-              до бесплатного расчёта проекта онлайн и дополнительной скидки 5%
+              до бесплатного расчёта проекта онлайн и закрепления за вами самых выгодных условий покупки
             </p>
           </div>
           <ol class="quiz__progress">
@@ -742,19 +743,7 @@ export default {
 
   &__result {
     position: relative;
-    margin-top: 25px;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 100vw;
-      height: 100%;
-      background-color: $color-lightgray;
-      transform: translateX(-50%);
-      z-index: -1;
-    }
+    margin: 25px (-$container-padding) 0;
   }
 
   &__reset {
@@ -917,10 +906,6 @@ export default {
     &__result {
       margin-top: 0;
       margin-right: 20px;
-
-      &::before {
-        display: none;
-      }
     }
 
     &__next {
@@ -1093,7 +1078,7 @@ export default {
     }
 
     &__result {
-      max-width: 750px;
+      max-width: 1016px;
     }
 
     &__side {

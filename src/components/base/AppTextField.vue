@@ -4,11 +4,20 @@
       class="text-field__label"
       :class="[
         'text-field__label',
+        {'text-field__label_tip': tip},
         {[`text-field__label_${labelColor}`]: labelColor},
         {[`text-field__label_${labelSize}`]: labelSize}
       ]"
     >
       {{label}}
+      <template v-if="tip">
+        <span class="text-field__tip-icon">
+          <AppIcon name="tip" />
+        </span>
+        <span class="text-field__tip-box">
+          <span class="text-field__tip-text">{{ tip }}</span>
+        </span>        
+      </template>
     </p>
     <!-- <span class="text-field__error">Заполните это поле</span> -->
     <textarea
@@ -32,6 +41,7 @@
       :name="Array.isArray(name) ? name[0] : name"
       :required="required"
       :inputmode="inputmode"
+      :autocomplete="autocomplete"
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
@@ -49,6 +59,7 @@
       :name="Array.isArray(name) ? name[1] : name"
       :required="required"
       :inputmode="inputmode"
+      :autocomplete="autocomplete"
       :class="[
         'text-field__input',
         {[`text-field__input_${color}`]: color},
@@ -72,8 +83,13 @@
 </template>
 
 <script>
+import AppIcon from './AppIcon.vue';
+
 export default {
   name: 'TextField',
+  components: {
+    AppIcon
+  },
   props: {
     textarea: Boolean,
     type: String,
@@ -89,7 +105,9 @@ export default {
     note: String,
     sideNote: String,
     double: Boolean,
-    inputmode: String
+    inputmode: String,
+    tip: { type: [String, Boolean] },
+    autocomplete: String
   },
   emits: [
     'input'
@@ -167,6 +185,54 @@ export default {
 
     &_lg {
       font-size: 13px;
+    }
+
+    &_tip {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__tip {
+    &-icon {
+      display: flex;
+      margin-top: -2px;
+      margin-left: 6px;
+      width: 20px;
+      height: 20px;
+
+      &:hover {
+        & ~ #{$b}__tip-box {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+    }
+
+    &-box {
+      position: relative;
+      flex: 1;
+      height: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+
+    &-text {
+      position: absolute;
+      left: -50px;
+      bottom: calc(100% + 6px);
+      width: 310px;
+      min-width: 210px;
+      max-width: 100%;
+      padding: 20px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #ACA8C3;
+      background: #FFFFFF;
+      border: 1px solid #F3F4F9;
+      box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1);
+      
     }
   }
 
@@ -261,10 +327,27 @@ export default {
     }
   }
 
+  @include media(lg) {
+    &__tip {
+      &-text {
+        left: 0;
+        bottom: 100%;
+      }
+    }
+  }
+
   @include media(xl) {
     &__input_ta {
       &#{$b}__input_big {
         height: 140px;
+      }
+    }
+
+    &__tip {
+      &-text {
+        padding: 20px 30px;
+        width: 330px;
+        max-width: none;
       }
     }
   }

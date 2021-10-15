@@ -1,150 +1,257 @@
 <template>
   <div class="quiz-result">
-    <p class="quiz-result__title">Примерная стоимость вашей кухни</p>
-    <p class="quiz-result__price">{{price}}</p>
-    <p class="quiz-result__desc">Финальную стоимость стоимость вам озвучит наш менеджер: оставьте телефон и мы свяжемся с вами в ближайшее время для более подробной консультации</p>
-    <div class="quiz-result__footer">
-      <AppTextField
-        placeholder="Имя"
-        type="text"
-        name="name"
-        required
-        color="white"
-        class="quiz-result__field"
-      />
-      <AppTextField
-        placeholder="Телефон"
-        type="tel"
-        name="phone"
-        required
-        color="white"
-        class="quiz-result__field"
-      />
-      <AppButton
-        type="submit"
-        :title="sending ? 'Отправляем...' : 'Отправить'"
-        size="small"
-        class="quiz-result__btn"
-      />
+    <div class="quiz-result__content">
+      <p class="quiz-result__title">Примерная стоимость с учётом скидки&nbsp;50%</p>
+      <p class="quiz-result__price">{{price}}</p>
+      <p v-if="guide" class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите <span class="quiz-result__desc_pink">бесплатный гайд</span> по планировке и обустройству идеальной кухни! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p>
+      <p v-else class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите подробную бесплатную консультацию специалиста! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p>
     </div>
-    <p
-      v-if="error"
-      class="quiz-result__error"
-    >
-      Ошибка отправки. Попробуйте еще раз
-    </p>
+    <div class="quiz-result__form">
+      <div class="quiz-result__form-header">
+        <p class="quiz-result__form-feature">
+          <AppIcon class="quiz-result__form-icon" name="check" />
+          Закрепить скидку 50%
+        </p>
+        <p v-if="guide" class="quiz-result__form-feature">
+          <AppIcon class="quiz-result__form-icon" name="check" />
+          Получить бесплатный гайд
+        </p>
+        <p class="quiz-result__form-feature">
+          <AppIcon class="quiz-result__form-icon" name="check" />
+          Получить подробный расчёт
+        </p>
+      </div>
+      <div class="quiz-result__form-main">
+        <AppTextField
+          label="Имя"
+          type="text"
+          name="name"
+          required
+          class="quiz-result__field"
+        />
+        <AppTextField
+          label="Контактный Телефон"
+          type="tel"
+          name="phone"
+          required
+          class="quiz-result__field"
+        />
+        <AppTextField
+          v-if="guide"
+          label="Mail, куда мы вышлем вам гайд"
+          type="email"
+          name="email"
+          required
+          class="quiz-result__field"
+        />
+        <AppButton
+          type="submit"
+          :title="sending ? 'Отправляем...' : 'Отправить'"
+          size="small"
+          class="quiz-result__btn"
+        />
+        <p
+          v-if="error"
+          class="quiz-result__error"
+        >
+          Ошибка отправки. Попробуйте еще раз
+        </p>
+        <p class="quiz-result__note">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
+      </div>
+    </div>    
   </div>
 </template>
 
 <script>
 import AppButton from './base/AppButton.vue'
+import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
 
 export default {
   name: 'QuizResult',
   components: {
     AppTextField,
-    AppButton
+    AppButton,
+    AppIcon
   },
   props: {
     price: String,
     sending: Boolean,
-    error: Boolean
+    error: Boolean,
+    guide: Boolean
   }
 }
 </script>
 
 <style lang="scss">
 .quiz-result {
-  padding: 35px 0;
+  &__content {
+    padding: 20px $container-padding;
+    background-color: #F3F4F9;
+  }
 
   &__title {
-    font-weight: bold;
-    font-size: 18px;
-    line-height: (22/18);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    text-transform: uppercase;
   }
 
   &__price {
-    font-weight: bold;
-    font-size: 28px;
-    color: $color-green;
+    margin-top: 0;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.23;
+    color: #04B891;
   }
 
   &__desc {
-    margin-top: 12px;
-    font-size: 14px;
-    line-height: (22/14);
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.44;
+
+    &_pink {
+      color: #E40175;
+    }
+
+    &_green {
+      color: #04B891;
+    }
+  }
+
+  &__form {
+    &-header {
+      padding: 20px $container-padding;
+      background-color: #04B891;
+    }
+
+    &-feature {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 1.86;
+      color: #FFFFFF;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 14px;
+    }
+
+    &-main {
+      padding: 15px $container-padding 20px;
+    }
   }
 
   &__field {
-    margin-top: 10px;
+    width: 100%;
+    margin-bottom: 16px;
   }
 
   &__btn {
-    margin-top: 10px;
+    margin-top: 2px;
     width: 100%;
   }
 
   &__error {
     margin-top: 15px;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     color: #ff0000;
   }
 
+  &__note {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #ACA8C3;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
   @include media(md) {
-    padding: 50px 60px;
-    border-bottom-right-radius: 70px;
-    background-color: $color-lightgray;
+    display: flex;
+    align-items: flex-start;
 
-    &__desc {
-      margin-top: 5px;
-      max-width: 490px;
+    &__content {
+      width: 100%;
+      flex-shrink: 0;
+      padding: 30px;
+      padding-right: 320px;
     }
 
-    &__footer {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-top: 25px;
-    }
+    &__form {
+      width: 290px;
+      flex-shrink: 0;      
+      margin-top: -30px;
+      margin-left: -290px;
+      border-bottom-right-radius: 50px;
+      background-color: #fff;
+      box-shadow: 0px 4px 34px rgba(0, 0, 0, 0.1);
 
-    &__field {
-      width: calc(50% - 10px);
-      margin-top: 0;
-    }
+      &-header {
+        padding: 20px;
+      }
 
-    &__btn {
-      margin-top: 20px;
-      width: auto;
-      min-width: 220px;
+      &-main {
+        padding: 15px 20px 20px;
+      }
     }
-
-    &__error {
+    
+    &__note {
       text-align: left;
     }
   }
 
   @include media(lg) {
-    padding: 48px 80px 56px;
-
-    &__price {
-      margin-top: 4px;
+    &__content {
+      padding: 50px;
+      padding-right: 410px;
     }
 
     &__desc {
-      margin-top: 20px;
-      max-width: 560px;
-      font-size: 16px;
-      line-height: (32/16);
+      margin-top: 48px;
+      font-size: 18px;
     }
 
-    &__footer {
-      margin-top: 20px;
-    }
+    &__form {
+      width: 340px;
+      margin-left: -370px;
+      border-bottom-right-radius: 70px;
 
-    &__btn {
-      margin-right: 20px;
+      &-header {
+        padding: 30px 40px;
+      }
+
+      &-feature {
+        font-size: 14px;
+      }
+
+      &-main {
+        padding: 18px 45px 30px;
+      }
+    }
+  }
+
+  @include media(xl) {
+    &__content {
+      padding: 56px 82px;
+      padding-right: 550px;
+    }
+    &__form {
+      width: 374px;
+      margin-left: -452px;
     }
   }
 }
