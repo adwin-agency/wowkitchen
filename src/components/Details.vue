@@ -137,7 +137,7 @@
         </div>
       </div>
     </div>
-    <div class="details__gallery">
+    <div v-if="info.second_pictures.length" class="details__gallery">
       <div class="container container_slider">
         <div
           v-if="$_media.sm && info?.video_customer.desktop"

@@ -12,7 +12,7 @@
         <h2 class="quiz-preview__heading">{{preview[type].title}}</h2>
         <p class="quiz-preview__desc">Ответьте всего на 3 вопроса и получите онлайн-расчет цены {{type === 'kitchens' ? 'гарнитура' : 'шкафа'}} по вашим размерам, а так же закрепите за собой скидку 50%</p>
         <router-link
-          :to="{name: 'quiz', params: {open: true, wardrobe: type === 'wardrobes'}}"
+          :to="{name: type === 'wardrobes' ? 'quiz-wardrobe' : 'quiz', params: {open: true}}"
           custom
           v-slot="{href, navigate}"
         >

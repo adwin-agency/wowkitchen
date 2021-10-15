@@ -126,6 +126,12 @@ const routes = [
     component: QuizView
   },
   {
+    path: '/quiz-wardrobe',
+    name: 'quiz-wardrobe',
+    meta: { title: 'Расчет онлайн' },
+    component: QuizView
+  },
+  {
     path: '/reviews',
     name: 'reviews',
     meta: { title: 'Отзывы' },

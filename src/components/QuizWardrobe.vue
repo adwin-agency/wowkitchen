@@ -450,8 +450,8 @@ export default {
 
     handleSizeInput(index, multiple, event) {
       event.preventDefault()
-      const regexp = multiple ? /[^0-9+]|^\+|(?<=\+)\+/ : /\D/
-      const value = event.target.value.replace(regexp, '')
+      const regexp = multiple ? /[^0-9+]|^\+/ : /\D/
+      const value = event.target.value.replace(regexp, '').replace(/\+\+/, '+')
       this.values.sizes[index] = value.replace(/\+$/, '')
       event.target.value = value
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="v-quiz">
-    <Quiz v-if="!$route.params.wardrobe" />
+    <Quiz v-if="$route.name === 'quiz'" />
     <QuizWardrobe v-else />
   </div>
 </template>
