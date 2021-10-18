@@ -261,6 +261,7 @@
                     :price="price"
                     :sending="sending"
                     :error="error"
+                    guide
                     class="quiz__result"
                   />
                   <button

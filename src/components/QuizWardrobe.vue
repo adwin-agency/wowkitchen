@@ -309,7 +309,7 @@ const styleOptions = [
   { image: { name: 'quiz-w-mdf.jpg', alt: 'МДФ' }, title: 'МДФ' },
   { image: { name: 'quiz-w-ldsp.jpg', alt: 'ЛДСП' }, title: 'ЛДСП' },
   { image: { name: 'quiz-w-emal.jpg', alt: 'Эмаль' }, title: 'Эмаль' },
-  { image: { name: 'quiz-w-zerkalo.jpg', alt: 'Зеркало' }, title: 'Зеркало' }
+  // { image: { name: 'quiz-w-zerkalo.jpg', alt: 'Зеркало' }, title: 'Зеркало' }
 ]
 
 export default {
@@ -364,20 +364,11 @@ export default {
         'ЛДСП': 18,
         'Эмаль': 39
       }
-      const minCoef = coefs[this.values.style] || 18
+      const minCoef = coefs[this.values.style]
       const maxCoef = minCoef + 5
-      const additionPrice = this.values.style === 'Зеркало' ? 10000 : 0
-
-      const sizeSum = this.values.sizes.reduce((sum, current, index) => {
-        if (index !== 1) {
-          const curr = current.split('+').reduce((s, c) => s + +c, 0)
-          return sum + curr
-        }
-        return sum        
-      }, 0)
-      
-      const min = sizeSum * 10 * minCoef + additionPrice
-      const max = sizeSum * 10 * maxCoef + additionPrice
+      const sizeSum = this.values.sizes[0]?.split('+').reduce((sum, current) => sum + +current, 0)
+      const min = sizeSum * 10 * minCoef
+      const max = sizeSum * 10 * maxCoef
 
       return min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽ - ' + max.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
     }
