@@ -76,6 +76,7 @@
         class="product-card__video-btn"
       >
         <AppVideoButton
+          overview
           :expand="!large"
           :title="large ? 'Смотреть видеообзор' : 'Видеообзор'"
           :video="$_mobile ? info.video.mobile || info.video.desktop : info.video.desktop"

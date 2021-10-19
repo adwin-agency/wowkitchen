@@ -34,10 +34,16 @@ export default {
     video: String,
     size: String,
     round: Boolean,
-    simple: Boolean    
+    simple: Boolean,
+    overview: Boolean
   },
   methods: {
     openModal() {
+      
+      if (this.overview) {
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({ event: 'open_video' })
+      }
       this.$store.commit('setModal', 'video')
       this.$store.commit('setModalData', { video: this.video })
     }

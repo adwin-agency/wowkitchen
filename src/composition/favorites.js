@@ -9,6 +9,11 @@ export default function useFavorites(props) {
     if (!data) {
       return
     }
+
+    if (!isFavorite.value) {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event: 'add_favorite' })
+    }
     
     const item = {
       id: data.id,

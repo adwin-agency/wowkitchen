@@ -35,6 +35,7 @@
             class="details__video-btn"
           >
             <AppVideoButton
+              overview
               title="Видеообзор проекта"
               :video="$_mobile ? info.video.mobile || info.video.desktop : info.video.desktop"
               size="large"
@@ -137,7 +138,7 @@
         </div>
       </div>
     </div>
-    <div v-if="info.second_pictures.length" class="details__gallery">
+    <div v-if="info?.second_pictures.length" class="details__gallery">
       <div class="container container_slider">
         <div
           v-if="$_media.sm && info?.video_customer.desktop"
