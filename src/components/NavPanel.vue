@@ -60,8 +60,8 @@
             >
               <AppIcon
                 class="nav-panel__social-icon"
-                width="19"
-                height="19"
+                :width="$_mobile ? 24 : 19"
+                :height="$_mobile ? 24 : 19"
                 name="insta"
               />
             </a>
@@ -72,8 +72,8 @@
             >
               <AppIcon
                 class="nav-panel__social-icon"
-                width="23"
-                height="23"
+                :width="$_mobile ? 28 : 23"
+                :height="$_mobile ? 28 : 23"
                 name="vk"
               />
             </a>
@@ -84,8 +84,8 @@
             >
               <AppIcon
                 class="nav-panel__social-icon"
-                width="23"
-                height="23"
+                :width="$_mobile ? 28 : 23"
+                :height="$_mobile ? 28 : 23"
                 name="facebook"
               />
             </a>
@@ -291,8 +291,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 23px;
-    height: 23px;
+    width: 28px;
+    height: 28px;
     margin-right: 18px;
     transition: opacity 0.3s ease;
 
@@ -402,16 +402,6 @@ export default {
         margin-bottom: 20px;
       }
     }
-
-    &__social {
-      width: auto;
-      margin-right: 50px;
-    }
-
-    &__city,
-    &__time {
-      margin-top: 0;
-    }
   }
 
   @include media(lg) {
@@ -509,6 +499,11 @@ export default {
     &__social {
       width: auto;
       margin-right: 52px;
+    }
+
+    &__social-item {
+      width: 23px;
+      height: 23px;
     }
 
     &__city {
