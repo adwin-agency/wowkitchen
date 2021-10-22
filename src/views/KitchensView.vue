@@ -164,7 +164,6 @@ export default {
       }
 
       if (route.params.showMore) {
-        console.log(111)
         const response = await api.loadCards(route)
         this.cards = [...this.cards, ...response.goods]
         this.pages = response.pages
@@ -204,6 +203,9 @@ export default {
         window.VK && window.VK.Goal('initiate_checkout')
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({ event: 'show_more' })
+      } else {
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({ event: 'page_' + (this.currentPage + 1) })
       }
 
       this.$router.push({ params: { showMore: true }, query: { ...this.$route.query, page: this.currentPage + 1 } })
@@ -216,7 +218,7 @@ export default {
     },
 
     handleScroll() {
-      if (!this.isShowBtn || this.currentPage > 2 || this.loading) {
+      if (!this.isShowBtn || this.currentPage > 2 || this.loading || this.currentPage >= this.pages) {
         return
       }
 

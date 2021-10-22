@@ -46,6 +46,14 @@ export default {
   props: {
     pages: Number,
     currentPage: Number
+  },
+  watch: {
+    $route(newVal, oldVal) {
+      if (newVal.name === 'kitchens' && oldVal.name === 'kitchens' && newVal.query.page) {
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({ event: 'page_' + newVal.query.page })
+      }
+    }
   }
 }
 </script>
