@@ -5,10 +5,10 @@
       <p class="quiz-result__price">{{price}}</p>
       <p v-if="guide" class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите <span class="quiz-result__desc_pink">бесплатный гайд</span> по планировке и обустройству идеальной кухни! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p>
       <!-- <p v-else class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите подробную бесплатную консультацию специалиста! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p> -->
-      <p v-else class="quiz-result__desc"><span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом</p>
+      <p v-else class="quiz-result__desc">оставьте свои контактные данные в форме рядом <span class="quiz-result__desc_green">для детального расчета и закрепления скидки</span></p>
     </div>
     <div class="quiz-result__form">
-      <div class="quiz-result__form-header">
+      <div v-if="!$_media.sm" class="quiz-result__form-header">
         <p class="quiz-result__form-feature">
           <AppIcon class="quiz-result__form-icon" name="check" />
           Закрепить скидку 50%
