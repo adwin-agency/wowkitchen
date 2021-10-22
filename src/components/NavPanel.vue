@@ -41,7 +41,6 @@
               v-for="(item, index) in menu.slice(1)"
               :key="index"
               class="nav-panel__item"
-              @click="$emit('close-menu')"
             >
               <router-link
                 :to="{ name: item.route }"
@@ -148,7 +147,6 @@ export default {
     AppIcon,
     AppCity
   },
-  emits: ['close-menu'],
   data() {
     return {
       menu: menu,
@@ -177,7 +175,6 @@ export default {
     },
     handleSubmenuClick() {
       this.toggleSubmenu()
-      this.$emit('close-menu')
     },
 
     toggleCityBox() {

@@ -95,10 +95,7 @@
         </div>
       </div>
 
-      <NavPanel
-        class="header__panel"
-        @close-menu="toggleMobileMenu"
-      />
+      <NavPanel class="header__panel" />
     </div>
 
     <Favorites
