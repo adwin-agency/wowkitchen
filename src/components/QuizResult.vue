@@ -4,7 +4,8 @@
       <p class="quiz-result__title">Примерная стоимость с учётом скидки&nbsp;50%</p>
       <p class="quiz-result__price">{{price}}</p>
       <p v-if="guide" class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите <span class="quiz-result__desc_pink">бесплатный гайд</span> по планировке и обустройству идеальной кухни! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p>
-      <p v-else class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите подробную бесплатную консультацию специалиста! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p>
+      <!-- <p v-else class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите подробную бесплатную консультацию специалиста! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p> -->
+      <p v-else class="quiz-result__desc"><span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом</p>
     </div>
     <div class="quiz-result__form">
       <div class="quiz-result__form-header">
