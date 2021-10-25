@@ -163,6 +163,15 @@ export default {
         this.reviews = reviewsResponse.reviews.slice(0, 4)
       }
 
+      if (route.params.showAll) {
+        const response = await api.loadCards({ ...route, query: { ...route.query, all: true } })
+        this.cards = response.goods
+        this.pages = response.pages
+        this.loading = false
+
+        return
+      }
+
       if (route.params.showMore) {
         const response = await api.loadCards(route)
         this.cards = [...this.cards, ...response.goods]
@@ -203,12 +212,14 @@ export default {
         window.VK && window.VK.Goal('initiate_checkout')
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({ event: 'show_more' })
+
+        this.$router.push({ params: { showAll: true }, query: { ...this.$route.query, page: this.pages } })
       } else {
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({ event: 'page_' + (this.currentPage + 1) })
-      }
 
-      this.$router.push({ params: { showMore: true }, query: { ...this.$route.query, page: this.currentPage + 1 } })
+        this.$router.push({ params: { showMore: true }, query: { ...this.$route.query, page: this.currentPage + 1 } })
+      }
     },
 
     handleResize() {

@@ -102,7 +102,7 @@ export default {
 
 <style lang="scss">
 .favorites {
-  padding: $header-bar-height 0 20px;
+  padding: $header-bar-height 0 130px;
   background-color: #fff;
 
   &__title {
@@ -236,6 +236,7 @@ export default {
 
   @include media(lg) {
     padding-top: $header-bar-height-lg + $nav-panel-height-lg;
+    padding-bottom: 50px;
   }
 
   @include media(lg) {

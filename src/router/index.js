@@ -188,7 +188,7 @@ const router = createRouter({
   linkActiveClass: 'is-active',
   linkExactActiveClass: '',
   scrollBehavior(to) {
-    if (!to.params.showMore) {
+    if (!to.params.showMore && !to.params.showAll) {
       return { top: 0 }
     }
   }

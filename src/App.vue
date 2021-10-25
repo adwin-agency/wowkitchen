@@ -4,6 +4,7 @@
   <Footer />
   <Modal />
   <SitePhone class="app-site-phone" />
+  <AppArrowUp class="app-arrow-up" />
 </template>
 
 <script>
@@ -12,6 +13,7 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import Modal from './components/Modal.vue'
 import SitePhone from './components/SitePhone.vue'
+import AppArrowUp from './components/base/AppArrowUp.vue'
 
 export default {
   name: 'App',
@@ -19,7 +21,8 @@ export default {
     Header,
     Footer,
     Modal,
-    SitePhone
+    SitePhone,
+    AppArrowUp
   },
   computed: {
     scrollLock() {
@@ -131,5 +134,16 @@ export default {
   right: 0;
   bottom: 0;
   z-index: 100;
+}
+
+.app-arrow-up {
+  position: fixed;
+  left: 30px;
+  bottom: 30px;
+  z-index: 90;
+
+  @include media(md) {
+    left: 40px;
+  }
 }
 </style>
