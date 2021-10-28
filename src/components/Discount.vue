@@ -13,16 +13,17 @@
           </div>
         </div>
 
-        <div class="discount__mini-el discount__mini-el_bg-grey">
+        <div class="discount__mini-el discount__mini-el_bg-grey discount__mini-el_m">
           <div class="discount__box">
             <h6 class="discount__mini-title discount__mini-title_bold">Бесплатные замер <br> и 3D-проект у вас дома</h6>
             <div class="discount__mini-pills-container">
               <p class="discount__mini-pills">&#10004; Точно</p>
               <p class="discount__mini-pills">&#10004; Быстро</p>
-              <p class="discount__mini-pills">&#10004; Удобно</p>
+              <p class="discount__mini-pills">&#10004; Безопасно</p>
             </div>
+            <p class="discount__note">Все наши сотрудники <span>ежедневно проходят обязательный контроль температуры и используют маски</span></p>
             <img
-              src="@/assets/img/side-banner.png"
+              src="@/assets/img/side-banner-masked.png"
               alt
               class="discount__mini-img"
             >
@@ -420,6 +421,49 @@ export default {
     font-size: 12px;
   }
 
+  &__note {
+    position: relative;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 1.6;
+    text-transform: uppercase;
+    z-index: 1;
+
+    span {
+      font-weight: 700;
+      background-color: $color-yellow;
+      box-shadow: 0 0 0 3px $color-yellow;
+    }
+  }
+
+  &__mini-el_m {
+    padding-top: 15px;
+    padding-bottom: 45px;
+
+    #{$b} {
+      &__mini-title {
+        margin-top: 0;
+        margin-bottom: 6px;
+      }
+      &__note {
+        max-width: calc(100% - 54px);
+      }
+      &__mini-img {
+        right: 10px;
+      }
+    }
+  }
+
+  @include media(sm) {
+    &__mini-el_m {
+      #{$b} {
+        &__box {
+          padding-right: 50px;
+        }
+      }
+    }
+  }
+
   @include media(lg) {
     &__el-title {
       font-size: 38px;
@@ -440,6 +484,14 @@ export default {
 
       &_sm {
         font-size: 35px;
+      }
+    }
+
+    &__mini-el_m {
+      #{$b} {
+        &__mini-img {
+          width: 130px;
+        }
       }
     }
   }

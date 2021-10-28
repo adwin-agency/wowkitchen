@@ -1,7 +1,7 @@
 <template>
-  <div class="catalog-side-banner">
+  <div class="catalog-side-banner catalog-side-banner_m">
     <div class="catalog-side-banner__inner">
-      <p class="catalog-side-banner__title">Бесплатные замер <br>и 3D-проект <br>у вас дома</p>
+      <p class="catalog-side-banner__title">Бесплатные замер <br>и 3D-проект у вас дома</p>
       <div class="catalog-side-banner__features">
         <p class="catalog-side-banner__feature">
           <AppIcon
@@ -22,11 +22,12 @@
             name="done"
             class="catalog-side-banner__feature-icon"
           />
-          Удобно
+          Безопасно
         </p>
       </div>
+      <div class="catalog-side-banner__note">Все наши сотрудники <span>ежедневно проходят обязательный контроль температуры и используют маски</span></div>
     </div>
-    <img src="@/assets/img/side-banner.png" alt class="catalog-side-banner__img">
+    <img src="@/assets/img/side-banner-masked.png" alt class="catalog-side-banner__img">
   </div>
 </template>
 
@@ -43,6 +44,8 @@ export default {
 
 <style lang="scss">
 .catalog-side-banner {
+  $b: &;
+
   display: flex;
   align-items: center;
   position: relative;
@@ -106,6 +109,27 @@ export default {
     max-width: 220px;
   }
 
+  &__note {
+    margin-top: 6px;
+    max-width: 250px;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 1.6;
+    text-transform: uppercase;
+
+    span {
+      font-weight: 700;
+      background-color: $color-yellow;
+      box-shadow: 0 0 0 3px $color-yellow;
+    }
+  }
+
+  @include media(xs) {
+    &__note {
+      font-size: 11px;
+    }
+  }
+
   @include media(md) {
     max-height: none;
     
@@ -143,6 +167,11 @@ export default {
       left: auto;
       right: 10px;
       width: 206px;
+      max-width: none;
+    }
+
+    &__note {
+      font-size: 13px;
     }
   }
 
@@ -162,7 +191,7 @@ export default {
 
     &__img {
       right: 30px;
-      width: 228px;
+      width: 228px;   
     }
   }
 
@@ -183,6 +212,105 @@ export default {
     &__img {
       right: 25px;
       width: 262px;
+    }
+
+    &__note {
+      margin-top: 30px;
+    }
+  }
+
+  &_m {
+    max-height: 260px;
+
+    #{$b} {
+      &__inner {
+        padding: 18px 24px;
+      }
+      &__title {
+        font-size: 14px;
+      }
+      &__features {
+        margin-top: 10px;
+      }
+      &__feature {
+        padding: 5px 20px 5px 15px;
+        font-size: 8px;
+      }
+      &__feature-icon {
+        width: 8px;
+        height: 8px;
+      }
+      &__img {
+        left: calc(50% + 35px);
+        width: 33%;
+        max-width: 150px;
+      }
+    }
+
+    @include media(xs) {
+      #{$b} {
+        &__inner {
+          padding-left: 7%;
+        }
+        &__title {
+          font-size: 16px;
+        }
+        &__feature {
+          font-size: 11px;
+        }
+        &__feature-icon {
+          width: 10px;
+          height: 10px;
+        }
+      }      
+    }
+
+    @include media(md) {
+      max-height: none;
+      
+      #{$b} {
+        &__inner {
+          padding: 30px 140px 30px 30px;
+        }
+        &__feature {
+          margin-bottom: 4px;
+          padding: 8px 24px 8px 15px;
+          font-size: 12px;
+        }
+        &__img {
+          width: 150px;
+          max-width: none;
+        }
+      }
+    }
+
+    @include media(lg) {
+      #{$b} {
+        &__inner {
+          padding: 45px 200px 38px 40px;
+        }
+        &__title {
+          font-size: 18px;
+        }
+        &__features {
+          margin-top: 15px;
+        }
+        &__img {
+          width: 190px;
+        }
+      }
+    }
+
+    @include media(xl) {
+      #{$b} {
+        &__title {
+          font-size: 24px;
+        }
+        &__img {
+          left: calc(50% + 15px);
+          width: 220px;
+        }
+      }
     }
   }
 }
