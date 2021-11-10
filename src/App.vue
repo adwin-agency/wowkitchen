@@ -4,7 +4,10 @@
   <Footer />
   <Modal />
   <SitePhone class="app-site-phone" />
-  <AppArrowUp class="app-arrow-up" />
+  <AppArrowUp
+    class="app-arrow-up"
+    :class="{'active': activeArrowUp}"
+  />
 </template>
 
 <script>
@@ -23,6 +26,11 @@ export default {
     Modal,
     SitePhone,
     AppArrowUp
+  },
+  data() {
+    return {
+      activeArrowUp: window.scrollY > 100
+    }
   },
   computed: {
     scrollLock() {
@@ -61,6 +69,7 @@ export default {
   },
   async created() {
     window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
 
     const main = await api.loadMain()
     const detectedCity = main.detected_city
@@ -89,6 +98,7 @@ export default {
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     getCookie(name) {
@@ -98,6 +108,10 @@ export default {
 
     handleResize() {
       this.$store.commit('storeScreen', window.innerWidth)
+    },
+
+    handleScroll() {
+      this.activeArrowUp = window.scrollY > 100
     }
   }
 }
@@ -140,10 +154,20 @@ export default {
   position: fixed;
   left: 30px;
   bottom: 30px;
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .3s ease, opacity .3s ease;
   z-index: 90;
 
   @include media(md) {
     left: 40px;
+  }
+
+  &.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
   }
 }
 </style>
