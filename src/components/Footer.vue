@@ -90,6 +90,7 @@
               >
             </div>
           </div>
+          <p v-if="!$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено</p>
         </div>
       </div>
     </div>
@@ -179,6 +180,7 @@
               ОКПО: 33210876
             </p>
           </div>
+          <p v-if="$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено</p>
         </div>
       </div>
     </div>
@@ -543,6 +545,14 @@ export default {
     overflow: hidden;
   }
 
+  &__copyright {
+    margin: 20px auto 0;
+    max-width: calc(100% - 150px);
+    text-align: center;
+    font-size: 11px;
+    color: #bcbcbc;
+  }
+
   @include media(md) {
     display: flex;
 
@@ -643,6 +653,10 @@ export default {
       left: auto;
       right: 0;
       transform: none;
+    }
+
+    &__copyright {
+      max-width: none;
     }
   }
 
