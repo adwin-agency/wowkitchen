@@ -1,13 +1,16 @@
 <template>
-  <button
-    class="arrow-up"
-    @click="scrollToTop"
-  >
-    <AppIcon
-      name="arrow-up"
-      class="arrow-up__icon"
-    />
-  </button>
+  <div class="arrow-up">
+    <button
+      class="arrow-up__btn"
+      @click="scrollToTop"
+    >
+      <AppIcon
+        name="arrow-up"
+        class="arrow-up__icon"
+      />
+      <span v-if="$_media.sm">Наверх страницы</span>
+    </button>
+  </div>
 </template>
 
 <script>
@@ -47,45 +50,58 @@ export default {
 
 <style lang="scss">
 .arrow-up {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+  padding: 6px 16px;
   background-color: #F3F4F9;
-  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1);
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 66px;
-    height: 66px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
+  &__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 1px solid #04B891;
+    border-radius: 8px;
+    padding: 7px 15px;
+    font-weight: 600;
+    font-size: 10px;
+    color: $color-green;
   }
 
   &__icon {
-    width: 19px;
-    height: 19px;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
   }
 
   @include media(md) {
-    width: 47px;
-    height: 47px;
+    padding: 0;
+    background-color: transparent;
 
-    &::before {
-      width: 83px;
-      height: 83px;
+    &__btn {
+      width: 47px;
+      height: 47px;
+      border: none;
+      border-radius: 50%;
+      padding: 0;
+      background-color: #F3F4F9;
+      box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1);
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 83px;
+        height: 83px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+      }
     }
 
     &__icon {
       width: 24px;
       height: 24px;
+      margin-right: 0;
     }
   }
 }

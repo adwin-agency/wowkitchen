@@ -29,7 +29,8 @@ export default {
   },
   data() {
     return {
-      activeArrowUp: window.scrollY > 100
+      scrollY: window.scrollY,
+      activeArrowUp: false
     }
   },
   computed: {
@@ -111,7 +112,8 @@ export default {
     },
 
     handleScroll() {
-      this.activeArrowUp = window.scrollY > 100
+      this.activeArrowUp = window.scrollY > 100 && window.scrollY < this.scrollY
+      this.scrollY = window.scrollY
     }
   }
 }
@@ -152,8 +154,9 @@ export default {
 
 .app-arrow-up {
   position: fixed;
-  left: 30px;
-  bottom: 30px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   transform: translateY(100%);
   opacity: 0;
   pointer-events: none;
@@ -162,6 +165,8 @@ export default {
 
   @include media(md) {
     left: 40px;
+    right: auto;
+    bottom: 30px;
   }
 
   &.active {
