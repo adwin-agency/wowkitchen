@@ -90,7 +90,7 @@
               >
             </div>
           </div>
-          <p v-if="!$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено 2021 ©</p>
+          <p v-if="!$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>2021 ©</span></p>
         </div>
       </div>
     </div>
@@ -180,7 +180,7 @@
               ОКПО: 33210876
             </p>
           </div>
-          <p v-if="$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено 2021 ©</p>
+          <p v-if="$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>2021 ©</span></p>
         </div>
       </div>
     </div>
@@ -551,6 +551,10 @@ export default {
     text-align: center;
     font-size: 11px;
     color: #bcbcbc;
+
+    span {
+      white-space: nowrap;
+    }
   }
 
   @include media(md) {
