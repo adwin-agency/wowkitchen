@@ -154,7 +154,7 @@
           </div>
           <div class="wardrobe-details__btns">
             <AppButton
-              title="Рассчитать проект"
+              title="Узнать стоимость"
               modalName="calc"
               class="wardrobe-details__btn"
               @click="handleBtnClick"

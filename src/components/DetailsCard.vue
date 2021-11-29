@@ -39,7 +39,7 @@
       </div>
       <div class="details-card__btns">
         <AppButton
-          :title="noPrice ? 'Рассчитать стоимость' : 'Рассчитать проект'"
+          :title="noPrice ? 'Узнать стоимость' : 'Рассчитать проект'"
           modalName="calc"
           class="details-card__btn"
           @click="handleBtnClick"
