@@ -7,7 +7,8 @@
       <p class="catalog-main-banner__title">{{title}}</p>
       <template v-if="type !== 'technics'">
         <p class="catalog-main-banner__discount">скидка 50%</p>
-        <p class="catalog-main-banner__date">до конца месяца</p>
+        <p class="catalog-main-banner__date">до конца года</p>
+        <p class="catalog-main-banner__note">Сделаем {{type === 'wardrobes' ? 'шкаф' : 'кухню'}} по ценам материалов 2021 года!</p>
       </template>
     </div>
   </div>
@@ -61,6 +62,12 @@ export default {
     font-size: 20px;
   }
 
+  &__note {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
   @include media(md) {
     position: relative;
     background-size: cover;
@@ -109,6 +116,12 @@ export default {
       align-self: flex-end;
       margin-top: 0;
       font-size: 20px;
+      color: #f3f4f9;
+    }
+
+    &__note {
+      margin-top: 24px;
+      margin-left: 15px;
       color: #f3f4f9;
     }
   }
