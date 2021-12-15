@@ -135,13 +135,13 @@
         v-if="!noPrice"
         class="product-card__prices"
       >
-        <p class="product-card__price">{{info.price}} ₽</p>
-        <p
+        <p class="product-card__price">от {{info.price}} ₽</p>
+        <!-- <p
           v-if="info.old_price"
           class="product-card__old-price"
         >
           {{info.old_price}} ₽
-        </p>
+        </p> -->
         <!-- <span
           v-if="large && info.discount"
           class="product-card__discount"
@@ -156,7 +156,7 @@
         <AppButton
           :size="!large ? 'small' : ''"
           :bordered="!large"
-          :title="noPrice ? 'Узнать стоимость' : 'Рассчитать проект'"
+          :title="noPrice ? 'Узнать стоимость' : 'Рассчитать кухню'"
           modalName="calc"
           class="product-card__btn"
           @click="handleBtnClick"
@@ -595,7 +595,7 @@ export default {
 
   &__price {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     color: #000;
   }
 
@@ -642,6 +642,10 @@ export default {
           padding: 12px;
         }
       }
+    }
+
+    &__price {
+      font-size: 20px;
     }
   }
 
@@ -706,6 +710,10 @@ export default {
 
         &__price-box {
           margin-top: 8px;
+        }
+
+        &__price {
+          font-size: 20px;
         }
 
         &__btn {
@@ -1083,6 +1091,7 @@ export default {
 
         &__price {
           margin-right: 32px;
+          font-size: 22px;
         }
       }
     }

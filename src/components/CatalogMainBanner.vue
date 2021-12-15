@@ -147,6 +147,10 @@ export default {
       align-self: center;
       margin-left: 60px;
     }
+
+    &__note {
+      margin-left: 0;
+    }
   }
 
   @include media(xl) {

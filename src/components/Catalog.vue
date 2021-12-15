@@ -103,7 +103,7 @@
               v-for="(card, index) in cards"
               :key="index"
               :info="card"
-              :noPrice="cardType !== 'technic'"
+              :noPrice="cardType === 'wardrobe'"
               :cardType="cardType"
               :large="catalogType === 'list'"
               :loading="loading"
@@ -115,7 +115,7 @@
             <ProductCard
               v-for="n in placeholderCount"
               :key="n + 'p'"
-              :noPrice="cardType !== 'technic'"
+              :noPrice="cardType === 'wardrobe'"
               :cardType="cardType"
               class="catalog__card"
             />

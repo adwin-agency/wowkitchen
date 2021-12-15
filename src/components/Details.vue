@@ -78,7 +78,7 @@
           </div>
           <DetailsCard
             :info="info"
-            noPrice
+            :noPrice="false"
             :slides="info?.pictures.length"
             :currentSlide="activeMainIndex + 1"
             class="details__card"
@@ -396,7 +396,7 @@ export default {
 
     handleMainSlideChange() {
       if (this.mainSwiper) {
-        this.activeMainIndex = this.mainSwiper.realIndex
+        this.activeMainIndex = this.mainSwiper.realIndex || 0
       }
     },
 

@@ -25,7 +25,8 @@
           Безопасно
         </p>
       </div>
-      <div class="catalog-side-banner__note">Все наши сотрудники <span>ежедневно проходят обязательный контроль температуры и используют маски</span></div>
+      <!-- <div class="catalog-side-banner__note">Все наши сотрудники <span>ежедневно проходят обязательный контроль температуры и используют маски</span></div> -->
+      <div class="catalog-side-banner__note">при покупке кухни фурнитура <span>в подарок</span></div>
     </div>
     <img src="@/assets/img/side-banner-masked.png" alt class="catalog-side-banner__img">
   </div>
@@ -111,7 +112,8 @@ export default {
 
   &__note {
     margin-top: 6px;
-    max-width: 250px;
+    // max-width: 250px;
+    max-width: 160px;
     font-weight: 600;
     font-size: 10px;
     line-height: 1.6;
@@ -171,6 +173,7 @@ export default {
     }
 
     &__note {
+      max-width: 230px;
       font-size: 13px;
     }
   }

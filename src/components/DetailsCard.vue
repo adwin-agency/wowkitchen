@@ -22,13 +22,13 @@
         class="details-card__cost"
       >
         <div class="details-card__prices">
-          <p class="details-card__price">{{info.price}} ₽</p>
-          <p
+          <p class="details-card__price">от {{info?.price}} ₽</p>
+          <!-- <p
             v-if="info.old_price"
             class="details-card__old-price"
           >
             {{info.old_price}} ₽
-          </p>
+          </p> -->
         </div>
         <!-- <span
           v-if="info.discount"
@@ -39,7 +39,7 @@
       </div>
       <div class="details-card__btns">
         <AppButton
-          :title="noPrice ? 'Узнать стоимость' : 'Рассчитать проект'"
+          :title="noPrice ? 'Узнать стоимость' : 'Рассчитать кухню'"
           modalName="calc"
           class="details-card__btn"
           @click="handleBtnClick"
