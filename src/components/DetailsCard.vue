@@ -29,6 +29,7 @@
           >
             {{info.old_price}} ₽
           </p> -->
+          <p class="details-card__price-note">цена за кухонный гарнитур</p>
         </div>
         <!-- <span
           v-if="info.discount"
@@ -194,6 +195,10 @@ export default {
     font-size: 18px;
     color: $color-lightgray;
     background-color: $color-pink;
+  }
+
+  &__price-note {
+    font-size: 12px;
   }
 
   &__btns {

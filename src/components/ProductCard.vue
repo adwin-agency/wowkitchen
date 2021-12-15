@@ -148,6 +148,7 @@
         >
           -{{info.discount}}%
         </span> -->
+        <p v-if="cardType === 'kitchen'" class="product-card__price-note">цена за кухонный гарнитур</p>
       </div>
       <div
         v-if="cardType !== 'technic'"
@@ -606,6 +607,11 @@ export default {
     text-decoration: line-through;
   }
 
+  &__price-note {
+    margin-right: 20px;
+    font-size: 12px;
+  }
+
   &__calc {
     width: 180px;
     grid-column: 2 / 3;
@@ -1038,6 +1044,11 @@ export default {
           padding: 9px 16px;
         }
 
+        &__price-note {
+          grid-column: 1 / 3;
+          margin-right: 0;
+        }
+
         &__props {
           margin-top: 16px;
         }
@@ -1224,6 +1235,10 @@ export default {
     &__prices {
       margin-top: 10px;
       padding-right: 12px;
+    }
+
+    &__price-note {
+      width: 100%;
     }
 
     &__calc {
