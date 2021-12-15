@@ -26,6 +26,7 @@
             <ProductCard
               :info="wardrobe"
               cardType="wardrobe"
+              noPrice
               wardrobeslide
               :disabled="!isVisible"
             />
