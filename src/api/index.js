@@ -81,6 +81,8 @@ const api = {
     window.gtag && window.gtag('event', formType, {event_category: 'Forms'})
     window.ym && window.ym(34624840, 'reachGoal', formType)
     window.ym && window.ym(34624840, 'reachGoal', 'lead')
+    window.yaCounter34624840 && yaCounter34624840.reachGoal(formType)
+    window.yaCounter34624840 && yaCounter34624840.reachGoal('lead')
     window.dataLayer = window.dataLayer || []
     if (formType !== 'guarantee' && formType !== 'payment' && formType !== 'review') {
       window.dataLayer.push({'event': 'submit_form'})
