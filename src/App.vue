@@ -1,7 +1,7 @@
 <template>
   <Header class="app-header" />
   <RouterView />
-  <Footer />
+  <Footer class="app-footer" :class="{'disabled': !loaded}" />
   <Modal />
   <SitePhone class="app-site-phone" />
   <AppArrowUp
@@ -36,6 +36,9 @@ export default {
   computed: {
     scrollLock() {
       return this.$store.getters.scrollLock || this.$store.state.introEffect
+    },
+    loaded() {
+      return this.$store.state.loaded
     }
   },
   watch: {
@@ -143,6 +146,13 @@ export default {
   top: 0;
   right: 0;
   z-index: 100;
+}
+
+.app-footer {
+  &.disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .app-site-phone {

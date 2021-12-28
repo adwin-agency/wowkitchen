@@ -45,6 +45,7 @@ export default {
   },
   async created() {
     this.details = await api.loadDetails(this.$route)
+    this.$store.commit('setLoaded', true)
 
     const info = this.details.info
     const crumbs = [
@@ -56,6 +57,7 @@ export default {
   async beforeRouteUpdate(to) {
     this.details = null
     this.details = await api.loadDetails(to)
+    this.$store.commit('setLoaded', true)
 
     const info = this.details.info
     const crumbs = [

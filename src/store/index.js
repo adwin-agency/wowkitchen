@@ -25,7 +25,8 @@ export default createStore({
     breadCrumbs: null,
     constructor: null,
     modalFavorites: null,
-    activeSitePhone: false
+    activeSitePhone: false,
+    loaded: false
   },
 
   getters: {
@@ -101,6 +102,10 @@ export default createStore({
 
     setActiveSitePhone(state, status)  {
       state.activeSitePhone = status
+    },
+
+    setLoaded(state, status) {
+      state.loaded = status
     }
   }
 })
