@@ -112,6 +112,12 @@ export default {
   components: {
     AppIcon
   },
+  data() {
+    return {
+      mapScript: null,
+      mapScriptIsLoaded: false
+    }
+  },
   computed: {
     cities() {
       return this.$store.state.cities
@@ -130,7 +136,16 @@ export default {
     }
   },
   watch: {
+    mapScriptIsLoaded() {
+      if (this.coords) {
+        this.initMap()
+      }
+    },
     coords() {
+      if (!this.mapScriptIsLoaded) {
+        return
+      }
+
       if (window.myMap) {
         window.myMap.setCenter([this.coords.lat, this.coords.long])
         window.myPlacemark.geometry.setCoordinates([this.coords.lat, this.coords.long])
@@ -140,11 +155,17 @@ export default {
     }
   },
   mounted() {
-    if (this.coords) {
-      this.initMap()
+    this.mapScript = document.createElement('script')
+
+    this.mapScript.setAttribute('src', 'https://api-maps.yandex.ru/2.1/?apikey=cb0c6e79-ed1d-4ef3-aa2e-99cfe4efba7e&lang=ru_RU')
+    document.body.appendChild(this.mapScript)
+
+    this.mapScript.onload = () => {
+      this.mapScriptIsLoaded = true
     }
   },
   unmounted() {
+    document.body.removeChild(this.mapScript)
     window.myMap.destroy()
     window.myMap = null
     window.myPlacemark = null
