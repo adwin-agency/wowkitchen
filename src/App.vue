@@ -94,6 +94,8 @@ export default {
       this.$store.commit('setCityDetection', true)
     }
 
+    this.$store.commit('setPromo', main.promo)
+
     document.addEventListener('click', (e) => {
       if (e.target.closest('a[href^="tel"')) {
         window.fbq && window.fbq('track', 'Contact')

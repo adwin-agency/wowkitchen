@@ -7,7 +7,7 @@
       <p class="catalog-main-banner__title">{{title}}</p>
       <template v-if="type !== 'technics'">
         <p class="catalog-main-banner__discount">скидка 50%</p>
-        <p class="catalog-main-banner__date">до конца года</p>
+        <p class="catalog-main-banner__date">{{promo}}</p>
         <p class="catalog-main-banner__note">
           <AppIcon
             name="lightning"
@@ -44,6 +44,11 @@ export default {
         wardrobes: { title: 'Шкафы-купе на заказ', image: 'wardrobes-banner.jpg' },
         technics: { title: 'Варочные панели', image: 'technics-banner.jpg' }
       }
+    }
+  },
+  computed: {
+    promo() {
+      return this.$store.state.promo
     }
   }
 }

@@ -26,7 +26,8 @@ export default createStore({
     constructor: null,
     modalFavorites: null,
     activeSitePhone: false,
-    loaded: false
+    loaded: false,
+    promo: ''
   },
 
   getters: {
@@ -106,6 +107,10 @@ export default createStore({
 
     setLoaded(state, status) {
       state.loaded = status
+    },
+    
+    setPromo(state, text) {
+      state.promo = text
     }
   }
 })
