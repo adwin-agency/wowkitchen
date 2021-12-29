@@ -8,15 +8,31 @@
       <template v-if="type !== 'technics'">
         <p class="catalog-main-banner__discount">скидка 50%</p>
         <p class="catalog-main-banner__date">до конца года</p>
-        <p class="catalog-main-banner__note">Сделаем {{type === 'wardrobes' ? 'шкаф' : 'кухню'}} по ценам материалов 2021 года!</p>
+        <p class="catalog-main-banner__note">
+          <AppIcon
+            name="lightning"
+            class="catalog-main-banner__note-icon"
+          />
+          Сделаем {{type === 'wardrobes' ? 'шкаф' : 'кухню'}} по ценам материалов 2021 года!</p>
+        <p class="catalog-main-banner__note">
+          <AppIcon
+            name="lightning"
+            class="catalog-main-banner__note-icon"
+          />
+          Работаем все новогодние каникулы</p>
       </template>
     </div>
   </div>
 </template>
 
 <script>
+import AppIcon from './base/AppIcon.vue'
+
 export default {
   name: 'CatalogMainBanner',
+  components: {
+    AppIcon
+  },
   props: {
     type: String,
     title: String
@@ -36,6 +52,12 @@ export default {
 <style lang="scss">
 .catalog-main-banner {
   background-size: 0;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   &__title {
     font-weight: bold;
@@ -63,9 +85,26 @@ export default {
   }
 
   &__note {
+    display: flex;
     margin-top: 10px;
+    margin-right: auto;
+    border-radius: 20px;
+    padding: 4px 26px;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 15px;
+    color: #fff;
+    background-color: $color-green;
+
+    & + & {
+      margin-top: 5px;
+    }
+
+    &-icon {
+      width: 15px;
+      height: 22px;
+      flex-shrink: 0;
+      margin-right: 17px;
+    }
   }
 
   @include media(md) {
@@ -122,7 +161,7 @@ export default {
     &__note {
       margin-top: 24px;
       margin-left: 15px;
-      color: #f3f4f9;
+      font-size: 16px;
     }
   }
 
