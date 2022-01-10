@@ -8,7 +8,7 @@
       <template v-if="type !== 'technics'">
         <p class="catalog-main-banner__discount">скидка 50%</p>
         <p class="catalog-main-banner__date">{{promo}}</p>
-        <p class="catalog-main-banner__note">
+        <!-- <p class="catalog-main-banner__note">
           <AppIcon
             name="lightning"
             class="catalog-main-banner__note-icon"
@@ -19,19 +19,19 @@
             name="lightning"
             class="catalog-main-banner__note-icon"
           />
-          Работаем все новогодние каникулы</p>
+          Работаем все новогодние каникулы</p> -->
       </template>
     </div>
   </div>
 </template>
 
 <script>
-import AppIcon from './base/AppIcon.vue'
+// import AppIcon from './base/AppIcon.vue'
 
 export default {
   name: 'CatalogMainBanner',
   components: {
-    AppIcon
+    // AppIcon
   },
   props: {
     type: String,
