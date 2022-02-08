@@ -12,6 +12,7 @@
       :class="{'quiz-option__box_check': checkbox}"
     >
       <img
+        v-if="image"
         :src="require(`@/assets/img/${image.name}`)"
         :alt="image.alt"
         class="quiz-option__img"
@@ -154,7 +155,8 @@ export default {
 
     &__box {
       display: block;
-      min-height: none;
+      min-height: 0;
+      height: 100%;
     }
 
     &__img {

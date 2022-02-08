@@ -46,7 +46,7 @@
         <div class="container">
           <div class="quiz__main-inner">
             <h1 class="quiz__heading">Расчет онлайн</h1>
-            <p class="quiz__desc">Пройдите простой тест из 3 вопросов и получите <b>бесплатный онлайн-расчёт</b> проекта, а так же закрепите за собой <b>самые выгодные условия</b> на гарнитур!</p>
+            <p class="quiz__desc">Пройдите простой тест из 3 вопросов и получите <b>бесплатный онлайн-расчёт</b> проекта, подарок, а так же закрепите за собой <b>самые выгодные условия</b> на гарнитур!</p>
             <AppButton
               title="Рассчитать"
               class="quiz__start"
@@ -195,6 +195,40 @@
             </div>
             <div class="quiz__step">
               <div class="container">
+                <div class="quiz__step-header">
+                  <p class="quiz__order"></p>
+                  <button
+                    class="quiz__back"
+                    type="button"
+                    @click="goToPrevStep"
+                  >
+                    <AppIcon
+                      name="angle-down"
+                      class="quiz__back-icon"
+                    />
+                    Назад
+                  </button>
+                </div>
+                <h2 class="quiz__title">Выберите подарок</h2>
+                <div class="quiz__style">
+                  <div class="quiz__options quiz__options_wide">
+                    <QuizOption
+                      v-for="(option, index) in giftOptions"
+                      :key="index"
+                      small
+                      name="gift"
+                      :image="option.image"
+                      :value="option.title"
+                      :title="option.title"
+                      class="quiz__option"
+                      @change="handleRadioChange('gift', $event)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="quiz__step">
+              <div class="container">
                 <h2 class="quiz__title">Расчёт стоимости</h2>
                 <div class="quiz__calc">
                   <div
@@ -206,6 +240,7 @@
                       <li class="quiz__progress-item is-active">Тип шкафа: {{values.plan}}</li>
                       <li class="quiz__progress-item is-active">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</li>
                       <li class="quiz__progress-item is-active">Фасад: {{values.style}}</li>
+                      <li class="quiz__progress-item is-active">Подарок: {{values.gift}}</li>
                     </ol>
                   </div>
                   <QuizResult
@@ -239,7 +274,7 @@
           <div class="quiz__note">
             <p class="quiz__note-title">{{notes[activeStep - 1]}}</p>
             <p
-              v-if="activeStep < 4"
+              v-if="activeStep <= stepsLength - 1"
               class="quiz__note-desc"
             >
               до бесплатного расчёта проекта онлайн и закрепления за вами самых выгодных условий покупки
@@ -264,9 +299,15 @@
             >
               {{activeStep > 3 ? `Фасад: ${values.style}`: ''}}
             </li>
+            <li
+              class="quiz__progress-item"
+              :class="{'is-active': activeStep > 4}"
+            >
+              {{activeStep > 4 ? `Подарок: ${values.gift}`: ''}}
+            </li>
           </ol>
           <button
-            v-if="activeStep === 4"
+            v-if="activeStep === stepsLength"
             type="button"
             class="quiz__reset"
             @click="resetQuiz"
@@ -292,6 +333,7 @@ import QuizResult from './QuizResult.vue'
 import useForms from '../composition/forms'
 
 const notes = [
+  '4 простых шага',
   '3 простых шага',
   'Ещё 2 простых шага',
   'Остался всего 1 шаг',
@@ -307,9 +349,22 @@ const planOptions = [
 const styleOptions = [
   { image: { name: 'quiz-w-mdf.jpg', alt: 'МДФ' }, title: 'МДФ' },
   { image: { name: 'quiz-w-ldsp.jpg', alt: 'ЛДСП' }, title: 'ЛДСП' },
-  { image: { name: 'quiz-w-emal.jpg', alt: 'Эмаль' }, title: 'Эмаль' },
+  // { image: { name: 'quiz-w-emal.jpg', alt: 'Эмаль' }, title: 'Эмаль' },
   // { image: { name: 'quiz-w-zerkalo.jpg', alt: 'Зеркало' }, title: 'Зеркало' }
 ]
+
+const giftOptions = [
+  { title: 'Зеркало в дверь-купе' },
+  { title: 'Комплект ящиков в подарок' }
+]
+
+const initValues = {
+  plan: '',
+  sizes: [],
+  construct: [],
+  style: '',
+  gift: ''
+}
 
 export default {
   name: 'Quiz',
@@ -334,16 +389,12 @@ export default {
       notes: notes,
       planOptions: planOptions,
       styleOptions: styleOptions,
+      giftOptions: giftOptions,
       activeStep: 0,
       completedStep: 0,
+      stepsLength: 5,
       sizeImage: 'size-I.png',
-      values: {
-        plan: '',
-        sizes: [],
-        construct: [],
-        style: '',
-        email: ''
-      }
+      values: {...initValues}
     }
   },
   computed: {
@@ -464,14 +515,7 @@ export default {
       this.$refs.quizform.reset()
       this.activeStep = 1
       this.completedStep = 0
-      this.values = {
-        plan: '',
-        sizes: [],
-        construct: [],
-        style: '',
-        elements: [],
-        email: ''
-      }
+      this.values = {...initValues}
     }
   }
 }
