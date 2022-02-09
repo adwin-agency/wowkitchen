@@ -26,7 +26,7 @@
         color="gray"
         type="radio"
         name="payment"
-        :items="['Предоплата', 'Доплата']"
+        :items="[{label: 'Полная оплата', value: 'Оплата'}, 'Доплата']"
         class="pay-form__control"
       />
       <AppSelect

@@ -16,7 +16,7 @@
         <input
           :type="type"
           :name="name"
-          :value="item"
+          :value="item.value || item"
           class="control__input"
           :checked="type === 'radio' && index === 0"
           @change="$emit('change', $event)"
@@ -27,7 +27,7 @@
             {[`control__btn_${color}`]: color},
             {[`control__btn_${size}`]: size}
           ]"
-        >{{item}}</span>
+        >{{item.label || item}}</span>
       </label>
     </div>
   </div>
