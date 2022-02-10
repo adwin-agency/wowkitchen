@@ -19,7 +19,7 @@
       :value="shopId"
     >
     <div class="pay-form__header">
-      <AppControl
+      <!-- <AppControl
         :label="$_media.sm ? 'Тип оплаты' : ''"
         :sideLabel="!$_media.sm ? 'Тип оплаты' : ''"
         size="lg"
@@ -28,7 +28,7 @@
         name="payment"
         :items="[{label: 'Полная оплата', value: 'Оплата'}, 'Доплата']"
         class="pay-form__control"
-      />
+      /> -->
       <AppSelect
         v-if="cityOptions"
         :sideLabel="!$_media.sm && 'Город'"
@@ -150,7 +150,7 @@
 <script>
 import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
-import AppControl from './base/AppControl.vue'
+// import AppControl from './base/AppControl.vue'
 import AppSelect from './base/AppSelect.vue'
 import AppTextField from './base/AppTextField.vue'
 import useForms from '../composition/forms'
@@ -158,7 +158,7 @@ import useForms from '../composition/forms'
 export default {
   name: 'PaymentForm',
   components: {
-    AppControl,
+    // AppControl,
     AppSelect,
     AppButton,
     AppIcon,
