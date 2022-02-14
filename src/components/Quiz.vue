@@ -89,21 +89,19 @@
                   <p class="quiz__order">Вопрос 1 из 3</p>
                 </div>
                 <h2 class="quiz__title">Выберите планировку кухни</h2>
-                <div class="quiz__plan">
-                  <div class="quiz__options">
-                    <QuizOption
-                      v-for="(option, index) in planOptions"
-                      :key="index"
-                      shadow
-                      name="plan"
-                      :image="option.image"
-                      :value="option.title"
-                      :title="option.title"
-                      class="quiz__option"
-                      @change="handleRadioChange('plan', $event)"
-                      @click="handleRadioClick('plan', option.title, $event)"
-                    />
-                  </div>
+                <div class="quiz__options">
+                  <QuizOption
+                    v-for="(option, index) in planOptions"
+                    :key="index"
+                    shadow
+                    name="plan"
+                    :image="option.image"
+                    :value="option.title"
+                    :title="option.title"
+                    class="quiz__option"
+                    @change="handleRadioChange('plan', $event)"
+                    @click="handleRadioClick('plan', option.title, $event)"
+                  />
                 </div>
               </div>
             </div>
@@ -111,7 +109,7 @@
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 2 из 3</p>
-                  <button
+                  <!-- <button
                     class="quiz__back"
                     type="button"
                     @click="goToPrevStep"
@@ -121,7 +119,7 @@
                       class="quiz__back-icon"
                     />
                     Назад
-                  </button>
+                  </button> -->
                 </div>
                 <h2 class="quiz__title">Введите ориентировочные размеры</h2>
                 <div class="quiz__size">
@@ -162,13 +160,22 @@
                         @change="handleCheckRadioChange('construct', $event)"
                       />
                     </div>
-                    <AppButton
-                      title="Далее"
-                      size="small"
-                      class="quiz__next"
-                      :disabled="!completedSizes"
-                      @click="goToNextStep"
-                    />
+                    <div class="quiz__actions quiz__actions_l">
+                      <AppButton
+                          icon="arrow"
+                          color="gray2"
+                          size="small"
+                          class="quiz__prev"
+                          @click="goToPrevStep"
+                      />
+                      <AppButton
+                        title="Далее"
+                        size="small"
+                        class="quiz__next"
+                        :disabled="!completedSizes"
+                        @click="goToNextStep"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -177,7 +184,7 @@
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 3 из 3</p>
-                  <button
+                  <!-- <button
                     class="quiz__back"
                     type="button"
                     @click="goToPrevStep"
@@ -187,23 +194,37 @@
                       class="quiz__back-icon"
                     />
                     Назад
-                  </button>
+                  </button> -->
                 </div>
                 <h2 class="quiz__title">Давайте выберем стиль</h2>
-                <div class="quiz__style">
-                  <div class="quiz__options quiz__options_wide">
-                    <QuizOption
-                      v-for="(option, index) in styleOptions"
-                      :key="index"
-                      small
-                      name="style"
-                      :image="option.image"
-                      :value="option.title"
-                      :title="option.title"
-                      class="quiz__option"
-                      @change="handleRadioChange('style', $event)"
-                    />
-                  </div>
+                <div class="quiz__options quiz__options_wide">
+                  <QuizOption
+                    v-for="(option, index) in styleOptions"
+                    :key="index"
+                    small
+                    name="style"
+                    :image="option.image"
+                    :value="option.title"
+                    :title="option.title"
+                    class="quiz__option"
+                    @change="handleRadioChange('style', $event)"
+                  />
+                </div>
+                <div class="quiz__actions">
+                  <AppButton
+                      icon="arrow"
+                      color="gray2"
+                      size="small"
+                      class="quiz__prev"
+                      @click="goToPrevStep"
+                  />
+                  <AppButton
+                    title="Далее"
+                    size="small"
+                    class="quiz__next"
+                    :disabled="!values.style"
+                    @click="goToNextStep"
+                  />
                 </div>
               </div>
             </div>
@@ -246,9 +267,18 @@
                   >
                     <p class="quiz__summary-title">Параметры вашей будущей кухни:</p>
                     <ol class="quiz__progress">
-                      <li class="quiz__progress-item is-active">Тип кухни: {{values.plan}}</li>
-                      <li class="quiz__progress-item is-active">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</li>
-                      <li class="quiz__progress-item is-active">Стиль: {{values.style}}</li>
+                      <li class="quiz__progress-item is-active">
+                        <span class="quiz__progress-num">1</span>
+                        <span class="quiz__progress-title">Тип кухни: {{values.plan}}</span>
+                      </li>
+                      <li class="quiz__progress-item is-active">
+                        <span class="quiz__progress-num">2</span>
+                        <span class="quiz__progress-title">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</span>
+                      </li>
+                      <li class="quiz__progress-item is-active">
+                        <span class="quiz__progress-num">3</span>
+                        <span class="quiz__progress-title">Стиль: {{values.style}}</span>
+                      </li>
                       <!-- <li
                         v-if="values.elements.length"
                         class="quiz__progress-item is-active"
@@ -258,7 +288,7 @@
                     </ol>
                   </div>
                   <QuizResult
-                    :price="price"
+                    :resultprice="price"
                     :sending="sending"
                     :error="error"
                     class="quiz__result"
@@ -298,19 +328,22 @@
               class="quiz__progress-item"
               :class="{'is-active': activeStep > 1}"
             >
-              {{activeStep > 1 ? `Тип кухни: ${values.plan}` : ''}}
+              <span class="quiz__progress-num">1</span>
+              <span class="quiz__progress-title">{{activeStep > 1 ? `Тип кухни: ${values.plan}` : ''}}</span>
             </li>
             <li
               class="quiz__progress-item"
               :class="{'is-active': activeStep > 2}"
             >
-              {{activeStep > 2 ? `Размеры: ${values.sizes.join('x')} см ${values.construct.join(' ')}` : ''}}
+              <span class="quiz__progress-num">2</span>
+              <span class="quiz__progress-title">{{activeStep > 2 ? `Размеры: ${values.sizes.join('x')} см ${values.construct.join(' ')}` : ''}}</span>
             </li>
             <li
               class="quiz__progress-item"
               :class="{'is-active': activeStep > 3}"
             >
-              {{activeStep > 3 ? `Стиль: ${values.style}`: ''}}
+              <span class="quiz__progress-num">3</span>
+              <span class="quiz__progress-title">{{activeStep > 3 ? `Стиль: ${values.style}`: ''}}</span>
             </li>
             <!-- <li
               class="quiz__progress-item"
@@ -653,16 +686,17 @@ export default {
     }
   }
 
-  &__next {
-    margin-top: 36px;
-    width: 100%;
-  }
-
   &__area {
     margin: 0 (-$container-padding);
 
     img {
       width: 100%;
+    }
+
+    &_bordered {
+      img {
+        border: 1px solid #DCDCDC;
+      }
     }
   }
 
@@ -689,6 +723,23 @@ export default {
     margin-top: 10px;
   }
 
+  &__actions {
+    display: flex;
+    margin-top: 36px;
+  }
+
+  &__prev {
+    margin-right: 10px;
+    width: 56px;
+    height: 56px;
+    padding: 20px;
+    transform: rotate(180deg);
+  }
+
+  &__next {
+    flex: 1;
+  }
+
   &__summary {
     margin-top: 30px;
 
@@ -706,7 +757,6 @@ export default {
       counter-increment: li;
       display: flex;
       margin-bottom: 12px;
-      padding-top: 5px;
       font-weight: 600;
       font-size: 14px;
       line-height: (22/14);
@@ -715,29 +765,36 @@ export default {
         margin-bottom: 0;
       }
 
-      &::before {
-        content: counter(li);
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: -5px;
-        margin-right: 15px;
-        flex-shrink: 0;
-        width: 34px;
-        height: 34px;
-        border-radius: 100px;
-        font-weight: bold;
-        font-size: 14px;
-        color: $color-lightgray;
-        background-color: $color-lightviolet;
-      }
-
       &.is-active {
-        &::before {
+        #{$b}__progress-num {
           color: $color-primary;
           background-color: $color-yellow;
         }
       }
+    }
+
+    &-num {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 100px;
+      font-weight: bold;
+      font-size: 14px;
+      color: $color-lightgray;
+      background-color: $color-lightviolet;
+    }
+
+    &-title {
+      padding-top: 5px;
+    }
+
+    &-icon {
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -752,12 +809,12 @@ export default {
     margin: 22px auto 0;
     padding: 6px 0;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
 
     &-icon {
-      width: 18px;
-      height: 18px;
-      margin-right: 10px;
+      width: 24px;
+      height: 24px;
+      margin-right: 18px;
     }
   }
 
@@ -793,7 +850,7 @@ export default {
 
     &__desc {
       font-size: 16px;
-      line-height: (32/16);
+      line-height: 1.7;
     }
 
     &__start {
@@ -852,7 +909,6 @@ export default {
     }
 
     &__step {
-      min-height: 720px;
       padding: 55px 0 95px;
 
       .container {
@@ -896,33 +952,35 @@ export default {
           margin-top: 38px;
         }
 
-        & + #{$b}__next {
-          margin-top: 40px;
-          margin-left: 0;
+        & + #{$b}__actions {
+          margin-top: 20px;
         }
       }
     }
 
     &__result {
-      margin-top: 0;
-      margin-right: 20px;
+      margin: 0;
+    }
+
+    &__actions {
+      justify-content: flex-end;
+      margin-top: 30px;
+
+      &_l {
+        justify-content: flex-start;
+      }
     }
 
     &__next {
-      display: flex;
-      margin-left: auto;
-      margin-top: 30px;
-      width: auto;
-      min-width: 220px;
+      flex: none;
+      width: 162px;
     }
 
     &__side {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       width: 320px;
-      min-height: 650px;
-      padding: 50px 50px 50px 20px;
+      padding: 46px 0 30px;
       background-image: url('~@/assets/img/quiz-side.jpg');
       background-size: cover;
       background-position: center;
@@ -932,6 +990,7 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      margin-right: 40px;
       min-height: 120px;
       padding: 25px 30px;
       border-bottom-right-radius: 40px;
@@ -952,18 +1011,45 @@ export default {
     }
 
     &__progress {
-      margin-top: 50px;
-      margin-left: 18px;
+      margin: 22px 40px 0;
 
       &-item {
-        margin-bottom: 22px;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        font-size: 12px;
+
+        &.is-active {
+          #{$b}__progress-title {
+            background: none;
+          }
+        }
       }
+        
+      &-num {
+        margin-top: 0;
+        width: 30px;
+        height: 30px;
+      }
+
+      &-title {
+        flex: 1;
+        margin-top: 3px;
+        min-height: 24px;
+        padding-top: 3px;
+        background: rgba(172, 168, 195, 0.3);
+        border-radius: 2px;
+      }
+    }
+
+    &__reset {
+      margin-top: 50px;
+      margin-left: 50px;
     }
   }
 
   @include media(lg) {
     &__image {
-      width: 65%;
+      width: 54%;
     }
 
     &__shape {
@@ -1000,11 +1086,11 @@ export default {
 
     &__main {
       &-content {
-        padding: 185px 0 230px;
+        padding: 112px 0 130px;
       }
 
       &-inner {
-        width: 35%;
+        width: 40%;
       }
     }
 
@@ -1013,26 +1099,29 @@ export default {
     }
 
     &__start {
-      margin-top: 65px;
+      margin-top: 42px;
     }
 
     &__steps {
-      width: calc(100% - 400px);
+      width: calc(100% - 424px);
     }
 
     &__step {
-      min-height: 850px;
-      padding: 75px 0 145px;
+      padding: 54px 0;
 
       .container {
-        padding-right: 90px;
-        max-width: calc(50% + 480px);
+        max-width: calc(50% + 470px);
       }
     }
 
+    &__order {
+      font-size: 13px;
+    }
+
     &__title {
-      margin-top: 12px;
-      margin-bottom: 48px;
+      margin-top: 3px;
+      margin-bottom: 32px;
+      font-size: 24px;
     }
 
     &__plan {
@@ -1041,11 +1130,13 @@ export default {
 
     &__options {
       grid-template-columns: repeat(3, 1fr);
-      grid-gap: 45px;
+      grid-gap: 30px;
+      margin-right: 62px;
 
       &_wide {
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 20px;
+        margin-right: 0;
 
         & + #{$b}__next {
           margin-top: 24px;
@@ -1053,28 +1144,24 @@ export default {
       }
     }
 
-    &__size {
-      margin-right: 20px;
-    }
-
     &__area {
-      width: 61%;
+      width: 53.5%;
     }
 
     &__fields {
-      margin-left: 56px;
+      margin-left: 52px;
 
       &-title {
-        margin-bottom: 30px;
+        margin-bottom: 18px;
       }
     }
 
     &__field {
-      margin-top: 20px;
+      margin-top: 14px;
     }
 
-    &__next {
-      margin-top: 72px;
+    &__actions {
+      margin-top: 34px;
     }
 
     &__result {
@@ -1082,13 +1169,13 @@ export default {
     }
 
     &__side {
-      width: 400px;
-      min-height: 724px;
-      padding: 50px 40px 50px 35px;
+      justify-content: flex-start;
+      width: 424px;
     }
 
     &__note {
-      padding: 48px 50px;
+      padding: 40px 50px;
+      border-bottom-right-radius: 70px;
 
       &-desc {
         margin-top: 12px;
@@ -1099,13 +1186,7 @@ export default {
     }
 
     &__progress {
-      margin-top: 40px;
-      margin-left: 38px;
-    }
-
-    &__reset {
-      margin-top: 82px;
-      margin-left: 50px;
+      margin: 22px 90px 0;
     }
   }
 
@@ -1156,17 +1237,43 @@ export default {
       width: 28%;
     }
 
+    &__desc {
+      line-height: 2;
+    }
+
+    &__start {
+      margin-top: 65px;
+    }
+
+    &__steps {
+      width: calc(100% - 465px);
+    }
+
     &__step {
-      padding: 95px 0 120px;
+      padding: 96px 0 110px;
 
       .container {
-        padding-right: 125px;
+        padding-right: 215px;
         max-width: calc(50% + 560px);
       }
     }
 
+    &__order {
+      font-size: 14px;
+    }
+
+    &__title {
+      margin-top: 12px;
+      margin-bottom: 48px;
+      font-size: 30px;
+    }
+
     &__options {
+      margin-right: 108px;
+      grid-gap: 40px;
+
       &_wide {
+        margin-right: 0;
         grid-gap: 30px;
 
         & + #{$b}__next {
@@ -1176,24 +1283,53 @@ export default {
     }
 
     &__area {
-      width: 57.5%;
+      width: 50%;
     }
 
     &__fields {
-      margin-left: 98px;
+      margin-left: 68px;
+
+      &-title {
+        margin-bottom: 28px;
+      }
+
+      &-group + #{$b}__actions {
+        margin-top: 40px;
+      }
     }
 
-    &__fields-title {
-      margin-bottom: 25px;
+    &__field {
+      margin-top: 28px;
+    }
+
+    &__actions {
+      margin-top: 68px;
+    }
+
+    &__next {
+      width: 230px;
+    }
+
+    &__side {
+      width: 465px;
+      padding: 124px 0;
     }
 
     &__note {
-      padding: 40px 50px;
+      padding: 60px;
     }
 
     &__note-desc {
       margin-top: 15px;
       margin-right: -20px;
+    }
+
+    &__progress {
+      margin: 34px 92px 0;
+
+      &-item {
+        margin-bottom: 20px;
+      }
     }
   }
 }

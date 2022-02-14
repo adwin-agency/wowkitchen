@@ -2,24 +2,28 @@
   <div class="quiz-result">
     <div class="quiz-result__content">
       <p class="quiz-result__title">Примерная стоимость с учётом скидки&nbsp;50%</p>
-      <p class="quiz-result__price">{{price}}</p>
+      <p class="quiz-result__price">{{resultprice}}</p>
       <p v-if="guide" class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите <span class="quiz-result__desc_pink">бесплатный гайд</span> по планировке и обустройству идеальной кухни! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p>
-      <!-- <p v-else class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите подробную бесплатную консультацию специалиста! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p> -->
+      <!-- <p v-if="$_media.xl" class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите подробную бесплатную консультацию специалиста! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p> -->
       <p v-else class="quiz-result__desc">оставьте свои контактные данные в форме рядом <span class="quiz-result__desc_green">для детального расчета и закрепления скидки</span></p>
     </div>
     <div class="quiz-result__form">
       <div v-if="!$_media.sm" class="quiz-result__form-header">
         <p class="quiz-result__form-feature">
           <AppIcon class="quiz-result__form-icon" name="check" />
-          Закрепить скидку 50%
+          <span>Закрепить скидку 50%</span>
         </p>
         <p v-if="guide" class="quiz-result__form-feature">
           <AppIcon class="quiz-result__form-icon" name="check" />
-          Получить бесплатный гайд
+          <span>Получить бесплатный гайд</span>
         </p>
         <p class="quiz-result__form-feature">
           <AppIcon class="quiz-result__form-icon" name="check" />
-          Получить подробный расчёт
+          <span>Получить подробный расчёт</span>
+        </p>
+        <p v-if="gift" class="quiz-result__form-feature">
+          <AppIcon class="quiz-result__form-icon" name="check" />
+          <span>Получить {{gift}} в подарок</span>
         </p>
       </div>
       <div class="quiz-result__form-main">
@@ -76,10 +80,11 @@ export default {
     AppIcon
   },
   props: {
-    price: String,
+    resultprice: String,
     sending: Boolean,
     error: Boolean,
-    guide: Boolean
+    guide: Boolean,
+    gift: String
   }
 }
 </script>
@@ -129,21 +134,25 @@ export default {
 
     &-feature {
       display: flex;
-      align-items: center;
       margin-bottom: 12px;
       font-weight: 600;
       font-size: 13px;
-      line-height: 1.86;
+      line-height: 1.5;
       color: #FFFFFF;
 
       &:last-child {
         margin-bottom: 0;
+      }
+
+      span {
+        padding-top: 2px;
       }
     }
 
     &-icon {
       width: 24px;
       height: 24px;
+      flex-shrink: 0;
       margin-right: 14px;
     }
 
@@ -195,7 +204,7 @@ export default {
     &__form {
       width: 290px;
       flex-shrink: 0;      
-      margin-top: -30px;
+      margin-top: -80px;
       margin-left: -290px;
       border-bottom-right-radius: 50px;
       background-color: #fff;
@@ -217,7 +226,7 @@ export default {
 
   @include media(lg) {
     &__content {
-      padding: 50px;
+      padding: 36px 50px;
       padding-right: 410px;
     }
 
@@ -227,12 +236,12 @@ export default {
     }
 
     &__form {
-      width: 340px;
+      width: 370px;
       margin-left: -370px;
       border-bottom-right-radius: 70px;
 
       &-header {
-        padding: 30px 40px;
+        padding: 22px 40px;
       }
 
       &-feature {
@@ -247,12 +256,11 @@ export default {
 
   @include media(xl) {
     &__content {
-      padding: 56px 82px;
-      padding-right: 550px;
+      padding: 56px 80px;
+      padding-right: 510px;
     }
     &__form {
-      width: 374px;
-      margin-left: -452px;
+      margin-left: -450px;
     }
   }
 }

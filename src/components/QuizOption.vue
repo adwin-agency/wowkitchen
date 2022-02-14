@@ -161,12 +161,12 @@ export default {
 
     &__img {
       width: 100%;
-      height: 200px;
+      height: 170px;
     }
 
     &__title {
       align-items: flex-start;
-      padding: 22px 32px;
+      padding: 20px 28px;
     }
 
     &__check {
@@ -177,6 +177,10 @@ export default {
   }
 
   @include media(xl) {
+    &__img {
+      height: 200px;
+    }
+    
     &_small {
       #{$b} {
         &__img {

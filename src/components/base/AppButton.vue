@@ -18,6 +18,7 @@
       v-if="icon"
       :name="icon"
       class="btn__icon"
+      :class="{'btn__icon_only': !title}"
     />
     {{title}}
   </component>
@@ -92,6 +93,15 @@ export default {
   &_gray {
     color: $color-primary;
     background-color: $color-lightgray;
+
+    &:hover {
+      background-color: $color-gray;
+    }
+  }
+
+  &_gray2 {
+    color: $color-lightviolet;
+    background-color: $color-gray2;
 
     &:hover {
       background-color: $color-gray;
@@ -178,6 +188,10 @@ export default {
     height: 20px;
     margin-right: 15px;
     fill: currentColor;
+
+    &_only {
+      margin-right: 0;
+    }
   }
 }
 </style>
