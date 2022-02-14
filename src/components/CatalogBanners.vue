@@ -2,7 +2,9 @@
   <div class="catalog-banners">
     <div class="container">
       <div class="catalog-banners__inner">
-        <CatalogSideBanner class="catalog-banners__side" />
+        <CatalogSideBanner
+          :type="type"
+          class="catalog-banners__side" />
         <CatalogMainBanner
           :type="type"
           :title="title"

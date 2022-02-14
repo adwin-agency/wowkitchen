@@ -26,7 +26,12 @@
         </p>
       </div>
       <!-- <div class="catalog-side-banner__note">Все наши сотрудники <span>ежедневно проходят обязательный контроль температуры и используют маски</span></div> -->
-      <div class="catalog-side-banner__note">при покупке кухни фурнитура <span>в подарок</span></div>
+      <div
+        v-if="type === 'kitchens'"
+        class="catalog-side-banner__note"
+      >
+        при покупке кухни фурнитура <span>в подарок</span>
+      </div>
     </div>
     <img src="@/assets/img/side-banner-masked.png" alt class="catalog-side-banner__img">
   </div>
@@ -39,6 +44,9 @@ export default {
   name: 'CatalogSideBanner',
   components: {
     AppIcon
+  },
+  props: {
+    type: String
   }
 }
 </script>
@@ -199,6 +207,9 @@ export default {
   }
 
   @include media(xl) {
+    align-items: flex-start;
+    min-height: 370px;
+    
     &__inner {
       padding: 85px 200px 110px 56px;
     }
