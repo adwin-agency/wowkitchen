@@ -83,7 +83,7 @@
             class="quiz__steps-wrapper"
             :style="`transform: translateX(${(activeStep - 1) * -100}%)`"
           >
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 1}">
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 1 из 3</p>
@@ -105,7 +105,7 @@
                 </div>
               </div>
             </div>
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 2}">
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 2 из 3</p>
@@ -166,7 +166,7 @@
                 </div>
               </div>
             </div>
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 3}">
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 3 из 3</p>
@@ -215,7 +215,7 @@
                 </div>
               </div>
             </div>
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 4}">
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order"></p>
@@ -263,7 +263,7 @@
                 </div>
               </div>
             </div>
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 5}">
               <div class="container">
                 <h2 class="quiz__title">Расчёт проекта</h2>
                 <div class="quiz__calc">
@@ -555,11 +555,20 @@ export default {
       event.target.value = value
     },
 
+    scrollToTop() {
+      if (this.$_media.sm) {
+        setTimeout(() => window.scrollTo(0, 0), 250)
+      }
+    },
+
     goToPrevStep() {
       this.activeStep--
+      this.scrollToTop()
     },
 
     goToNextStep() {
+      this.scrollToTop()
+
       if (this.completedStep < this.activeStep) {
         this.completedStep++
         window.dataLayer = window.dataLayer || []
@@ -574,6 +583,7 @@ export default {
       this.activeStep = 1
       this.completedStep = 0
       this.values = {...initValues}
+      this.scrollToTop()
     }
   }
 }

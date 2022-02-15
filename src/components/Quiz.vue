@@ -83,7 +83,7 @@
             class="quiz__steps-wrapper"
             :style="`transform: translateX(${(activeStep - 1) * -100}%)`"
           >
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 1}">
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 1 из 3</p>
@@ -105,7 +105,7 @@
                 </div>
               </div>
             </div>
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 2}">
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 2 из 3</p>
@@ -180,7 +180,7 @@
                 </div>
               </div>
             </div>
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 3}">
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 3 из 3</p>
@@ -257,7 +257,7 @@
               </div>
             </div>
           </div> -->
-            <div class="quiz__step">
+            <div class="quiz__step" :class="{'active': activeStep === 4}">
               <div class="container">
                 <h2 class="quiz__title">Расчёт стоимости</h2>
                 <div class="quiz__calc">
@@ -545,11 +545,20 @@ export default {
       }
     },
 
+    scrollToTop() {
+      if (this.$_media.sm) {
+        setTimeout(() => window.scrollTo(0, 0), 250)
+      }
+    },
+
     goToPrevStep() {
       this.activeStep--
+      this.scrollToTop()
     },
 
     goToNextStep() {
+      this.scrollToTop()
+
       if (this.completedStep < this.activeStep) {
         this.completedStep++
         window.dataLayer = window.dataLayer || []
@@ -571,6 +580,7 @@ export default {
         elements: [],
         email: ''
       }
+      this.scrollToTop()
     }
   }
 }
@@ -646,6 +656,15 @@ export default {
     flex-shrink: 0;
     width: 100%;
     padding: 20px 0 35px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+
+    &.active {
+      opacity: 1;
+      pointer-events: all;
+      transition-delay: .25s;
+    }
   }
 
   &__step-header {
@@ -909,7 +928,9 @@ export default {
     }
 
     &__step {
-      padding: 55px 0 95px;
+      padding: 55px 0;
+      opacity: 1;
+      pointer-events: all;
 
       .container {
         margin-right: 0;
