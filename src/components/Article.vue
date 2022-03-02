@@ -513,6 +513,30 @@ export default {
     transition: opacity 0.5s ease, transform 0.5s ease;
     z-index: 1;
 
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      opacity: 0.2;
+      z-index: 1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(0, rgb(18,19,30) 0%, rgba(15,19,47,0) 100%);
+      opacity: 0.58;
+      z-index: 1;
+    }
+
     &-img {
       position: absolute;
       left: 0;
@@ -528,6 +552,7 @@ export default {
       font-size: 26px;
       font-weight: bold;
       line-height: 1.44;
+      z-index: 2;
     }
   }
 
