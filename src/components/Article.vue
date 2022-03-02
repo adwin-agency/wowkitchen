@@ -20,15 +20,15 @@
           <div class="article__inner">
             <div class="article__section-container">
               <article class="article__section">
-                <!-- New class -->
                 <h2 class="article__section-title">{{info.name}}</h2>
-                <!-- New class -->
                 <div
                   class="article__section-previews"
                   v-html="info.previews_text"
                 ></div>
-                <!-- New class -->
-                <div class="article__section-content">
+                <div
+                  v-if="info.content.length"
+                  class="article__section-content"
+                >
                   <h4>Содержание</h4>
                   <ol>
                     <li
@@ -42,7 +42,6 @@
                     </li>
                   </ol>
                 </div>
-                <!-- New class -->
                 <div
                   class="article__desc"
                   v-html="info.description_text"
@@ -455,13 +454,13 @@ export default {
         window.sidebar?.updateSticky()
       }
 
-      images.forEach((element) => {
+      images.forEach(element => {
         addImageClass(element)
         element.addEventListener('load', function () {
           addImageClass(element)
         })
       })
-      blocks.forEach((element) => {
+      blocks.forEach(element => {
         const tags = element.childNodes
         for (let tag of tags) {
           if (tag.tagName === 'IMG') {
@@ -514,7 +513,7 @@ export default {
     z-index: 1;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
@@ -526,13 +525,13 @@ export default {
     }
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(0, rgb(18,19,30) 0%, rgba(15,19,47,0) 100%);
+      background-image: linear-gradient(0, rgb(18, 19, 30) 0%, rgba(15, 19, 47, 0) 100%);
       opacity: 0.58;
       z-index: 1;
     }
@@ -768,7 +767,7 @@ export default {
     justify-content: space-between;
     align-items: baseline;
     position: relative;
-    margin: 30px auto;
+    margin: 30px auto 0;
     // Рамка (ссылки + закругленный угол)
     & h4 {
       margin-right: auto;
@@ -865,6 +864,7 @@ export default {
 }
 // End New css block
 .article__desc {
+  margin-top: 30px;
   margin-bottom: 15px;
   h2 {
     font-weight: bold;
