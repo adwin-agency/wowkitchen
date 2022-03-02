@@ -32,6 +32,7 @@ const categories = [
   { title: 'От эксперта', value: 'ot-eksperta' },
   // { title: 'Планировки', value: 'planirovki' },
   { title: 'Идеи для кухни', value: 'idei-dlya-kukhni' },
+  { title: 'Кухня в деле', value: 'kukhnya-v-dele' },
   { title: 'Видео', value: 'videos', bold: true },
   { title: 'Популярное', value: 'populyarnoe', bold: true },
 ]
