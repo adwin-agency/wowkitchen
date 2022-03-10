@@ -25,15 +25,13 @@
           Безопасно
         </p>
       </div>
-      <!-- <div class="catalog-side-banner__note">Все наши сотрудники <span>ежедневно проходят обязательный контроль температуры и используют маски</span></div> -->
-      <div
-        v-if="type === 'kitchens'"
-        class="catalog-side-banner__note"
-      >
-        при покупке кухни фурнитура <span>в подарок</span>
+      <div class="catalog-side-banner__note">
+        <p>работаем с российскими</p>
+        <p>поставщиками и</p>
+        <p><span>соблюдаем сроки</span></p>
       </div>
     </div>
-    <img src="@/assets/img/side-banner-masked.png" alt class="catalog-side-banner__img">
+    <img src="@/assets/img/side-banner.png" alt class="catalog-side-banner__img">
   </div>
 </template>
 
@@ -119,18 +117,29 @@ export default {
   }
 
   &__note {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-top: 6px;
-    // max-width: 250px;
-    max-width: 160px;
     font-weight: 600;
     font-size: 10px;
     line-height: 1.6;
     text-transform: uppercase;
+    color: #fff;
+
+    p {
+      margin-bottom: -8px;
+      padding: 4px 12px;
+      background-color: $color-pink;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
 
     span {
       font-weight: 700;
-      background-color: $color-yellow;
-      box-shadow: 0 0 0 3px $color-yellow;
+      color: $color-yellow;
     }
   }
 
@@ -181,8 +190,11 @@ export default {
     }
 
     &__note {
-      max-width: 230px;
       font-size: 13px;
+
+      p {
+        padding: 6px 14px;
+      }
     }
   }
 
@@ -238,13 +250,13 @@ export default {
 
     #{$b} {
       &__inner {
-        padding: 18px 24px;
+        padding: 12px 24px 8px;
       }
       &__title {
         font-size: 14px;
       }
       &__features {
-        margin-top: 10px;
+        margin-top: 6px;
       }
       &__feature {
         padding: 5px 20px 5px 15px;
@@ -284,7 +296,7 @@ export default {
       
       #{$b} {
         &__inner {
-          padding: 30px 140px 30px 30px;
+          padding: 30px 130px 30px 30px;
         }
         &__feature {
           margin-bottom: 4px;
@@ -301,7 +313,7 @@ export default {
     @include media(lg) {
       #{$b} {
         &__inner {
-          padding: 45px 200px 38px 40px;
+          padding: 45px 190px 38px 40px;
         }
         &__title {
           font-size: 18px;
