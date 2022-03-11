@@ -10,14 +10,14 @@
         alt
       >
       <AppIcon
-        v-if="cardData.video && ($_media.sm || mod === 'small')"
+        v-if="cardData.description_text.includes('<video') && ($_media.sm || mod === 'small')"
         name="play"
         class="article-card__play-icon"
       />
     </div>
     <div class="article-card__content">
       <AppIcon
-        v-if="cardData.video && (!$_media.sm && mod !== 'small')"
+        v-if="cardData.description_text.includes('<video') && (!$_media.sm && mod !== 'small')"
         name="play"
         class="article-card__play-icon"
       />
