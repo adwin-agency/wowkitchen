@@ -84,7 +84,7 @@ export default {
 
     async showMore() {
       this.currentPage++
-      const response = await api.loadCards({...this.$route, query: {page: this.currentPage}})
+      const response = await api.loadCards({...this.$route, query: {...this.$route.query, page: this.currentPage}})
       this.cards = [...this.cards, ...response.goods]
     }
   }
