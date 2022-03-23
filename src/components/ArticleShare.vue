@@ -46,7 +46,8 @@ export default {
         url: 'https://wowkitchen.ru/blog/' + this.shareUrl
       },
       theme: {
-        services: 'vkontakte,facebook',
+        // services: 'vkontakte,facebook',
+        services: 'vkontakte',
         bare: true
       }
     })

@@ -146,7 +146,8 @@ export default {
         url: 'https://wowkitchen.ru' + this.shareUrl
       },
       theme: {
-        services: 'facebook,vkontakte',
+        // services: 'facebook,vkontakte',
+        services: 'vkontakte',
         bare: true
       }
     })
@@ -193,7 +194,8 @@ export default {
       #{$b}__item,
       .ya-share2__item {
         @for $i from 1 through $menu-items {
-          $angle: (($pi - $opening-angle)/2)+ (($opening-angle/($menu-items - 1)) * ($i - 1));
+          // $angle: (($pi - $opening-angle)/2)+ (($opening-angle/($menu-items - 1)) * ($i - 1));
+          $angle: 1.55;
 
           &:nth-child(#{$i}) {
             transition-duration: 80ms+ (80ms * $i);
