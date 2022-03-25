@@ -31,7 +31,7 @@
       /> -->
       <AppSelect
         v-if="cityOptions"
-        :sideLabel="!$_media.sm && 'Город'"
+        :sideLabel="!$_media.sm ? 'Город' : ''"
         name="city"
         :options="cityOptions"
         class="pay-form__select"
@@ -111,6 +111,13 @@
         color="white"
         bordered
         class="pay-form__field"
+      />
+      <AppSelect
+        :label="$_media.sm ? 'Способ оплаты' : ''"
+        :sideLabel="!$_media.sm ? 'Способ оплаты' : ''"
+        name="payment_method"
+        :options="[{title: 'Система Быстрых Платежей', value: 'sbp'}, {title: 'Прочие способы оплаты', value: 'cart'}]"
+        class="pay-form__field pay-form__field_select"
       />
       <div class="pay-form__fields-footer">
         <AppButton
@@ -299,6 +306,10 @@ export default {
 
       &_phone {
         width: 50%;
+      }
+
+      &_select {
+        max-width: 400px;
       }
     }
 

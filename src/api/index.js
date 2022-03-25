@@ -64,7 +64,7 @@ const api = {
     }
 
     let formType = formData.get('type')
-    const url = formType === 'payment' ? '/include/kassa.yandex/payment.php' : '/send.php'
+    const url = formType === 'payment' ? '/include/youkassa/payment.php' : '/send.php'
     const product = form.getAttribute('data-product')
 
     if (product && product !== 'kitchen') {
