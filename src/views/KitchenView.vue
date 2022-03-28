@@ -44,6 +44,7 @@ export default {
   async created() {
     this.details = await api.loadDetails(this.$route)
     this.setBreadCrumbs()
+    this.tmrPush()
 
     const reviewsResponse = await api.loadCards({ name: 'reviews' })
     this.reviews = reviewsResponse.reviews.slice(0, 4)
@@ -51,6 +52,7 @@ export default {
   async beforeRouteUpdate(to) {
     this.details = await api.loadDetails(to)
     this.setBreadCrumbs()
+    this.tmrPush()
   },
   methods: {
     setBreadCrumbs() {
@@ -58,6 +60,17 @@ export default {
       const crumbs = [{ path: '/kitchens', title: 'Кухни' }, { path: '/kitchens?category=' + info.category, title: info.category_rus }]
 
       this.$store.commit('setBreadCrumbs', crumbs)
+    },
+    tmrPush() {
+      const _tmr = window._tmr || (window._tmr = [])
+
+      _tmr.push({
+        type: 'itemView',
+        productid: this.details.info.id.toString(),
+        pagetype: 'product',
+        list: '2',
+        totalvalue: this.details.info.price
+      })
     }
   }
 }
