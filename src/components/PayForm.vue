@@ -31,6 +31,7 @@
       /> -->
       <AppSelect
         v-if="cityOptions"
+        :initial="activeCityCode"
         :sideLabel="!$_media.sm ? 'Город' : ''"
         name="city"
         :options="cityOptions"
@@ -141,7 +142,7 @@
       </p>
     </div>
     <div
-      v-else
+      v-else-if="selectedCityCode"
       class="pay-form__info"
     >
       <AppIcon
@@ -182,7 +183,7 @@ export default {
   },
   data() {
     return {
-      selectedCity: null
+      selectedCityCode: this.$store.state.activeCity
     }
   },
   computed: {
@@ -192,19 +193,26 @@ export default {
     cityOptions() {
       return Object.values(this.cities).length && Object.values(this.cities).map((i) => ({ title: i.name, value: i.code }))
     },
-    activeCity() {
-      return this.selectedCity || Object.values(this.cities).length && Object.values(this.cities)[0].code
+    activeCityCode() {
+      return this.$store.state.activeCity ?? ''
     },
     shopId() {
-      return this.$store.state.cities[this.activeCity]?.shop_id
+      return this.cities[this.selectedCityCode]?.shop_id
     },
     phone() {
-      return this.$store.state.cities[this.activeCity]?.phone
+      return this.cities[this.selectedCityCode]?.phone
+    }
+  },
+  watch: {
+    activeCityCode(value) {
+      if (!this.selectedCityCode) {
+        this.selectedCityCode = value
+      }
     }
   },
   methods: {
     handleCityChange(e) {
-      this.selectedCity = e
+      this.selectedCityCode = e
     }
   }
 }
