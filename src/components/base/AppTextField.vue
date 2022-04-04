@@ -143,14 +143,14 @@ export default {
         e.target.value = val
 
       // договор цифры
-      } else if (e.target.name === 'contract-n') {
-        let val = e.target.value.replace(/[^0-9-]/g, '')
+      // } else if (e.target.name === 'contract-n') {
+      //   let val = e.target.value.replace(/[^0-9-]/g, '')
 
-        if (val && val[0] === '-') {
-          val = val.slice(1)
-        }
+      //   if (val && val[0] === '-') {
+      //     val = val.slice(1)
+      //   }
 
-        e.target.value = val
+      //   e.target.value = val
 
       // сумма
       } else if (e.target.name === 'sum') {
