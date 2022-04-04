@@ -31,7 +31,7 @@
       /> -->
       <AppSelect
         v-if="cityOptions"
-        :initial="activeCityCode"
+        initial="spb"
         :sideLabel="!$_media.sm ? 'Город' : ''"
         name="city"
         :options="cityOptions"
@@ -53,7 +53,7 @@
         bordered
         class="pay-form__field"
       />
-      <AppTextField
+      <!-- <AppTextField
         label="Номер договора"
         :placeholder="['буквы', 'цифры']"
         type="text"
@@ -62,6 +62,15 @@
         color="white"
         bordered
         double
+        class="pay-form__field pay-form__field_contract"
+      /> -->
+      <AppTextField
+        label="Номер договора"
+        type="text"
+        name="contract-n"
+        required
+        color="white"
+        bordered
         class="pay-form__field pay-form__field_contract"
       />
       <AppTextField
@@ -142,7 +151,7 @@
       </p>
     </div>
     <div
-      v-else-if="selectedCityCode"
+      v-else-if="activeCityCode"
       class="pay-form__info"
     >
       <AppIcon
@@ -183,7 +192,8 @@ export default {
   },
   data() {
     return {
-      selectedCityCode: this.$store.state.activeCity
+      // selectedCityCode: this.$store.state.activeCity
+      selectedCityCode: 'spb'
     }
   },
   computed: {
@@ -203,13 +213,13 @@ export default {
       return this.cities[this.selectedCityCode]?.phone
     }
   },
-  watch: {
-    activeCityCode(value) {
-      if (!this.selectedCityCode) {
-        this.selectedCityCode = value
-      }
-    }
-  },
+  // watch: {
+  //   activeCityCode(value) {
+  //     if (!this.selectedCityCode) {
+  //       this.selectedCityCode = value
+  //     }
+  //   }
+  // },
   methods: {
     handleCityChange(e) {
       this.selectedCityCode = e
