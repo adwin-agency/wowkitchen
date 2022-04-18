@@ -10,7 +10,7 @@
       switcher
       :filterGroups="filterGroups"
       :cards="cards"
-      :showBtn="isShowBtn && currentPage > 2 && currentPage < pages"
+      :showBtn="isShowBtn && currentPage > 1 && currentPage < pages"
       :pagination="!isShowBtn && pages > 1"
       :pages="pages"
       :currentPage="currentPage"
@@ -229,7 +229,7 @@ export default {
     },
 
     handleScroll() {
-      if (!this.isShowBtn || this.currentPage > 2 || this.loading || this.currentPage >= this.pages) {
+      if (!this.isShowBtn || this.currentPage > 1 || this.loading || this.currentPage >= this.pages) {
         return
       }
 
