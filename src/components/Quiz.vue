@@ -457,8 +457,8 @@ export default {
     },
 
     price() {
-      const minCoef = 17
-      const maxCoef = 22
+      const minCoef = 15
+      const maxCoef = 20
       const additionPrice = 10000
 
       const sizeSum = this.values.sizes.reduce((sum, current) => sum + +current, 0)
