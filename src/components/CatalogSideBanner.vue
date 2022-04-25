@@ -26,9 +26,8 @@
         </p>
       </div>
       <div class="catalog-side-banner__note">
-        <p>работаем с российскими</p>
-        <p>поставщиками и</p>
-        <p><span>соблюдаем сроки</span></p>
+        <p>вытяжка в подарок</p>
+        <p><span>— только сейчас</span></p>
       </div>
     </div>
     <img src="@/assets/img/side-banner.png" alt class="catalog-side-banner__img">

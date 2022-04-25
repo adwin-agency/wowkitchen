@@ -154,7 +154,8 @@
             class="modal__icon"
           />
           <p class="modal__title">Рассчитать мой проект</p>
-          <p class="modal__desc">Наш менеджер свяжется с вами в ближайшее время, уточнит детали и проконсультирует по всем вопросам</p>
+          <p v-if="productData?.product === 'kitchen'" class="modal__desc">Наш менеджер свяжется с вами, уточнит детали и рассчитает стоимость кухни.<br><span>Только сейчас встраиваемая вытяжка в подарок!</span></p>
+          <p v-else class="modal__desc">Наш менеджер свяжется с вами в ближайшее время, уточнит детали и проконсультирует по всем вопросам</p>
           <div class="modal__fields">
             <AppTextField
               type="text"
@@ -515,6 +516,12 @@ export default {
     margin-top: 10px;
     font-size: 12px;
     line-height: (16/12);
+
+    span {
+      padding: 2px 10px;
+      font-weight: 700;
+      background-color: $color-yellow;
+    }
   }
 
   &__fields {

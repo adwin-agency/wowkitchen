@@ -447,6 +447,7 @@ export default {
 
       formData.forEach((value, key) => (obj[key] = value))
       this.$store.commit('setConstructor', obj)
+      this.$store.commit('setProductData', { product: 'kitchen' })
     }
   }
 }

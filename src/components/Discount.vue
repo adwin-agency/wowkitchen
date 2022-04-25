@@ -13,7 +13,7 @@
           </div>
         </div>
 
-        <div class="discount__mini-el discount__mini-el_bg-grey discount__mini-el_m">
+        <div class="discount__mini-el discount__mini-el_bg-grey discount__mini-el_m discount__mini-el_type1">
           <div class="discount__box">
             <h6 class="discount__mini-title discount__mini-title_bold">Бесплатные замер <br> и 3D-проект у вас дома</h6>
             <div class="discount__mini-pills-container">
@@ -21,9 +21,8 @@
               <p class="discount__mini-pills">&#10004; Быстро</p>
               <p class="discount__mini-pills">&#10004; Безопасно</p>
             </div>
-            <p class="discount__note">Все наши сотрудники <span>ежедневно проходят обязательный контроль температуры и используют маски</span></p>
             <img
-              src="@/assets/img/side-banner-masked.png"
+              src="@/assets/img/discount/discount-man.png"
               alt
               class="discount__mini-img"
             >
@@ -32,12 +31,11 @@
           </div>
         </div>
 
-        <div class="discount__mini-el discount__mini-el_bg-pink">
-          <div class="discount__box">
-            <span class="discount__percent discount__percent_large discount__percent_bg-pink">-35<span class="discount__percent-icon discount__percent-icon_small">&#37;</span></span>
-            <h6 class="discount__mini-title discount__mini-title_bold">при заказе от трёх <br>изделий</h6>
-            <p class="discount__mini-ending">Постоянная акция</p>
-          </div>
+        <div class="discount__mini-el discount__mini-el_bg-pink discount__mini-el_type2">
+          <p class="discount__mini-title">кухня + шкаф</p>
+          <p class="discount__mini-desc">скидка на второе <br>изделие до</p>
+          <p class="discount__mini-num">-35<sup>%</sup></p>
+          <p class="discount__mini-ending">Постоянная акция</p>
         </div>
 
         <div class="discount__mini-el discount__mini-el_bg-aqua">
@@ -58,6 +56,18 @@
             <p class="discount__el-title discount__el-title_sm discount__el-title_pink">В подарок</p>
             <p class="discount__mini-ending">Постоянная акция</p>
           </div>
+        </div>
+
+        <div class="discount__mini-el discount__mini-el_type5">
+          <p class="discount__mini-title">Вытяжка <br>в подарок</p>
+          <p class="discount__mini-desc">при заказе кухни</p>
+          <p class="discount__mini-ending">Постоянная акция</p>
+        </div>
+
+        <div class="discount__mini-el discount__mini-el_type6">
+          <p class="discount__mini-title">Дополнительная <br>скидка</p>
+          <p class="discount__mini-desc">на комплект <br>бытовой техники <br>от 3 единиц</p>
+          <p class="discount__mini-ending">Постоянная акция</p>
         </div>
       </div>
 
@@ -437,9 +447,6 @@ export default {
   }
 
   &__mini-el_m {
-    padding-top: 15px;
-    padding-bottom: 45px;
-
     #{$b} {
       &__mini-title {
         margin-top: 0;
@@ -454,12 +461,129 @@ export default {
     }
   }
 
+  &__mini-el {
+    &_type1 {
+      padding-top: 25px;
+    }
+
+    &_type2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 18px;
+
+      #{$b} {
+        &__mini-title {
+          margin: 0;
+          font-weight: 700;
+          font-size: 22px;
+          line-height: 90%;
+          letter-spacing: 0.02em;
+          text-transform: uppercase;
+        }
+
+        &__mini-desc {
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 17px;
+        }
+
+        &__mini-num {
+          font-weight: 700;
+          font-size: 48px;
+          line-height: 1;
+          letter-spacing: 0.02em;
+          text-transform: uppercase;
+          color: $color-pink;
+
+          sup {
+            font-size: 28px;
+          }
+        }
+      }
+    }
+
+    &_type5 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 18px;
+      background-color: $color-violet;
+      background-image: url('~@/assets/img/discount/discount-hood.png');
+      background-position: top right;
+      background-repeat: no-repeat;
+      background-size: 190px auto;
+
+      #{$b} {
+        &__mini-title {
+          margin: 0;
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 90%;
+          letter-spacing: 0.02em;
+          text-transform: uppercase;
+          color: $color-pink;
+        }
+
+        &__mini-desc {
+          margin-top: 10px;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 17px;
+        }
+      }
+    }
+
+    &_type6 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 18px;
+      background-color: $color-lightgray;
+      background-image: url('~@/assets/img/discount/discount-complect.png');
+      background-position: top right;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+
+      #{$b} {
+        &__mini-title {
+          margin: 0;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 90%;
+          letter-spacing: 0.02em;
+          text-transform: uppercase;
+        }
+
+        &__mini-desc {
+          margin-top: 6px;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 17px;
+          color: $color-green;
+        }
+      }
+    }
+  }
+
   @include media(sm) {
     &__mini-el_m {
       #{$b} {
         &__box {
           padding-right: 50px;
         }
+      }
+    }
+  }
+
+  @include media(md) {
+    &__mini-el {
+      &_type1 {
+        padding-top: 0;
+      }
+
+      &_type5 {
+        grid-column-start: 2;
       }
     }
   }
@@ -476,6 +600,70 @@ export default {
     &__list-item {
       font-size: 14px;
     }
+
+    &__mini-el {
+      &_type1 {
+        #{$b} {
+          &__mini-img {
+            right: 30px;
+            width: 110px;
+          }
+        }
+      }
+
+      &_type2 {
+        padding: 0 26px;
+
+        #{$b} {
+          &__mini-title {
+            font-size: 24px;
+          }
+
+          &__mini-desc {
+            font-size: 15px;
+          }
+
+          &__mini-num {
+            font-size: 60px;
+
+            sup {
+              font-size: 32px;
+            }
+          }
+        }
+      }
+
+      &_type5 {
+        padding: 0 30px;
+        background-size: 230px auto;
+
+        #{$b} {
+          &__mini-title {
+            font-size: 28px;
+          }
+
+          &__mini-desc {
+            margin-top: 15px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      &_type6 {
+        padding: 0 30px;
+
+        #{$b} {
+          &__mini-title {
+            font-size: 22px;
+          }
+
+          &__mini-desc {
+            margin-top: 8px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
   }
 
   @include media(xl) {
@@ -491,6 +679,70 @@ export default {
       #{$b} {
         &__mini-img {
           width: 130px;
+        }
+      }
+    }
+
+    &__mini-el {
+      &_type1 {
+        #{$b} {
+          &__mini-img {
+            right: 60px;
+          }
+        }
+      }
+
+      &_type2 {
+        padding: 0 36px;
+
+        #{$b} {
+          &__mini-title {
+            font-size: 27px;
+          }
+
+          &__mini-desc {
+            margin-top: 5px;
+            font-size: 17px;
+          }
+
+          &__mini-num {
+            font-size: 95px;
+
+            sup {
+              font-size: 48px;
+            }
+          }
+        }
+      }
+
+      &_type5 {
+        padding: 0 50px;
+        background-size: 280px auto;
+
+        #{$b} {
+          &__mini-title {
+            font-size: 35px;
+          }
+
+          &__mini-desc {
+            margin-top: 20px;
+            font-size: 18px;
+          }
+        }
+      }
+
+      &_type6 {
+        padding: 0 50px;
+
+        #{$b} {
+          &__mini-title {
+            font-size: 25px;
+          }
+
+          &__mini-desc {
+            margin-top: 12px;
+            font-size: 18px;
+          }
         }
       }
     }

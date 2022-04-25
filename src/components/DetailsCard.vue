@@ -119,7 +119,7 @@ export default {
       }
       
       const { name, id } = this.info
-      this.$store.commit('setProductData', { name, id })
+      this.$store.commit('setProductData', { name, id, product: 'kitchen' })
     }
   }
 }
