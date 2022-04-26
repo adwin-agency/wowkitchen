@@ -61,13 +61,13 @@
         <div class="discount__mini-el discount__mini-el_type5">
           <p class="discount__mini-title">Вытяжка <br>в подарок</p>
           <p class="discount__mini-desc">при заказе кухни</p>
-          <p class="discount__mini-ending">Постоянная акция</p>
+          <p class="discount__mini-ending">{{ promoDate }}</p>
         </div>
 
         <div class="discount__mini-el discount__mini-el_type6">
           <p class="discount__mini-title">Дополнительная <br>скидка</p>
           <p class="discount__mini-desc">на комплект <br>бытовой техники <br>от 3 единиц</p>
-          <p class="discount__mini-ending">Постоянная акция</p>
+          <p class="discount__mini-ending">{{ promoDate }}</p>
         </div>
       </div>
 
@@ -77,7 +77,14 @@
 
 <script>
 export default {
-  name: 'Discount'
+  name: 'Discount',
+  computed: {
+    promoDate() {
+      const today = new Date()
+      const date = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+      return 'до ' + ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2)
+    }
+  }
 }
 </script>
 
