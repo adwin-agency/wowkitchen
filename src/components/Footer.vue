@@ -142,6 +142,16 @@
               />
             </a> -->
             <a
+              href="https://zen.yandex.ru/wowkitchen"
+              target="_blank"
+              class="footer__social-link"
+            >
+              <AppIcon
+                name="zen"
+                class="footer__social-icon"
+              />
+            </a>
+            <a
               href="https://vk.com/wowkitchen_ru"
               target="_blank"
               class="footer__social-link"

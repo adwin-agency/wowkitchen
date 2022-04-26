@@ -66,6 +66,18 @@
               />
             </a> -->
             <a
+              href="https://zen.yandex.ru/wowkitchen"
+              target="_blank"
+              class="nav-panel__social-item"
+            >
+              <AppIcon
+                class="nav-panel__social-icon"
+                :width="$_mobile ? 28 : 23"
+                :height="$_mobile ? 28 : 23"
+                name="zen"
+              />
+            </a>
+            <a
               href="https://vk.com/wowkitchen_ru"
               target="_blank"
               class="nav-panel__social-item"
