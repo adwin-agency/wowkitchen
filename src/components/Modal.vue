@@ -158,6 +158,13 @@
           <p v-else class="modal__desc">Наш менеджер свяжется с вами в ближайшее время, уточнит детали и проконсультирует по всем вопросам</p>
           <div class="modal__fields">
             <AppTextField
+              textarea
+              label="Пожелания"
+              name="comment"
+              placeholder="Укажите размеры и ваши пожелания"
+              class="modal__field"
+            />
+            <AppTextField
               type="text"
               name="name"
               label="Ваше имя"
@@ -170,13 +177,6 @@
               required
               label="Контактный телефон"
               placeholder="+7(999)999-99-99"
-              class="modal__field"
-            />
-            <AppTextField
-              textarea
-              label="Пожелания"
-              name="comment"
-              placeholder="Укажите размеры и ваши пожелания"
               class="modal__field"
             />
             <label class="modal__file">
@@ -200,7 +200,7 @@
             </label>
           </div>
           <AppButton
-            :title="sending ? 'Отправляем...' : 'Отправить'"
+            :title="sending ? 'Отправляем...' : 'Рассчитать со скидкой'"
             type="submit"
             class="modal__btn"
           />
