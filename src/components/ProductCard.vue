@@ -135,7 +135,7 @@
         v-if="!noPrice"
         class="product-card__prices"
       >
-        <p class="product-card__price">от {{info.price}} ₽</p>
+        <p class="product-card__price">{{info.price}} ₽</p>
         <!-- <p
           v-if="info.old_price"
           class="product-card__old-price"

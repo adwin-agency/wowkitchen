@@ -22,7 +22,7 @@
         class="details-card__cost"
       >
         <div class="details-card__prices">
-          <p class="details-card__price">от {{info?.price}} ₽</p>
+          <p class="details-card__price">{{info?.price}} ₽</p>
           <!-- <p
             v-if="info.old_price"
             class="details-card__old-price"
