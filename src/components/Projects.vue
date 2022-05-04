@@ -145,6 +145,7 @@ export default {
     fill: #fff;
     opacity: 0.2;
     transform: rotate(45deg);
+    pointer-events: none;
   }
 
   &__extras {

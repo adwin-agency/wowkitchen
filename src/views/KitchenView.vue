@@ -3,6 +3,7 @@
     <Details :info="details?.info" />
     <Constructor />
     <Equipment />
+    <DiscountPreview />
     <Design />
     <OtherProducts
       v-if="details"
@@ -23,6 +24,7 @@ import OtherProducts from '../components/OtherProducts.vue'
 import Steps from '../components/Steps.vue'
 import RatedReviews from '../components/RatedReviews.vue'
 import api from '../api'
+import DiscountPreview from '../components/DiscountPreview.vue'
 
 export default {
   name: 'KitchenView',
@@ -33,7 +35,8 @@ export default {
     Design,
     OtherProducts,
     Steps,
-    RatedReviews
+    RatedReviews,
+    DiscountPreview
   },
   data() {
     return {
@@ -57,7 +60,13 @@ export default {
   methods: {
     setBreadCrumbs() {
       const info = this.details.info
-      const crumbs = [{ path: '/kitchens', title: 'Кухни' }, { path: '/kitchens?category=' + info.category, title: info.category_rus }]
+      const crumbs = [
+        { path: '/kitchens', title: 'Кухни' },
+        {
+          path: '/kitchens?category=' + info.category,
+          title: info.category_rus
+        }
+      ]
 
       this.$store.commit('setBreadCrumbs', crumbs)
     },
@@ -96,6 +105,10 @@ export default {
       margin-top: 60px;
     }
 
+    .discount-preview {
+      margin-top: 60px;
+    }
+
     .design {
       margin-top: 60px;
     }
@@ -119,6 +132,10 @@ export default {
       margin-top: 75px;
     }
 
+    .discount-preview {
+      margin-top: 85px;
+    }
+
     .design {
       margin-top: 85px;
     }
@@ -134,6 +151,10 @@ export default {
 
   @include media(xl) {
     .constructor {
+      margin-top: 105px;
+    }
+
+    .discount-preview {
       margin-top: 105px;
     }
 

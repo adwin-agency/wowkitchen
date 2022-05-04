@@ -18,6 +18,7 @@
       @show-more="showMore(true)"
     />
     <Projects catalog />
+    <DiscountPreview catalog />
     <QuizPreview type="kitchens" />
     <RatedReviews :cards="reviews" />
     <Steps />
@@ -37,6 +38,7 @@ import QuizPreview from '../components/QuizPreview.vue'
 import Steps from '../components/Steps.vue'
 import Projects from '../components/Projects.vue'
 import api from '../api'
+import DiscountPreview from '../components/DiscountPreview.vue'
 
 // const sortOptions = [{ title: 'Сначала дешёвые' }, { title: 'Сначала популярные' }, { title: 'Сначала дорогие' }, { title: 'Сначала новые' }]
 
@@ -94,7 +96,8 @@ export default {
     PopularArticles,
     Steps,
     RatedReviews,
-    Projects
+    Projects,
+    DiscountPreview
   },
   data() {
     return {
