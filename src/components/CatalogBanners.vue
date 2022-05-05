@@ -2,27 +2,32 @@
   <div class="catalog-banners">
     <div class="container">
       <div class="catalog-banners__inner">
-        <CatalogSideBanner
+        <!-- <CatalogSideBanner
           :type="type"
-          class="catalog-banners__side" />
+          class="catalog-banners__side"
+        /> -->
+        <CatalogSidePromo class="catalog-banners__side" />
         <CatalogMainBanner
           :type="type"
           :title="title"
-          class="catalog-banners__main" />
-      </div>      
-    </div>    
+          class="catalog-banners__main"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import CatalogSideBanner from './CatalogSideBanner.vue'
+// import CatalogSideBanner from './CatalogSideBanner.vue'
 import CatalogMainBanner from './CatalogMainBanner.vue'
+import CatalogSidePromo from './CatalogSidePromo.vue'
 
 export default {
   name: 'CatalogBanners',
   components: {
     CatalogMainBanner,
-    CatalogSideBanner
+    // CatalogSideBanner,
+    CatalogSidePromo
   },
   props: {
     type: String,
@@ -38,7 +43,8 @@ export default {
   }
 
   &__side {
-    border-radius: 8px;
+    // border-radius: 8px;
+    margin: 0 (-$container-padding);
   }
 
   @include media(md) {
@@ -60,6 +66,7 @@ export default {
 
     &__side {
       order: 1;
+      margin: 0;
       width: 400px;
       border-radius: 8px 0 0 8px;
     }
@@ -79,7 +86,7 @@ export default {
     &__main {
       margin-right: 10px;
     }
-    
+
     &__side {
       width: 500px;
     }
