@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="bonuses.length"
     class="discount-preview"
     :class="{'discount-preview_catalog': catalog}"
   >
@@ -23,40 +24,14 @@
             loop
             @swiper="onSwiper"
           >
-            <SwiperSlide class="discount-preview__slide">
+            <SwiperSlide
+              v-for="item in bonuses"
+              :key="item"
+              class="discount-preview__slide"
+            >
               <DiscountCard
                 class="discount-preview__card"
-                :type="1"
-              />
-            </SwiperSlide>
-            <SwiperSlide class="discount-preview__slide">
-              <DiscountCard
-                class="discount-preview__card"
-                :type="2"
-              />
-            </SwiperSlide>
-            <SwiperSlide class="discount-preview__slide">
-              <DiscountCard
-                class="discount-preview__card"
-                :type="3"
-              />
-            </SwiperSlide>
-            <SwiperSlide class="discount-preview__slide">
-              <DiscountCard
-                class="discount-preview__card"
-                :type="4"
-              />
-            </SwiperSlide>
-            <SwiperSlide class="discount-preview__slide">
-              <DiscountCard
-                class="discount-preview__card"
-                :type="5"
-              />
-            </SwiperSlide>
-            <SwiperSlide class="discount-preview__slide">
-              <DiscountCard
-                class="discount-preview__card"
-                :type="6"
+                :id="item"
               />
             </SwiperSlide>
           </Swiper>
@@ -85,6 +60,11 @@ export default {
   },
   props: {
     catalog: Boolean
+  },
+  computed: {
+    bonuses() {
+      return this.$store.state.bonuses
+    }
   },
   methods: {
     onSwiper(swiper) {

@@ -95,6 +95,7 @@ export default {
     }
 
     this.$store.commit('setPromo', main.promo)
+    this.$store.commit('setBonuses', main.bonuses)
 
     document.addEventListener('click', (e) => {
       if (e.target.closest('a[href^="tel"')) {

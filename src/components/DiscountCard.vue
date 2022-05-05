@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="type === 1"
+    v-if="id === '290'"
     class="discount-card discount-card_type1"
   >
     <p class="discount-card__title">Бесплатные замер <br>и 3D-проект у вас дома</p>
@@ -12,7 +12,7 @@
     <p class="discount-card__date">Постоянная акция</p>
   </div>
   <div
-    v-else-if="type === 2"
+    v-else-if="id === '291'"
     class="discount-card discount-card_type2"
   >
     <p class="discount-card__title">Кухня + шкаф</p>
@@ -21,7 +21,7 @@
     <p class="discount-card__date">Постоянная акция</p>
   </div>
   <div
-    v-else-if="type === 3"
+    v-else-if="id === '292'"
     class="discount-card discount-card_type3"
   >
     <p class="discount-card__title">Подарки</p>
@@ -33,14 +33,14 @@
     <p class="discount-card__date">Постоянная акция</p>
   </div>
   <div
-    v-else-if="type === 4"
+    v-else-if="id === '293'"
     class="discount-card discount-card_type4"
   >
     <p class="discount-card__title">при покупке кухни <br>фурнитура <br><span>в подарок</span></p>
     <p class="discount-card__date">Постоянная акция</p>
   </div>
   <div
-    v-else-if="type === 5"
+    v-else-if="id === '294'"
     class="discount-card discount-card_type5"
   >
     <p class="discount-card__title">Вытяжка <br>в подарок</p>
@@ -48,7 +48,7 @@
     <p class="discount-card__date">{{ promoDate }}</p>
   </div>
   <div
-    v-else-if="type === 6"
+    v-else-if="id === '295'"
     class="discount-card discount-card_type6"
   >
     <p class="discount-card__title">Дополнительная <br>скидка</p>
@@ -68,7 +68,7 @@
 export default {
   name: 'DiscountCard',
   props: {
-    type: Number
+    id: String
   },
   computed: {
     promoDate() {

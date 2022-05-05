@@ -27,7 +27,8 @@ export default createStore({
     modalFavorites: null,
     activeSitePhone: false,
     loaded: false,
-    promo: ''
+    promo: '',
+    bonuses: []
   },
 
   getters: {
@@ -111,6 +112,11 @@ export default createStore({
     
     setPromo(state, text) {
       state.promo = text
+    },
+
+    setBonuses(state, items) {
+      const sorted = [...items].sort((a, b) => a.sort - b.sort)
+      state.bonuses = sorted.map(item => item.id)
     }
   }
 })

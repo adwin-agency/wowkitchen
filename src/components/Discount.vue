@@ -5,30 +5,14 @@
       <div class="discount__container">
         <div class="discount__cards">
           <DiscountCard class="discount__card discount__card_main" />
-          <DiscountCard
-            class="discount__card"
-            :type="1"
-          />
-          <DiscountCard
-            class="discount__card"
-            :type="2"
-          />
-          <DiscountCard
-            class="discount__card"
-            :type="3"
-          />
-          <DiscountCard
-            class="discount__card"
-            :type="4"
-          />
-          <DiscountCard
-            class="discount__card"
-            :type="5"
-          />
-          <DiscountCard
-            class="discount__card"
-            :type="6"
-          />
+          <template v-if="bonuses.length">
+            <DiscountCard
+              v-for="item in bonuses"
+              :key="item"
+              class="discount__card"
+              :id="item"
+            />
+          </template>
         </div>
       </div>
     </div>
@@ -44,15 +28,8 @@ export default {
     DiscountCard
   },
   computed: {
-    promoDate() {
-      const today = new Date()
-      const date = new Date(today.getFullYear(), today.getMonth() + 1, 0)
-      return (
-        'до ' +
-        ('0' + date.getDate()).slice(-2) +
-        '.' +
-        ('0' + (date.getMonth() + 1)).slice(-2)
-      )
+    bonuses() {
+      return this.$store.state.bonuses
     }
   }
 }
