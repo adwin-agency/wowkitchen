@@ -1,29 +1,54 @@
 <template>
   <div class="quiz-result">
     <div class="quiz-result__content">
-      <p class="quiz-result__title">Примерная стоимость с учётом скидки&nbsp;50%</p>
-      <p class="quiz-result__price">{{resultprice}}</p>
-      <p v-if="guide" class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите <span class="quiz-result__desc_pink">бесплатный гайд</span> по планировке и обустройству идеальной кухни! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p>
-      <!-- <p v-if="$_media.xl" class="quiz-result__desc">Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите подробную бесплатную консультацию специалиста! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.</p> -->
-      <p v-else class="quiz-result__desc">оставьте свои контактные данные в форме рядом <span class="quiz-result__desc_green">для детального расчета и закрепления скидки</span></p>
+      <template v-if="type === 'wardrobe'">
+        <p class="quiz-result__title">Примерная стоимость с учётом скидки&nbsp;50%</p>
+        <p class="quiz-result__price">{{resultprice}}</p>
+      </template>
+      <p
+        v-if="type === 'kitchen'"
+        class="quiz-result__desc"
+      >
+        Закрепите за собой <span class="quiz-result__desc_pink">скидку 50%</span> и получите <span class="quiz-result__desc_pink">посудомоечную машину в подарок</span>! <br><br>Для этого <span class="quiz-result__desc_green">оставьте свои контактные данные</span> в&nbsp;форме рядом.
+      </p>
+      <p
+        v-else
+        class="quiz-result__desc"
+      >
+        оставьте свои контактные данные в форме рядом <span class="quiz-result__desc_green">для детального расчета и закрепления скидки</span>
+      </p>
     </div>
     <div class="quiz-result__form">
-      <div v-if="!$_media.sm" class="quiz-result__form-header">
+      <div
+        v-if="!$_media.sm"
+        class="quiz-result__form-header"
+      >
         <p class="quiz-result__form-feature">
-          <AppIcon class="quiz-result__form-icon" name="check" />
+          <AppIcon
+            class="quiz-result__form-icon"
+            name="check"
+          />
           <span>Закрепить скидку 50%</span>
         </p>
-        <p v-if="guide" class="quiz-result__form-feature">
-          <AppIcon class="quiz-result__form-icon" name="check" />
-          <span>Получить бесплатный гайд</span>
-        </p>
-        <p class="quiz-result__form-feature">
-          <AppIcon class="quiz-result__form-icon" name="check" />
+        <p
+          v-if="type === 'wardrobe'"
+          class="quiz-result__form-feature"
+        >
+          <AppIcon
+            class="quiz-result__form-icon"
+            name="check"
+          />
           <span>Получить подробный расчёт</span>
         </p>
-        <p v-if="gift" class="quiz-result__form-feature">
-          <AppIcon class="quiz-result__form-icon" name="check" />
-          <span>Получить {{gift}} в подарок</span>
+        <p
+          v-if="gift"
+          class="quiz-result__form-feature"
+        >
+          <AppIcon
+            class="quiz-result__form-icon"
+            name="check"
+          />
+          <span>Получить {{ gift }} в подарок</span>
         </p>
       </div>
       <div class="quiz-result__form-main">
@@ -41,14 +66,6 @@
           required
           class="quiz-result__field"
         />
-        <AppTextField
-          v-if="guide"
-          label="Mail, куда мы вышлем вам гайд"
-          type="email"
-          name="email"
-          required
-          class="quiz-result__field"
-        />
         <AppButton
           type="submit"
           :title="sending ? 'Отправляем...' : 'Отправить'"
@@ -61,9 +78,16 @@
         >
           Ошибка отправки. Попробуйте еще раз
         </p>
-        <p class="quiz-result__note">Нажимая кнопку "Отправить», вы соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
+        <p class="quiz-result__note">Нажимая кнопку "Отправить», вы соглашаетесь с 
+          <a
+            href="/policy.pdf"
+            target="_blank"
+          >
+            Политикой конфиденциальности
+          </a>
+        </p>
       </div>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -83,8 +107,8 @@ export default {
     resultprice: String,
     sending: Boolean,
     error: Boolean,
-    guide: Boolean,
-    gift: String
+    gift: String,
+    type: String
   }
 }
 </script>
@@ -93,7 +117,7 @@ export default {
 .quiz-result {
   &__content {
     padding: 20px $container-padding;
-    background-color: #F3F4F9;
+    background-color: #f3f4f9;
   }
 
   &__title {
@@ -105,31 +129,31 @@ export default {
 
   &__price {
     margin-top: 0;
+    margin-bottom: 20px;
     font-weight: 500;
     font-size: 26px;
     line-height: 1.23;
-    color: #04B891;
+    color: #04b891;
   }
 
   &__desc {
-    margin-top: 20px;
     font-weight: bold;
     font-size: 15px;
     line-height: 1.44;
 
     &_pink {
-      color: #E40175;
+      color: #e40175;
     }
 
     &_green {
-      color: #04B891;
+      color: #04b891;
     }
   }
 
   &__form {
     &-header {
       padding: 20px $container-padding;
-      background-color: #04B891;
+      background-color: #04b891;
     }
 
     &-feature {
@@ -138,7 +162,7 @@ export default {
       font-weight: 600;
       font-size: 13px;
       line-height: 1.5;
-      color: #FFFFFF;
+      color: #ffffff;
 
       &:last-child {
         margin-bottom: 0;
@@ -183,7 +207,7 @@ export default {
     text-align: center;
     font-size: 10px;
     line-height: 1.2;
-    color: #ACA8C3;
+    color: #aca8c3;
 
     a {
       text-decoration: underline;
@@ -203,7 +227,7 @@ export default {
 
     &__form {
       width: 290px;
-      flex-shrink: 0;      
+      flex-shrink: 0;
       margin-top: -80px;
       margin-left: -290px;
       border-bottom-right-radius: 50px;
@@ -218,7 +242,7 @@ export default {
         padding: 15px 20px 20px;
       }
     }
-    
+
     &__note {
       text-align: left;
     }
@@ -230,8 +254,11 @@ export default {
       padding-right: 410px;
     }
 
+    &__price {
+      margin-bottom: 48px;
+    }
+
     &__desc {
-      margin-top: 48px;
       font-size: 18px;
     }
 

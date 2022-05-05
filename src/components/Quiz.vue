@@ -4,7 +4,7 @@
       v-if="activeStep === 0"
       class="quiz__main"
     >
-      <div class="quiz__image">
+      <!-- <div class="quiz__image">
         <img
           src="@/assets/img/quiz.jpg"
           alt=""
@@ -41,7 +41,8 @@
           class="quiz__shape quiz__shape_circle-2"
           viewBox="0 0 194.19 194.22"
         />
-      </div>
+      </div> -->
+      <QuizPromo class="quiz__start-promo" />
       <div class="quiz__main-content">
         <div class="container">
           <div class="quiz__main-inner">
@@ -83,7 +84,10 @@
             class="quiz__steps-wrapper"
             :style="`transform: translateX(${(activeStep - 1) * -100}%)`"
           >
-            <div class="quiz__step" :class="{'active': activeStep === 1}">
+            <div
+              class="quiz__step"
+              :class="{'active': activeStep === 1}"
+            >
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 1 из 3</p>
@@ -105,7 +109,10 @@
                 </div>
               </div>
             </div>
-            <div class="quiz__step" :class="{'active': activeStep === 2}">
+            <div
+              class="quiz__step"
+              :class="{'active': activeStep === 2}"
+            >
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 2 из 3</p>
@@ -162,11 +169,11 @@
                     </div>
                     <div class="quiz__actions quiz__actions_l">
                       <AppButton
-                          icon="arrow"
-                          color="gray2"
-                          size="small"
-                          class="quiz__prev"
-                          @click="goToPrevStep"
+                        icon="arrow"
+                        color="gray2"
+                        size="small"
+                        class="quiz__prev"
+                        @click="goToPrevStep"
                       />
                       <AppButton
                         title="Далее"
@@ -180,7 +187,10 @@
                 </div>
               </div>
             </div>
-            <div class="quiz__step" :class="{'active': activeStep === 3}">
+            <div
+              class="quiz__step"
+              :class="{'active': activeStep === 3}"
+            >
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 3 из 3</p>
@@ -212,11 +222,11 @@
                 </div>
                 <div class="quiz__actions">
                   <AppButton
-                      icon="arrow"
-                      color="gray2"
-                      size="small"
-                      class="quiz__prev"
-                      @click="goToPrevStep"
+                    icon="arrow"
+                    color="gray2"
+                    size="small"
+                    class="quiz__prev"
+                    @click="goToPrevStep"
                   />
                   <AppButton
                     title="Далее"
@@ -257,11 +267,18 @@
               </div>
             </div>
           </div> -->
-            <div class="quiz__step" :class="{'active': activeStep === 4}">
+            <div
+              class="quiz__step"
+              :class="{'active': activeStep === 4}"
+            >
               <div class="container">
-                <h2 class="quiz__title">Расчёт стоимости</h2>
+                <QuizPromo
+                  v-if="$_media.sm"
+                  class="quiz__final-promo"
+                />
+                <h2 class="quiz__title">Контактные данные</h2>
                 <div class="quiz__calc">
-                  <div
+                  <!-- <div
                     v-if="$_media.sm"
                     class="quiz__summary"
                   >
@@ -279,21 +296,22 @@
                         <span class="quiz__progress-num">3</span>
                         <span class="quiz__progress-title">Стиль: {{values.style}}</span>
                       </li>
-                      <!-- <li
+                      <li
                         v-if="values.elements.length"
                         class="quiz__progress-item is-active"
                       >
                         Дополнительно: {{values.elements.join(', ')}}
-                      </li> -->
+                      </li>
                     </ol>
-                  </div>
+                  </div> -->
                   <QuizResult
-                    :resultprice="price"
+                    type="kitchen"
                     :sending="sending"
                     :error="error"
+                    gift="посудомоечную машину"
                     class="quiz__result"
                   />
-                  <button
+                  <!-- <button
                     v-if="$_media.sm"
                     type="button"
                     class="quiz__reset"
@@ -304,7 +322,7 @@
                       class="quiz__reset-icon"
                     />
                     Посчитать еще раз
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -314,7 +332,12 @@
           v-if="!$_media.sm"
           class="quiz__side"
         >
-          <div class="quiz__note">
+          <QuizPromo
+            v-if="activeStep === 4"
+            class="quiz__final-promo"
+            small
+          />
+          <!-- <div class="quiz__note">
             <p class="quiz__note-title">{{notes[activeStep - 1]}}</p>
             <p
               v-if="activeStep < 4"
@@ -345,12 +368,12 @@
               <span class="quiz__progress-num">3</span>
               <span class="quiz__progress-title">{{activeStep > 3 ? `Стиль: ${values.style}`: ''}}</span>
             </li>
-            <!-- <li
+            <li
               class="quiz__progress-item"
               :class="{'is-active': activeStep > 4}"
             >
               {{activeStep > 4 ? `Дополнительно: ${values.elements.join(', ')}`: ''}}
-            </li> -->
+            </li>
           </ol>
           <button
             v-if="activeStep === 4"
@@ -363,7 +386,7 @@
               class="quiz__reset-icon"
             />
             Посчитать еще раз
-          </button>
+          </button> -->
         </div>
       </div>
     </form>
@@ -372,12 +395,13 @@
 
 <script>
 import AppButton from './base/AppButton.vue'
-import AppIcon from './base/AppIcon.vue'
+// import AppIcon from './base/AppIcon.vue'
 import AppControl from './base/AppControl.vue'
 import AppTextField from './base/AppTextField.vue'
 import QuizOption from './QuizOption.vue'
 import QuizResult from './QuizResult.vue'
 import useForms from '../composition/forms'
+import QuizPromo from './QuizPromo.vue'
 
 const notes = [
   // '4 простых шага',
@@ -388,16 +412,31 @@ const notes = [
 ]
 
 const planOptions = [
-  { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Прямая планировка' },
-  { image: { name: 'quiz-corner.jpg', alt: 'Угловая' }, title: 'Угловая планировка' },
-  { image: { name: 'quiz-shaped.jpg', alt: 'П-образная' }, title: 'П-образная планировка' }
+  {
+    image: { name: 'quiz-straight.jpg', alt: 'Прямая' },
+    title: 'Прямая планировка'
+  },
+  {
+    image: { name: 'quiz-corner.jpg', alt: 'Угловая' },
+    title: 'Угловая планировка'
+  },
+  {
+    image: { name: 'quiz-shaped.jpg', alt: 'П-образная' },
+    title: 'П-образная планировка'
+  }
 ]
 
 const styleOptions = [
   { image: { name: 'minimal.jpg', alt: 'Минимализм' }, title: 'Минимализм' },
-  { image: { name: 'neoclassic.jpg', alt: 'Неоклассика' }, title: 'Неоклассика' },
+  {
+    image: { name: 'neoclassic.jpg', alt: 'Неоклассика' },
+    title: 'Неоклассика'
+  },
   { image: { name: 'loft.jpg', alt: 'Лофт' }, title: 'Лофт' },
-  { image: { name: 'scandy.jpg', alt: 'Скандинавский' }, title: 'Скандинавский' }
+  {
+    image: { name: 'scandy.jpg', alt: 'Скандинавский' },
+    title: 'Скандинавский'
+  }
 ]
 
 // const addOptions = [
@@ -414,8 +453,9 @@ export default {
     AppTextField,
     AppControl,
     QuizOption,
-    AppIcon,
-    QuizResult
+    // AppIcon,
+    QuizResult,
+    QuizPromo
   },
   setup() {
     const { sending, error, page, handleSubmit } = useForms()
@@ -461,11 +501,21 @@ export default {
       const maxCoef = 20
       const additionPrice = 10000
 
-      const sizeSum = this.values.sizes.reduce((sum, current) => sum + +current, 0)
-      const min = sizeSum * 10 * minCoef + this.values.construct.length * additionPrice
-      const max = sizeSum * 10 * maxCoef + this.values.construct.length * additionPrice
+      const sizeSum = this.values.sizes.reduce(
+        (sum, current) => sum + +current,
+        0
+      )
+      const min =
+        sizeSum * 10 * minCoef + this.values.construct.length * additionPrice
+      const max =
+        sizeSum * 10 * maxCoef + this.values.construct.length * additionPrice
 
-      return min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽ - ' + max.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
+      return (
+        min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') +
+        ' ₽ - ' +
+        max.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') +
+        ' ₽'
+      )
     }
   },
   watch: {
@@ -514,7 +564,7 @@ export default {
 
     handleCheckRadioChange(name, event) {
       if (event.target.checked) {
-        this.$refs[name].querySelectorAll('input').forEach((input) => {
+        this.$refs[name].querySelectorAll('input').forEach(input => {
           if (input !== event.target) {
             input.checked = false
           }
@@ -530,7 +580,9 @@ export default {
       if (event.target.checked) {
         this.values[name].push(event.target.value)
       } else {
-        this.values[name] = this.values[name].filter((item) => item !== event.target.value)
+        this.values[name] = this.values[name].filter(
+          item => item !== event.target.value
+        )
       }
     },
 
@@ -562,7 +614,11 @@ export default {
       if (this.completedStep < this.activeStep) {
         this.completedStep++
         window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({ event: (this.$route.params.open ? 'quiz_step_' : 'quiz-initial_step_') + this.completedStep })
+        window.dataLayer.push({
+          event:
+            (this.$route.params.open ? 'quiz_step_' : 'quiz-initial_step_') +
+            this.completedStep
+        })
       }
 
       this.activeStep++
@@ -598,6 +654,16 @@ export default {
     img {
       width: 100%;
     }
+  }
+
+  &__start-promo {
+    margin: 38px auto 0;
+    width: calc(100% - #{$container-padding * 2});
+    max-width: 748px;
+  }
+
+  &__final-promo {
+    margin: 0 0 36px;
   }
 
   &__shape {
@@ -658,12 +724,12 @@ export default {
     padding: 20px 0 35px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .25s ease;
+    transition: opacity 0.25s ease;
 
     &.active {
       opacity: 1;
       pointer-events: all;
-      transition-delay: .25s;
+      transition-delay: 0.25s;
     }
   }
 
@@ -714,7 +780,7 @@ export default {
 
     &_bordered {
       img {
-        border: 1px solid #DCDCDC;
+        border: 1px solid #dcdcdc;
       }
     }
   }
@@ -867,6 +933,19 @@ export default {
       }
     }
 
+    &__start-promo {
+      position: absolute;
+      top: 50%;
+      right: calc(50% - 250px);
+      margin: 0;
+      width: 400px;
+      transform: translate(50%, -50%);
+    }
+
+    &__final-promo {
+      margin: 0 10px;
+    }
+
     &__desc {
       font-size: 16px;
       line-height: 1.7;
@@ -1002,7 +1081,7 @@ export default {
       flex-direction: column;
       width: 320px;
       padding: 46px 0 30px;
-      background-image: url('~@/assets/img/quiz-side.jpg');
+      background-image: url('~@/assets/img/quiz-side-2.jpg');
       background-size: cover;
       background-position: center;
     }
@@ -1045,7 +1124,7 @@ export default {
           }
         }
       }
-        
+
       &-num {
         margin-top: 0;
         width: 30px;
@@ -1071,6 +1150,17 @@ export default {
   @include media(lg) {
     &__image {
       width: 54%;
+    }
+
+    &__start-promo {
+      top: 48%;
+      right: calc(50% - 260px);
+      width: 665px;
+    }
+
+    &__final-promo {
+      margin: 0 auto;
+      max-width: 346px;
     }
 
     &__shape {
@@ -1214,6 +1304,11 @@ export default {
   @include media(xl) {
     &__image {
       width: 58%;
+    }
+
+    &__start-promo {
+      top: 45%;
+      right: calc(50% - 400px);
     }
 
     &__shape {

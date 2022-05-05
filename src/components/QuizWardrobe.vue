@@ -294,6 +294,7 @@
                     </ol>
                   </div>
                   <QuizResult
+                    type="wardrobe"
                     :resultprice="price"
                     :sending="sending"
                     :error="error"
