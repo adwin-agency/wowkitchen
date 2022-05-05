@@ -165,6 +165,7 @@ export default {
       display: flex;
       flex-direction: column;
       height: 100%;
+      padding: 40px 24px 20px;
     }
 
     &__title {
@@ -200,10 +201,10 @@ export default {
     }
 
     &__title {
-      font-size: 36px;
+      font-size: 32px;
 
       span {
-        font-size: 54px;
+        font-size: 48px;
       }
     }
 
@@ -218,6 +219,16 @@ export default {
     &__note {
       margin-top: 40px;
       font-size: 14px;
+    }
+  }
+
+  @include media(xl) {
+    &__title {
+      font-size: 36px;
+
+      span {
+        font-size: 54px;
+      }
     }
   }
 }
