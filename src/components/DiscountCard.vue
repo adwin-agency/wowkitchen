@@ -43,9 +43,10 @@
     v-else-if="id === '294'"
     class="discount-card discount-card_type5"
   >
-    <p class="discount-card__title">Вытяжка <br>в подарок</p>
-    <p class="discount-card__desc">при заказе кухни</p>
-    <p class="discount-card__date">{{ promoDate }}</p>
+    <p class="discount-card__title">Посудомоечная <br>машина <br><span>в подарок</span></p>
+    <p class="discount-card__desc">к каждой кухне до 20.05</p>
+    <p class="discount-card__note">количество подарков ограничено</p>
+    <p class="discount-card__date">до 20.05</p>
   </div>
   <div
     v-else-if="id === '295'"
@@ -275,26 +276,42 @@ export default {
 
   &_type5 {
     background-color: $color-violet;
-    background-image: url('~@/assets/img/discount/discount-hood.png');
-    background-position: top right;
+    background-image: url('~@/assets/img/discount/discount-wash.png');
+    background-position: bottom right;
     background-repeat: no-repeat;
-    background-size: 190px auto;
+    background-size: 160px auto;
 
     #{$b} {
       &__title {
         font-weight: 700;
-        font-size: 24px;
+        font-size: 20px;
         line-height: 90%;
         letter-spacing: 0.02em;
         text-transform: uppercase;
-        color: $color-pink;
+
+        span {
+          display: inline-block;
+          margin-top: 6px;
+          font-size: 24px;
+          color: $color-pink;
+        }
       }
 
       &__desc {
-        margin-top: 10px;
+        margin-top: 6px;
+        margin-bottom: 20px;
         font-weight: 700;
         font-size: 14px;
         line-height: 17px;
+      }
+
+      &__note {
+        position: absolute;
+        left: 18px;
+        bottom: 5px;
+        max-width: calc(100% - 90px);
+        font-weight: 500;
+        font-size: 12px;
       }
     }
   }
@@ -418,16 +435,25 @@ export default {
     }
 
     &_type5 {
-      background-size: 230px auto;
+      background-size: 210px auto;
 
       #{$b} {
         &__title {
-          font-size: 28px;
+          font-size: 22px;
+
+          span {
+            font-size: 28px;
+          }
         }
 
         &__desc {
           margin-top: 15px;
           font-size: 16px;
+        }
+
+        &__note {
+          left: 26px;
+          bottom: 10px;
         }
       }
     }
@@ -514,11 +540,16 @@ export default {
     }
 
     &_type5 {
-      background-size: 280px auto;
+      background-size: 250px auto;
 
       #{$b} {
         &__title {
-          font-size: 35px;
+          font-size: 25px;
+
+          span {
+            margin-top: 10px;
+            font-size: 35px;
+          }
         }
 
         &__desc {
