@@ -78,6 +78,11 @@
         name="price"
         :value="price"
       >
+      <input
+        type="hidden"
+        name="gift"
+        value="Посудомоечная машина"
+      >
       <div class="quiz__screen">
         <div class="quiz__steps">
           <div
