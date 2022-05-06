@@ -66,7 +66,7 @@ export default {
         grid-row: 1/3;
       }
 
-      &:nth-child(6) {
+      &:nth-child(2n + 6) {
         grid-column-start: 2;
       }
     }
