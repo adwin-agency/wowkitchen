@@ -334,7 +334,7 @@
         <div class="details__features-list">
           <div class="details__feature">
             <p class="details__feature-title">0%</p>
-            <p>рассрочка на 6 месяцев</p>
+            <p>рассрочка на 8 месяцев</p>
           </div>
           <div class="details__feature">
             <p class="details__feature-title">2 года</p>
