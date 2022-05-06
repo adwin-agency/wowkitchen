@@ -392,6 +392,7 @@ export default {
     &_large {
       #{$b} {
         &__content {
+          min-height: 452px;
           padding: 32px 44px 32px;
         }
 
@@ -525,6 +526,10 @@ export default {
 
     &_large {
       #{$b} {
+        &__content {
+          min-height: 447px;
+        }
+
         &__title {
           max-width: 550px;
         }
@@ -604,6 +609,7 @@ export default {
     &_large {
       #{$b} {
         &__content {
+          min-height: 546px;
           padding: 48px 64px;
         }
 

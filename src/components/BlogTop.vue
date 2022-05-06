@@ -24,7 +24,7 @@
             class="blog-top__card"
           />
           <div class="blog-top__side">
-            <p class="blog-top__title">Новые видео</p>
+            <p class="blog-top__title">{{ topTitle }}</p>
             <Swiper
               v-if="$_media.sm"
               slides-per-view="auto"
@@ -43,13 +43,21 @@
                 />
               </SwiperSlide>
               <SwiperSlide class="blog-top__slide">
-                <AppButton
-                  title="Все видео"
-                  icon="plus"
-                  color="gray"
-                  show
-                  class="blog-top__show"
-                />
+                <router-link
+                  :to="{name: 'blog', query: {category: showBtnCategory}}"
+                  custom
+                  v-slot="{href, navigate}"
+                >
+                  <AppButton
+                    :href="href"
+                    :title="showBtnTitle"
+                    icon="plus"
+                    color="gray"
+                    show
+                    class="blog-top__show"
+                    @click="navigate"
+                  />
+                </router-link>
               </SwiperSlide>
             </Swiper>
             <div
@@ -63,13 +71,21 @@
                 mod="small"
                 class="blog-top__side-card"
               />
-              <AppButton
-                title="Все видео"
-                icon="plus"
-                color="gray"
-                show
-                class="blog-top__show"
-              />
+              <router-link
+                :to="{name: 'blog', query: {category: showBtnCategory}}"
+                custom
+                v-slot="{href, navigate}"
+              >
+                <AppButton
+                  :href="href"
+                  :title="showBtnTitle"
+                  icon="plus"
+                  color="gray"
+                  show
+                  class="blog-top__show"
+                  @click="navigate"
+                />
+              </router-link>
             </div>
           </div>
         </div>
@@ -96,6 +112,17 @@ export default {
   props: {
     categories: Array,
     cards: Array
+  },
+  computed: {
+    topTitle() {
+      return this.$route.query.category === 'videos' ? 'Популярные статьи' : 'Новые видео'
+    },
+    showBtnTitle() {
+      return this.$route.query.category === 'videos' ? 'Все популярные' : 'Все видео'
+    },
+    showBtnCategory() {
+      return this.$route.query.category === 'videos' ? 'populyarnoe' : 'videos'
+    }
   }
 }
 </script>
@@ -117,6 +144,14 @@ export default {
 
   &__card {
     margin: 0 (-$container-padding);
+
+    &_half {
+      margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   &__side {
@@ -171,6 +206,15 @@ export default {
     &__card {
       margin: 6px 0 0;
       width: 51%;
+
+      &_half {
+        margin-right: 20px;
+        width: calc(50% - 10px);
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
 
     &__side {
@@ -219,6 +263,11 @@ export default {
     &__card {
       margin-top: 4px;
       width: 57%;
+
+      &_half {
+        margin-right: 60px;
+        width: calc(50% - 30px);
+      }
     }
 
     &__side-cards {
@@ -255,6 +304,11 @@ export default {
     &__card {
       margin-top: 0;
       width: 61%;
+
+      &_half {
+        margin-right: 70px;
+        width: calc(50% - 35px);
+      }
     }
 
     &__side {

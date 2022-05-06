@@ -38,7 +38,7 @@ const categories = [
 ]
 
 export default {
-  name: 'BlogView.vue',
+  name: 'BlogView',
   components: {
     BlogTop,
     BlogCards,
