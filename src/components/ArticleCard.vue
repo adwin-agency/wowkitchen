@@ -9,18 +9,28 @@
         :src="$_basepath + cardData.pictures[0]?.medium"
         alt
       >
-      <AppIcon
-        v-if="cardData.description_text.includes('<video') && ($_media.sm || mod === 'small')"
-        name="play"
-        class="article-card__play-icon"
-      />
+      <button
+        v-if="cardData.video_popup && (mod === 'small' && !$_media.sm)"
+        class="article-card__play-btn"
+        @click.prevent="openModal"
+      >
+        <AppIcon
+          name="play"
+          class="article-card__play-icon"
+        />
+      </button>
     </div>
     <div class="article-card__content">
-      <AppIcon
-        v-if="cardData.description_text.includes('<video') && (!$_media.sm && mod !== 'small')"
-        name="play"
-        class="article-card__play-icon"
-      />
+      <button
+        v-if="cardData.video_popup && (mod !== 'small' || $_media.sm)"
+        class="article-card__play-btn"
+        @click.prevent="openModal"
+      >
+        <AppIcon
+          name="play"
+          class="article-card__play-icon"
+        />
+      </button>
       <span
         v-if="!($_media.sm && mod === 'sample')"
         class="article-card__tag"
@@ -73,6 +83,12 @@ export default {
   props: {
     cardData: Object,
     mod: String
+  },
+  methods: {
+    openModal() {
+      this.$store.commit('setModal', 'video')
+      this.$store.commit('setModalData', { video: this.cardData.video_popup })
+    }
   }
 }
 </script>
@@ -158,7 +174,7 @@ export default {
         }
       }
 
-      &__play-icon {
+      &__play-btn {
         position: absolute;
         left: 8px;
         bottom: 12px;
@@ -250,13 +266,25 @@ export default {
     }
   }
 
-  &__play-icon {
+  &__play-btn {
     position: static;
     margin-bottom: 15px;
     width: 42px;
     height: 42px;
     border-radius: 50%;
     background-color: $color-yellow;
+
+    &:hover {
+      #{$b}__play-icon {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__play-icon {
+    width: 100%;
+    height: 100%;
+    transition: transform .3s ease;
   }
 
   &__content {
@@ -341,7 +369,7 @@ export default {
           }
         }
 
-        &__play-icon {
+        &__play-btn {
           position: absolute;
           left: 20px;
           bottom: 14px;
@@ -475,7 +503,7 @@ export default {
           color: $color-lightgray;
         }
 
-        &__play-icon {
+        &__play-btn {
           position: static;
           margin-bottom: 20px;
         }

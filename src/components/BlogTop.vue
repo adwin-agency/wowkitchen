@@ -18,8 +18,8 @@
       <div class="container">
         <div class="blog-top__row">
           <ArticleCard
-            v-if="cards[0]"
-            :cardData="cards[0]"
+            v-if="mainCard"
+            :cardData="mainCard"
             mod="large"
             class="blog-top__card"
           />
@@ -32,7 +32,7 @@
               class="blog-top__slider"
             >
               <SwiperSlide
-                v-for="(card, index) in cards.slice(1)"
+                v-for="(card, index) in sideCards"
                 :key="index"
                 class="blog-top__slide"
               >
@@ -65,7 +65,7 @@
               class="blog-top__side-cards"
             >
               <ArticleCard
-                v-for="(card, index) in cards.slice(1)"
+                v-for="(card, index) in sideCards"
                 :key="index"
                 :cardData="card"
                 mod="small"
@@ -111,17 +111,25 @@ export default {
   },
   props: {
     categories: Array,
-    cards: Array
+    mainCard: Object,
+    videoCards: Array,
+    popularCards: Array
   },
   computed: {
+    isVideoCat() {
+      return this.$route.query.category === 'videos'
+    },
+    sideCards() {
+      return this.isVideoCat ? this.popularCards : this.videoCards
+    },
     topTitle() {
-      return this.$route.query.category === 'videos' ? 'Популярные статьи' : 'Новые видео'
+      return this.isVideoCat ? 'Популярные статьи' : 'Новые видео'
     },
     showBtnTitle() {
-      return this.$route.query.category === 'videos' ? 'Все популярные' : 'Все видео'
+      return this.isVideoCat ? 'Все популярные' : 'Все видео'
     },
     showBtnCategory() {
-      return this.$route.query.category === 'videos' ? 'populyarnoe' : 'videos'
+      return this.isVideoCat ? 'populyarnoe' : 'videos'
     }
   }
 }

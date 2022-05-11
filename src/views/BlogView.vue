@@ -2,12 +2,14 @@
   <div class="v-blog">
     <BlogTop
       :categories="categories"
-      :cards="cards.slice(0, 3)"
+      :mainCard="mainCards[0]"
+      :videoCards="videoCards"
+      :popularCards="popularCards"
     />
-    <BlogCards :cards="cards.slice(3, 9)" />
+    <BlogCards :cards="mainCards.slice(1, 7)" />
     <DesignCall />
     <BlogCards
-      :cards="cards.slice(9)"
+      :cards="mainCards.slice(7)"
       subscribe
       :showBtn="currentPage < pages"
       @show-more="showMore"
@@ -34,7 +36,7 @@ const categories = [
   { title: 'Идеи для кухни', value: 'idei-dlya-kukhni' },
   { title: 'Кухня в деле', value: 'kukhnya-v-dele' },
   { title: 'Видео', value: 'videos', bold: true },
-  { title: 'Популярное', value: 'populyarnoe', bold: true },
+  { title: 'Популярное', value: 'populyarnoe', bold: true }
 ]
 
 export default {
@@ -49,43 +51,52 @@ export default {
   data() {
     return {
       categories: categories,
-      cards: [],
+      mainCards: [],
+      videoCards: [],
+      popularCards: [],
       pages: 1,
       currentPage: 1
     }
   },
   async created() {
-    const response = await api.loadCards(this.$route)
-    this.cards = response.goods
-    this.pages = response.pages
-    this.setBreadCrumbs(this.$route)
+    await this.initBlog(this.$route)
   },
   async beforeRouteUpdate(to) {
-    const response = await api.loadCards(to)
-    this.cards = response.goods
-    this.pages = response.pages
     this.currentPage = 1
-    this.setBreadCrumbs(to)
+    await this.initBlog(to)
   },
   methods: {
+    async initBlog(route) {
+      const response = await api.loadCards(route)
+      this.mainCards = response.goods
+      this.videoCards = response.goods_video
+      this.popularCards = response.goods_popular
+      this.pages = response.pages
+      this.setBreadCrumbs(route)
+    },
     setBreadCrumbs(route) {
       const query = route.query
       let crumbs
 
       if (query.category) {
-        const categoryTitle = categories.find(i => i.value === query.category).title
+        const categoryTitle = categories.find(
+          i => i.value === query.category
+        ).title
         crumbs = [{ path: '/blog', title: 'Блог' }, { title: categoryTitle }]
       } else {
         crumbs = [{ title: 'Блог' }]
       }
-    
+
       this.$store.commit('setBreadCrumbs', crumbs)
     },
 
     async showMore() {
       this.currentPage++
-      const response = await api.loadCards({...this.$route, query: {...this.$route.query, page: this.currentPage}})
-      this.cards = [...this.cards, ...response.goods]
+      const response = await api.loadCards({
+        ...this.$route,
+        query: { ...this.$route.query, page: this.currentPage }
+      })
+      this.mainCards = [...this.mainCards, ...response.goods]
     }
   }
 }
