@@ -44,9 +44,9 @@
     class="discount-card discount-card_type5"
   >
     <p class="discount-card__title">Посудомоечная <br>машина <br><span>в подарок</span></p>
-    <p class="discount-card__desc">к каждой кухне до 20.05</p>
+    <p class="discount-card__desc">к каждой кухне до {{ date }}</p>
     <p class="discount-card__note">количество подарков ограничено</p>
-    <p class="discount-card__date">до 20.05</p>
+    <p class="discount-card__date">до {{ date }}</p>
   </div>
   <div
     v-else-if="id === '295'"
@@ -54,7 +54,7 @@
   >
     <p class="discount-card__title">Дополнительная <br>скидка</p>
     <p class="discount-card__desc">на комплект <br>бытовой техники <br>от 3 единиц</p>
-    <p class="discount-card__date">{{ promoDate }}</p>
+    <p class="discount-card__date">{{ dynamicDate }}</p>
   </div>
   <div
     v-else-if="id === '296'"
@@ -86,10 +86,11 @@
 export default {
   name: 'DiscountCard',
   props: {
-    id: String
+    id: String,
+    date: String
   },
   computed: {
-    promoDate() {
+    dynamicDate() {
       const today = new Date()
       const date = new Date(today.getFullYear(), today.getMonth() + 1, 0)
       return (

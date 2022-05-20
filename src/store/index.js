@@ -34,6 +34,10 @@ export default createStore({
   getters: {
     scrollLock(state) {
       return !!state.modal || state.mobileMenu || state.activeFavorites || state.activeFilters || state.activeSitePhone
+    },
+    mainPromoDate(state) {
+      const mainPromo = state.bonuses.find(item => item.main)
+      return mainPromo?.date
     }
   },
 
@@ -115,8 +119,7 @@ export default createStore({
     },
 
     setBonuses(state, items) {
-      const sorted = [...items].sort((a, b) => a.sort - b.sort)
-      state.bonuses = sorted.map(item => item.id)
+      state.bonuses = items
     }
   }
 })

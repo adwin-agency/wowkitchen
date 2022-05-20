@@ -8,9 +8,10 @@
           <template v-if="bonuses.length">
             <DiscountCard
               v-for="item in bonuses"
-              :key="item"
+              :key="item.id"
               class="discount__card"
-              :id="item"
+              :id="item.id"
+              :date="item.date"
             />
           </template>
         </div>

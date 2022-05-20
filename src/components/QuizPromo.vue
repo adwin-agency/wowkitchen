@@ -4,7 +4,7 @@
     :class="{'quiz-promo_small': small}"
   >
     <p class="quiz-promo__title">Посудомоечная машина — в&nbsp;подарок!</p>
-    <p class="quiz-promo__desc">До 20.05 мы дарим <b>ко всем гарнитурам</b> посудомоечную машину!</p>
+    <p class="quiz-promo__desc">До {{ promoDate }} мы дарим <b>ко всем гарнитурам</b> посудомоечную машину!</p>
     <span class="quiz-promo__type">Акция</span>
     <AppIcon
       name="shape-28"
@@ -39,6 +39,11 @@ export default {
   },
   props: {
     small: Boolean
+  },
+  computed: {
+    promoDate() {
+      return this.$store.getters.mainPromoDate
+    }
   }
 }
 </script>

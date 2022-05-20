@@ -26,12 +26,13 @@
           >
             <SwiperSlide
               v-for="item in bonuses"
-              :key="item"
+              :key="item.id"
               class="discount-preview__slide"
             >
               <DiscountCard
                 class="discount-preview__card"
-                :id="item"
+                :id="item.id"
+                :date="item.date"
               />
             </SwiperSlide>
           </Swiper>

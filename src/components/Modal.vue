@@ -154,7 +154,7 @@
             class="modal__icon"
           />
           <p class="modal__title">Рассчитать мой проект</p>
-          <p v-if="productData?.product === 'kitchen'" class="modal__desc">Наш менеджер свяжется с вами, уточнит детали и рассчитает стоимость кухни.<br><span>Дарим посудомоечную машину к каждой кухне до 20.05!</span></p>
+          <p v-if="productData?.product === 'kitchen'" class="modal__desc">Наш менеджер свяжется с вами, уточнит детали и рассчитает стоимость кухни.<br><span>Дарим посудомоечную машину к каждой кухне до {{ promoDate }}!</span></p>
           <p v-else class="modal__desc">Наш менеджер свяжется с вами в ближайшее время, уточнит детали и проконсультирует по всем вопросам</p>
           <div class="modal__fields">
             <AppTextField
@@ -376,6 +376,9 @@ export default {
     },
     modalFavorites() {
       return this.$store.state.modalFavorites
+    },
+    promoDate() {
+      return this.$store.getters.mainPromoDate
     }
   },
   watch: {

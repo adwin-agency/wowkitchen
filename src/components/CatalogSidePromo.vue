@@ -17,7 +17,7 @@
       <p class="catalog-side-promo__title">Посудомоечная <br>машина <br><span>в подарок</span></p>
       <p class="catalog-side-promo__desc">
         <span>к каждой кухне</span><br>
-        <span>до 20.05</span>
+        <span>до {{ promoDate }}</span>
       </p>
       <p class="catalog-side-promo__note">предложение ограничено</p>
     </div>
@@ -31,6 +31,11 @@ export default {
   name: 'CatalogSidePromo',
   components: {
     AppIcon
+  },
+  computed: {
+    promoDate() {
+      return this.$store.getters.mainPromoDate
+    }
   }
 }
 </script>
