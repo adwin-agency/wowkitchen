@@ -2,9 +2,11 @@
   <div class="details-card">
     <div class="details-card__box">
       <span class="details-card__count">{{currentSlide}} из {{slides}}</span>
-      <p class="details-card__type">Кухня</p>
-      <p class="details-card__title">
-        {{info?.name}}
+      <!-- <p class="details-card__type">Кухня</p> -->
+      <div class="details-card__header">
+        <p class="details-card__title">
+          <span>Кухня</span> “{{info?.name}}”
+        </p>
         <button
           v-if="$_media.sm"
           type="button"
@@ -16,27 +18,30 @@
             :class="{'is-active': isFavorite}"
           />
         </button>
-      </p>
+      </div>
       <div
         v-if="!noPrice"
-        class="details-card__cost"
+        class="details-card__prices"
       >
-        <div class="details-card__prices">
-          <p class="details-card__price">{{info?.price}} ₽</p>
-          <!-- <p
-            v-if="info.old_price"
-            class="details-card__old-price"
-          >
-            {{info.old_price}} ₽
-          </p> -->
-          <p class="details-card__price-note">цена за кухонный гарнитур</p>
-        </div>
-        <!-- <span
-          v-if="info.discount"
+        <p
+          v-if="info?.price"
+          class="details-card__price"
+        >
+          {{info.price}} ₽
+        </p>
+        <p
+          v-if="info?.old_price"
+          class="details-card__old-price"
+        >
+          {{info.old_price}} ₽
+        </p>
+        <p class="details-card__price-note">цена за кухонный гарнитур</p>
+        <span
+          v-if="info?.discount"
           class="details-card__discount"
         >
           -{{info.discount}}%
-        </span> -->
+        </span>
       </div>
       <div class="details-card__btns">
         <AppButton
@@ -117,7 +122,7 @@ export default {
       if (!this.info) {
         return
       }
-      
+
       const { name, id } = this.info
       this.$store.commit('setProductData', { name, id, product: 'kitchen' })
     }
@@ -151,15 +156,22 @@ export default {
     color: $color-lightviolet;
   }
 
-  &__title {
+  &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+  }
+
+  &__title {
     font-weight: 500;
     font-size: 20px;
+
+    span {
+      display: block;
+    }
   }
 
   &__favorite {
-    margin-left: 24px;
+    margin-left: 18px;
 
     &-icon {
       width: 20px;
@@ -168,19 +180,22 @@ export default {
     }
   }
 
-  &__cost {
-    display: flex;
+  &__prices {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 8px;
+    margin-top: 18px;
   }
 
   &__price {
+    margin-bottom: -8px;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 30px;
   }
 
   &__old-price {
-    margin-top: -4px;
+    justify-self: end;
     font-weight: 500;
     font-size: 16px;
     color: $color-lightviolet;
@@ -188,9 +203,10 @@ export default {
   }
 
   &__discount {
-    margin-left: 40px;
-    border-radius: 20px 0 20px 0;
-    padding: 9px 16px;
+    justify-self: end;
+    margin-top: -4px;
+    border-radius: 18px 0 18px 0;
+    padding: 3px 8px;
     font-weight: bold;
     font-size: 18px;
     color: $color-lightgray;
@@ -198,6 +214,8 @@ export default {
   }
 
   &__price-note {
+    align-self: end;
+    margin-bottom: -2px;
     font-size: 12px;
   }
 
@@ -239,10 +257,18 @@ export default {
     }
   }
 
+  @include media(xxs) {
+    &__title {
+      span {
+        display: inline;
+      }
+    }
+  }
+
   @include media(md) {
     &__box {
       border-radius: 8px;
-      padding: 40px 40px 25px;
+      padding: 60px 40px 25px;
       background-color: #fff;
       box-shadow: 0px 20px 38px 0px rgba(53, 53, 53, 0.11);
     }
@@ -252,6 +278,10 @@ export default {
       padding: 18px 20px;
       border-radius: 0 0 0 50px;
       font-size: 15px;
+    }
+
+    &__price {
+      font-size: 32px;
     }
 
     &__note {
@@ -287,24 +317,15 @@ export default {
 
   @include media(lg) {
     &__box {
-      padding: 40px 30px 25px;
+      padding: 60px 30px 25px;
     }
 
     &__title {
       font-size: 22px;
     }
 
-    &__price {
-      font-size: 26px;
-    }
-
     &__old-price {
-      margin-top: -2px;
       font-size: 18px;
-    }
-
-    &__discount {
-      margin-left: 20px;
     }
 
     &__actions {

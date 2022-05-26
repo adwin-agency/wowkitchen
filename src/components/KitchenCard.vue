@@ -122,7 +122,7 @@
         v-if="!noPrice"
         class="kitchen-card__prices"
       >
-        <span class="kitchen-card__discount">-50%</span>
+        <span class="kitchen-card__discount">-{{info.discount}}%</span>
         <p class="kitchen-card__old-price">{{info.old_price}} ₽</p>
         <p class="kitchen-card__price">{{info.price}} ₽</p>
         <p class="kitchen-card__price-note">цена за кухонный гарнитур</p>
