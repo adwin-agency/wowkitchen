@@ -63,12 +63,6 @@
           class="kitchen-card__link"
         ></router-link>
       </template>
-      <!-- <span
-        v-if="!large && info.discount"
-        class="kitchen-card__discount"
-      >
-        -{{info.discount}}%
-      </span> -->
       <div
         v-if="info.video?.desktop"
         class="kitchen-card__video-btn"
@@ -85,9 +79,12 @@
     </div>
     <div class="kitchen-card__content">
       <div class="kitchen-card__header">
-        <p class="kitchen-card__category">Кухня</p>
+        <!-- <p class="kitchen-card__category">Кухня</p> -->
         <p class="kitchen-card__title">
-          <router-link :to="{name: 'kitchen', params: {code: info.url}}">{{info.name}}</router-link>
+          <router-link :to="{name: 'kitchen', params: {code: info.url}}">
+            <span>Кухня</span>
+            “{{info.name}}”
+          </router-link>
         </p>
         <div class="kitchen-card__actions">
           <button
@@ -108,7 +105,7 @@
           />
         </div>
       </div>
-      <div
+      <!-- <div
         v-if="info.features && ($_desktop && !large || large && noPrice)"
         class="kitchen-card__props"
       >
@@ -120,24 +117,14 @@
           <span>{{feature.title}}</span>
           {{feature.title === 'Фасад' ? 'Egger' : feature.value}}
         </p>
-      </div>
+      </div> -->
       <div
         v-if="!noPrice"
         class="kitchen-card__prices"
       >
+        <span class="kitchen-card__discount">-50%</span>
+        <p class="kitchen-card__old-price">{{info.old_price}} ₽</p>
         <p class="kitchen-card__price">{{info.price}} ₽</p>
-        <!-- <p
-          v-if="info.old_price"
-          class="kitchen-card__old-price"
-        >
-          {{info.old_price}} ₽
-        </p> -->
-        <!-- <span
-          v-if="large && info.discount"
-          class="kitchen-card__discount"
-        >
-          -{{info.discount}}%
-        </span> -->
         <p class="kitchen-card__price-note">цена за кухонный гарнитур</p>
       </div>
       <div class="kitchen-card__calc">
@@ -149,7 +136,7 @@
           class="kitchen-card__btn"
           @click="handleBtnClick"
         />
-        <p class="kitchen-card__calc-desc">Бесплатный расчёт проекта по вашим размерам</p>
+        <!-- <p class="kitchen-card__calc-desc">Бесплатный расчёт проекта по вашим размерам</p> -->
       </div>
     </div>
   </div>
@@ -165,10 +152,10 @@
     <div class="kitchen-card__img-box"></div>
     <div class="kitchen-card__content">
       <div class="kitchen-card__header"></div>
-      <div
+      <!-- <div
         v-if="($_desktop && !large || large && noPrice)"
         class="kitchen-card__props"
-      ></div>
+      ></div> -->
       <div
         v-if="!noPrice"
         class="kitchen-card__prices"
@@ -238,7 +225,10 @@ export default {
 
     openModalImages(index) {
       this.$store.commit('setModal', 'images')
-      this.$store.commit('setModalData', { images: this.info.pictures, index: index })
+      this.$store.commit('setModalData', {
+        images: this.info.pictures,
+        index: index
+      })
     },
 
     handleBtnClick() {
@@ -268,7 +258,7 @@ export default {
 
   &.is-placeholder {
     pointer-events: none;
-    
+
     #{$b} {
       &__img-box,
       &__header,
@@ -287,40 +277,53 @@ export default {
           top: 0;
           width: 100%;
           height: 100%;
-          background-image: linear-gradient(to right, transparent 30%, #fff 50%, transparent 70%);
+          background-image: linear-gradient(
+            to right,
+            transparent 30%,
+            #fff 50%,
+            transparent 70%
+          );
           animation: loading-placeholder 1s infinite;
         }
       }
 
       &__header {
-        width: 100px;
-        height: 36px;
+        width: 120px;
+        height: 40px;
+      }
+
+      &__prices {
+        width: 140px;
+        height: 78px;
       }
 
       &__calc {
-        width: 180px;
-        height: 96px;
+        width: 100%;
+        height: 56px;
       }
     }
   }
 
   &_slide {
     #{$b} {
-      &__video-btn {
-        left: 10px;
-        bottom: 10px;
-      }
-
       &__content {
         display: block;
       }
 
-      &__price {
-        font-size: 22px;
+      &__title {
+        span {
+          display: inline;
+        }
       }
 
-      &__calc {
-        margin-top: 15px;
+      &__prices {
+        margin-top: 10px;
+      }
+
+      &__price {
+        &-note {
+          max-width: none;
+        }
       }
     }
   }
@@ -375,18 +378,14 @@ export default {
   }
 
   &__discount {
-    position: absolute;
-    top: 16px;
-    right: 10px;
-    border-radius: 20px 0 20px 0;
-    min-width: 50px;
-    padding: 6px 10px;
+    margin-right: 10px;
+    border-radius: 18px 0 18px 0;
+    padding: 4px 8px;
     text-align: center;
     font-weight: bold;
     font-size: 15px;
     background-color: $color-pink;
     color: $color-lightgray;
-    z-index: 1;
   }
 
   &__video-btn {
@@ -403,18 +402,13 @@ export default {
     display: grid;
     grid-template-columns: auto auto;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
     margin-top: 15px;
     padding: 0 10px;
   }
 
   &__header {
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: start;
-    align-items: start;
-    margin-right: auto;
-    margin-bottom: 5px;
+    display: flex;
   }
 
   &__category {
@@ -426,6 +420,10 @@ export default {
     font-weight: 500;
     font-size: 18px;
     color: #000;
+
+    span {
+      display: block;
+    }
   }
 
   &__actions {
@@ -458,7 +456,16 @@ export default {
     margin-top: 6px;
   }
 
+  &__prices {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-items: end;
+    align-items: center;
+    text-align: right;
+  }
+
   &__price {
+    grid-column: 1/3;
     font-weight: bold;
     font-size: 18px;
     color: #000;
@@ -472,14 +479,16 @@ export default {
   }
 
   &__price-note {
-    margin-right: 20px;
+    grid-column: 1/3;
+    margin-top: 2px;
+    max-width: 140px;
+    padding-left: 10px;
     font-size: 12px;
   }
 
   &__calc {
-    width: 180px;
-    grid-column: 2 / 3;
-    grid-row: 1 / 4;
+    grid-column: 1 / 3;
+    margin-top: 18px;
     font-size: 12px;
     line-height: (16/12);
     text-align: center;
@@ -492,7 +501,7 @@ export default {
   }
 
   &__btn {
-    min-width: 180px;
+    width: 100%;
   }
 
   @include media(xxs) {
@@ -502,15 +511,23 @@ export default {
           display: grid;
         }
 
-        &__calc {
-          margin-top: 0;
-          width: 160px;
+        &__title {
+          span {
+            display: block;
+          }
         }
 
-        &__btn {
-          min-width: 160px;
-          padding: 12px;
+        &__price {
+          &-note {
+            max-width: 140px;
+          }
         }
+      }
+    }
+
+    &__title {
+      span {
+        display: inline;
       }
     }
 
@@ -520,15 +537,34 @@ export default {
   }
 
   @include media(xs) {
+    &.is-placeholder {
+      #{$b} {
+        &__prices {
+          width: 180px;
+          height: 66px;
+        }
+      }
+    }
+
     &_slide {
       #{$b} {
-        &__calc {
-          width: 180px;
+        &__title {
+          span {
+            display: inline;
+          }
         }
+        
+        &__price {
+          &-note {
+            max-width: none;
+          }
+        }
+      }
+    }
 
-        &__btn {
-          min-width: 180px;
-        }
+    &__price {
+      &-note {
+        max-width: none;
       }
     }
   }
@@ -550,8 +586,14 @@ export default {
 
     &.is-placeholder {
       #{$b} {
+        &__header {
+          width: 220px;
+          height: 26px;
+        }
+
         &__calc {
-          width: 215px;
+          width: 194px;
+          height: 56px;
         }
       }
     }
@@ -564,33 +606,40 @@ export default {
           height: 250px;
         }
 
-        &__discount {
-          top: 18px;
-          right: 5px;
-        }
-
         &__video-btn {
           left: 30px;
-          bottom: 30px;
+          bottom: 25px;
         }
 
         &__content {
           transition: opacity 0.3s ease;
         }
 
-        &__price-box {
-          margin-top: 8px;
+        &__title {
+          font-size: 16px;
+        }
+
+        &__prices {
+          margin-top: 0;
+        }
+
+        &__discount {
+          margin-right: 5px;
         }
 
         &__price {
           font-size: 20px;
         }
 
+        &__old-price {
+          font-size: 16px;
+        }
+
         &__btn {
           margin-top: 3px;
         }
       }
-    }  
+    }
 
     &__img-box {
       padding-top: 0;
@@ -606,13 +655,6 @@ export default {
       .swiper-button-next {
         right: 20px;
       }
-    }
-
-    &__discount {
-      top: 28px;
-      right: 30px;
-      padding: 8px 14px;
-      font-size: 18px;
     }
 
     &__video-btn {
@@ -643,6 +685,7 @@ export default {
     }
 
     &__content {
+      align-items: start;
       margin-top: 12px;
       padding: 0 10px;
       transition: opacity 0.3s ease;
@@ -652,14 +695,16 @@ export default {
       margin-bottom: 0;
     }
 
+    &__title {
+      font-size: 22px;
+    }
+
     &__prices {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      grid-column: 2/3;
+      grid-row: 1/3;
     }
 
     &__price {
-      margin-right: 22px;
       font-size: 22px;
     }
 
@@ -668,11 +713,9 @@ export default {
     }
 
     &__calc {
-      width: 215px;
-    }
-
-    &__btn {
-      min-width: 215px;
+      grid-column: 1/2;
+      margin-top: 12px;
+      width: 194px;
     }
   }
 
@@ -692,9 +735,9 @@ export default {
 
     &.is-placeholder {
       #{$b} {
-        &__props {
-          width: 200px;
-          height: 20px;
+        &__prices {
+          width: 180px;
+          height: 80px;
         }
       }
     }
@@ -719,7 +762,7 @@ export default {
           right: 80px;
           bottom: -64px;
           margin-top: 0;
-          min-width: 380px;
+          min-width: 400px;
           border-radius: 8px;
           padding: 22px 40px 28px;
           background-color: #fff;
@@ -728,9 +771,8 @@ export default {
         }
 
         &__header {
-          display: grid;
-          grid-template-columns: auto auto;
           justify-content: space-between;
+          align-items: center;
         }
 
         &__category {
@@ -742,14 +784,9 @@ export default {
           color: $color-lightviolet;
         }
 
-        &__title {
-          font-size: 20px;
-        }
-
         &__actions {
           grid-column: 2 / 3;
           grid-row: 1 / 3;
-          margin-right: 8px;
         }
 
         &__price-box {
@@ -759,32 +796,38 @@ export default {
         }
 
         &__prices {
-          display: grid;
           grid-template-columns: auto auto;
-          justify-content: start;
-          padding-right: 0;
+          justify-content: space-between;
+          justify-items: initial;
+          margin-top: 18px;
+          text-align: left;
         }
 
         &__price {
+          grid-column: 1/2;
+          grid-row: 1/2;
           margin-right: 0;
-          font-size: 24px;
+          margin-bottom: -8px;
         }
 
         &__old-price {
-          margin-top: -2px;
+          grid-column: 2/3;
+          grid-row: 1/2;
           font-size: 16px;
         }
 
-        &__discount {
-          position: static;
-          grid-column: 2 / 3;
-          grid-row: 1 / 3;
-          margin-left: 40px;
-          padding: 9px 16px;
+        &__price-note {
+          grid-column: 1/2;
+          grid-row: 2/3;
+          margin-top: 0;
+          padding-left: 0;
         }
 
-        &__price-note {
-          grid-column: 1 / 3;
+        &__discount {
+          grid-column: 2/3;
+          grid-row: 2/3;
+          justify-self: end;
+          margin-top: -4px;
           margin-right: 0;
         }
 
@@ -805,12 +848,17 @@ export default {
       &.is-placeholder {
         #{$b} {
           &__header {
+            width: 190px;
+          }
+
+          &__prices {
             width: 100%;
+            height: 52px;
           }
 
           &__calc {
             width: 100%;
-            height: 85px;
+            height: 60px;
           }
         }
       }
@@ -822,26 +870,29 @@ export default {
           height: 300px;
         }
 
-        &__discount {
-          right: 64px;
-        }
-
         &__video-btn {
           left: 40px;
           bottom: 40px;
         }
 
-        &__content {
-          margin-top: 24px;
+        &__title {
+          font-size: 22px;
         }
 
         &__props {
           margin-top: 10px;
         }
 
+        &__discount {
+          margin-right: 10px;
+        }
+
         &__price {
-          margin-right: 32px;
-          font-size: 22px;
+          font-size: 32px;
+        }
+
+        &__old-price {
+          font-size: 18px;
         }
       }
     }
@@ -849,11 +900,6 @@ export default {
     &__img-box {
       height: 300px;
       transition: box-shadow 0.3s ease;
-    }
-
-    &__discount {
-      top: 36px;
-      right: 20px;
     }
 
     &__video-btn {
@@ -901,17 +947,8 @@ export default {
       margin-right: 6px;
     }
 
-    &__prices {
-      margin-top: 10px;
-      padding-right: 12px;
-    }
-
-    &__price-note {
-      width: 100%;
-    }
-
-    &__calc {
-      grid-row: 1 / 5;
+    &__price {
+      font-size: 32px;
     }
   }
 
@@ -945,17 +982,8 @@ export default {
           height: 380px;
         }
 
-        &__discount {
-          top: 36px;
-          right: 44px;
-        }
-
         &__content {
           margin-top: 30px;
-        }
-
-        &__btn {
-          margin-right: 10px;
         }
       }
     }

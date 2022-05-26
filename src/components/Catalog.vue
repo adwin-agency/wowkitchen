@@ -105,7 +105,7 @@
               :is="cardComponent"
               :info="card"
               :noPrice="cardType === 'wardrobe'"
-              :cardType="cardType"
+              :cardType="cardType === 'kitchen' ? undefined : cardType"
               :large="catalogType === 'list'"
               :loading="loading"
               class="catalog__card"
@@ -118,7 +118,8 @@
               :key="n + 'p'"
               :is="cardComponent"
               :noPrice="cardType === 'wardrobe'"
-              :cardType="cardType"
+              :cardType="cardType === 'kitchen' ? undefined : cardType"
+              :large="catalogType === 'list'"
               class="catalog__card"
             />
           </template>
