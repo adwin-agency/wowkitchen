@@ -99,9 +99,10 @@
           :class="[{'catalog__cards_list': catalogType === 'list'}]"
         >
           <template v-if="cards.length">
-            <ProductCard
+            <component
               v-for="(card, index) in cards"
               :key="index"
+              :is="cardComponent"
               :info="card"
               :noPrice="cardType === 'wardrobe'"
               :cardType="cardType"
@@ -112,9 +113,10 @@
             />
           </template>
           <template v-if="isPlaceholder">
-            <ProductCard
+            <component
               v-for="n in placeholderCount"
               :key="n + 'p'"
+              :is="cardComponent"
               :noPrice="cardType === 'wardrobe'"
               :cardType="cardType"
               class="catalog__card"
@@ -150,6 +152,7 @@ import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppSelect from './base/AppSelect.vue'
 import Filters from './Filters.vue'
+import KitchenCard from './KitchenCard.vue'
 import ProductCard from './ProductCard.vue'
 import Pagination from './Pagination.vue'
 
@@ -160,6 +163,7 @@ export default {
     AppIcon,
     AppSelect,
     Filters,
+    KitchenCard,
     ProductCard,
     Pagination
   },
@@ -210,6 +214,9 @@ export default {
       }
 
       return count
+    },
+    cardComponent() {
+      return this.cardType === 'kitchen' ? 'KitchenCard' : 'ProductCard'
     }
   },
   watch: {

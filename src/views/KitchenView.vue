@@ -5,7 +5,7 @@
     <Equipment />
     <DiscountPreview />
     <Design />
-    <OtherProducts
+    <KitchenSet
       v-if="details"
       heading="Другие модели"
       :products="details.similars"
@@ -20,11 +20,11 @@ import Details from '../components/Details.vue'
 import Constructor from '../components/Constructor.vue'
 import Equipment from '../components/Equipment.vue'
 import Design from '../components/Design.vue'
-import OtherProducts from '../components/OtherProducts.vue'
+import KitchenSet from '../components/KitchenSet.vue'
 import Steps from '../components/Steps.vue'
 import RatedReviews from '../components/RatedReviews.vue'
-import api from '../api'
 import DiscountPreview from '../components/DiscountPreview.vue'
+import api from '../api'
 
 export default {
   name: 'KitchenView',
@@ -33,7 +33,7 @@ export default {
     Constructor,
     Equipment,
     Design,
-    OtherProducts,
+    KitchenSet,
     Steps,
     RatedReviews,
     DiscountPreview

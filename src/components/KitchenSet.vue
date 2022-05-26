@@ -1,12 +1,12 @@
 <template>
-  <div class="other-products">
-    <div class="other-products__header">
+  <div class="kitchen-set">
+    <div class="kitchen-set__header">
       <div class="container">
-        <h2 class="other-products__heading">{{heading}}</h2>
-        <router-link to='/kitchens' class="other-products__link">Перейти в каталог кухонь</router-link>
+        <h2 class="kitchen-set__heading">{{heading}}</h2>
+        <router-link to='/kitchens' class="kitchen-set__link">Перейти в каталог кухонь</router-link>
       </div>
     </div>
-    <div class="other-products__cards">
+    <div class="kitchen-set__cards">
       <div class="container">
         <Swiper
           v-if="products"
@@ -17,17 +17,16 @@
           :looped-slides="3"
           navigation
           watch-slides-visibility
-          class="other-products__slider"
+          class="kitchen-set__slider"
         >
           <SwiperSlide
             v-for="(product, index) in products"
             :key="index"
             v-slot="{ isVisible }"
-            class="other-products__slide"
+            class="kitchen-set__slide"
           >
-            <ProductCard
+            <KitchenCard
              slide
-             cardType="kitchen"
              :disabled="!isVisible"
              :info="product"
              :noPrice="false"
@@ -42,16 +41,16 @@
 <script>
 import SwiperCore, { Navigation, Scrollbar } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import ProductCard from './ProductCard.vue'
+import KitchenCard from './KitchenCard.vue'
 
 SwiperCore.use([Navigation, Scrollbar])
 
 export default {
-  name: 'OtherProducts',
+  name: 'KitchenSet',
   components: {    
     Swiper,
     SwiperSlide,
-    ProductCard,
+    KitchenCard,
   },
   props: {
     heading: String,
@@ -61,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-.other-products {
+.kitchen-set {
   padding: 45px 0 40px;
   background-color: $color-lightgray;
 

@@ -1,7 +1,7 @@
 <template>
   <div class="v-technic">
     <TechnicDetails :info="details?.info" />
-    <OtherProducts
+    <KitchenSet
       v-if="details"
       heading="Отлично подойдёт для этих кухонь"
       :products="details.kitchens"
@@ -12,7 +12,7 @@
 
 <script>
 import TechnicDetails from '../components/TechnicDetails.vue'
-import OtherProducts from '../components/OtherProducts.vue'
+import KitchenSet from '../components/KitchenSet.vue'
 import Steps from '../components/Steps.vue'
 import api from '../api'
 
@@ -20,7 +20,7 @@ export default {
   name: 'TechnicView',
   components: {
     TechnicDetails,
-    OtherProducts,
+    KitchenSet,
     Steps
   },
   data() {
