@@ -86,14 +86,15 @@ export default {
   }
 
   &__prev {
-    margin-right: 115px;
+    margin-right: 60px;
+
     #{$b}__icon {
       transform: rotate(180deg);
     }
   }
 
   &__next {
-    margin-left: 115px;
+    margin-left: 60px;
   }
 
   &__icon {
@@ -119,6 +120,16 @@ export default {
       background-color: $color-primary;
       color: #fff;
       pointer-events: none;
+    }
+  }
+
+  @include media(xl) {
+    &__prev {
+      margin-right: 115px;
+    }
+
+    &__next {
+      margin-left: 115px;
     }
   }
 }
