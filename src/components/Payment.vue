@@ -28,12 +28,8 @@
           </p>
           <div class="payment__features">
             <div class="payment__feature">
-              <span class="payment__feature-num"><sub>от</sub>50<sup>%</sup></span>
+              <span class="payment__feature-num"><sub>от</sub>30<sup>%</sup></span>
               <span class="payment__feature-desc">сумма первого платежа</span>
-            </div>
-            <div class="payment__feature">
-              <span class="payment__feature-num">120</span>
-              <span class="payment__feature-desc">факт про оплату наличными</span>
             </div>
           </div>
         </div>
@@ -86,8 +82,8 @@
               <span class="payment__feature-desc">банков-партнёров</span>
             </div>
             <div class="payment__feature">
-              <span class="payment__feature-num">30<sup>%</sup></span>
-              <span class="payment__feature-desc">минимальный первый взнос</span>
+              <span class="payment__feature-num">0<sup>%</sup></span>
+              <span class="payment__feature-desc">рассрочка без первого взноса</span>
             </div>
           </div>
         </div>
