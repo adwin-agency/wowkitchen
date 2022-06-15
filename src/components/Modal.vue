@@ -333,6 +333,7 @@ import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
 import useForms from '../composition/forms'
+import api from '../api'
 
 SwiperCore.use([Navigation])
 
@@ -358,7 +359,8 @@ export default {
   data() {
     return {
       fileName: '',
-      fileError: ''
+      fileError: '',
+      ecommerce: null
     }
   },
   computed: {
@@ -400,6 +402,24 @@ export default {
         this.sending = false
         this.success = false
         this.error = false
+      }
+
+      if (newModal === 'calc' && this.productData.product === 'kitchen') {
+        this.ecommerce = {
+          name: this.productData.name,
+          id: this.productData.id
+        }
+        api.ecommerce('add', this.ecommerce.name, this.ecommerce.id)
+      }
+
+      if (newModal === null && this.ecommerce) {
+        api.ecommerce('remove', this.ecommerce.name, this.ecommerce.id)
+        this.ecommerce = null
+      }
+
+      if (newModal === 'success' && this.ecommerce) {
+        api.ecommerce('purchase', this.ecommerce.name, this.ecommerce.id)
+        this.ecommerce = null
       }
     },
     $route() {

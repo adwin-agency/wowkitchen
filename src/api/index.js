@@ -78,18 +78,50 @@ const api = {
 
     window.fbq && window.fbq('track', 'Lead')
     window.VK && window.VK.Retargeting.Event('lead')
-    window.gtag && window.gtag('event', formType, {event_category: 'Forms'})
+    window.gtag && window.gtag('event', formType, { event_category: 'Forms' })
     window.ym && window.ym(34624840, 'reachGoal', formType)
     window.ym && window.ym(34624840, 'reachGoal', 'lead')
     window.yaCounter34624840 && window.yaCounter34624840.reachGoal(formType)
     window.yaCounter34624840 && window.yaCounter34624840.reachGoal('lead')
     window.dataLayer = window.dataLayer || []
     if (formType !== 'guarantee' && formType !== 'payment' && formType !== 'review') {
-      window.dataLayer.push({'event': 'submit_form'})
+      window.dataLayer.push({ 'event': 'submit_form' })
     }
-    window.dataLayer.push({'event': formType})
+    window.dataLayer.push({ 'event': formType })
 
     return response
+  },
+
+  ecommerce(eventName, productName, productId) {
+    const layer = window.dataLayer || []
+
+    function createEntry() {
+      const entry = {
+        ecommerce: {
+          currencyCode: 'RUB',
+          [eventName]: {
+            products: [
+              {
+                id: productId,
+                name: productName,
+                category: 'Кухни',
+                quantity: 1
+              }
+            ]
+          }
+        }
+      }
+
+      if (eventName === 'purchase') {
+        entry[eventName].actionField = {
+          id: productId
+        }
+      }
+
+      return entry
+    }
+
+    layer.push(createEntry())
   }
 }
 

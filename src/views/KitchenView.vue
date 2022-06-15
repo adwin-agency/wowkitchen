@@ -48,6 +48,7 @@ export default {
     this.details = await api.loadDetails(this.$route)
     this.setBreadCrumbs()
     this.tmrPush()
+    this.ecommercePush()
 
     const reviewsResponse = await api.loadCards({ name: 'reviews' })
     this.reviews = reviewsResponse.reviews.slice(0, 4)
@@ -56,6 +57,7 @@ export default {
     this.details = await api.loadDetails(to)
     this.setBreadCrumbs()
     this.tmrPush()
+    this.ecommercePush()
   },
   methods: {
     setBreadCrumbs() {
@@ -80,6 +82,24 @@ export default {
         list: '2',
         totalvalue: this.details.info.price
       })
+    },
+    ecommercePush() {
+      window.dataLayer &&
+        window.dataLayer.push({
+          ecommerce: {
+            currencyCode: 'RUB',
+            detail: {
+              products: [
+                {
+                  id: this.details.info.id.toString(),
+                  name: this.details.info.name,
+                  category: 'Кухни',
+                  quantity: 1
+                }
+              ]
+            }
+          }
+        })
     }
   }
 }
