@@ -113,7 +113,7 @@ const api = {
       }
 
       if (eventName === 'purchase') {
-        entry[eventName].actionField = {
+        entry.ecommerce[eventName].actionField = {
           id: productId
         }
       }
