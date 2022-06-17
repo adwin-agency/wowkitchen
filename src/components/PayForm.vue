@@ -84,6 +84,15 @@
         class="pay-form__field pay-form__field_phone"
       />
       <AppTextField
+        v-if="selectedCityCode === 'msk'"
+        label="Дополнительный номер"
+        type="text"
+        name="additional_number"
+        color="white"
+        bordered
+        class="pay-form__field"
+      />
+      <AppTextField
         label="Mail"
         placeholder="sample@sample.ru"
         type="email"
@@ -141,7 +150,12 @@
         >
           Ошибка отправки. Попробуйте еще раз
         </p>
-        <p class="pay-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
+        <p class="pay-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с
+          <a
+            href="/policy.pdf"
+            target="_blank"
+          >Политикой конфиденциальности</a>
+        </p>
       </div>
       <p
         v-if="error && !$_media.sm"
@@ -201,7 +215,10 @@ export default {
       return this.$store.state.cities
     },
     cityOptions() {
-      return Object.values(this.cities).length && Object.values(this.cities).map((i) => ({ title: i.name, value: i.code }))
+      return (
+        Object.values(this.cities).length &&
+        Object.values(this.cities).map(i => ({ title: i.name, value: i.code }))
+      )
     },
     activeCityCode() {
       return this.$store.state.activeCity ?? ''

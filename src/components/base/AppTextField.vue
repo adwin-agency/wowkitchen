@@ -157,6 +157,11 @@ export default {
         let val = e.target.value.replace(/[^0-9-]/g, '')
         e.target.value = val
 
+      // доп номер
+      } else if (e.target.name === 'additional_number') {
+        let val = e.target.value.replace(/[^0-9-]/g, '').slice(0, 8)
+        e.target.value = val
+
       } else {
         this.$emit('input', e)
       }

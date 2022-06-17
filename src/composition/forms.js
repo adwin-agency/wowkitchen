@@ -29,6 +29,13 @@ export default function useForms() {
       }
     }
 
+    const addNumInput = e.target.querySelector('input[name="additional_number"]')
+
+    if (addNumInput && addNumInput.value.length > 0 && addNumInput.value.length < 6) {
+      addNumInput.classList.add('is-error')
+      isError = true
+    }
+
     if (isError) {
       const errorInput = e.target.querySelector('.is-error')
       const rectTop = errorInput.getBoundingClientRect().top
