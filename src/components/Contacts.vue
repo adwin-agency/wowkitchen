@@ -4,7 +4,7 @@
       <h2 class="contacts__title">Контакты</h2>
       <div class="contacts__info-container">
         <div class="contacts__info-item">
-          <h3 class="contacts__info-title">Адрес</h3>
+          <h3 class="contacts__info-title">Адрес производства</h3>
           <p class="contacts__info-text">
             <a
               v-if="$_media.sm && activeCity === 'spb'"
