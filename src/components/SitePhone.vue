@@ -54,32 +54,6 @@
         <span class="site-phone__tooltip">Обратный звонок</span>
       </button>
     </div>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      version="1.1"
-      class="site-phone__filters"
-    >
-      <defs>
-        <filter id="goo">
-          <feGaussianBlur
-            in="SourceGraphic"
-            result="blur"
-            stdDeviation="3"
-          />
-          <feColorMatrix
-            in="blur"
-            mode="matrix"
-            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 16 -7"
-            result="goo"
-          />
-          <feComposite
-            in2="goo"
-            in="SourceGraphic"
-            result="mix"
-          />
-        </filter>
-      </defs>
-    </svg>
     <transition name="fade">
       <div
         v-if="isActive"
@@ -317,10 +291,6 @@ export default {
         }
       }
     }
-  }
-
-  &__filters {
-    display: none;
   }
 
   &__open {
@@ -572,7 +542,6 @@ export default {
     &__menu {
       right: 38px;
       bottom: 33px;
-      filter: url('#goo');
 
       &.active {
         #{$b} {
