@@ -285,7 +285,6 @@ export default {
     position: absolute;
     right: 20px;
     bottom: 20px;
-    filter: url('#goo');
 
     &.active {
       #{$b} {
@@ -453,16 +452,6 @@ export default {
     }
   }
 
-  @keyframes site-phone {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1.2);
-      opacity: 0;
-    }
-  }
-
   &__overlay {
     display: flex;
     position: fixed;
@@ -583,6 +572,7 @@ export default {
     &__menu {
       right: 38px;
       bottom: 33px;
+      filter: url('#goo');
 
       &.active {
         #{$b} {
