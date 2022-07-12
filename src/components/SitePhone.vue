@@ -4,6 +4,42 @@
       class="site-phone__menu"
       :class="{'active': isActiveMenu}"
     >
+      <div class="site-phone__menu-items">
+        <a
+          href="https://t.me/wowkitchenru_bot"
+          target="_blank"
+          class="site-phone__menu-item site-phone__menu-item_tg"
+        >
+          <AppIcon
+            name="telegram"
+            class="site-phone__menu-icon"
+          />
+          <span class="site-phone__tooltip">Телеграм-бот</span>
+        </a>
+        <a
+          href="https://vk.me/club25299040"
+          target="_blank"
+          class="site-phone__menu-item site-phone__menu-item_vk"
+        >
+          <AppIcon
+            name="vk"
+            class="site-phone__menu-icon"
+          />
+          <span class="site-phone__tooltip">Чат ВКонтакте</span>
+        </a>
+        <button
+          class="site-phone__menu-item site-phone__menu-item_ph"
+          @click="openSitePhone"
+        >
+          <AppIcon
+            name="callback"
+            class="site-phone__menu-icon"
+            width="26"
+            height="26"
+          />
+          <span class="site-phone__tooltip">Обратный звонок</span>
+        </button>
+      </div>
       <button
         class="site-phone__open"
         @click="toggleMenu"
@@ -18,40 +54,6 @@
           class="site-phone__open-icon"
           :class="{'active': isActiveMenu}"
         />
-      </button>
-      <a
-        href="https://t.me/wowkitchenru_bot"
-        target="_blank"
-        class="site-phone__menu-item site-phone__menu-item_tg"
-      >
-        <AppIcon
-          name="telegram"
-          class="site-phone__menu-icon"
-        />
-        <span class="site-phone__tooltip">Телеграм-бот</span>
-      </a>
-      <a
-        href="https://vk.me/club25299040"
-        target="_blank"
-        class="site-phone__menu-item site-phone__menu-item_vk"
-      >
-        <AppIcon
-          name="vk"
-          class="site-phone__menu-icon"
-        />
-        <span class="site-phone__tooltip">Чат ВКонтакте</span>
-      </a>
-      <button
-        class="site-phone__menu-item site-phone__menu-item_ph"
-        @click="openSitePhone"
-      >
-        <AppIcon
-          name="callback"
-          class="site-phone__menu-icon"
-          width="26"
-          height="26"
-        />
-        <span class="site-phone__tooltip">Обратный звонок</span>
       </button>
     </div>
     <transition name="fade">
@@ -277,15 +279,15 @@ export default {
         &__menu-item {
           pointer-events: all;
 
-          &:nth-child(2) {
+          &:nth-child(1) {
             transform: translateY(-58px);
           }
 
-          &:nth-child(3) {
+          &:nth-child(2) {
             transform: translateY(-120px);
           }
 
-          &:nth-child(4) {
+          &:nth-child(3) {
             transform: translateY(-182px);
           }
         }
@@ -300,7 +302,6 @@ export default {
     border-radius: 50%;
     background-color: $color-green;
     transition: transform 0.3s ease;
-    z-index: 1;
 
     &::before {
       content: '';
@@ -554,15 +555,15 @@ export default {
           }
 
           &__menu-item {
-            &:nth-child(2) {
+            &:nth-child(1) {
               transform: translateY(-82px);
             }
 
-            &:nth-child(3) {
+            &:nth-child(2) {
               transform: translateY(-168px);
             }
 
-            &:nth-child(4) {
+            &:nth-child(3) {
               transform: translateY(-254px);
             }
           }
