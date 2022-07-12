@@ -66,6 +66,18 @@
               />
             </a> -->
             <a
+              href="https://t.me/wowkitchen_ru"
+              target="_blank"
+              class="nav-panel__social-item"
+            >
+              <AppIcon
+                class="nav-panel__social-icon"
+                :width="$_mobile ? 28 : 23"
+                :height="$_mobile ? 28 : 23"
+                name="telegram"
+              />
+            </a>
+            <a
               href="https://zen.yandex.ru/wowkitchen"
               target="_blank"
               class="nav-panel__social-item"

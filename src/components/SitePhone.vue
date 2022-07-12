@@ -1,18 +1,85 @@
 <template>
   <div class="site-phone">
-    <transition name="fade">
+    <div
+      class="site-phone__menu"
+      :class="{'active': isActiveMenu}"
+    >
       <button
-        v-if="!isActive"
         class="site-phone__open"
-        type="button"
+        @click="toggleMenu"
+      >
+        <AppIcon
+          name="talk"
+          class="site-phone__open-icon"
+          :class="{'active': !isActiveMenu}"
+        />
+        <AppIcon
+          name="cross"
+          class="site-phone__open-icon"
+          :class="{'active': isActiveMenu}"
+        />
+      </button>
+      <a
+        href="https://t.me/wowkitchenru_bot"
+        target="_blank"
+        class="site-phone__menu-item site-phone__menu-item_tg"
+      >
+        <AppIcon
+          name="telegram"
+          class="site-phone__menu-icon"
+        />
+        <span class="site-phone__tooltip">Телеграм-бот</span>
+      </a>
+      <a
+        href="https://vk.me/club25299040"
+        target="_blank"
+        class="site-phone__menu-item site-phone__menu-item_vk"
+      >
+        <AppIcon
+          name="vk"
+          class="site-phone__menu-icon"
+        />
+        <span class="site-phone__tooltip">Чат ВКонтакте</span>
+      </a>
+      <button
+        class="site-phone__menu-item site-phone__menu-item_ph"
         @click="openSitePhone"
       >
         <AppIcon
-          name="phone2"
-          class="site-phone__open-icon"
+          name="callback"
+          class="site-phone__menu-icon"
+          width="26"
+          height="26"
         />
+        <span class="site-phone__tooltip">Обратный звонок</span>
       </button>
-    </transition>
+    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      class="site-phone__filters"
+    >
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur
+            in="SourceGraphic"
+            result="blur"
+            stdDeviation="3"
+          />
+          <feColorMatrix
+            in="blur"
+            mode="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 16 -7"
+            result="goo"
+          />
+          <feComposite
+            in2="goo"
+            in="SourceGraphic"
+            result="mix"
+          />
+        </filter>
+      </defs>
+    </svg>
     <transition name="fade">
       <div
         v-if="isActive"
@@ -155,6 +222,7 @@ export default {
   },
   data() {
     return {
+      isActiveMenu: false,
       exactTime: false
     }
   },
@@ -179,6 +247,10 @@ export default {
     }
   },
   methods: {
+    toggleMenu() {
+      this.isActiveMenu = !this.isActiveMenu
+    },
+
     openSitePhone() {
       this.$store.commit('setActiveSitePhone', true)
 
@@ -209,7 +281,166 @@ export default {
   bottom: 0;
   z-index: 200;
 
-  &__open,
+  &__menu {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    filter: url('#goo');
+
+    &.active {
+      #{$b} {
+        &__open {
+          transform: scale(0.8);
+
+          &::before {
+            transform: scale(0);
+          }
+
+          &-icon {
+            transform: scale(0.7);
+          }
+        }
+
+        &__menu-item {
+          pointer-events: all;
+
+          &:nth-child(2) {
+            transform: translateY(-58px);
+          }
+
+          &:nth-child(3) {
+            transform: translateY(-120px);
+          }
+
+          &:nth-child(4) {
+            transform: translateY(-182px);
+          }
+        }
+      }
+    }
+  }
+
+  &__filters {
+    display: none;
+  }
+
+  &__open {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: $color-green;
+    transition: transform 0.3s ease;
+    z-index: 1;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -35px 0 0 -35px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: rgba($color-green, 0.3);
+      box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.195);
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+
+    &-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -12px 0 0 -12px;
+      width: 24px;
+      height: 24px;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+
+      &.active {
+        opacity: 1;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+    }
+  }
+
+  &__menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -28px 0 0 -28px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    fill: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    pointer-events: none;
+
+    &_tg {
+      background-color: #40b3e0;
+
+      #{$b} {
+        &__menu-icon {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+
+    &_vk {
+      background-color: #2683ed;
+
+      #{$b} {
+        &__menu-icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+
+    &_ph {
+      background-color: #04b991;
+
+      #{$b} {
+        &__menu-icon {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
+    &:hover {
+      box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
+
+      #{$b} {
+        &__tooltip {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__tooltip {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-right: 8px;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: 500;
+    font-size: 12px;
+    background-color: rgba(217, 217, 217, 0.9);
+    transform: translateY(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
   &__overlay {
     &.fade-enter-active,
     &.fade-leave-active {
@@ -229,40 +460,6 @@ export default {
     to {
       transform: scale(1.2);
       opacity: 0;
-    }
-  }
-
-  &__open {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 80px;
-    height: 80px;
-    border-radius: 100% 0 0 0;
-    background-color: $color-yellow;
-    box-shadow: 0px 4px 44px rgba(0, 0, 0, 0.15);
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      border-top: 1px solid $color-yellow;
-      border-left: 1px solid $color-yellow;
-      border-radius: inherit;
-      transform-origin: right bottom;
-      animation: site-phone 1s infinite;
-      pointer-events: none;
-    }
-
-    &-icon {
-      position: absolute;
-      left: 30px;
-      top: 30px;
-      width: 30px;
-      height: 30px;
     }
   }
 
@@ -375,22 +572,98 @@ export default {
   }
 
   @include media(md) {
-    &__open {
-      width: 100px;
-      height: 100px;
-
-      &-icon {
-        left: 40px;
-        top: 40px;
-        width: 36px;
-        height: 36px;
-      }
-    }
-
     &__form {
       margin-right: 0;
       margin-bottom: 0;
       padding: 36px 40px 30px;
+    }
+  }
+
+  @include media(lg) {
+    &__menu {
+      right: 38px;
+      bottom: 33px;
+
+      &.active {
+        #{$b} {
+          &__open {
+            transform: scale(0.62);
+
+            &-icon {
+              transform: scale(0.6);
+            }
+          }
+
+          &__menu-item {
+            &:nth-child(2) {
+              transform: translateY(-82px);
+            }
+
+            &:nth-child(3) {
+              transform: translateY(-168px);
+            }
+
+            &:nth-child(4) {
+              transform: translateY(-254px);
+            }
+          }
+        }
+      }
+    }
+
+    &__open {
+      width: 110px;
+      height: 110px;
+
+      &::before {
+        margin: -65px 0 0 -65px;
+        width: 130px;
+        height: 130px;
+      }
+
+      &-icon {
+        margin: -24px 0 0 -24px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    &__menu-item {
+      margin: -40px 0 0 -40px;
+      width: 80px;
+      height: 80px;
+
+      &_tg {
+        #{$b} {
+          &__menu-icon {
+            width: 38px;
+            height: 38px;
+          }
+        }
+      }
+
+      &_vk {
+        #{$b} {
+          &__menu-icon {
+            width: 38px;
+            height: 38px;
+          }
+        }
+      }
+
+      &_ph {
+        #{$b} {
+          &__menu-icon {
+            width: 26px;
+            height: 26px;
+          }
+        }
+      }
+    }
+
+    &__tooltip {
+      padding: 15px 25px;
+      font-size: 16px;
     }
   }
 }
