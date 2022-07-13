@@ -9,6 +9,7 @@
           href="https://t.me/wowkitchenru_bot"
           target="_blank"
           class="site-phone__menu-item site-phone__menu-item_tg"
+          @click="handleChatClick('click_telegram')"
         >
           <AppIcon
             name="telegram"
@@ -20,6 +21,7 @@
           href="https://vk.me/club25299040"
           target="_blank"
           class="site-phone__menu-item site-phone__menu-item_vk"
+          @click="handleChatClick('click_VK')"
         >
           <AppIcon
             name="vk"
@@ -243,6 +245,11 @@ export default {
 
     handleTimeChange(value) {
       this.exactTime = value === 'Конкретное время'
+    },
+
+    handleChatClick(event) {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event })
     }
   }
 }
