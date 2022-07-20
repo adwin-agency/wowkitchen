@@ -41,6 +41,7 @@
             href="https://t.me/wowkitchen_ru"
             target="_blank"
             class="contacts__info-link"
+            @click="handleSocialClick('contacts_tg')"
           >
             <AppIcon
               name="telegram"
@@ -51,6 +52,7 @@
             href="https://zen.yandex.ru/wowkitchen"
             target="_blank"
             class="contacts__info-link"
+            @click="handleSocialClick('contacts_zen')"
           >
             <AppIcon
               name="zen"
@@ -61,6 +63,7 @@
             href="https://vk.com/wowkitchen_ru"
             target="_blank"
             class="contacts__info-link"
+            @click="handleSocialClick('contacts_vk')"
           >
             <AppIcon
               name="vk"
@@ -218,6 +221,11 @@ export default {
 
         window.myMap.geoObjects.add(window.myPlacemark)
       })
+    },
+
+    handleSocialClick(eventName) {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event: eventName })
     }
   }
 }

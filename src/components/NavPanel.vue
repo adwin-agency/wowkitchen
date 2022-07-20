@@ -69,6 +69,7 @@
               href="https://t.me/wowkitchen_ru"
               target="_blank"
               class="nav-panel__social-item"
+              @click="handleSocialClick('header_tg')"
             >
               <AppIcon
                 class="nav-panel__social-icon"
@@ -81,6 +82,7 @@
               href="https://zen.yandex.ru/wowkitchen"
               target="_blank"
               class="nav-panel__social-item"
+              @click="handleSocialClick('header_zen')"
             >
               <AppIcon
                 class="nav-panel__social-icon"
@@ -93,6 +95,7 @@
               href="https://vk.com/wowkitchen_ru"
               target="_blank"
               class="nav-panel__social-item"
+              @click="handleSocialClick('header_vk')"
             >
               <AppIcon
                 class="nav-panel__social-icon"
@@ -207,6 +210,11 @@ export default {
 
     applyCity() {
       this.activeCityBox = false
+    },
+
+    handleSocialClick(eventName) {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event: eventName })
     }
   }
 }

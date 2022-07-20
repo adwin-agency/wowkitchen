@@ -145,6 +145,7 @@
               href="https://t.me/wowkitchen_ru"
               target="_blank"
               class="footer__social-link"
+              @click="handleSocialClick('footer_tg')"
             >
               <AppIcon
                 name="telegram"
@@ -155,6 +156,7 @@
               href="https://zen.yandex.ru/wowkitchen"
               target="_blank"
               class="footer__social-link"
+              @click="handleSocialClick('footer_zen')"
             >
               <AppIcon
                 name="zen"
@@ -165,6 +167,7 @@
               href="https://vk.com/wowkitchen_ru"
               target="_blank"
               class="footer__social-link"
+              @click="handleSocialClick('footer_vk')"
             >
               <AppIcon
                 name="vk"
@@ -340,6 +343,11 @@ export default {
 
     applyCity() {
       this.activeCityBox = false
+    },
+
+    handleSocialClick(eventName) {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event: eventName })
     }
   }
 }
