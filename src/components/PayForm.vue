@@ -84,10 +84,10 @@
         class="pay-form__field pay-form__field_phone"
       />
       <AppTextField
-        v-if="selectedCityCode === 'msk'"
         label="Дополнительный номер"
         type="text"
         name="additional_number"
+        required
         color="white"
         bordered
         class="pay-form__field"
