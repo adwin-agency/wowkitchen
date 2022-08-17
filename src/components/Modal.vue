@@ -240,7 +240,7 @@
           ></video>
           <button
             type="button"
-            class="modal__close"
+            class="modal__close modal__close_outer"
             @click="closeModal"
           >
             <AppIcon
@@ -284,7 +284,7 @@
           </Swiper>
           <button
             type="button"
-            class="modal__close"
+            class="modal__close modal__close_outer"
             @click="closeModal"
           >
             <AppIcon
@@ -584,12 +584,11 @@ export default {
 
   &__media {
     position: relative;
-    overflow: hidden;
   }
 
   &__video {
     max-width: calc(100vw - 40px);
-    max-height: calc(100vh - 40px);
+    max-height: calc(100vh - 80px);
   }
 
   &__slider {
@@ -636,12 +635,18 @@ export default {
     right: 20px;
     width: 36px;
     height: 36px;
+    fill: $color-lightviolet;
     z-index: 2;
+
+    &_outer {
+      top: -40px;
+      right: 0;
+      fill: $color-gray3;
+    }
 
     &-icon {
       width: 17px;
       height: 17px;
-      fill: $color-lightviolet;
     }
   }
 
@@ -718,7 +723,7 @@ export default {
     }
 
     &__slider {
-      width: calc(100vw - 100px);
+      width: calc(100vw - 120px);
 
       .swiper-button-prev {
         left: 20px;
@@ -732,6 +737,15 @@ export default {
     &__success {
       border-radius: 8px;
       padding: 67px 100px 78px;
+    }
+  }
+
+  @include media(lg) {
+    &__close {
+      &_outer {
+        top: 0;
+        right: -50px;
+      }
     }
   }
 }
