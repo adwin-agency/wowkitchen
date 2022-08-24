@@ -5,7 +5,7 @@
       :class="{'active': isActiveMenu}"
     >
       <div class="site-phone__menu-items">
-        <a
+        <!-- <a
           href="https://t.me/wowkitchenru_bot"
           target="_blank"
           class="site-phone__menu-item site-phone__menu-item_tg"
@@ -16,7 +16,7 @@
             class="site-phone__menu-icon"
           />
           <span class="site-phone__tooltip">Телеграм-бот</span>
-        </a>
+        </a> -->
         <a
           href="https://vk.me/club25299040"
           target="_blank"
