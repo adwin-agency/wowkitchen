@@ -165,7 +165,7 @@
       </p>
     </div>
     <div
-      v-else-if="activeCityCode"
+      v-else-if="phone"
       class="pay-form__info"
     >
       <AppIcon
@@ -195,6 +195,7 @@ export default {
     AppIcon,
     AppTextField
   },
+  emits: ['update'],
   setup() {
     const { sending, error, page, handleSubmit } = useForms()
     return {
@@ -206,7 +207,6 @@ export default {
   },
   data() {
     return {
-      // selectedCityCode: this.$store.state.activeCity
       selectedCityCode: 'spb'
     }
   },
@@ -220,9 +220,6 @@ export default {
         Object.values(this.cities).map(i => ({ title: i.name, value: i.code }))
       )
     },
-    activeCityCode() {
-      return this.$store.state.activeCity ?? ''
-    },
     shopId() {
       return this.cities[this.selectedCityCode]?.shop_id
     },
@@ -230,17 +227,13 @@ export default {
       return this.cities[this.selectedCityCode]?.phone
     }
   },
-  // watch: {
-  //   activeCityCode(value) {
-  //     if (!this.selectedCityCode) {
-  //       this.selectedCityCode = value
-  //     }
-  //   }
-  // },
   methods: {
     handleCityChange(e) {
       this.selectedCityCode = e
     }
+  },
+  updated() {
+    this.$emit('update')
   }
 }
 </script>

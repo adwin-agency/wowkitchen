@@ -2,31 +2,35 @@
   <div class="pay">
     <div
       class="pay__main"
-      :class="{'pay__main_result': success || error}"
+      :class="{'pay__main_result': error}"
     >
       <div class="container">
         <template v-if="success">
           <div class="pay__header">
-            <h1 class="pay__heading">Оплата прошла успешно</h1>
-            <p class="pay__desc pay__desc_result">Наши специалисты уже начали работу над вашим проектом и менеджер свяжется с вами по готовности изделия.<br><br>А пока вам может быть интересно:</p>
+            <h1 class="pay__heading">Спасибо! Оплата прошла успешно</h1>
+            <p class="pay__desc pay__desc_result">А пока мы начинаем работу над вашим проектом, предлагаем вам ознакомиться с интересными статьями в нашем блоге</p>
           </div>
-          <div class="pay__menu">
-            <router-link
-              to="/delivery"
-              class="pay__link"
-            >Доставка
-              <AppIcon
-                name="arrow"
-                class="pay__link-icon"
+          <div class="pay__articles">
+            <h2 class="pay__articles-heading">Избранные статьи</h2>
+            <div class="pay__articles-cards">
+              <ArticleCard
+                v-for="article in articles"
+                :key="article.id"
+                class="pay__articles-card"
+                :cardData="article"
               />
-            </router-link>
+            </div>
             <router-link
-              to="/installing"
-              class="pay__link"
-            >Сборка
-              <AppIcon
-                name="arrow"
-                class="pay__link-icon"
+              :to="{name: 'blog'}"
+              custom
+              v-slot="{href, navigate}"
+            >
+              <AppButton
+                class="pay__articles-btn"
+                :href="href"
+                title="Перейти в блог"
+                color="gray"
+                @click="navigate"
               />
             </router-link>
           </div>
@@ -78,64 +82,144 @@
               </div>
             </div>
           </div>
-          <PayForm class="pay__form" />
+          <PayForm
+            class="pay__form"
+            @update="handleUpdate"
+          />
         </template>
       </div>
     </div>
     <div
       class="pay__side"
-      :class="{'pay__side_result': success || error}"
+      :class="{'pay__side_result': error}"
     >
-      <div
-        v-if="!$_media.sm"
-        class="pay__side-box"
-      >
-        <p
-          v-if="success"
-          class="pay__side-message pay__side-message_green"
+      <div class="pay__side-content">
+        <div
+          v-if="!$_media.sm"
+          class="pay__side-box"
         >
-          Отлично! Оплата прошла <br>и проект отправляется <br>в работу
-        </p>
-        <p
-          v-else-if="error"
-          class="pay__side-message pay__side-message_pink"
-        >
-          Что-то пошло не так...
-        </p>
-        <p
-          v-else
-          class="pay__side-message"
-        >
-          Оплатите будущую кухню <br>прямо с сайта
-        </p>
-        <img
-          src="@/assets/img/notebook.png"
-          alt
-          class="pay__side-img"
-        >
+          <p
+            v-if="success"
+            class="pay__side-message"
+          >
+            Ваш платёж прошёл, скоро <br>мы приступим к работе!
+            <img
+              src="/assets/img/heart.png"
+              alt=""
+              class="pay__side-icon"
+            >
+          </p>
+          <p
+            v-else-if="error"
+            class="pay__side-message pay__side-message_pink"
+          >
+            Что-то пошло не так...
+          </p>
+          <p
+            v-else
+            class="pay__side-message"
+          >
+            Оплатите будущую кухню <br>прямо с сайта
+          </p>
+          <img
+            src="@/assets/img/notebook.png"
+            alt
+            class="pay__side-img"
+          >
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import StickySidebar from 'sticky-sidebar'
+import ArticleCard from './ArticleCard.vue'
+import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import PayForm from './PayForm.vue'
+import api from '../api'
 
 export default {
   name: 'Pay',
   components: {
     AppIcon,
-    PayForm
+    PayForm,
+    ArticleCard,
+    AppButton
   },
   props: {
     success: Boolean,
     error: Boolean
   },
+  data() {
+    return {
+      articles: []
+    }
+  },
   computed: {
     phone() {
       return this.$store.state.cities[this.$store.state.activeCity]?.phone
     }
+  },
+  methods: {
+    initSidebar() {
+      window.sidebar = new StickySidebar('.pay__side', {
+        topSpacing: this.$_media.xl ? 92 : 80,
+        innerWrapperSelector: '.pay__side-content'
+      })
+
+      window.sidebar.isSidebarFitsViewport = function () {
+        var offset =
+          this.scrollDirection === 'down'
+            ? this.dimensions.lastBottomSpacing
+            : this.dimensions.lastTopSpacing
+        return (
+          this.dimensions.sidebarHeight + offset <
+          this.dimensions.viewportHeight
+        )
+      }
+    },
+    handleResize() {
+      if (this.$_media.sm) {
+        if (window.sidebar) {
+          window.sidebar.destroy()
+          window.sidebar = null
+        }
+      } else {
+        if (window.sidebar) {
+          window.sidebar.options.topSpacing = this.$_media.xl ? 92 : 80
+        } else {
+          this.initSidebar()
+        }
+      }
+    },
+    handleUpdate() {
+      window.sidebar?.updateSticky()
+    }
+  },
+  async created() {
+    if (!this.success) return
+
+    const route = { name: 'blog', query: { category: 'populyarnoe' } }
+    const response = await api.loadCards(route)
+    this.articles = response.goods.slice(0, 4)
+    window.sidebar?.updateSticky()
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize)
+
+    if (!this.$_media.sm) {
+      this.initSidebar()
+    }
+  },
+  unmounted() {
+    if (window.sidebar) {
+      window.sidebar.destroy()
+      window.sidebar = null
+    }
+
+    window.removeEventListener('resize', this.handleResize)
   }
 }
 </script>
@@ -251,13 +335,20 @@ export default {
   }
 
   &__side {
-    display: flex;
-    align-items: flex-end;
-    padding-top: 56%;
-    background-color: #ccc;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('~@/assets/img/payment-bg.jpg');
-    background-size: cover;
-    background-position: center;
+    &-content {
+      display: flex;
+      align-items: flex-end;
+      padding-top: 56%;
+      background-color: #ccc;
+      background-image: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.4),
+          rgba(0, 0, 0, 0.4)
+        ),
+        url('~@/assets/img/payment-bg.jpg');
+      background-size: cover;
+      background-position: center;
+    }
 
     &-box {
       margin-left: -30px;
@@ -268,6 +359,7 @@ export default {
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      position: relative;
       margin-left: -15px;
       width: 245px;
       height: 95px;
@@ -293,6 +385,30 @@ export default {
     }
 
     &-img {
+      width: 100%;
+    }
+
+    &-icon {
+      position: absolute;
+      top: -50px;
+      right: -10px;
+      width: 82px;
+    }
+  }
+
+  &__articles {
+    margin-top: 30px;
+
+    &-cards {
+      margin-top: 24px;
+    }
+
+    &-card {
+      margin-bottom: 20px;
+    }
+
+    &-btn {
+      margin-top: 10px;
       width: 100%;
     }
   }
@@ -329,17 +445,25 @@ export default {
 
     &__side {
       width: 300px;
-      padding: 50px 0;
 
       &_result {
         width: 50%;
-        min-height: 600px;
+      }
+
+      &-content {
+        padding: 50px 0;
+        height: calc(100vh - 80px);
+        min-height: 400px;
       }
     }
   }
 
   @include media(lg) {
+    margin-top: -$nav-panel-height-lg;
+
     &__main {
+      padding-top: 80px + $nav-panel-height-lg;
+
       .container {
         max-width: calc(50% + 410px);
         padding-right: 120px;
@@ -369,7 +493,11 @@ export default {
 
       &_result {
         width: 50%;
-        min-height: 700px;
+      }
+
+      &-content {
+        padding-top: 50px + $nav-panel-height-lg;
+        min-height: 610px;
       }
 
       &-box {
@@ -385,10 +513,32 @@ export default {
         font-size: 18px;
       }
     }
+
+    &__articles {
+      margin-top: 82px;
+
+      &-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+      }
+
+      &-card {
+        margin-bottom: 0;
+      }
+
+      &-btn {
+        margin-top: 30px;
+      }
+    }
   }
 
   @include media(xl) {
+    margin-top: -$nav-panel-height-xl;
+
     &__main {
+      padding-top: 80px + $nav-panel-height-xl;
+
       .container {
         max-width: calc(50% + 530px);
         padding-right: 200px;
@@ -406,7 +556,12 @@ export default {
 
       &_result {
         width: 50%;
-        min-height: 800px;
+      }
+
+      &-content {
+        padding-top: 50px + $nav-panel-height-xl;
+        height: calc(100vh - 92px);
+        min-height: 650px;
       }
 
       &-box {
