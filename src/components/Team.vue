@@ -5,7 +5,7 @@
         <div class="team__lead">
           <div class="team__img">
             <img
-              src="@/assets/img/team-lead.jpg"
+              src="@/assets/img/team-anastasia.jpg"
               alt=""
               style="object-position:50% 40%"
             >
