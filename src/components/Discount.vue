@@ -2,6 +2,7 @@
   <div class="discount">
     <div class="container">
       <h2 class="discount__title">Акции</h2>
+      <AppButton title="test" modalName="quiz" />
       <div class="discount__container">
         <div class="discount__cards">
           <DiscountCard class="discount__card discount__card_main" />
@@ -21,12 +22,14 @@
 </template>
 
 <script>
+import AppButton from './base/AppButton.vue'
 import DiscountCard from './DiscountCard.vue'
 
 export default {
   name: 'Discount',
   components: {
-    DiscountCard
+    DiscountCard,
+    AppButton
   },
   computed: {
     bonuses() {

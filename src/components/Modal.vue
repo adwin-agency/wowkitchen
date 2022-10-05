@@ -321,6 +321,23 @@
           </button>
         </div>
 
+        <div
+          v-if="modal === 'quiz'"
+          class="modal__quiz"
+        >
+          <ModalQuiz />
+          <button
+            type="button"
+            class="modal__close modal__close_quiz"
+            @click="closeModal"
+          >
+            <AppIcon
+              name="close"
+              class="modal__close-icon"
+            />
+          </button>
+        </div>
+
       </div>
     </div>
   </transition>
@@ -334,6 +351,7 @@ import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
 import useForms from '../composition/forms'
 import api from '../api'
+import ModalQuiz from './ModalQuiz.vue'
 
 SwiperCore.use([Navigation])
 
@@ -344,7 +362,8 @@ export default {
     SwiperSlide,
     AppIcon,
     AppTextField,
-    AppButton
+    AppButton,
+    ModalQuiz
   },
   setup() {
     const { sending, success, error, page, handleSubmit } = useForms()
@@ -644,6 +663,11 @@ export default {
       fill: $color-gray3;
     }
 
+    &_quiz {
+      top: 0;
+      right: 0;
+    }
+
     &-icon {
       width: 17px;
       height: 17px;
@@ -701,6 +725,13 @@ export default {
       line-height: 1.2;
       color: #ff0000;
     }
+  }
+
+  &__quiz {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    background-color: #fff;
   }
 
   @include media(md) {
