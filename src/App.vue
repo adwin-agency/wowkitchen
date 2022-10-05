@@ -1,7 +1,10 @@
 <template>
   <Header class="app-header" />
   <RouterView />
-  <Footer class="app-footer" :class="{'disabled': !loaded}" />
+  <Footer
+    class="app-footer"
+    :class="{'disabled': !loaded}"
+  />
   <Modal />
   <SitePhone class="app-site-phone" />
   <AppArrowUp
@@ -35,6 +38,9 @@ export default {
   },
   computed: {
     scrollLock() {
+      return this.$store.getters.scrollLock
+    },
+    pageLock() {
       return this.$store.getters.scrollLock || this.$store.state.introEffect
     },
     loaded() {
@@ -42,7 +48,7 @@ export default {
     }
   },
   watch: {
-    scrollLock(newStatus, status) {
+    pageLock(newStatus, status) {
       if (newStatus && newStatus !== status) {
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth + 'px'
         document.body.style.overflow = 'hidden'
@@ -102,6 +108,12 @@ export default {
         window.fbq && window.fbq('track', 'Contact')
       }
     })
+
+    const quizModalIsShown = this.getCookie('quiz')
+
+    if (!quizModalIsShown) {
+      this.showQuizModal()
+    }
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)
@@ -120,6 +132,17 @@ export default {
     handleScroll() {
       this.activeArrowUp = window.scrollY > 100 && window.scrollY < this.scrollY
       this.scrollY = window.scrollY
+    },
+
+    showQuizModal() {
+      setTimeout(() => {
+        if (this.scrollLock) {
+          this.showQuizModal()
+        } else {
+          this.$store.commit('setModal', 'quiz')
+          document.cookie = 'quiz=true; max-age=${60 * 60 * 24}; path=/'
+        }
+      }, 1000)
     }
   }
 }
@@ -173,7 +196,7 @@ export default {
   transform: translateY(100%);
   opacity: 0;
   pointer-events: none;
-  transition: transform .3s ease, opacity .3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 90;
 
   @include media(md) {

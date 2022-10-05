@@ -325,7 +325,7 @@
           v-if="modal === 'quiz'"
           class="modal__quiz"
         >
-          <ModalQuiz />
+          <ModalQuiz @cancel="closeModal" />
           <button
             type="button"
             class="modal__close modal__close_quiz"
@@ -768,6 +768,11 @@ export default {
     &__success {
       border-radius: 8px;
       padding: 67px 100px 78px;
+    }
+
+    &__quiz {
+      max-width: 640px;
+      border-radius: 8px;
     }
   }
 
