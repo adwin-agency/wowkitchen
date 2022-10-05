@@ -140,9 +140,9 @@ export default {
           this.showQuizModal()
         } else {
           this.$store.commit('setModal', 'quiz')
-          document.cookie = 'quiz=true; max-age=${60 * 60 * 24}; path=/'
+          document.cookie = `quiz=true; max-age=${60 * 60 * 24}; path=/`
         }
-      }, 1000)
+      }, 40000)
     }
   }
 }
