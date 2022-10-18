@@ -66,7 +66,7 @@
       <input
         type="hidden"
         name="type"
-        :value="$route.params.open ? 'quiz' : 'quiz-initial'"
+        value="quiz"
       >
       <input
         type="hidden"
@@ -619,11 +619,7 @@ export default {
       if (this.completedStep < this.activeStep) {
         this.completedStep++
         window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({
-          event:
-            (this.$route.params.open ? 'quiz_step_' : 'quiz-initial_step_') +
-            this.completedStep
-        })
+        window.dataLayer.push({ event: 'quiz_step_' + this.completedStep })
       }
 
       this.activeStep++

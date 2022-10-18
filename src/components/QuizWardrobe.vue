@@ -65,7 +65,7 @@
       <input
         type="hidden"
         name="type"
-        value="quiz-wardrobe"
+        value="quiz-w"
       >
       <input
         type="hidden"
@@ -493,7 +493,7 @@ export default {
       window.VK && window.VK.Goal('initiate_checkout')
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({ event: 'open_form' })
-      window.dataLayer.push({ event: 'open_quiz' })
+      window.dataLayer.push({ event: 'open_quiz-w' })
     }
   },
   methods: {
@@ -501,7 +501,7 @@ export default {
       window.scrollTo(0, 0)
       this.activeStep = 1
       window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({ event: 'start_quiz' })
+      window.dataLayer.push({ event: 'start_quiz-w' })
     },
 
     handleRadioChange(name, event) {
@@ -573,7 +573,7 @@ export default {
       if (this.completedStep < this.activeStep) {
         this.completedStep++
         window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({ event: (this.$route.params.open ? 'quiz_step_' : 'quiz-initial_step_') + this.completedStep })
+        window.dataLayer.push({ event: 'quiz-w_step_' + this.completedStep })
       }
 
       this.activeStep++
