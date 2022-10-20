@@ -13,7 +13,7 @@
     <div class="kitchen-card__img-box">
       <Swiper
         v-if="!slide"
-        :key="info.id"
+        :key="info.id + +large"
         loop
         navigation
         :lazy="{ loadPrevNext: true }"
@@ -26,13 +26,13 @@
         >
           <img
             v-if="index === 0"
-            :src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
+            :src="$_basepath + ($_mobile ? picture.small.path : large ? picture.large.path : picture.medium.path)"
             alt
             class="kitchen-card__img"
           >
           <img
             v-else
-            :data-src="$_basepath + ($_mobile ? picture.small.path : picture.medium.path)"
+            :data-src="$_basepath + ($_mobile ? picture.small.path : large ? picture.large.path : picture.medium.path)"
             alt
             class="kitchen-card__img swiper-lazy"
           >
