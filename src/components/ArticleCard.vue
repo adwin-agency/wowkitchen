@@ -169,7 +169,7 @@ export default {
           top: 0;
           width: 100%;
           height: 100%;
-          background-image: linear-gradient(0deg, #12131e, transparent 61%);
+          background-image: linear-gradient(0deg, #12131e, transparent 80%);
           opacity: 0.57;
         }
       }
@@ -261,7 +261,7 @@ export default {
       top: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(0deg, #12131e, transparent 61%);
+      background-image: linear-gradient(0deg, #12131e, transparent 80%);
       opacity: 0.57;
     }
   }
