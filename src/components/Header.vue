@@ -336,9 +336,9 @@ const kitchensMenu = {
       icon: 'crown',
       title: 'Популярное',
       items: [
-        { path: 'kitchens', query: { tag: 'malenkie-kukhni' }, title: 'Маленькие кухни' },
-        { path: 'kitchens', query: { tag: 'praktichnye-kukhni' }, title: 'Практичные кухни' },
-        { path: 'kitchens', query: { tag: 'top-5-kukhon-mesyatsa' }, title: 'ТОП-5 кухонь месяца' }        
+        { path: 'kitchens', query: { popular: 'malenkie-kukhni' }, title: 'Маленькие кухни' },
+        { path: 'kitchens', query: { popular: 'praktichnye-kukhni' }, title: 'Практичные кухни' },
+        { path: 'kitchens', query: { popular: 'top-5-kukhon-mesyatsa' }, title: 'ТОП-5 кухонь месяца' }        
       ]
     }
   ]
