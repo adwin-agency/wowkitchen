@@ -56,12 +56,25 @@ const filterGroups = [
     ]
   },
   {
-    id: 'tag',
+    id: 'popular',
     title: 'Популярное',
     items: [
       { title: 'Маленькие кухни', value: 'malenkie-kukhni' },
       { title: 'Практичные кухни', value: 'praktichnye-kukhni' },
       { title: 'ТОП-5 кухонь месяца', value: 'top-5-kukhon-mesyatsa' }
+    ]
+  },
+  {
+    id: 'tag',
+    items: [
+      { title: 'Кухни сканди', value: 'kukhni-skandi'},
+      { title: 'Кухни белые', value: 'kukhni-belye'},
+      { title: 'Кухни глянцевые', value: 'kukhni-glyantsevye'},
+      { title: 'Кухни матовые', value: 'kukhni-matovye'},
+      { title: 'Кухни до потолка', value: 'kukhni-do-potolka'},
+      { title: 'Кухни без ручек', value: 'kukhni-bez-ruchek'},
+      { title: 'Кухни лофт', value: 'kukhni-loft'},
+      { title: 'Кухни неоклассика', value: 'kukhni-neoklassika'}
     ]
   }
   // {
