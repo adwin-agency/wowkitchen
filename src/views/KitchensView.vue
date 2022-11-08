@@ -60,7 +60,7 @@ const filterGroups = [
     title: 'Популярное',
     items: [
       { title: 'Маленькие кухни', value: 'malenkie-kukhni' },
-      { title: 'Практичные кухни', value: 'praktichnye-kukhni' },
+      // { title: 'Практичные кухни', value: 'praktichnye-kukhni' },
       { title: 'ТОП-5 кухонь месяца', value: 'top-5-kukhon-mesyatsa' }
     ]
   },

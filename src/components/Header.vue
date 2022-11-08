@@ -337,7 +337,7 @@ const kitchensMenu = {
       title: 'Популярное',
       items: [
         { path: 'kitchens', query: { popular: 'malenkie-kukhni' }, title: 'Маленькие кухни' },
-        { path: 'kitchens', query: { popular: 'praktichnye-kukhni' }, title: 'Практичные кухни' },
+        // { path: 'kitchens', query: { popular: 'praktichnye-kukhni' }, title: 'Практичные кухни' },
         { path: 'kitchens', query: { popular: 'top-5-kukhon-mesyatsa' }, title: 'ТОП-5 кухонь месяца' }        
       ]
     }
