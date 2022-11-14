@@ -1,7 +1,7 @@
 <template>
   <div class="popular-articles">
     <div class="container">
-      <h2 class="popular-articles__heading">Популярные статьи</h2>
+      <h2 class="popular-articles__heading">Свежие статьи</h2>
       <Swiper
         v-if="$_media.sm"
         slides-per-view="auto"

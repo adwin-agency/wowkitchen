@@ -26,7 +26,7 @@
       class="article-aside__spacer"
       :class="{'is-active': activeSearch}"
     ></div> -->
-    <h2 class="article-aside__heading">Популярные статьи</h2>
+    <h2 class="article-aside__heading">Свежие статьи</h2>
 
     <router-link
       v-for="(card, index) in cards"
