@@ -424,20 +424,22 @@ export default {
       }
 
       if (newModal === 'calc' && this.productData.product === 'kitchen') {
-        this.ecommerce = {
-          name: this.productData.name,
-          id: this.productData.id
-        }
-        api.ecommerce('add', this.ecommerce.name, this.ecommerce.id)
-      }
+        const { id, name, category } = this.productData
 
-      if (newModal === null && this.ecommerce) {
-        api.ecommerce('remove', this.ecommerce.name, this.ecommerce.id)
-        this.ecommerce = null
+        this.ecommerce = {
+          id,
+          name,
+          category
+        }
+
+        api.ecommerce('detail', id, name, category)
+        api.ecommerce('add', id, name, category)
       }
 
       if (newModal === 'success' && this.ecommerce) {
-        api.ecommerce('purchase', this.ecommerce.name, this.ecommerce.id)
+        const { id, name, category } = this.ecommerce
+
+        api.ecommerce('purchase', id, name, category)
         this.ecommerce = null
       }
     },

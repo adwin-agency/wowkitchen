@@ -84,22 +84,9 @@ export default {
       })
     },
     ecommercePush() {
-      window.dataLayer &&
-        window.dataLayer.push({
-          ecommerce: {
-            currencyCode: 'RUB',
-            detail: {
-              products: [
-                {
-                  id: this.details.info.id.toString(),
-                  name: this.details.info.name,
-                  category: 'Кухни',
-                  quantity: 1
-                }
-              ]
-            }
-          }
-        })
+      const { id, name, category_rus } = this.details.info
+
+      api.ecommerce('detail', id, name, 'Кухни/' + category_rus)
     }
   }
 }

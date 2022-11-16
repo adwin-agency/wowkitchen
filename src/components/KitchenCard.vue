@@ -19,6 +19,7 @@
         :lazy="{ loadPrevNext: true }"
         class="kitchen-card__slider"
         @swiper="setSwiper"
+        @slideChange="onSlideChange"
       >
         <SwiperSlide
           v-for="(picture, index) in info.pictures"
@@ -174,6 +175,7 @@ import AppIcon from './base/AppIcon.vue'
 import AppVideoButton from './base/AppVideoButton.vue'
 import AppShare from './base/AppShare.vue'
 import useFavorites from '../composition/favorites'
+import api from '../api'
 
 SwiperCore.use([Navigation, Lazy])
 
@@ -205,7 +207,8 @@ export default {
   data() {
     return {
       hover: false,
-      swiper: null
+      swiper: null,
+      isWatched: false
     }
   },
   watch: {
@@ -232,12 +235,21 @@ export default {
     },
 
     handleBtnClick() {
-      const { name, id } = this.info
-      this.$store.commit('setProductData', { name, id, product: 'kitchen' })
+      const { name, id, category_rus } = this.info
+      this.$store.commit('setProductData', { name, id, category: 'Кухни/' + category_rus, product: 'kitchen' })
     },
 
     setSwiper(swiper) {
       this.swiper = swiper
+    },
+
+    onSlideChange() {
+      if (!this.swiper || this.isWatched) return
+
+      const { name, id, category_rus } = this.info
+
+      api.ecommerce('detail', id, name, 'Кухни/' + category_rus)
+      this.isWatched = true
     }
   }
 }

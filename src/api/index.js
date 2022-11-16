@@ -98,36 +98,32 @@ const api = {
     return response
   },
 
-  ecommerce(eventName, productName, productId) {
-    const layer = window.dataLayer || []
+  ecommerce(actionType, id, name, category) {
+    window.dataLayer = window.dataLayer || []
 
-    function createEntry() {
-      const entry = {
-        ecommerce: {
-          currencyCode: 'RUB',
-          [eventName]: {
-            products: [
-              {
-                id: productId,
-                name: productName,
-                category: 'Кухни',
-                quantity: 1
-              }
-            ]
-          }
+    const entry = {
+      ecommerce: {
+        currencyCode: 'RUB',
+        [actionType]: {
+          products: [
+            {
+              id,
+              name,
+              category,
+              quantity: 1
+            }
+          ]
         }
       }
-
-      if (eventName === 'purchase') {
-        entry.ecommerce[eventName].actionField = {
-          id: productId
-        }
-      }
-
-      return entry
     }
 
-    layer.push(createEntry())
+    if (actionType === 'purchase') {
+      entry.ecommerce[actionType].actionField = {
+        id
+      }
+    }
+
+    window.dataLayer.push(entry)
   }
 }
 
