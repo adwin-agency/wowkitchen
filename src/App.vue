@@ -114,6 +114,8 @@ export default {
     if (!quizModalIsShown) {
       this.showQuizModal()
     }
+
+    this.$store.commit('setModal', 'quiz')
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize)

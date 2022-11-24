@@ -70,7 +70,7 @@ export default {
   &__box {
     display: flex;
     position: relative;
-    background-image: url('~@/assets/img/modal-quiz.png');
+    background-image: url('~@/assets/img/modal-quiz-ny.png');
     background-position: top right;
     background-repeat: no-repeat;
     background-size: cover;
@@ -151,7 +151,7 @@ export default {
       width: 52%;
       flex-shrink: 0;
       border-radius: 8px 0 0 8px;
-      background-image: url('~@/assets/img/modal-quiz-md.png');
+      background-image: url('~@/assets/img/modal-quiz-ny-md.png');
       overflow: visible;
     }
 
