@@ -6,6 +6,7 @@
   >
     <div class="container">
       <div class="discount-preview__box">
+        <img src="@/assets/img/ny-snow-2.svg" alt="" class="discount-preview__ny-img">
         <p class="discount-preview__title">
           <AppIcon
             class="discount-preview__title-icon"
@@ -92,6 +93,10 @@ export default {
     background-color: #fff;
   }
 
+  &__ny-img {
+    display: none;
+  }
+
   &__title {
     display: flex;
     align-items: center;
@@ -139,7 +144,15 @@ export default {
 
   @include media(md) {
     &__box {
+      position: relative;
       padding: 56px 40px 52px;
+    }
+
+    &__ny-img {
+      display: block;
+      position: absolute;
+      top: -36px;
+      right: 14px;
     }
 
     &__title {

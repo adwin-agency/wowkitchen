@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       bannerData: {
-        kitchens: { title: 'Кухни на заказ', image: 'kitchens-banner.jpg' },
+        kitchens: { title: 'Кухни на заказ', image: 'kitchens-banner-ny.jpg' },
         wardrobes: { title: 'Шкафы-купе на заказ', image: 'wardrobes-banner.jpg' },
         technics: { title: 'Варочные панели', image: 'technics-banner.jpg' }
       }

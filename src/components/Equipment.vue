@@ -1,17 +1,46 @@
 <template>
   <div class="equipment">
+    <img
+      src="@/assets/img/ny-toys-02.png"
+      alt=""
+      class="equipment__ny-bg"
+    >
     <div class="container">
       <div class="equipment__inner">
         <div class="equipment__header">
           <h2 class="equipment__heading">Из чего делается ваша кухня</h2>
           <div class="equipment__info">
             <div class="equipment__partners">
-              <img src="@/assets/img/logo-egger.svg" alt="Egger" class="equipment__partner">
-              <img src="@/assets/img/logo-kronospan.svg" alt="Kronospan" class="equipment__partner">
-              <img src="@/assets/img/partners-blum.svg" alt="Blum" class="equipment__partner">
-              <img src="@/assets/img/partners-boyard.svg" alt="Boyard" class="equipment__partner">
-              <img src="@/assets/img/partners-candy.svg" alt="Candy" class="equipment__partner">
-              <img src="@/assets/img/partners-lex.svg" alt="Lex" class="equipment__partner">
+              <img
+                src="@/assets/img/logo-egger.svg"
+                alt="Egger"
+                class="equipment__partner"
+              >
+              <img
+                src="@/assets/img/logo-kronospan.svg"
+                alt="Kronospan"
+                class="equipment__partner"
+              >
+              <img
+                src="@/assets/img/partners-blum.svg"
+                alt="Blum"
+                class="equipment__partner"
+              >
+              <img
+                src="@/assets/img/partners-boyard.svg"
+                alt="Boyard"
+                class="equipment__partner"
+              >
+              <img
+                src="@/assets/img/partners-candy.svg"
+                alt="Candy"
+                class="equipment__partner"
+              >
+              <img
+                src="@/assets/img/partners-lex.svg"
+                alt="Lex"
+                class="equipment__partner"
+              >
             </div>
             <router-link
               :to="{name: 'materials'}"
@@ -130,8 +159,13 @@ export default {
 
 <style lang="scss">
 .equipment {
+  position: relative;
   padding: 40px 0 30px;
   background-color: $color-lightgray;
+
+  &__ny-bg {
+    display: none;
+  }
 
   &__info {
     margin-top: 12px;
@@ -171,6 +205,16 @@ export default {
     }
   }
 
+  @include media(sm) {
+    &__ny-bg {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+    }
+  }
+
   @include media(md) {
     position: relative;
     padding: 26px 0 0;
@@ -183,6 +227,10 @@ export default {
       width: 100%;
       height: 100px;
       background-color: #fff;
+    }
+
+    &__ny-bg {
+      width: 300px;
     }
 
     &__inner {
@@ -246,6 +294,7 @@ export default {
     }
 
     .container {
+      position: relative;
       margin-left: 0;
       padding-left: 0;
       max-width: calc(50% + #{$container-max-width-lg / 2});
@@ -296,6 +345,10 @@ export default {
       height: 110px;
     }
 
+    &__ny-bg {
+      width: 562px;
+    }
+
     .container {
       max-width: calc(50% + #{$container-max-width-xl / 2});
     }
@@ -313,13 +366,17 @@ export default {
 
     &__info {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       width: 69.5%;
     }
 
     &__partners {
-      justify-content: center;
+      // justify-content: center;
       margin-top: 5px;
+      margin-left: 0;
+      margin-right: calc(100% - 530px);
+      width: 530px;
     }
 
     &__partner {

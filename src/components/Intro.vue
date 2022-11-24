@@ -27,10 +27,15 @@
             />
           </div>
           <div class="intro__video">
-            <AppIcon
+            <!-- <AppIcon
               class="intro__shape intro__shape_1"
               viewBox="0 0 194.19 194.22"
               name="shape-1"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
+            /> -->
+            <AppIcon
+              class="intro__shape intro__shape_ny-star-4"
+              name="ny-star-4"
               :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <video
@@ -41,7 +46,7 @@
               muted
               playsinline
             ></video>
-            <AppIcon
+            <!-- <AppIcon
               class="intro__shape intro__shape_2"
               viewBox="0 0 22.47 22.85"
               name="shape-2"
@@ -112,6 +117,81 @@
               viewBox="0 0 29.688 29.68"
               name="shape-13"
               :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            /> -->
+            <AppIcon
+              class="intro__shape intro__shape_ny-star-1"
+              name="ny-star-1"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-star-2"
+              name="ny-star-2"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-toy-1"
+              name="ny-toy-1"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-star-3"
+              name="ny-star-3"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-dot-1"
+              name="ny-dot-1"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-dot-2"
+              name="ny-dot-2"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-star-5"
+              name="ny-star-5"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-circle-1"
+              name="ny-circle-1"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-circle-2"
+              name="ny-circle-2"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-circle-3"
+              name="ny-circle-3"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-circle-4"
+              name="ny-circle-4"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-snowman-head"
+              name="ny-snowman-head"
+              :style="`transform:translateY(${shapeFrontTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-snowman-body"
+              name="ny-snowman-body"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-snowman-lhand"
+              name="ny-snowman-lhand"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
+            />
+            <AppIcon
+              class="intro__shape intro__shape_ny-snowman-rhand"
+              name="ny-snowman-rhand"
+              :style="`transform:translateY(${shapeBackTranslate}px)`"
             />
             <div class="intro__video-btn">
               <AppVideoButton
@@ -139,9 +219,21 @@ const tags = [
   { route: 'kitchens?category=uglovye', title: 'Угловые кухни', color: 'gray' },
   { route: 'kitchens?style=loft', title: 'Кухни лофт', color: 'green' },
   { route: 'wardrobes', title: 'Шкафы-купе', color: 'red' },
-  { route: 'kitchens?style=scandinaviya', title: 'Скандинавский стиль', color: 'green' },
-  { route: 'kitchens?category=s-barnoy-stoykoy', title: 'С барной стойкой', color: 'gray' },
-  { route: 'kitchens?style=minimalizm', title: 'Стиль минимализм', color: 'green' },
+  {
+    route: 'kitchens?style=scandinaviya',
+    title: 'Скандинавский стиль',
+    color: 'green'
+  },
+  {
+    route: 'kitchens?category=s-barnoy-stoykoy',
+    title: 'С барной стойкой',
+    color: 'gray'
+  },
+  {
+    route: 'kitchens?style=minimalizm',
+    title: 'Стиль минимализм',
+    color: 'green'
+  }
   // { route: 'kitchens?style=sovremenniy', title: 'Современная классика', color: 'green' }
 ]
 
@@ -183,7 +275,7 @@ export default {
       const introOffset = intro.offsetTop
       const introY = intro.getBoundingClientRect().top
 
-      this.shapeBackTranslate = (introY - introOffset) / 2
+      this.shapeBackTranslate = (introY - introOffset) / 2.75
       this.shapeFrontTranslate = (introY - introOffset) / 3
     },
 
@@ -430,6 +522,73 @@ export default {
       &_13 {
         display: none;
       }
+
+      &_ny-star-1 {
+        top: -34px;
+        left: -63px;
+        width: 70px;
+        height: 70px;
+      }
+
+      &_ny-toy-1 {
+        top: 19px;
+        left: -70px;
+        width: 99px;
+        height: 107px;
+      }
+
+      &_ny-star-2 {
+        top: 85px;
+        left: -26px;
+        width: 57px;
+        height: 57px;
+      }
+
+      &_ny-star-3 {
+        left: -22px;
+        bottom: 122px;
+        width: 70px;
+        height: 70px;
+      }
+
+      &_ny-dot-1 {
+        left: -28px;
+        bottom: 112px;
+        width: 9px;
+        height: 10px;
+      }
+
+      &_ny-dot-2 {
+        left: -60px;
+        bottom: 76px;
+        width: 10px;
+        height: 9px;
+      }
+
+      &_ny-star-4 {
+        top: -86px;
+        right: -146px;
+        width: 264px;
+        height: 264px;
+      }
+
+      &_ny-star-5 {
+        top: 52px;
+        right: -63px;
+        width: 100px;
+        height: 100px;
+      }
+
+      &_ny-circle-1,
+      &_ny-circle-2,
+      &_ny-circle-3,
+      &_ny-circle-4,
+      &_ny-snowman-head,
+      &_ny-snowman-body,
+      &_ny-snowman-lhand,
+      &_ny-snowman-rhand {
+        display: none;
+      }
     }
   }
 
@@ -549,6 +708,73 @@ export default {
         top: 46px;
         left: -10px;
         width: 28px;
+      }
+
+      &_ny-circle-1,
+      &_ny-circle-2,
+      &_ny-circle-3,
+      &_ny-circle-4,
+      &_ny-snowman-head,
+      &_ny-snowman-body,
+      &_ny-snowman-lhand,
+      &_ny-snowman-rhand {
+        display: block;
+      }
+
+      &_ny-circle-1 {
+        right: -134px;
+        bottom: 202px;
+        width: 18px;
+        height: 18px;
+      }
+
+      &_ny-circle-2 {
+        right: 15px;
+        bottom: 220px;
+        width: 36px;
+        height: 36px;
+      }
+
+      &_ny-circle-3 {
+        right: 67px;
+        bottom: 43px;
+        width: 42px;
+        height: 40px;
+      }
+
+      &_ny-circle-4 {
+        right: -132px;
+        bottom: 124px;
+        width: 30px;
+        height: 30px;
+      }
+
+      &_ny-snowman-head {
+        right: -86px;
+        bottom: 102px;
+        width: 120px;
+        height: 90px;
+      }
+
+      &_ny-snowman-body {
+        right: -104px;
+        bottom: -39px;
+        width: 156px;
+        height: 137px;
+      }
+
+      &_ny-snowman-lhand {
+        right: 17px;
+        bottom: 72px;
+        width: 50px;
+        height: 46px;
+      }
+
+      &_ny-snowman-rhand {
+        right: -143px;
+        bottom: 50px;
+        width: 65px;
+        height: 64px;
       }
     }
 

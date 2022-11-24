@@ -1,5 +1,10 @@
 <template>
   <div class="projects">
+    <img
+      src="@/assets/img/ny-toys-01.png"
+      alt=""
+      class="projects__ny-bg"
+    >
     <AppIcon
       class="projects__bg-pattern"
       name="wow-pattern"
@@ -51,11 +56,36 @@ import CardSlider from './CardSlider.vue'
 
 const cards = [
   { route: '/kitchens', image: 'kitchen.jpg', title: 'Все кухни' },
-  { route: '/kitchens?category=uglovye', image: 'L.jpg', title: 'Угловые кухни', icon: 'kit1' },
-  { route: '/kitchens?category=pryamye', image: 'I.jpg', title: 'Прямые кухни', icon: 'kit2' },
-  { route: '/kitchens?category=p-obraznye', image: 'U.jpg', title: 'П-образные', icon: 'kit3' },
-  { route: '/kitchens?category=s-barnoy-stoykoy', image: 'bar.jpg', title: 'С барной стойкой', icon: 'kit4' },
-  { route: '/kitchens?category=s-ostrovom', image: 'island.jpg', title: 'С островом', icon: 'kit5' }
+  {
+    route: '/kitchens?category=uglovye',
+    image: 'L.jpg',
+    title: 'Угловые кухни',
+    icon: 'kit1'
+  },
+  {
+    route: '/kitchens?category=pryamye',
+    image: 'I.jpg',
+    title: 'Прямые кухни',
+    icon: 'kit2'
+  },
+  {
+    route: '/kitchens?category=p-obraznye',
+    image: 'U.jpg',
+    title: 'П-образные',
+    icon: 'kit3'
+  },
+  {
+    route: '/kitchens?category=s-barnoy-stoykoy',
+    image: 'bar.jpg',
+    title: 'С барной стойкой',
+    icon: 'kit4'
+  },
+  {
+    route: '/kitchens?category=s-ostrovom',
+    image: 'island.jpg',
+    title: 'С островом',
+    icon: 'kit5'
+  }
 ]
 
 export default {
@@ -85,8 +115,11 @@ export default {
       if (this.catalog) {
         return
       }
-      
-      if (this.$refs.desc.getBoundingClientRect().top < window.innerHeight * 0.8) {
+
+      if (
+        this.$refs.desc.getBoundingClientRect().top <
+        window.innerHeight * 0.8
+      ) {
         this.activeDesc = true
         window.removeEventListener('scroll', this.handleScroll)
       }
@@ -105,6 +138,10 @@ export default {
 
   .container {
     position: relative;
+  }
+
+  &__ny-bg {
+    display: none;
   }
 
   &__slider {
@@ -157,8 +194,22 @@ export default {
     z-index: 2;
   }
 
+  @include media(sm) {
+    &__ny-bg {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 500px;
+    }
+  }
+
   @include media(md) {
     padding: 56px 0;
+
+    &__ny-bg {
+      width: 700px;
+    }
 
     &__content {
       margin-top: 64px;
@@ -278,6 +329,10 @@ export default {
 
   @include media(xl) {
     padding: 110px 0 162px;
+
+    &__ny-bg {
+      width: 1090px;
+    }
 
     &__slider {
       margin-top: 70px;

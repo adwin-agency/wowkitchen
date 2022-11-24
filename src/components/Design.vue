@@ -6,12 +6,51 @@
           <div class="design__main">
             <h2 class="design__heading"><span>Бесплатный замер</span> и{{'\xa0'}}консультация <br>дизайнера <span>у вас дома</span></h2>
             <div class="design__content">
-              <AppIcon class="design__shape design__shape_circle-white" viewBox="0 0 241 241" name="shape-14" />
-              <AppIcon class="design__shape design__shape_circle-white-2" viewBox="0 0 223 223" name="shape-17" />
-              <AppIcon class="design__shape design__shape_triangle" viewBox="0 0 69 60" name="shape-15" />
-              <AppIcon class="design__shape design__shape_circle-pink" viewBox="0 0 47 47" name="shape-16" />            
-              <AppIcon class="design__shape design__shape_triangle-2" viewBox="0 0 58 55" name="shape-18" />
-              <AppIcon class="design__shape design__shape_zigzag" viewBox="0 0 128 120" name="shape-19" />
+              <img
+                src="@/assets/img/ny-snow-1.svg"
+                alt=""
+                class="design__ny-img"
+              >
+              <div class="design__shapes">
+                <AppIcon
+                  class="design__shape design__shape_circle-white"
+                  viewBox="0 0 241 241"
+                  name="shape-14"
+                />
+                <AppIcon
+                  class="design__shape design__shape_circle-white-2"
+                  viewBox="0 0 223 223"
+                  name="shape-17"
+                />
+                <AppIcon
+                  class="design__shape design__shape_triangle"
+                  viewBox="0 0 69 60"
+                  name="shape-15"
+                />
+                <AppIcon
+                  class="design__shape design__shape_circle-pink"
+                  viewBox="0 0 47 47"
+                  name="shape-16"
+                />
+                <AppIcon
+                  class="design__shape design__shape_triangle-2"
+                  viewBox="0 0 58 55"
+                  name="shape-18"
+                />
+                <AppIcon
+                  class="design__shape design__shape_zigzag"
+                  viewBox="0 0 128 120"
+                  name="shape-19"
+                />
+                <AppIcon
+                  class="design__shape design__shape_ny-star-6"
+                  name="ny-star-6"
+                />
+                <AppIcon
+                  class="design__shape design__shape_ny-star-7"
+                  name="ny-star-7"
+                />
+              </div>
               <p class="design__desc">Вы знаете различия между шкафом для прихожей и для гостиной?</p>
               <p class="design__desc">А особенности кухонных гарнитуров для студий?</p>
               <p class="design__note">Доверьтесь профессионалам: наши сотрудники проконсультируют вас по всем вопросам</p>
@@ -23,9 +62,13 @@
                 modalName="designer"
               />
             </div>
-            <img src="@/assets/img/form-pic.png" alt="" class="design__image">
+            <img
+              src="@/assets/img/form-pic.png"
+              alt=""
+              class="design__image"
+            >
           </div>
-          <DesignForm class="design__form"/>
+          <DesignForm class="design__form" />
         </div>
         <div class="design__features">
           <p class="design__slogan">Новая кухня: <br><span>с нами - легко!</span></p>
@@ -60,6 +103,10 @@ export default {
   background-color: $color-green;
   overflow: hidden;
 
+  &__ny-img {
+    display: none;
+  }
+
   &__main {
     position: relative;
     z-index: 1;
@@ -72,10 +119,18 @@ export default {
     span {
       color: $color-lightgray;
     }
-  }  
+  }
 
   &__content {
     margin-top: 24px;
+  }
+
+  &__shapes {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
   }
 
   &__shape {
@@ -108,7 +163,7 @@ export default {
     &_circle-pink {
       top: 18px;
       right: -2px;
-      width: 22px; 
+      width: 22px;
     }
 
     &_zigzag {
@@ -117,6 +172,11 @@ export default {
       width: 80px;
       fill: #aca8c3;
       transform: rotate(190deg);
+    }
+
+    &_ny-star-6,
+    &_ny-star-7 {
+      display: none;
     }
   }
 
@@ -154,6 +214,13 @@ export default {
     padding: 0;
     background-color: transparent;
 
+    &__ny-img {
+      display: block;
+      position: absolute;
+      top: -48px;
+      right: 20px;
+    }
+
     &__row {
       display: flex;
       align-items: flex-end;
@@ -168,7 +235,7 @@ export default {
       padding-right: 30px;
       font-size: 22px;
       line-height: (28/22);
-      
+
       span {
         color: $color-green;
       }
@@ -180,8 +247,11 @@ export default {
       border-top-left-radius: 50px;
       padding: 30px 40px 55px 260px;
       background-color: $color-green;
-      overflow: hidden;
       z-index: 1;
+    }
+
+    &__shapes {
+      overflow: hidden;
     }
 
     &__shape {
@@ -212,10 +282,35 @@ export default {
         opacity: 0.2;
         fill: #fff;
       }
+
+      &_circle-white-2,
+      &_triangle-2 {
+        display: none;
+      }
+
+      &_ny-star-6,
+      &_ny-star-7 {
+        display: block;
+      }
+
+      &_ny-star-6 {
+        top: 38px;
+        right: 6px;
+        width: 54px;
+        height: 54px;
+      }
+
+      &_ny-star-7 {
+        top: 88px;
+        right: 30px;
+        width: 70px;
+        height: 70px;
+      }
     }
-    
+
     &__desc {
       display: block;
+      position: relative;
       font-weight: bold;
       font-size: 14px;
       line-height: (22/14);
@@ -357,7 +452,7 @@ export default {
     }
   }
 
-  @include media(xl) {    
+  @include media(xl) {
     &__content {
       margin-top: 55px;
       padding: 60px 80px 65px 325px;

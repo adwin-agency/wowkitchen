@@ -124,13 +124,20 @@
             to="/"
             class="header__logo"
           >
-            <picture>
+            <!-- <picture>
               <source
                 srcset="../assets/img/wow-logo-med.svg"
                 :media="`(min-width: ${$_breakpoints.lg}px)`"
               >
               <img
                 src="../assets/img/wow-logo-mob.svg"
+                alt="WowKitchen"
+              >
+            </picture> -->
+            <picture>
+              <img
+                class="header__logo-img"
+                src="../assets/img/wow-logo-ny.svg"
                 alt="WowKitchen"
               >
             </picture>
@@ -314,12 +321,32 @@ const kitchensMenu = {
     {
       title: 'Планировки',
       items: [
-        { path: 'kitchens', query: { }, title: 'Все кухни' },
-        { path: 'kitchens', query: { category: 'pryamye' }, title: 'Прямые кухни' },
-        { path: 'kitchens', query: { category: 'uglovye' }, title: 'Угловые кухни' },
-        { path: 'kitchens', query: { category: 'p-obraznye' }, title: 'П-образные кухни' },
-        { path: 'kitchens', query: { category: 's-barnoy-stoykoy' }, title: 'Кухни с барной стойкой' },
-        { path: 'kitchens', query: { category: 's-ostrovom' }, title: 'Кухни с островом' }
+        { path: 'kitchens', query: {}, title: 'Все кухни' },
+        {
+          path: 'kitchens',
+          query: { category: 'pryamye' },
+          title: 'Прямые кухни'
+        },
+        {
+          path: 'kitchens',
+          query: { category: 'uglovye' },
+          title: 'Угловые кухни'
+        },
+        {
+          path: 'kitchens',
+          query: { category: 'p-obraznye' },
+          title: 'П-образные кухни'
+        },
+        {
+          path: 'kitchens',
+          query: { category: 's-barnoy-stoykoy' },
+          title: 'Кухни с барной стойкой'
+        },
+        {
+          path: 'kitchens',
+          query: { category: 's-ostrovom' },
+          title: 'Кухни с островом'
+        }
       ]
     },
     // {
@@ -336,9 +363,17 @@ const kitchensMenu = {
       icon: 'crown',
       title: 'Популярное',
       items: [
-        { path: 'kitchens', query: { popular: 'malenkie-kukhni' }, title: 'Маленькие кухни' },
+        {
+          path: 'kitchens',
+          query: { popular: 'malenkie-kukhni' },
+          title: 'Маленькие кухни'
+        },
         // { path: 'kitchens', query: { popular: 'praktichnye-kukhni' }, title: 'Практичные кухни' },
-        { path: 'kitchens', query: { popular: 'top-5-kukhon-mesyatsa' }, title: 'ТОП-5 кухонь месяца' }        
+        {
+          path: 'kitchens',
+          query: { popular: 'top-5-kukhon-mesyatsa' },
+          title: 'ТОП-5 кухонь месяца'
+        }
       ]
     }
   ]
@@ -349,11 +384,27 @@ const technicsMenu = {
   groups: [
     {
       items: [
-        { path: 'technics', query: {  }, title: 'Вся техника' },
-        { path: 'technics', query: { category: 'varochnye-paneli' }, title: 'Варочные панели' },
-        { path: 'technics', query: { category: 'dukhovye-shkafy' }, title: 'Духовые шкафы' },
-        { path: 'technics', query: { category: 'kholodilniki' }, title: 'Холодильники' },
-        { path: 'technics', query: { category: 'posudomoechnye-mashiny' }, title: 'Посудомоечные машины' },
+        { path: 'technics', query: {}, title: 'Вся техника' },
+        {
+          path: 'technics',
+          query: { category: 'varochnye-paneli' },
+          title: 'Варочные панели'
+        },
+        {
+          path: 'technics',
+          query: { category: 'dukhovye-shkafy' },
+          title: 'Духовые шкафы'
+        },
+        {
+          path: 'technics',
+          query: { category: 'kholodilniki' },
+          title: 'Холодильники'
+        },
+        {
+          path: 'technics',
+          query: { category: 'posudomoechnye-mashiny' },
+          title: 'Посудомоечные машины'
+        },
         { path: 'technics', query: { category: 'vytyazhki' }, title: 'Вытяжки' }
       ]
     }
@@ -385,7 +436,11 @@ export default {
   },
   computed: {
     breadCrumbs() {
-      return this.$route.name !== 'main' && this.$route.name !== 'not-found' && this.$store.state.breadCrumbs
+      return (
+        this.$route.name !== 'main' &&
+        this.$route.name !== 'not-found' &&
+        this.$store.state.breadCrumbs
+      )
     },
     favoritesLength() {
       return this.$store.state.favoriteItems.length
@@ -472,7 +527,7 @@ export default {
 
     checkNavHover(e) {
       const to = e.toElement
-      
+
       if (!to.classList.contains('nav-menu')) {
         this.closeNavMenu()
       }
@@ -641,6 +696,10 @@ export default {
   &__logo {
     width: 120px;
     margin-right: auto;
+  }
+
+  &__logo-img {
+    width: 100%;
   }
 
   &__bar {
@@ -833,7 +892,11 @@ export default {
         top: 0;
         width: 100%;
         height: 100%;
-        background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.50196), rgba(255, 255, 255, 0));
+        background-image: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.50196),
+          rgba(255, 255, 255, 0)
+        );
       }
     }
 
