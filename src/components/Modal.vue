@@ -426,6 +426,8 @@ export default {
       if (newModal === 'calc' && this.productData.product === 'kitchen') {
         const { id, name, category } = this.productData
 
+        if (!id || !name || !category) return
+
         this.ecommerce = {
           id,
           name,
