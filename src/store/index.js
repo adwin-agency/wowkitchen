@@ -28,7 +28,8 @@ export default createStore({
     activeSitePhone: false,
     loaded: false,
     promo: '',
-    bonuses: []
+    bonuses: [],
+    kitchenDetails: null
   },
 
   getters: {
@@ -120,6 +121,10 @@ export default createStore({
 
     setBonuses(state, items) {
       state.bonuses = items
+    },
+
+    setKitchenDetails(state, details) {
+      state.kitchenDetails = details
     }
   }
 })

@@ -60,21 +60,28 @@ export default function useForms() {
       try {
         const response = await api.sendForm(e.target)
         const responseJson = await response.json()
-  
+
         if (responseJson.status !== 'ok') {
           throw new Error()
         }
-  
+
         sending.value = false
         success.value = true
         e.target.reset()
-  
+
         if (responseJson.confirmation_url) {
           window.location.href = responseJson.confirmation_url
         } else {
           store.commit('setModal', 'success')
         }
-  
+
+        const formType = e.target.querySelector('input[name="type"]').value
+
+        if (store.state.kitchenDetails && formType !== 'calc') {
+          const { id, name, category_rus } = store.state.kitchenDetails.info
+          api.ecommerce('purchase', id, name, 'Кухни/' + category_rus)
+        }
+
       } catch {
         sending.value = false
         error.value = true

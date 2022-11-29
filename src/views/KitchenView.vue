@@ -45,7 +45,9 @@ export default {
     }
   },
   async created() {
-    this.details = await api.loadDetails(this.$route)
+    const details = await api.loadDetails(this.$route)
+    this.details = details
+    this.$store.commit('setKitchenDetails', details)
     this.setBreadCrumbs()
     this.tmrPush()
     this.ecommercePush()
@@ -54,10 +56,15 @@ export default {
     this.reviews = reviewsResponse.reviews.slice(0, 4)
   },
   async beforeRouteUpdate(to) {
-    this.details = await api.loadDetails(to)
+    const details = await api.loadDetails(to)
+    this.details = details
+    this.$store.commit('setKitchenDetails', details)
     this.setBreadCrumbs()
     this.tmrPush()
     this.ecommercePush()
+  },
+  beforeRouteLeave() {
+    this.$store.commit('setKitchenDetails', null)
   },
   methods: {
     setBreadCrumbs() {
