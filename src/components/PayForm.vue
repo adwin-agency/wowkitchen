@@ -40,7 +40,7 @@
       />
     </div>
     <div
-      v-if="shopId"
+      v-if="false"
       class="pay-form__fields"
     >
       <AppTextField
