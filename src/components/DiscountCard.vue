@@ -78,7 +78,7 @@
     class="discount-card discount-card_main"
   >
     <p class="discount-card__num">50%</p>
-    <p class="discount-card__title">На кухни и шкафы <br><span>до конца месяца</span></p>
+    <p class="discount-card__title">На кухни и шкафы <br><span>до Нового года</span></p>
   </div>
 </template>
 

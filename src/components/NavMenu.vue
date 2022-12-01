@@ -66,7 +66,7 @@
             <div class="nav-menu__discount">
               <span class="nav-menu__discount-num">50%</span>
               <span class="nav-menu__discount-title">на кухни и шкафы</span>
-              <span class="nav-menu__discount-note">до конца месяца</span>
+              <span class="nav-menu__discount-note">до Нового года</span>
             </div>
           </router-link>
         </div>

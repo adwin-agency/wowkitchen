@@ -131,6 +131,10 @@ export default {
       margin-top: 85px;
     }
 
+    .kitchen-set {
+      margin-top: 85px;
+    }
+
     .steps {
       margin-top: 100px;
     }
@@ -158,6 +162,10 @@ export default {
       margin-top: 70px;
     }
 
+    .kitchen-set {
+      margin-top: 70px;
+    }
+
     .rated-reviews {
       margin-top: 130px;
     }
@@ -177,6 +185,10 @@ export default {
     }
 
     .other-products {
+      margin-top: 120px;
+    }
+
+    .kitchen-set {
       margin-top: 120px;
     }
 
