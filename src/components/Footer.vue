@@ -141,7 +141,7 @@
                 class="footer__social-icon"
               />
             </a> -->
-            <a
+            <!-- <a
               href="https://t.me/wowkitchen_ru"
               target="_blank"
               class="footer__social-link"
@@ -151,7 +151,7 @@
                 name="telegram"
                 class="footer__social-icon"
               />
-            </a>
+            </a> -->
             <a
               href="https://zen.yandex.ru/wowkitchen"
               target="_blank"

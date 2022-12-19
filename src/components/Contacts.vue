@@ -37,7 +37,7 @@
               class="contacts__info-icon"
             />
           </a> -->
-          <a
+          <!-- <a
             href="https://t.me/wowkitchen_ru"
             target="_blank"
             class="contacts__info-link"
@@ -47,7 +47,7 @@
               name="telegram"
               class="contacts__info-icon"
             />
-          </a>
+          </a> -->
           <a
             href="https://zen.yandex.ru/wowkitchen"
             target="_blank"
