@@ -63,6 +63,14 @@ const api = {
       }
     }
 
+    // метрика ClientID
+    const clientID = window.yaCounter34624840?.getClientID()
+
+    if (clientID) {
+      formData.append('clientID', clientID)
+    }
+    //
+
     let formType = formData.get('type')
     const url = formType === 'payment' ? '/include/youkassa/payment.php' : '/send.php'
     const product = form.getAttribute('data-product')
