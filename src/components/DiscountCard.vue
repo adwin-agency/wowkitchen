@@ -78,7 +78,7 @@
     class="discount-card discount-card_main"
   >
     <p class="discount-card__num">50%</p>
-    <p class="discount-card__title">На кухни и шкафы <br><span>до Нового года</span></p>
+    <p class="discount-card__title">На кухни и шкафы <br><span>{{promo}}</span></p>
   </div>
 </template>
 
@@ -99,6 +99,9 @@ export default {
         '.' +
         ('0' + (date.getMonth() + 1)).slice(-2)
       )
+    },
+    promo() {
+      return this.$store.state.promo
     }
   }
 }

@@ -66,7 +66,7 @@
             <div class="nav-menu__discount">
               <span class="nav-menu__discount-num">50%</span>
               <span class="nav-menu__discount-title">на кухни и шкафы</span>
-              <span class="nav-menu__discount-note">до Нового года</span>
+              <span class="nav-menu__discount-note">{{promo}}</span>
             </div>
           </router-link>
         </div>
@@ -98,7 +98,12 @@ export default {
     menu: Object,
     article: Object
   },
-  emits: ['close-menu', 'close-submenu']
+  emits: ['close-menu', 'close-submenu'],
+  computed: {
+    promo() {
+      return this.$store.state.promo
+    }
+  }
 }
 </script>
 
