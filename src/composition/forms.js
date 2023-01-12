@@ -12,9 +12,9 @@ export default function useForms() {
   const page = computed(() => route.path)
 
   function checkDuplicateTel(value) {
-    const numArr = value.split('')
-    const numSet = new Set(numArr)
-    return numSet.size <= 6 // +, 7, (, ), -, число
+    const numStr = value.replace(/\D/g, '').slice(1)
+    const numSet = new Set(numStr)
+    return numSet.size <= 1
   }
 
   async function handleSubmit(e) {
