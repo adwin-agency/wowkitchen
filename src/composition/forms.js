@@ -11,6 +11,12 @@ export default function useForms() {
   const error = ref(false)
   const page = computed(() => route.path)
 
+  function checkDuplicateTel(value) {
+    const numArr = value.split('')
+    const numSet = new Set(numArr)
+    return numSet.size <= 6 // +, 7, (, ), -, число
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
 
@@ -18,7 +24,7 @@ export default function useForms() {
     let isError = false
 
     for (let input of required) {
-      if (input.type === 'tel' && input.value.length < 16) {
+      if (input.type === 'tel' && (input.value.length < 16 || checkDuplicateTel(input.value))) {
         input.classList.add('is-error')
         isError = true
       }
