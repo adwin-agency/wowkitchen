@@ -93,7 +93,7 @@ export default {
       padding: 18px 55px 40px;
       font-weight: bold;
       font-size: 14px;
-      line-height: (23/18);
+      line-height: calc(23/18);
       text-align: center;
       background-image: url('~@/assets/img/message-l.svg');
       background-size: contain;

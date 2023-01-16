@@ -96,7 +96,7 @@ export default {
     text-align: center;
     font-weight: 500;
     font-size: 16px;
-    line-height: (22/18);
+    line-height: calc(22/18);
   }
 
   &__menu {

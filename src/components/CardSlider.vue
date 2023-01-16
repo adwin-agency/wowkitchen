@@ -86,7 +86,7 @@ export default {
     .container {
       margin-right: 0;
       padding-right: 0;
-      max-width: calc(50% + #{$container-max-width-md / 2});
+      max-width: calc(50% + #{calc($container-max-width-md / 2)});
     }
 
     &__slides {
@@ -113,7 +113,7 @@ export default {
 
   @include media(lg) {
     .container {
-      max-width: calc(50% + #{$container-max-width-lg / 2});
+      max-width: calc(50% + #{calc($container-max-width-lg / 2)});
     }
 
     &__slides {
@@ -127,7 +127,7 @@ export default {
 
   @include media(xl) {
     .container {
-      max-width: calc(50% + #{$container-max-width-xl / 2});
+      max-width: calc(50% + #{calc($container-max-width-xl / 2)});
     }
   }
 }

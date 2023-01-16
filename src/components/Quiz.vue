@@ -702,7 +702,7 @@ export default {
   &__desc {
     margin-top: 4px;
     font-size: 14px;
-    line-height: (30/14);
+    line-height: calc(30/14);
   }
 
   &__start {
@@ -845,7 +845,7 @@ export default {
       margin-bottom: 12px;
       font-weight: 600;
       font-size: 14px;
-      line-height: (22/14);
+      line-height: calc(22/14);
 
       &:last-child {
         margin-bottom: 0;
@@ -1100,14 +1100,14 @@ export default {
       &-title {
         font-weight: bold;
         font-size: 16px;
-        line-height: (26/16);
+        line-height: calc(26/16);
       }
 
       &-desc {
         margin-top: 4px;
         font-weight: 500;
         font-size: 12px;
-        line-height: (16/12);
+        line-height: calc(16/12);
       }
     }
 
@@ -1293,7 +1293,7 @@ export default {
         margin-top: 12px;
         margin-right: 20px;
         font-size: 14px;
-        line-height: (20/14);
+        line-height: calc(20/14);
       }
     }
 

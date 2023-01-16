@@ -115,7 +115,7 @@ export default {
     margin-top: 2px;
     font-weight: bold;
     font-size: 16px;
-    line-height: (18/14);
+    line-height: calc(18/14);
   }
 
   &__title-arrow {
@@ -130,7 +130,7 @@ export default {
     margin-top: 16px;
     white-space: pre-line;
     font-size: 11px;
-    line-height: (18/11);
+    line-height: calc(18/11);
     color: #949494;
   }
 
@@ -193,7 +193,7 @@ export default {
 
     &__desc {
       margin-top: 20px;
-      line-height: (22/11);
+      line-height: calc(22/11);
     }
 
     &__view {

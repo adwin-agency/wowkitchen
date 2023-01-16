@@ -116,7 +116,7 @@ export default {
   &__heading {
     padding-right: 60px;
     font-size: 24px;
-    line-height: (32/24);
+    line-height: calc(32/24);
     color: $color-lightgray;
   }
 
@@ -125,7 +125,7 @@ export default {
     padding-right: 110px;
     font-weight: 500;
     font-size: 14px;
-    line-height: (24/14);
+    line-height: calc(24/14);
     color: #000;
 
     span {
@@ -181,7 +181,7 @@ export default {
 
     &__heading {
       padding-right: 20px;
-      line-height: (34/24);
+      line-height: calc(34/24);
     }
 
     &__desc {
@@ -234,7 +234,7 @@ export default {
 
     &__heading {
       font-size: 26px;
-      line-height: (34/26);
+      line-height: calc(34/26);
     }
 
     &__desc {

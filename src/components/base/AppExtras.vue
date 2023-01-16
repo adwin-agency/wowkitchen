@@ -117,7 +117,7 @@ export default {
     height: 60px;
     font-weight: bold;
     font-size: 16px;
-    line-height: (20/16);
+    line-height: calc(20/16);
     transform: translateY(100px);
     transition: transform 0.3s ease;
   }
@@ -130,7 +130,7 @@ export default {
     height: 200px;
     font-weight: bold;
     font-size: 13px;
-    line-height: (22/17);
+    line-height: calc(22/17);
     opacity: 0;
     transform: scale(0);
     pointer-events: none;

@@ -297,7 +297,7 @@ export default {
       position: relative;
       margin-left: 0;
       padding-left: 0;
-      max-width: calc(50% + #{$container-max-width-lg / 2});
+      max-width: calc(50% + #{calc($container-max-width-lg / 2)});
     }
 
     &__inner {
@@ -350,7 +350,7 @@ export default {
     }
 
     .container {
-      max-width: calc(50% + #{$container-max-width-xl / 2});
+      max-width: calc(50% + #{calc($container-max-width-xl / 2)});
     }
 
     &__inner {

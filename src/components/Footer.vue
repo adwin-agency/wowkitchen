@@ -567,7 +567,7 @@ export default {
     margin-top: 8px;
     height: 0;
     font-size: 11px;
-    line-height: (16/11);
+    line-height: calc(16/11);
     color: #bcbcbc;
     transition: height 0.3s ease;
     overflow: hidden;

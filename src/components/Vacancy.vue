@@ -202,7 +202,7 @@ export default {
       display: flex;
       font-weight: 300;
       font-size: 13px;
-      line-height: (30/13);
+      line-height: calc(30/13);
 
       &::before {
         content: '';
@@ -220,7 +220,7 @@ export default {
     margin-top: 25px;
     font-weight: 500;
     font-size: 16px;
-    line-height: (28/16);
+    line-height: calc(28/16);
 
     a {
       text-decoration: underline;

@@ -156,7 +156,7 @@ export default {
     text-align: center;
     font-weight: 300;
     font-size: 20px;
-    line-height: (42/20);
+    line-height: calc(42/20);
 
     span {
       padding: 5px;
@@ -305,7 +305,7 @@ export default {
       margin-left: 80px;
       max-width: 780px;
       font-size: 30px;
-      line-height: (62/30);
+      line-height: calc(62/30);
     }
 
     &__desc-icon {

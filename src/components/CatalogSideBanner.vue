@@ -76,7 +76,7 @@ export default {
   &__title {
     font-weight: bold;
     font-size: 18px;
-    line-height: (18/14);
+    line-height: calc(18/14);
   }
 
   &__features {
@@ -162,7 +162,7 @@ export default {
 
     &__title {
       font-size: 16px;
-      line-height: (18/16);
+      line-height: calc(18/16);
     }
 
     &__features {
@@ -204,7 +204,7 @@ export default {
 
     &__title {
       font-size: 18px;
-      line-height: (26/18);
+      line-height: calc(26/18);
     }
 
     &__features {
@@ -227,7 +227,7 @@ export default {
 
     &__title {
       font-size: 22px;
-      line-height: (30/22);
+      line-height: calc(30/22);
     }
 
     &__features {

@@ -136,13 +136,13 @@ export default {
   &__title {
     font-weight: bold;
     font-size: 18px;
-    line-height: (22/18);
+    line-height: calc(22/18);
   }
 
   &__desc {
     margin-top: 10px;
     font-size: 14px;
-    line-height: (30/14);
+    line-height: calc(30/14);
   }
 
   &__manage {
@@ -172,7 +172,7 @@ export default {
     font-weight: bold;
     font-style: italic;
     font-size: 16px;
-    line-height: (26/14);
+    line-height: calc(26/14);
 
     &-icon {
       float: right;
@@ -281,7 +281,7 @@ export default {
     &__title {
       margin-top: 60px;
       font-size: 24px;
-      line-height: (32/24);
+      line-height: calc(32/24);
 
       &:first-child {
         margin-top: 0;
@@ -314,7 +314,7 @@ export default {
       margin-top: 0;
       width: 300px;
       font-size: 18px;
-      line-height: (30/18);
+      line-height: calc(30/18);
       transform: translateY(-50%);
 
       &-icon {
@@ -410,7 +410,7 @@ export default {
 
     &__desc {
       font-size: 16px;
-      line-height: (32/16);
+      line-height: calc(32/16);
     }
 
     &__manage {
@@ -422,7 +422,7 @@ export default {
       right: -130px;
       width: 376px;      
       font-size: 20px;
-      line-height: (30/20);
+      line-height: calc(30/20);
 
       &-icon {
         left: -55px;
@@ -483,7 +483,7 @@ export default {
       right: -100px;
       width: 440px;
       font-size: 22px;
-      line-height: (34/22);
+      line-height: calc(34/22);
     }
 
     &__production {

@@ -118,7 +118,7 @@ export default {
     margin-top: 20px;
 
     font-size: 14px;
-    line-height: (32/16);
+    line-height: calc(32/16);
   }
 
   &__info {
@@ -140,7 +140,7 @@ export default {
     &-desc {
       margin-top: 12px;
       font-size: 13px;
-      line-height: (22/13);
+      line-height: calc(22/13);
     }
   }
 

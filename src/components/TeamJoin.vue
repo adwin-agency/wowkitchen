@@ -28,7 +28,7 @@ export default {
   background-color: $color-lightgray;
   box-shadow: 0px 16px 38px 0px rgba(0, 0, 0, 0.08);
   border-bottom-right-radius: 80px;
-  margin: 0 -$container-padding;
+  margin: 0 (-$container-padding);
   padding: 42px 35px;
 
   &__icon {

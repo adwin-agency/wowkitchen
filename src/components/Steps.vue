@@ -104,7 +104,7 @@ export default {
 
   &__desc {
     font-size: 14px;
-    line-height: (26/14);
+    line-height: calc(26/14);
   }
 
   &__item {

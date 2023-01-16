@@ -502,7 +502,7 @@ export default {
     grid-column: 1 / 3;
     margin-top: 18px;
     font-size: 12px;
-    line-height: (16/12);
+    line-height: calc(16/12);
     text-align: center;
     color: #7f7f7f;
 

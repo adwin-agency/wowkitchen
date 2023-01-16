@@ -306,7 +306,7 @@ export default {
     margin-top: 5px;
     font-weight: 500;
     font-size: 11px;
-    line-height: (13/11);
+    line-height: calc(13/11);
     color: $color-lightviolet;
 
     &_side {

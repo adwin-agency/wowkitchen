@@ -228,7 +228,7 @@ export default {
     &-note {
       margin-top: 6px;
       font-size: 10px;
-      line-height: (12/10);
+      line-height: calc(12/10);
       color: #949494;
     }
 

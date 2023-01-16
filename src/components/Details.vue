@@ -589,7 +589,7 @@ export default {
     margin-top: 18px;
     font-weight: 300;
     font-size: 14px;
-    line-height: (30/14);
+    line-height: calc(30/14);
     color: #000;
 
     & + & {
@@ -683,7 +683,7 @@ export default {
       padding: 20px 30px;
       font-weight: 600;
       font-size: 13px;
-      line-height: (20/13);
+      line-height: calc(20/13);
 
       &::before {
         content: '';
@@ -718,7 +718,7 @@ export default {
   &__feature {
     margin-bottom: 18px;
     font-size: 14px;
-    line-height: (20/14);
+    line-height: calc(20/14);
 
     &:last-child {
       margin-bottom: 0;
@@ -909,7 +909,7 @@ export default {
 
       &-desc {
         font-size: 16px;
-        line-height: (30/16);
+        line-height: calc(30/16);
         opacity: 1;
         pointer-events: all;
       }
@@ -980,7 +980,7 @@ export default {
     &__desc {
       margin-top: 22px;
       font-size: 16px;
-      line-height: (34/16);
+      line-height: calc(34/16);
     }
 
     &__gallery {

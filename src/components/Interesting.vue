@@ -121,7 +121,7 @@ export default {
     position: relative;
     font-weight: bold;
     font-size: 16px;
-    line-height: (20/16);
+    line-height: calc(20/16);
     color: #fff;
   }
 

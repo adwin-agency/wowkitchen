@@ -99,14 +99,14 @@ export default {
   &__title {
     font-weight: bold;
     font-size: 16px;
-    line-height: (22/16);
+    line-height: calc(22/16);
   }
 
   &__desc {
     margin-top: 6px;
     font-weight: 300;
     font-size: 14px;
-    line-height: (20/12);
+    line-height: calc(20/12);
 
     span {
       font-weight: 500;

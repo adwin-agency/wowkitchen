@@ -163,7 +163,7 @@ export default {
   &__desc {
     margin-top: 24px;
     font-size: 12px;
-    line-height: (20/12);
+    line-height: calc(20/12);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -238,7 +238,7 @@ export default {
 
     &__desc {
       margin-top: 12px;
-      min-height: (20/12 * 3em);
+      min-height: calc(20/12 * 3em);
     }
   }
 

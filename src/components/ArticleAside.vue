@@ -190,7 +190,7 @@ export default {
     margin-top: auto;
     font-weight: bold;
     font-size: 14px;
-    line-height: (18/14);
+    line-height: calc(18/14);
     color: $color-lightgray;
     z-index: 1;
   }
@@ -211,7 +211,7 @@ export default {
 
     &__title {
       font-size: 16px;
-      line-height: (22/16);
+      line-height: calc(22/16);
     }
 
     &__share {

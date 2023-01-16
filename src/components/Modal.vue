@@ -561,7 +561,7 @@ export default {
   &__desc {
     margin-top: 10px;
     font-size: 12px;
-    line-height: (16/12);
+    line-height: calc(16/12);
 
     span {
       padding: 2px 10px;
@@ -597,7 +597,7 @@ export default {
   &__policy {
     margin-top: 15px;
     font-size: 10px;
-    line-height: (15/10);
+    line-height: calc(15/10);
     color: #ababab;
 
     a {

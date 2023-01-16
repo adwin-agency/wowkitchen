@@ -102,7 +102,7 @@ export default {
     position: relative;
     font-weight: bold;
     font-size: 16px;
-    line-height: (24/16);
+    line-height: calc(24/16);
     color: #fff;
   }
 
@@ -115,7 +115,7 @@ export default {
     position: relative;
     margin-top: 12px;
     font-size: 13px;
-    line-height: (18/13);
+    line-height: calc(18/13);
     color: $color-lightgray;
   }
 
@@ -139,7 +139,7 @@ export default {
     &-desc {
       margin-top: 5px;
       font-size: 12px;
-      line-height: (14/12);
+      line-height: calc(14/12);
       color: #8c8c8c;
     }
   }
@@ -177,7 +177,7 @@ export default {
 
     &__title {
       font-size: 20px;
-      line-height: (24/20);
+      line-height: calc(24/20);
     }
 
     &__props {
@@ -214,7 +214,7 @@ export default {
     &__prop-desc {
       margin-top: 10px;
       font-size: 14px;
-      line-height: (20/14);
+      line-height: calc(20/14);
     }
 
     &__btn {

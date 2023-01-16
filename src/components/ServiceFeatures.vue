@@ -113,7 +113,7 @@ export default {
     margin-top: 10px;
     font-weight: 600;
     font-size: 14px;
-    line-height: (24/16);
+    line-height: calc(24/16);
   }
 
   &__img {
@@ -147,7 +147,7 @@ export default {
     }
 
     &__desc {
-      min-height: (24/16 * 3em);
+      min-height: calc(24/16 * 3em);
     }
 
     &__img {

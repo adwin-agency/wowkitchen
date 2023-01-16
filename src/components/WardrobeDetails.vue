@@ -402,7 +402,7 @@ export default {
 
   &__desc {
     font-size: 13px;
-    line-height: (24/13);
+    line-height: calc(24/13);
 
     p {
       padding-bottom: 20px;

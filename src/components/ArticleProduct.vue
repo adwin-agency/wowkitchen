@@ -59,7 +59,7 @@ export default {
 
   &__feature {
     font-size: 12px;
-    line-height: (24/12);
+    line-height: calc(24/12);
     color: #7f7f7f;
 
     span {

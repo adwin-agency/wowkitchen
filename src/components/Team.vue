@@ -173,7 +173,7 @@ export default {
       -webkit-line-clamp: 5;
       overflow: hidden;
       font-size: 14px;
-      line-height: (26/14);
+      line-height: calc(26/14);
 
       &.is-active {
         display: block;
@@ -221,14 +221,14 @@ export default {
         padding-right: 0;
         font-weight: bold;
         font-size: 15px;
-        line-height: (33/20);
+        line-height: calc(33/20);
       }
 
       &__name {
         font-style: italic;
         font-weight: 600;
         font-size: 16px;
-        line-height: (24/16);
+        line-height: calc(24/16);
         color: $color-green;
       }
     }

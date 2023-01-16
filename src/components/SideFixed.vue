@@ -305,7 +305,7 @@ export default {
     &::after {
       content: '';
       flex-shrink: 0;
-      width: calc(50vw - #{$container-max-width / 2 - $container-padding});
+      width: calc(50vw - #{calc($container-max-width / 2) - $container-padding});
       min-width: $container-padding;
     }
 
@@ -342,7 +342,7 @@ export default {
     margin-top: 28px;
     font-weight: 500;
     font-size: 14px;
-    line-height: (30/14);
+    line-height: calc(30/14);
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
@@ -361,7 +361,7 @@ export default {
   @include media(md) {
     &__menu {
       position: fixed;
-      top: calc(50% + #{$header-bar-height-md / 2});
+      top: calc(50% + #{calc($header-bar-height-md / 2)});
       padding-top: 0;
       margin-bottom: 0;
       opacity: 0;
@@ -433,7 +433,7 @@ export default {
       margin-top: 18px;
       max-width: 620px;
       font-size: 16px;
-      line-height: (32/16);
+      line-height: calc(32/16);
       color: #fff;
       opacity: 1;
       transition: color 0.5s ease 0.5s;
@@ -448,7 +448,7 @@ export default {
 
   @include media(lg) {
     &__menu {
-      top: calc(50% + #{($header-bar-height-lg + $nav-panel-height-lg) / 2});
+      top: calc(50% + #{calc(($header-bar-height-lg + $nav-panel-height-lg) / 2)});
     }
 
     &__content {
@@ -466,7 +466,7 @@ export default {
 
   @include media(xl) {
     &__menu {
-      top: calc(50% + #{($header-bar-height-xl + $nav-panel-height-xl) / 2});
+      top: calc(50% + #{calc(($header-bar-height-xl + $nav-panel-height-xl) / 2)});
     }
 
     &__menu-item {

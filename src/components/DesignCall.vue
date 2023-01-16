@@ -189,7 +189,7 @@ export default {
     position: relative;
     padding: 0 10px;
     font-size: 24px;
-    line-height: (32/24);
+    line-height: calc(32/24);
     color: #fff;
   }
 
@@ -198,7 +198,7 @@ export default {
     margin-top: 30px;
     padding: 0 10px;
     font-size: 16px;
-    line-height: (24/16);
+    line-height: calc(24/16);
     color: #fff;
   }
 
@@ -297,7 +297,7 @@ export default {
       margin-right: 20px;
       font-weight: 500;
       font-size: 10px;
-      line-height: (15/10);
+      line-height: calc(15/10);
       color: $color-lightgray;
 
       a {

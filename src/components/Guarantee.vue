@@ -332,7 +332,7 @@ export default {
       margin-left: 18px;
       font-weight: 500;
       font-size: 13px;
-      line-height: (18/13);
+      line-height: calc(18/13);
     }
   }
 
@@ -345,7 +345,7 @@ export default {
   &__form-title {
     font-weight: bold;
     font-size: 14px;
-    line-height: (22/14);
+    line-height: calc(22/14);
   }
 
   &__radios {
@@ -464,7 +464,7 @@ export default {
     margin-top: 14px;
     font-weight: 300;
     font-size: 11px;
-    line-height: (12/11);
+    line-height: calc(12/11);
     color: $color-lightviolet;
 
     a {
@@ -478,7 +478,7 @@ export default {
     &-title {
       font-weight: bold;
       font-size: 18px;
-      line-height: (24/18);
+      line-height: calc(24/18);
       color: #000;
     }
 
@@ -493,7 +493,7 @@ export default {
     padding-left: 38px;
     margin-bottom: 20px;
     font-size: 13px;
-    line-height: (18/13);
+    line-height: calc(18/13);
 
     &-icon {
       position: absolute;
@@ -559,7 +559,7 @@ export default {
 
       &-title {
         font-size: 16px;
-        line-height: (22/16);
+        line-height: calc(22/16);
       }
     }
 
@@ -638,7 +638,7 @@ export default {
 
     &__doc {
       width: 48.5%;
-      min-height: (18/13 * 3em);
+      min-height: calc(18/13 * 3em);
       padding-right: 10px;
       margin-bottom: 15px;
 
@@ -664,7 +664,7 @@ export default {
 
       &-title {
         font-size: 20px;
-        line-height: (28/20);
+        line-height: calc(28/20);
       }
 
       &-footer {

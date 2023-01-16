@@ -85,7 +85,7 @@ export default {
     margin-top: 15px;
     font-weight: 500;
     font-size: 14px;
-    line-height: (26/14);
+    line-height: calc(26/14);
 
     & + & {
       margin-top: 10px;
@@ -126,7 +126,7 @@ export default {
       padding-right: 5px;
       font-weight: 500;
       font-size: 14px;
-      line-height: (16/14);
+      line-height: calc(16/14);
     }
   }
 
@@ -208,7 +208,7 @@ export default {
         margin-top: 15px;
         font-weight: 300;
         font-size: 12px;
-        line-height: (20/12);
+        line-height: calc(20/12);
       }
     }
 

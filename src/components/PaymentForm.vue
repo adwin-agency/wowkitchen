@@ -260,13 +260,13 @@ export default {
   &__title {
     font-weight: bold;
     font-size: 16px;
-    line-height: (20/16);
+    line-height: calc(20/16);
   }
 
   &__desc {
     margin-top: 12px;
     font-size: 14px;
-    line-height: (18/14);
+    line-height: calc(18/14);
   }
 
   &__main {
@@ -295,7 +295,7 @@ export default {
   &__policy {
     margin-top: 10px;
     font-size: 11px;
-    line-height: (16/11);
+    line-height: calc(16/11);
     color: $color-lightviolet;
 
     a {
@@ -321,7 +321,7 @@ export default {
       padding-left: 55px;
       font-weight: bold;
       font-size: 14px;
-      line-height: (22/14);
+      line-height: calc(22/14);
 
       & + & {
         margin-top: 10px;
@@ -394,7 +394,7 @@ export default {
 
     &__desc {
       max-width: 470px;
-      line-height: (26/14);
+      line-height: calc(26/14);
     }
 
     &__main {

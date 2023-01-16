@@ -309,7 +309,7 @@ export default {
     margin-top: 12px;
     padding-right: 30px;
     font-size: 32px;
-    line-height: (36/32);
+    line-height: calc(36/32);
     color: $color-lightgray;
   }
 
@@ -415,7 +415,7 @@ export default {
     &__heading {
       padding-right: 0;
       font-size: 36px;
-      line-height: (42/36);
+      line-height: calc(42/36);
       color: inherit;
     }
 

@@ -54,7 +54,7 @@ export default {
   &__title {
     position: relative;
     font-size: 22px;
-    line-height: (46/42);
+    line-height: calc(46/42);
     z-index: 1;
   }
 

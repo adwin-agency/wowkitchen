@@ -99,7 +99,7 @@ export default {
   &__desc {
     margin-top: 20px;
     font-size: 13px;
-    line-height: (32/16);
+    line-height: calc(32/16);
 
     & + & {
       margin-top: 10px;
@@ -160,7 +160,7 @@ export default {
       width: 220px;
       text-align: center;
       font-size: 13px;
-      line-height: (18/13);
+      line-height: calc(18/13);
     }
   }
 

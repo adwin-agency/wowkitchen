@@ -161,7 +161,7 @@ export default {
   &__desc {
     margin-top: 14px;
     font-size: 14px;
-    line-height: (30/14);
+    line-height: calc(30/14);
 
     a {
       font-weight: bold;
@@ -209,7 +209,7 @@ export default {
       max-width: 140px;
       font-weight: 500;
       font-size: 13px;
-      line-height: (18/13);
+      line-height: calc(18/13);
     }
   }
 
@@ -348,14 +348,14 @@ export default {
 
     &__heading {
       font-size: 24px;
-      line-height: (32/24);
+      line-height: calc(32/24);
     }
 
     &__desc {
       margin-top: 24px;
       max-width: 770px;
       font-size: 16px;
-      line-height: (32/16);
+      line-height: calc(32/16);
     }
 
     &__features {

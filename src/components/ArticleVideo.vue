@@ -141,7 +141,7 @@ export default {
     margin-top: 18px;
     font-weight: bold;
     font-size: 26px;
-    line-height: (34/26);
+    line-height: calc(34/26);
     color: #000;
   }
 
@@ -149,7 +149,7 @@ export default {
     margin-top: 8px;
     font-weight: 500;
     font-size: 16px;
-    line-height: (24/16);
+    line-height: calc(24/16);
   }
 
   &__product {

@@ -114,7 +114,7 @@ export default {
 
   &__heading {
     font-size: 24px;
-    line-height: (32/24);
+    line-height: calc(32/24);
 
     span {
       color: $color-lightgray;
@@ -188,7 +188,7 @@ export default {
     padding-right: 100px;
     font-weight: 600;
     font-size: 16px;
-    line-height: (24/16);
+    line-height: calc(24/16);
     color: $color-lightgray;
   }
 
@@ -234,7 +234,7 @@ export default {
     &__heading {
       padding-right: 30px;
       font-size: 22px;
-      line-height: (28/22);
+      line-height: calc(28/22);
 
       span {
         color: $color-green;
@@ -313,7 +313,7 @@ export default {
       position: relative;
       font-weight: bold;
       font-size: 14px;
-      line-height: (22/14);
+      line-height: calc(22/14);
       color: $color-lightgray;
 
       & + & {
@@ -327,7 +327,7 @@ export default {
       border-radius: 50px 0 50px 0;
       padding: 20px 20px 20px 40px;
       font-size: 11px;
-      line-height: (17/11);
+      line-height: calc(17/11);
       color: $color-primary;
       background-color: $color-yellow;
       box-shadow: 0px 8px 19px 0px rgba(53, 53, 53, 0.16);
@@ -361,7 +361,7 @@ export default {
       margin-right: 5px;
       font-weight: bold;
       font-size: 22px;
-      line-height: (26/22);
+      line-height: calc(26/22);
 
       span {
         color: $color-green;
@@ -372,7 +372,7 @@ export default {
       margin-top: 4px;
       font-weight: 600;
       font-size: 13px;
-      line-height: (20/13);
+      line-height: calc(20/13);
     }
   }
 
@@ -388,7 +388,7 @@ export default {
 
     &__heading {
       font-size: 26px;
-      line-height: (34/26);
+      line-height: calc(34/26);
     }
 
     &__content {

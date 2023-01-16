@@ -121,7 +121,7 @@ export default {
 
       &__title {
         font-size: 16px;
-        line-height: (18/16);
+        line-height: calc(18/16);
       }
 
       &__footer {
@@ -195,7 +195,7 @@ export default {
         margin-top: 0;
         font-weight: 500;
         font-size: 13px;
-        line-height: (15/13);
+        line-height: calc(15/13);
       }
     }
   }
@@ -222,7 +222,7 @@ export default {
         margin-top: 3px;
         font-weight: 500;
         font-size: 13px;
-        line-height: (15/13);
+        line-height: calc(15/13);
       }
 
       &__footer {
@@ -311,7 +311,7 @@ export default {
     margin-top: 12px;
     font-weight: bold;
     font-size: 18px;
-    line-height: (24/18);
+    line-height: calc(24/18);
   }
 
   &__footer {
@@ -393,7 +393,7 @@ export default {
           margin-bottom: auto;
           font-weight: bold;
           font-size: 14px;
-          line-height: (18/14);
+          line-height: calc(18/14);
         }
 
         &__tag {
@@ -431,7 +431,7 @@ export default {
         &__title {
           margin-top: 8px;
           font-size: 20px;
-          line-height: (28/20);
+          line-height: calc(28/20);
         }
 
         &__footer {
@@ -472,7 +472,7 @@ export default {
           margin-top: 16px;
           font-weight: bold;
           font-size: 14px;
-          line-height: (18/14);
+          line-height: calc(18/14);
         }
 
         &__footer {
@@ -512,7 +512,7 @@ export default {
           margin-top: 16px;
           font-weight: bold;
           font-size: 14px;
-          line-height: (18/14);
+          line-height: calc(18/14);
         }
 
         &__footer {
@@ -629,7 +629,7 @@ export default {
 
         &__title {
           font-size: 16px;
-          line-height: (19/16);
+          line-height: calc(19/16);
         }
       }
     }
@@ -644,7 +644,7 @@ export default {
         &__title {
           max-width: 650px;
           font-size: 24px;
-          line-height: (28/24);
+          line-height: calc(28/24);
         }
       }
     }
@@ -659,7 +659,7 @@ export default {
         &__title {
           margin-top: 16px;
           font-size: 18px;
-          line-height: (22/18);
+          line-height: calc(22/18);
         }
 
         &__footer {
@@ -678,7 +678,7 @@ export default {
         &__title {
           margin-top: 16px;
           font-size: 18px;
-          line-height: (22/18);
+          line-height: calc(22/18);
         }
 
         &__footer {
@@ -693,7 +693,7 @@ export default {
 
     &__title {
       font-size: 18px;
-      line-height: (22/18);
+      line-height: calc(22/18);
     }
 
     &__footer {

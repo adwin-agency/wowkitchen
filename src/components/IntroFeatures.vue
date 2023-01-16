@@ -55,7 +55,7 @@ export default {
     margin-top: 6px;
     padding-left: 52px;
     font-size: 12px;
-    line-height: (16/12);
+    line-height: calc(16/12);
     color: #757575;
   }
 

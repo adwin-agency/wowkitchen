@@ -39,7 +39,7 @@ export default {
     padding: 0 10px;
     font-weight: 300;
     font-size: 20px;
-    line-height: (38/20);
+    line-height: calc(38/20);
   }
 
   &__image {
@@ -88,7 +88,7 @@ export default {
     &__title {
       padding: 0;
       font-size: 32px;
-      line-height: (42/32);
+      line-height: calc(42/32);
     }
 
     &__image {
@@ -114,7 +114,7 @@ export default {
 
     &__title {
       font-size: 52px;
-      line-height: (62/52);
+      line-height: calc(62/52);
     }
 
     &__image {

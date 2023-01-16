@@ -125,13 +125,13 @@ export default {
   &__title {
     font-weight: bold;
     font-size: 18px;
-    line-height: (22/18);
+    line-height: calc(22/18);
   }
 
   &__desc {
     margin-top: 12px;
     font-size: 14px;
-    line-height: (24/14);
+    line-height: calc(24/14);
   }
 
   &__examples {
@@ -220,7 +220,7 @@ export default {
     }
 
     &__title {
-      line-height: (28/18);
+      line-height: calc(28/18);
     }
 
     &__examples {

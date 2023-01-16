@@ -33,49 +33,49 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-weight: bold;
   font-size: 26px;
-  line-height: (38/26);
+  line-height: calc(38/26);
 
   @include media(md) {
     font-size: 36px;
-    line-height: (42/36);
+    line-height: calc(42/36);
   }
 
   @include media(lg) {
     font-size: 50px;
-    line-height: (72/50);
+    line-height: calc(72/50);
   }
 }
 
 h2 {
   font-weight: bold;
   font-size: 22px;
-  line-height: (22/18);
+  line-height: calc(22/18);
 
   @include media(md) {
     font-size: 24px;
-    line-height: (32/24);
+    line-height: calc(32/24);
   }
 
   @include media(lg) {
     font-size: 30px;
-    line-height: (38/30);
+    line-height: calc(38/30);
   }
 }
 
 h3 {
   font-weight: bold;
   font-size: 18px;
-  line-height: (22/18);
+  line-height: calc(22/18);
 
   @include media(md) {
     font-size: 24px;
-    line-height: (32/24);
+    line-height: calc(32/24);
   }
 }
 
 h4 {
   font-size: 18px;
-  line-height: (22/18);
+  line-height: calc(22/18);
 }
 
 a {
@@ -126,7 +126,7 @@ picture, img {
     &_slider {
       margin-right: 0;
       padding-right: 0;
-      max-width: calc(50% + #{$container-max-width-md / 2});
+      max-width: calc(50% + #{calc($container-max-width-md / 2)});
     }
   }
 
@@ -138,7 +138,7 @@ picture, img {
     }
 
     &_slider {
-      max-width: calc(50% + #{$container-max-width-lg / 2});
+      max-width: calc(50% + #{calc($container-max-width-lg / 2)});
     }
   }
 
@@ -151,7 +151,7 @@ picture, img {
     }
 
     &_slider {
-      max-width: calc(50% + #{$container-max-width-xl / 2});
+      max-width: calc(50% + #{calc($container-max-width-xl / 2)});
     }
   }
 }

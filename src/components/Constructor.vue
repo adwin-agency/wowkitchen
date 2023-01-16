@@ -463,7 +463,7 @@ export default {
   &__desc {
     margin-top: 10px;
     font-size: 14px;
-    line-height: (26/14);
+    line-height: calc(26/14);
     color: #000;
   }
 
@@ -609,7 +609,7 @@ export default {
       margin-top: 8px;
       font-weight: 300;
       font-size: 11px;
-      line-height: (20/11);
+      line-height: calc(20/11);
     }
 
     &-close {

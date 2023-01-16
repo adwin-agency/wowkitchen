@@ -85,7 +85,7 @@ export default {
   &__desc {
     margin-top: 16px;
     font-size: 14px;
-    line-height: (26/14);
+    line-height: calc(26/14);
   }
 
   &__area {
@@ -115,7 +115,7 @@ export default {
       padding-right: 10px;
       font-weight: 500;
       font-size: 14px;
-      line-height: (16/14);
+      line-height: calc(16/14);
     }
 
     &-desc {
@@ -223,7 +223,7 @@ export default {
         margin-top: 10px;
         font-weight: 300;
         font-size: 12px;
-        line-height: (20/12);
+        line-height: calc(20/12);
       }
     }
   }

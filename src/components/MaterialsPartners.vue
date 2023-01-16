@@ -29,13 +29,13 @@ export default {
   &__title {
     font-weight: bold;
     font-size: 18px;
-    line-height: (22/18);
+    line-height: calc(22/18);
   }
 
   &__desc {
     margin-top: 20px;
     font-size: 14px;
-    line-height: (32/14);
+    line-height: calc(32/14);
     color: #000;
   }
 
@@ -76,7 +76,7 @@ export default {
       margin-top: 22px;
       max-width: 720px;
       font-size: 16px;
-      line-height: (32/16);
+      line-height: calc(32/16);
     }
 
     &__items {

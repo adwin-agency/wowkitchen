@@ -617,7 +617,7 @@ export default {
     grid-column: 2 / 3;
     grid-row: 1 / 4;
     font-size: 12px;
-    line-height: (16/12);
+    line-height: calc(16/12);
     text-align: center;
     color: #7f7f7f;
 

@@ -273,7 +273,7 @@ export default {
     margin-top: 10px;
     text-align: center;
     font-size: 12px;
-    line-height: (16/13);
+    line-height: calc(16/13);
     color: $color-lightviolet;
 
     a {
@@ -301,7 +301,7 @@ export default {
       padding-left: 55px;
       font-weight: bold;
       font-size: 14px;
-      line-height: (22/14);
+      line-height: calc(22/14);
 
       & + & {
         margin-top: 10px;

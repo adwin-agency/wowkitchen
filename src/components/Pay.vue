@@ -236,20 +236,20 @@ export default {
 
   &__heading {
     max-width: 560px;
-    line-height: (57/50);
+    line-height: calc(57/50);
   }
 
   &__desc {
     margin-top: 30px;
     max-width: 560px;
     font-size: 14px;
-    line-height: (26/14);
+    line-height: calc(26/14);
 
     &_result {
       max-width: 440px;
       font-weight: 500;
       font-size: 16px;
-      line-height: (26/18);
+      line-height: calc(26/18);
     }
 
     a {
@@ -366,7 +366,7 @@ export default {
       padding-bottom: 20px;
       font-weight: bold;
       font-size: 14px;
-      line-height: (23/18);
+      line-height: calc(23/18);
       text-align: center;
       background-image: url('~@/assets/img/message.svg');
       background-size: contain;

@@ -112,7 +112,7 @@ export default {
     margin-top: 12px;
     text-align: center;
     font-size: 10px;
-    line-height: (13/10);
+    line-height: calc(13/10);
     color: #aca8c3;
 
     a {

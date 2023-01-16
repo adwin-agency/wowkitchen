@@ -129,13 +129,13 @@ export default {
   &__title {
     font-weight: bold;
     font-size: 14px;
-    line-height: (18/14);
+    line-height: calc(18/14);
   }
 
   &__desc {
     margin-top: 5px;
     font-size: 13px;
-    line-height: (16/13);
+    line-height: calc(16/13);
   }
 
   &__field {
@@ -193,13 +193,13 @@ export default {
 
     &__title {
       font-size: 16px;
-      line-height: (20/16);
+      line-height: calc(20/16);
     }
 
     &__desc {
       margin-top: 14px;
       font-size: 14px;
-      line-height: (20/14);
+      line-height: calc(20/14);
     }
   }
 
@@ -221,7 +221,7 @@ export default {
 
     &__title {
       font-size: 18px;
-      line-height: (22/18);
+      line-height: calc(22/18);
     }
 
     &__field {

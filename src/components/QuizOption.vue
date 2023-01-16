@@ -104,7 +104,7 @@ export default {
     padding: 18px;
     font-weight: 600;
     font-size: 13px;
-    line-height: (16/13);
+    line-height: calc(16/13);
   }
 
   &__check {
