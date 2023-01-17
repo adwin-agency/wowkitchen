@@ -112,7 +112,6 @@
       v-if="titled"
       class="share__title"
     >Поделиться</span>
-    <!-- <div ref="share"></div> -->
   </div>
 </template>
 
@@ -146,7 +145,6 @@ export default {
         url: 'https://wowkitchen.ru' + this.shareUrl
       },
       theme: {
-        // services: 'facebook,vkontakte',
         services: 'vkontakte',
         bare: true
       }
@@ -193,15 +191,8 @@ export default {
 
       #{$b}__item,
       .ya-share2__item {
-        @for $i from 1 through $menu-items {
-          // $angle: (($pi - $opening-angle)/2)+ (($opening-angle/($menu-items - 1)) * ($i - 1));
-          $angle: 1.55;
-
-          &:nth-child(#{$i}) {
-            transition-duration: 80ms+ (80ms * $i);
-            transform: translate3d(cos($angle) * $open-distance, sin($angle) * $open-distance, 0);
-          }
-        }
+        transition-duration: 160ms;
+        transform: translate3d(0, 50px, 0);
       }
     }
   }
@@ -270,16 +261,11 @@ export default {
     width: 36px;
     height: 36px;
     transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+    transition-duration: 70ms;
     pointer-events: all;
 
     &:hover {
       background-color: $color-gray;
-    }
-
-    @for $i from 1 through $menu-items {
-      &:nth-child(#{$i}) {
-        transition-duration: 10ms+ (60ms * ($i));
-      }
     }
   }
 
