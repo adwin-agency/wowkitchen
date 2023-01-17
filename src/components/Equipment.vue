@@ -1,10 +1,10 @@
 <template>
   <div class="equipment">
-    <img
+    <!-- <img
       src="@/assets/img/ny-toys-02.png"
       alt=""
       class="equipment__ny-bg"
-    >
+    > -->
     <div class="container">
       <div class="equipment__inner">
         <div class="equipment__header">
@@ -366,17 +366,17 @@ export default {
 
     &__info {
       display: flex;
-      flex-wrap: wrap;
+      // flex-wrap: wrap;
       align-items: center;
       width: 69.5%;
     }
 
     &__partners {
-      // justify-content: center;
+      justify-content: center;
       margin-top: 5px;
-      margin-left: 0;
-      margin-right: calc(100% - 530px);
-      width: 530px;
+      // margin-left: 0;
+      // margin-right: calc(100% - 530px);
+      // width: 530px;
     }
 
     &__partner {

@@ -6,11 +6,11 @@
           <div class="design__main">
             <h2 class="design__heading"><span>Бесплатный замер</span> и{{'\xa0'}}консультация <br>дизайнера <span>у вас дома</span></h2>
             <div class="design__content">
-              <img
+              <!-- <img
                 src="@/assets/img/ny-snow-1.svg"
                 alt=""
                 class="design__ny-img"
-              >
+              > -->
               <div class="design__shapes">
                 <AppIcon
                   class="design__shape design__shape_circle-white"
@@ -42,14 +42,14 @@
                   viewBox="0 0 128 120"
                   name="shape-19"
                 />
-                <AppIcon
+                <!-- <AppIcon
                   class="design__shape design__shape_ny-star-6"
                   name="ny-star-6"
                 />
                 <AppIcon
                   class="design__shape design__shape_ny-star-7"
                   name="ny-star-7"
-                />
+                /> -->
               </div>
               <p class="design__desc">Вы знаете различия между шкафом для прихожей и для гостиной?</p>
               <p class="design__desc">А особенности кухонных гарнитуров для студий?</p>
@@ -283,10 +283,10 @@ export default {
         fill: #fff;
       }
 
-      &_circle-white-2,
-      &_triangle-2 {
-        display: none;
-      }
+      // &_circle-white-2,
+      // &_triangle-2 {
+      //   display: none;
+      // }
 
       &_ny-star-6,
       &_ny-star-7 {

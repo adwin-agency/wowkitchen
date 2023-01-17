@@ -27,17 +27,17 @@
             />
           </div>
           <div class="intro__video">
-            <!-- <AppIcon
+            <AppIcon
               class="intro__shape intro__shape_1"
               viewBox="0 0 194.19 194.22"
               name="shape-1"
               :style="`transform:translateY(${shapeBackTranslate}px)`"
-            /> -->
-            <AppIcon
+            />
+            <!-- <AppIcon
               class="intro__shape intro__shape_ny-star-4"
               name="ny-star-4"
               :style="`transform:translateY(${shapeBackTranslate}px)`"
-            />
+            /> -->
             <video
               ref="video"
               src="/assets/video/intro.mp4"
@@ -46,7 +46,7 @@
               muted
               playsinline
             ></video>
-            <!-- <AppIcon
+            <AppIcon
               class="intro__shape intro__shape_2"
               viewBox="0 0 22.47 22.85"
               name="shape-2"
@@ -117,8 +117,8 @@
               viewBox="0 0 29.688 29.68"
               name="shape-13"
               :style="`transform:translateY(${shapeFrontTranslate}px)`"
-            /> -->
-            <AppIcon
+            />
+            <!-- <AppIcon
               class="intro__shape intro__shape_ny-star-1"
               name="ny-star-1"
               :style="`transform:translateY(${shapeBackTranslate}px)`"
@@ -192,7 +192,7 @@
               class="intro__shape intro__shape_ny-snowman-rhand"
               name="ny-snowman-rhand"
               :style="`transform:translateY(${shapeBackTranslate}px)`"
-            />
+            /> -->
             <div class="intro__video-btn">
               <AppVideoButton
                 v-if="!$_media.sm"

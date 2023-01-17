@@ -1,5 +1,5 @@
 <template>
-  <div class="catalog-side-promo catalog-side-promo_ny">
+  <div class="catalog-side-promo">
     <AppIcon
       name="shape-26"
       class="catalog-side-promo__shape catalog-side-promo__shape_circle"
@@ -8,7 +8,7 @@
       name="shape-27"
       class="catalog-side-promo__shape catalog-side-promo__shape_triangle"
     />
-    <img src="@/assets/img/ny-toys-03.png" alt="" class="catalog-side-promo__ny-img catalog-side-promo__ny-img_1">
+    <!-- <img src="@/assets/img/ny-toys-03.png" alt="" class="catalog-side-promo__ny-img catalog-side-promo__ny-img_1">
     <img src="@/assets/img/ny-toys-03.png" alt="" class="catalog-side-promo__ny-img catalog-side-promo__ny-img_2">
     <AppIcon
       class="catalog-side-promo__shape catalog-side-promo__shape_ny-star-8"
@@ -17,7 +17,7 @@
     <AppIcon
       class="catalog-side-promo__shape catalog-side-promo__shape_ny-star-9"
       name="ny-star-9"
-    />
+    /> -->
     <img
       src="/assets/img/catalog-wash.png"
       alt=""

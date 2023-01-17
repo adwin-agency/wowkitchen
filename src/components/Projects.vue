@@ -1,10 +1,10 @@
 <template>
   <div class="projects">
-    <img
+    <!-- <img
       src="@/assets/img/ny-toys-01.png"
       alt=""
       class="projects__ny-bg"
-    >
+    > -->
     <AppIcon
       class="projects__bg-pattern"
       name="wow-pattern"
