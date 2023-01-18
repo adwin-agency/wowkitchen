@@ -124,7 +124,7 @@
             to="/"
             class="header__logo"
           >
-            <!-- <picture>
+            <picture>
               <source
                 srcset="../assets/img/wow-logo-med.svg"
                 :media="`(min-width: ${$_breakpoints.lg}px)`"
@@ -133,14 +133,14 @@
                 src="../assets/img/wow-logo-mob.svg"
                 alt="WowKitchen"
               >
-            </picture> -->
-            <picture>
+            </picture>
+            <!-- <picture>
               <img
                 class="header__logo-img"
                 src="../assets/img/wow-logo-ny.svg"
                 alt="WowKitchen"
               >
-            </picture>
+            </picture> -->
           </router-link>
 
           <nav
