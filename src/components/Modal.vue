@@ -776,7 +776,7 @@ export default {
 
     &__quiz {
       max-width: 640px;
-      border-radius: 8px;
+      border-radius: 10px;
     }
   }
 
