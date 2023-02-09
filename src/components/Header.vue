@@ -222,6 +222,16 @@
                 class="header__phone-num"
               >{{cityPhone}}</span>
             </a>
+            <a
+              href="/lk"
+              target="_blank"
+              class="header__acc"
+            >
+              <AppIcon
+                class="header__acc-icon"
+                name="user"
+              />
+            </a>
             <button
               class="header__favorites"
               type="button"
@@ -633,6 +643,18 @@ export default {
     position: relative;
   }
 
+  &__acc {
+    width: 26px;
+    height: 26px;
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  &__acc-icon {
+    width: 100%;
+    height: 100%;
+  }
+
   &__menu-btn {
     position: relative;
     width: 30px;
@@ -719,7 +741,7 @@ export default {
   }
 
   &__phone {
-    margin-right: 30px;
+    margin-right: 16px;
   }
 
   &__phone-icon {
@@ -946,6 +968,15 @@ export default {
       margin-right: -1px;
       width: 730px;
       box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.06);
+    }
+
+    &__acc {
+      order: 1;
+      margin-right: 0;
+    }
+
+    &__favorites {
+      margin-right: 20px;
     }
   }
 
