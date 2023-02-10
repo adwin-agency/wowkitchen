@@ -42,7 +42,9 @@
           viewBox="0 0 194.19 194.22"
         />
       </div> -->
-      <QuizPromo class="quiz__start-promo" />
+      <noindex>
+        <QuizPromo class="quiz__start-promo" />
+      </noindex>
       <div class="quiz__main-content">
         <div class="container">
           <div class="quiz__main-inner">
