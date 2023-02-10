@@ -90,7 +90,7 @@
               >
             </div>
           </div>
-          <p v-if="!$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>2022 ©</span></p>
+          <p v-if="!$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>{{currentYear}} ©</span></p>
         </div>
       </div>
     </div>
@@ -203,7 +203,7 @@
               ОКПО: 33210876
             </p>
           </div>
-          <p v-if="$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>2022 ©</span></p>
+          <p v-if="$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>{{currentYear}} ©</span></p>
         </div>
       </div>
     </div>
@@ -283,6 +283,9 @@ export default {
     },
     cityPhone() {
       return this.$store.state.cities[this.$store.state.activeCity]?.phone
+    },
+    currentYear() {
+      return new Date().getFullYear()
     }
   },
   created() {
