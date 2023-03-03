@@ -4,44 +4,6 @@
       v-if="activeStep === 0"
       class="quiz__main"
     >
-      <!-- <div class="quiz__image">
-        <img
-          src="@/assets/img/quiz.jpg"
-          alt=""
-        >
-        <AppIcon
-          name="shape-6"
-          class="quiz__shape quiz__shape_rectangle-1"
-          viewBox="0 0 17.21 17.22"
-        />
-        <AppIcon
-          name="shape-7"
-          class="quiz__shape quiz__shape_circle-1"
-          viewBox="0 0 57 57.04"
-        />
-        <AppIcon
-          name="shape-10"
-          class="quiz__shape quiz__shape_zigzag-1"
-          viewBox="0 0 59.031 57.75"
-        />
-        <AppIcon
-          name="shape-4"
-          class="quiz__shape quiz__shape_rectangle-2"
-          viewBox="0 0 56.22 56.22"
-        />
-        <AppIcon
-          v-if="!$_media.sm"
-          name="shape-3"
-          class="quiz__shape quiz__shape_triangle-1"
-          viewBox="0 0 59 54.5"
-        />
-        <AppIcon
-          v-if="!$_media.sm"
-          name="shape-1"
-          class="quiz__shape quiz__shape_circle-2"
-          viewBox="0 0 194.19 194.22"
-        />
-      </div> -->
       <noindex>
         <QuizPromo class="quiz__start-promo" />
       </noindex>
@@ -86,6 +48,9 @@
         value="Посудомоечная машина"
       >
       <div class="quiz__screen">
+        <div class="quiz__side">
+
+        </div>
         <div class="quiz__steps">
           <div
             class="quiz__steps-wrapper"
@@ -96,46 +61,93 @@
               :class="{'active': activeStep === 1}"
             >
               <div class="container">
-                <div class="quiz__step-header">
-                  <p class="quiz__order">Вопрос 1 из 3</p>
+                <div class="quiz__step-side">
+                  <div class="quiz__small-promo">
+                    <div class="quiz__small-promo-main">
+                      <p class="quiz__small-promo-title">Посудомоечная машина — в&nbsp;подарок!</p>
+                      <p class="quiz__small-promo-desc">к каждому гарнитуру до&nbsp;{{promoDate}}</p>
+                    </div>
+                    <img
+                      src="/assets/img/quiz-wash-2.png"
+                      alt=""
+                      class="quiz__small-promo-img"
+                    >
+                  </div>
                 </div>
-                <h2 class="quiz__title">Выберите планировку кухни</h2>
+                <div class="quiz__step-header">
+                  <p class="quiz__order">1/3</p>
+                </div>
+                <h2 class="quiz__title">Выберите планировку</h2>
                 <div class="quiz__options">
-                  <QuizOption
+                  <input
+                    type="hidden"
+                    name="addition"
+                    :value="values.addition"
+                  >
+                  <label
                     v-for="(option, index) in planOptions"
                     :key="index"
-                    shadow
-                    name="plan"
-                    :image="option.image"
-                    :value="option.title"
-                    :title="option.title"
                     class="quiz__option"
-                    @change="handleRadioChange('plan', $event)"
-                    @click="handleRadioClick('plan', option.title, $event)"
+                  >
+                    <input
+                      type="radio"
+                      name="plan"
+                      :value="option.title"
+                      class="quiz__option-input"
+                      @change="handleOptionChange($event, 'plan')"
+                    >
+                    <div class="quiz__option-el">
+                      <div class="quiz__option-box">
+                        <img
+                          :src="`/assets/img/${option.image.name}`"
+                          :alt="option.image.alt"
+                          class="quiz__option-img"
+                        >
+                        <div class="quiz__option-details">
+                          <span
+                            v-for="(detail, index) in additionDetails"
+                            :key="index"
+                            class="quiz__option-detail"
+                            :class="{active: values.addition === detail}"
+                            @click="handleDetailClick('addition', detail)"
+                          >
+                            <AppIcon
+                              class="quiz__option-detail-icon"
+                              name="circle-plus"
+                            />
+                            <AppIcon
+                              class="quiz__option-detail-icon quiz__option-detail-icon_checked"
+                              name="circle-check"
+                            />
+                            {{detail}}
+                          </span>
+                        </div>
+                      </div>
+                      <span class="quiz__option-title">{{option.title}}</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="quiz__actions">
+                  <AppButton
+                    title="Далее"
+                    size="small"
+                    class="quiz__next"
+                    :disabled="!values.plan"
+                    @click="goToNextStep"
                   />
                 </div>
               </div>
             </div>
+
             <div
               class="quiz__step"
               :class="{'active': activeStep === 2}"
             >
               <div class="container">
                 <div class="quiz__step-header">
-                  <p class="quiz__order">Вопрос 2 из 3</p>
-                  <!-- <button
-                    class="quiz__back"
-                    type="button"
-                    @click="goToPrevStep"
-                  >
-                    <AppIcon
-                      name="angle-down"
-                      class="quiz__back-icon"
-                    />
-                    Назад
-                  </button> -->
+                  <p class="quiz__order">2/3</p>
                 </div>
-                <h2 class="quiz__title">Введите ориентировочные размеры</h2>
+                <h2 class="quiz__title">Укажите предполагаемые габариты</h2>
                 <div class="quiz__size">
                   <div class="quiz__area">
                     <img
@@ -194,6 +206,7 @@
                 </div>
               </div>
             </div>
+
             <div
               class="quiz__step"
               :class="{'active': activeStep === 3}"
@@ -201,17 +214,6 @@
               <div class="container">
                 <div class="quiz__step-header">
                   <p class="quiz__order">Вопрос 3 из 3</p>
-                  <!-- <button
-                    class="quiz__back"
-                    type="button"
-                    @click="goToPrevStep"
-                  >
-                    <AppIcon
-                      name="angle-down"
-                      class="quiz__back-icon"
-                    />
-                    Назад
-                  </button> -->
                 </div>
                 <h2 class="quiz__title">Давайте выберем стиль</h2>
                 <div class="quiz__options quiz__options_wide">
@@ -245,35 +247,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="quiz__step">
-            <div class="container">
-              <p class="quiz__order">Вопрос 4 из 4</p>
-              <h2 class="quiz__title">Выберите дополнительные элементы:</h2>
-              <div class="quiz__elements">
-                <div class="quiz__options quiz__options_wide">
-                  <QuizOption
-                    v-for="(option, index) in addOptions"
-                    :key="index"
-                    checkbox
-                    small
-                    name="elements"
-                    :image="option.image"
-                    :value="option.title"
-                    :title="option.title"
-                    class="quiz__option"
-                    @change="handleCheckboxChange('elements', $event)"
-                  />
-                </div>
-                <AppButton
-                  title="Далее"
-                  size="small"
-                  class="quiz__next"
-                  :disabled="!isCompletedStep"
-                  @click="goToNextStep"
-                />
-              </div>
-            </div>
-          </div> -->
             <div
               class="quiz__step"
               :class="{'active': activeStep === 4}"
@@ -285,32 +258,6 @@
                 />
                 <h2 class="quiz__title">Контактные данные</h2>
                 <div class="quiz__calc">
-                  <!-- <div
-                    v-if="$_media.sm"
-                    class="quiz__summary"
-                  >
-                    <p class="quiz__summary-title">Параметры вашей будущей кухни:</p>
-                    <ol class="quiz__progress">
-                      <li class="quiz__progress-item is-active">
-                        <span class="quiz__progress-num">1</span>
-                        <span class="quiz__progress-title">Тип кухни: {{values.plan}}</span>
-                      </li>
-                      <li class="quiz__progress-item is-active">
-                        <span class="quiz__progress-num">2</span>
-                        <span class="quiz__progress-title">Размеры: {{values.sizes.join('x')}} см {{values.construct.join(' ')}}</span>
-                      </li>
-                      <li class="quiz__progress-item is-active">
-                        <span class="quiz__progress-num">3</span>
-                        <span class="quiz__progress-title">Стиль: {{values.style}}</span>
-                      </li>
-                      <li
-                        v-if="values.elements.length"
-                        class="quiz__progress-item is-active"
-                      >
-                        Дополнительно: {{values.elements.join(', ')}}
-                      </li>
-                    </ol>
-                  </div> -->
                   <QuizResult
                     type="kitchen"
                     :sending="sending"
@@ -318,82 +265,10 @@
                     gift="посудомоечную машину"
                     class="quiz__result"
                   />
-                  <!-- <button
-                    v-if="$_media.sm"
-                    type="button"
-                    class="quiz__reset"
-                    @click="resetQuiz"
-                  >
-                    <AppIcon
-                      name="refresh"
-                      class="quiz__reset-icon"
-                    />
-                    Посчитать еще раз
-                  </button> -->
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          v-if="!$_media.sm"
-          class="quiz__side"
-        >
-          <QuizPromo
-            v-if="activeStep === 4"
-            class="quiz__final-promo"
-            small
-          />
-          <!-- <div class="quiz__note">
-            <p class="quiz__note-title">{{notes[activeStep - 1]}}</p>
-            <p
-              v-if="activeStep < 4"
-              class="quiz__note-desc"
-            >
-              до бесплатного расчёта проекта онлайн и закрепления за вами самых выгодных условий покупки
-            </p>
-          </div>
-          <ol class="quiz__progress">
-            <li
-              class="quiz__progress-item"
-              :class="{'is-active': activeStep > 1}"
-            >
-              <span class="quiz__progress-num">1</span>
-              <span class="quiz__progress-title">{{activeStep > 1 ? `Тип кухни: ${values.plan}` : ''}}</span>
-            </li>
-            <li
-              class="quiz__progress-item"
-              :class="{'is-active': activeStep > 2}"
-            >
-              <span class="quiz__progress-num">2</span>
-              <span class="quiz__progress-title">{{activeStep > 2 ? `Размеры: ${values.sizes.join('x')} см ${values.construct.join(' ')}` : ''}}</span>
-            </li>
-            <li
-              class="quiz__progress-item"
-              :class="{'is-active': activeStep > 3}"
-            >
-              <span class="quiz__progress-num">3</span>
-              <span class="quiz__progress-title">{{activeStep > 3 ? `Стиль: ${values.style}`: ''}}</span>
-            </li>
-            <li
-              class="quiz__progress-item"
-              :class="{'is-active': activeStep > 4}"
-            >
-              {{activeStep > 4 ? `Дополнительно: ${values.elements.join(', ')}`: ''}}
-            </li>
-          </ol>
-          <button
-            v-if="activeStep === 4"
-            type="button"
-            class="quiz__reset"
-            @click="resetQuiz"
-          >
-            <AppIcon
-              name="refresh"
-              class="quiz__reset-icon"
-            />
-            Посчитать еще раз
-          </button> -->
         </div>
       </div>
     </form>
@@ -402,34 +277,76 @@
 
 <script>
 import AppButton from './base/AppButton.vue'
-// import AppIcon from './base/AppIcon.vue'
 import AppControl from './base/AppControl.vue'
+import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
 import QuizOption from './QuizOption.vue'
+import QuizPromo from './QuizPromo.vue'
 import QuizResult from './QuizResult.vue'
 import useForms from '../composition/forms'
-import QuizPromo from './QuizPromo.vue'
-
-const notes = [
-  // '4 простых шага',
-  '3 простых шага',
-  'Ещё 2 простых шага',
-  'Остался всего 1 шаг',
-  'Параметры вашей будущей кухни:'
-]
 
 const planOptions = [
   {
-    image: { name: 'quiz-straight.jpg', alt: 'Прямая' },
+    image: { name: 'quiz-straight-2.png', alt: 'Прямая' },
     title: 'Прямая планировка'
   },
   {
-    image: { name: 'quiz-corner.jpg', alt: 'Угловая' },
+    image: { name: 'quiz-corner-2.png', alt: 'Угловая' },
     title: 'Угловая планировка'
   },
   {
-    image: { name: 'quiz-shaped.jpg', alt: 'П-образная' },
+    image: { name: 'quiz-shaped-2.png', alt: 'П-образная' },
     title: 'П-образная планировка'
+  }
+]
+
+const additionDetails = ['Барная стойка', 'Остров']
+
+const sizeImages = [
+  {
+    plan: 'Прямая планировка',
+    addition: '',
+    image: 'quiz-size-straight.png'
+  },
+  {
+    plan: 'Прямая планировка',
+    addition: 'Барная стойка',
+    image: 'quiz-size-straight-bar.png'
+  },
+  {
+    plan: 'Прямая планировка',
+    addition: 'Остров',
+    image: 'quiz-size-straight-island.png'
+  },
+  {
+    plan: 'Угловая планировка',
+    addition: '',
+    image: 'quiz-size-corner.png'
+  },
+  {
+    plan: 'Угловая планировка',
+    addition: 'Барная стойка',
+    image: 'quiz-size-corner-bar.png'
+  },
+  {
+    plan: 'Угловая планировка',
+    addition: 'Остров',
+    image: 'quiz-size-corner-island.png'
+  },
+  {
+    plan: 'П-образная планировка',
+    addition: '',
+    image: 'quiz-size-shaped.png'
+  },
+  {
+    plan: 'П-образная планировка',
+    addition: 'Барная стойка',
+    image: 'quiz-size-shaped-bar.png'
+  },
+  {
+    plan: 'П-образная планировка',
+    addition: 'Остров',
+    image: 'quiz-size-shaped-island.png'
   }
 ]
 
@@ -446,23 +363,16 @@ const styleOptions = [
   }
 ]
 
-// const addOptions = [
-//   { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Стеновая панель МДФ' },
-//   { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Встроенная подсветка' },
-//   { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Техника' },
-//   { image: { name: 'quiz-straight.jpg', alt: 'Прямая' }, title: 'Мойка' }
-// ]
-
 export default {
   name: 'Quiz',
   components: {
     AppButton,
-    AppTextField,
     AppControl,
+    AppIcon,
+    AppTextField,
     QuizOption,
-    // AppIcon,
-    QuizResult,
-    QuizPromo
+    QuizPromo,
+    QuizResult
   },
   setup() {
     const { sending, error, page, handleSubmit } = useForms()
@@ -475,19 +385,18 @@ export default {
   },
   data() {
     return {
-      notes: notes,
       planOptions: planOptions,
+      additionDetails: additionDetails,
       styleOptions: styleOptions,
-      // addOptions: addOptions,
       activeStep: this.$route.params.open ? 1 : 0,
       completedStep: 0,
       sizeImage: 'size-I.png',
       values: {
         plan: '',
+        addition: '',
         sizes: [],
         construct: [],
         style: '',
-        // elements: [],
         email: ''
       }
     }
@@ -523,6 +432,10 @@ export default {
         max.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') +
         ' ₽'
       )
+    },
+
+    promoDate() {
+      return this.$store.getters.mainPromoDate
     }
   },
   watch: {
@@ -545,6 +458,30 @@ export default {
       this.activeStep = 1
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({ event: 'start_quiz' })
+    },
+
+    handleOptionChange(event, name) {
+      this.values[name] = event.target.value
+
+      if (name === 'plan') {
+        this.setSizeImage(event.target.value, this.values.addition)
+      }
+    },
+
+    handleDetailClick(name, value) {
+      const newValue = this.values[name] === value ? '' : value
+
+      this.values[name] = newValue
+
+      if (name === 'addition') {
+        this.setSizeImage(this.values.plan, newValue)
+      }
+    },
+
+    setSizeImage(plan, addition) {
+      this.sizeImage = sizeImages.find(
+        item => item.plan === plan && item.addition === addition
+      ).image
     },
 
     handleRadioChange(name, event) {
@@ -616,8 +553,6 @@ export default {
     },
 
     goToNextStep() {
-      this.scrollToTop()
-
       if (this.completedStep < this.activeStep) {
         this.completedStep++
         window.dataLayer = window.dataLayer || []
@@ -625,6 +560,7 @@ export default {
       }
 
       this.activeStep++
+      this.scrollToTop()
     },
 
     resetQuiz() {
@@ -649,16 +585,6 @@ export default {
 .quiz {
   $b: &;
 
-  &__image {
-    position: relative;
-    margin: 0 auto;
-    max-width: 380px;
-
-    img {
-      width: 100%;
-    }
-  }
-
   &__start-promo {
     margin: 38px auto 0;
     width: calc(100% - #{$container-padding * 2});
@@ -669,34 +595,6 @@ export default {
     margin: 0 0 36px;
   }
 
-  &__shape {
-    position: absolute;
-
-    &_rectangle-1 {
-      left: 58px;
-      top: 90px;
-      width: 26px;
-    }
-
-    &_circle-1 {
-      left: 8px;
-      top: 28px;
-      width: 86px;
-    }
-
-    &_zigzag-1 {
-      right: 20px;
-      bottom: 30px;
-      width: 60px;
-    }
-
-    &_rectangle-2 {
-      right: 4px;
-      bottom: 30px;
-      width: 45px;
-    }
-  }
-
   &__main-content {
     padding: 30px 0 45px;
   }
@@ -704,7 +602,7 @@ export default {
   &__desc {
     margin-top: 4px;
     font-size: 14px;
-    line-height: calc(30/14);
+    line-height: calc(30 / 14);
   }
 
   &__start {
@@ -742,35 +640,145 @@ export default {
   }
 
   &__order {
-    font-weight: 500;
     font-size: 14px;
     color: $color-green;
   }
 
-  &__back {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-
-    &-icon {
-      margin-right: 5px;
-      width: 9px;
-      height: 9px;
-      fill: currentColor;
-      transform: rotate(90deg);
-    }
-  }
-
   &__title {
-    margin-top: 15px;
-    margin-bottom: 25px;
+    margin-top: 2px;
+    margin-bottom: 18px;
+    font-size: 18px;
   }
 
   &__option {
+    display: block;
     margin-bottom: 15px;
 
     &:last-child {
       margin-bottom: 0;
+    }
+
+    &-input {
+      display: none;
+
+      &:checked {
+        & + #{$b}__option-el {
+          box-shadow: inset 0 0 0 2px #04b991;
+
+          #{$b}__option-box::after {
+            opacity: 1;
+          }
+
+          #{$b}__option-details {
+            opacity: 1;
+            pointer-events: all;
+          }
+        }
+      }
+    }
+
+    &-el {
+      border: 1px solid #f3f4f9;
+      border-radius: 4px;
+      transition: box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    &-box {
+      display: flex;
+      position: relative;
+
+      &::before {
+        content: '';
+        padding-top: 70%;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(4, 185, 145, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+    }
+
+    &-img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    &-title {
+      display: block;
+      padding: 12px 20px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    &-details {
+      position: relative;
+      align-self: flex-end;
+      width: 100%;
+      padding: 12px 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    &-detail {
+      display: block;
+      position: relative;
+      margin-top: 8px;
+      max-width: 250px;
+      padding: 15px 50px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 1.25;
+      background-color: rgba(255, 255, 255, 0.5);
+      color: #fff;
+      transition: border-color 0.3s ease, background-color 0.3s ease,
+        color 0.3s ease;
+
+      &.active {
+        border-color: #04b991;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #04b991;
+
+        #{$b}__option-detail-icon {
+          opacity: 0;
+
+          &_checked {
+            opacity: 1;
+          }
+        }
+      }
+
+      &-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        width: 24px;
+        height: 24px;
+        transform: translateY(-50%);
+        transition: opacity 0.3s ease;
+
+        &_checked {
+          opacity: 0;
+        }
+      }
     }
   }
 
@@ -828,81 +836,43 @@ export default {
     flex: 1;
   }
 
-  &__summary {
-    margin-top: 30px;
-
-    &-title {
-      font-weight: bold;
-      font-size: 14px;
-    }
-  }
-
-  &__progress {
-    margin-top: 14px;
-    counter-reset: li;
-
-    &-item {
-      counter-increment: li;
-      display: flex;
-      margin-bottom: 12px;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: calc(22/14);
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      &.is-active {
-        #{$b}__progress-num {
-          color: $color-primary;
-          background-color: $color-yellow;
-        }
-      }
-    }
-
-    &-num {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      margin-right: 15px;
-      flex-shrink: 0;
-      width: 34px;
-      height: 34px;
-      border-radius: 100px;
-      font-weight: bold;
-      font-size: 14px;
-      color: $color-lightgray;
-      background-color: $color-lightviolet;
-    }
-
-    &-title {
-      padding-top: 5px;
-    }
-
-    &-icon {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
   &__result {
     position: relative;
     margin: 25px (-$container-padding) 0;
   }
 
-  &__reset {
-    display: flex;
-    align-items: center;
-    margin: 22px auto 0;
-    padding: 6px 0;
-    font-weight: bold;
-    font-size: 12px;
+  &__step-side {
+    margin: -20px (-$container-padding) 20px;
+    padding-top: 24px;
+    background-color: #f3f4f9;
+  }
 
-    &-icon {
-      width: 24px;
-      height: 24px;
-      margin-right: 18px;
+  &__small-promo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 30px 0px 0px 0px;
+    padding: 20px 26px;
+    background-image: linear-gradient(185.5deg, #fff27b 8.85%, #f8e21e 95.04%);
+
+    &-title {
+      max-width: 170px;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 110%;
+    }
+
+    &-desc {
+      max-width: 150px;
+      margin-top: 4px;
+      font-size: 13px;
+      line-height: 110%;
+    }
+
+    &-img {
+      align-self: flex-end;
+      margin: -30px -10px -20px 10px;
+      width: 152px;
     }
   }
 
@@ -919,20 +889,6 @@ export default {
 
       &-inner {
         width: 48%;
-      }
-    }
-
-    &__image {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 50%;
-      max-width: none;
-
-      img {
-        height: 100%;
-        object-fit: cover;
       }
     }
 
@@ -958,47 +914,6 @@ export default {
       margin-top: 35px;
       width: auto;
       min-width: 210px;
-    }
-
-    &__shape {
-      &_rectangle-1 {
-        left: 8px;
-        top: auto;
-        bottom: 32px;
-      }
-
-      &_circle-1 {
-        left: -72px;
-        top: auto;
-        bottom: 40px;
-      }
-
-      &_zigzag-1 {
-        top: 118px;
-        right: 100px;
-        bottom: auto;
-      }
-
-      &_rectangle-2 {
-        top: 90px;
-        right: 54px;
-        bottom: auto;
-        width: 70px;
-      }
-
-      &_triangle-1 {
-        left: 40px;
-        top: 28px;
-        width: 90px;
-        transform: rotate(180deg);
-      }
-
-      &_circle-2 {
-        left: 32px;
-        top: 70px;
-        width: 22px;
-        fill: $color-lightviolet;
-      }
     }
 
     &__screen {
@@ -1088,73 +1003,9 @@ export default {
       background-size: cover;
       background-position: center;
     }
-
-    &__note {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-right: 40px;
-      min-height: 120px;
-      padding: 25px 30px;
-      border-bottom-right-radius: 40px;
-      background-color: $color-yellow;
-
-      &-title {
-        font-weight: bold;
-        font-size: 16px;
-        line-height: calc(26/16);
-      }
-
-      &-desc {
-        margin-top: 4px;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: calc(16/12);
-      }
-    }
-
-    &__progress {
-      margin: 22px 40px 0;
-
-      &-item {
-        align-items: flex-start;
-        margin-bottom: 12px;
-        font-size: 12px;
-
-        &.is-active {
-          #{$b}__progress-title {
-            background: none;
-          }
-        }
-      }
-
-      &-num {
-        margin-top: 0;
-        width: 30px;
-        height: 30px;
-      }
-
-      &-title {
-        flex: 1;
-        margin-top: 3px;
-        min-height: 24px;
-        padding-top: 3px;
-        background: rgba(172, 168, 195, 0.3);
-        border-radius: 2px;
-      }
-    }
-
-    &__reset {
-      margin-top: 50px;
-      margin-left: 50px;
-    }
   }
 
   @include media(lg) {
-    &__image {
-      width: 54%;
-    }
-
     &__start-promo {
       top: 48%;
       right: calc(50% - 260px);
@@ -1164,38 +1015,6 @@ export default {
     &__final-promo {
       margin: 0 auto;
       max-width: 346px;
-    }
-
-    &__shape {
-      &_rectangle-1 {
-        left: 206px;
-        bottom: 62px;
-      }
-
-      &_circle-1 {
-        left: 128px;
-        bottom: 70px;
-      }
-
-      &_zigzag-1 {
-        top: 27%;
-        right: 11.5%;
-      }
-
-      &_rectangle-2 {
-        top: 23.5%;
-        right: 8%;
-      }
-
-      &_triangle-1 {
-        left: 17%;
-        top: 10%;
-      }
-
-      &_circle-2 {
-        left: 16.5%;
-        top: 16%;
-      }
     }
 
     &__main {
@@ -1236,10 +1055,6 @@ export default {
       margin-top: 3px;
       margin-bottom: 32px;
       font-size: 24px;
-    }
-
-    &__plan {
-      max-width: 880px;
     }
 
     &__options {
@@ -1286,65 +1101,12 @@ export default {
       justify-content: flex-start;
       width: 424px;
     }
-
-    &__note {
-      padding: 40px 50px;
-      border-bottom-right-radius: 70px;
-
-      &-desc {
-        margin-top: 12px;
-        margin-right: 20px;
-        font-size: 14px;
-        line-height: calc(20/14);
-      }
-    }
-
-    &__progress {
-      margin: 22px 90px 0;
-    }
   }
 
   @include media(xl) {
-    &__image {
-      width: 58%;
-    }
-
     &__start-promo {
       top: 45%;
       right: calc(50% - 400px);
-    }
-
-    &__shape {
-      &_rectangle-1 {
-        left: 11%;
-        bottom: 11%;
-      }
-
-      &_circle-1 {
-        left: 3.5%;
-        bottom: 12%;
-      }
-
-      &_zigzag-1 {
-        top: 25%;
-        right: 12%;
-        z-index: 1;
-      }
-
-      &_rectangle-2 {
-        top: 21.5%;
-        right: 8%;
-      }
-
-      &_triangle-1 {
-        left: 9%;
-        top: 8%;
-      }
-
-      &_circle-2 {
-        left: 8%;
-        top: 14%;
-      }
     }
 
     &__main-content {
@@ -1432,23 +1194,6 @@ export default {
     &__side {
       width: 465px;
       padding: 124px 0;
-    }
-
-    &__note {
-      padding: 60px;
-    }
-
-    &__note-desc {
-      margin-top: 15px;
-      margin-right: -20px;
-    }
-
-    &__progress {
-      margin: 34px 92px 0;
-
-      &-item {
-        margin-bottom: 20px;
-      }
     }
   }
 }
