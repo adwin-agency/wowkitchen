@@ -56,6 +56,7 @@
             class="quiz__steps-wrapper"
             :style="`transform: translateX(${(activeStep - 1) * -100}%)`"
           >
+
             <div
               class="quiz__step"
               :class="{'active': activeStep === 1}"
@@ -75,7 +76,7 @@
                   </div>
                 </div>
                 <div class="quiz__step-header">
-                  <p class="quiz__order">1/3</p>
+                  <p class="quiz__order">1 / 3</p>
                 </div>
                 <h2 class="quiz__title">Выберите планировку</h2>
                 <div class="quiz__options">
@@ -145,51 +146,82 @@
             >
               <div class="container">
                 <div class="quiz__step-header">
-                  <p class="quiz__order">2/3</p>
+                  <p class="quiz__order">2 / 3</p>
                 </div>
                 <h2 class="quiz__title">Укажите предполагаемые габариты</h2>
                 <div class="quiz__size">
                   <div class="quiz__area">
                     <img
-                      v-if="sizeImage"
                       :src="require(`@/assets/img/${sizeImage}`)"
                       alt
                     >
                   </div>
                   <div class="quiz__fields">
-                    <div class="quiz__fields-group">
-                      <p class="quiz__fields-title">Габариты</p>
-                      <AppTextField
-                        v-for="(size, index) in values.sizes"
-                        :key="index"
-                        type="text"
-                        name="size[]"
-                        :label="`Сторона ${['A', 'B', 'C'][index]}, см`"
-                        placeholder="Размер в см"
-                        inputmode="numeric"
-                        autocomplete="off"
-                        class="quiz__field"
-                        @input="handleSizeInput(index, $event)"
-                      />
+                    <p class="quiz__fields-title">Опишите в свободной форме предполагаемые габариты и конструктив:</p>
+                    <AppTextField
+                      textarea
+                      name="sizes"
+                      placeholder="Укажите примерную длину гарнитура по стенам, например, угловая кухня 1,5м + 2,5м с островом со встроенной мойкой."
+                      class="quiz__field"
+                    />
+                    <div class="quiz__file">
+                      <div
+                        v-if="values.files.length"
+                        class="quiz__file-list"
+                      >
+                        <div
+                          v-for="item in values.files"
+                          :key="item"
+                          class="quiz__file-item"
+                        >
+                          <div class="quiz__file-item-circle">
+                            <AppIcon
+                              class="quiz__file-item-icon"
+                              name="file-check"
+                            />
+                          </div>
+                          <p class="quiz__file-item-name">{{item}}</p>
+                          <button
+                            type="button"
+                            class="quiz__file-remove"
+                            @click="handleFileRemove(item)"
+                          >
+                            <AppIcon
+                              class="quiz__file-remove-icon"
+                              name="file-remove"
+                            />
+                          </button>
+                        </div>
+                      </div>
+                      <label class="quiz__file-label">
+                        <input
+                          type="file"
+                          name="file"
+                          accept=".png, .jpg, .jpeg, .pdf"
+                          multiple
+                          class="quiz__file-input"
+                          id="quiz-file"
+                          ref="fileInputRef"
+                          @change="handleFileChange"
+                        >
+                        <div class="quiz__file-circle">
+                          <AppIcon
+                            class="quiz__file-icon"
+                            name="file-plus"
+                          />
+                        </div>
+                        <span class="quiz__file-title">Есть эскизы или примеры? <br>Прикрепите их тут</span>
+                        <span class="quiz__file-desc">До 5 файлов в формате .png, ,jpg, ,pdf <br>Вес каждого до 10МБ</span>
+                        <span
+                          v-if="errors.files"
+                          class="quiz__file-error"
+                        >{{errors.files}}</span>
+                      </label>
                     </div>
-                    <div
-                      ref="construct"
-                      class="quiz__fields-group"
-                    >
-                      <p class="quiz__fields-title">Дополнительный конструктив</p>
-                      <AppControl
-                        type="checkbox"
-                        name="addition"
-                        color="gray"
-                        :items="['+ Барная стойка', '+ Остров']"
-                        class="quiz__control"
-                        @change="handleCheckRadioChange('construct', $event)"
-                      />
-                    </div>
-                    <div class="quiz__actions quiz__actions_l">
+                    <div class="quiz__actions">
                       <AppButton
                         icon="arrow"
-                        color="gray2"
+                        bordered
                         size="small"
                         class="quiz__prev"
                         @click="goToPrevStep"
@@ -198,7 +230,6 @@
                         title="Далее"
                         size="small"
                         class="quiz__next"
-                        :disabled="!completedSizes"
                         @click="goToNextStep"
                       />
                     </div>
@@ -213,26 +244,38 @@
             >
               <div class="container">
                 <div class="quiz__step-header">
-                  <p class="quiz__order">Вопрос 3 из 3</p>
+                  <p class="quiz__order">3 / 3</p>
                 </div>
-                <h2 class="quiz__title">Давайте выберем стиль</h2>
-                <div class="quiz__options quiz__options_wide">
-                  <QuizOption
+                <h2 class="quiz__title">Выберите стиль</h2>
+                <div class="quiz__options">
+                  <label
                     v-for="(option, index) in styleOptions"
                     :key="index"
-                    small
-                    name="style"
-                    :image="option.image"
-                    :value="option.title"
-                    :title="option.title"
                     class="quiz__option"
-                    @change="handleRadioChange('style', $event)"
-                  />
+                  >
+                    <input
+                      type="radio"
+                      name="style"
+                      :value="option.title"
+                      class="quiz__option-input"
+                      @change="handleOptionChange($event, 'style')"
+                    >
+                    <div class="quiz__option-el">
+                      <div class="quiz__option-box">
+                        <img
+                          :src="`/assets/img/${option.image.name}`"
+                          :alt="option.image.alt"
+                          class="quiz__option-img"
+                        >
+                      </div>
+                      <span class="quiz__option-title">{{option.title}}</span>
+                    </div>
+                  </label>
                 </div>
                 <div class="quiz__actions">
                   <AppButton
                     icon="arrow"
-                    color="gray2"
+                    bordered
                     size="small"
                     class="quiz__prev"
                     @click="goToPrevStep"
@@ -247,27 +290,31 @@
                 </div>
               </div>
             </div>
+
             <div
               class="quiz__step"
               :class="{'active': activeStep === 4}"
             >
               <div class="container">
-                <QuizPromo
-                  v-if="$_media.sm"
-                  class="quiz__final-promo"
-                />
-                <h2 class="quiz__title">Контактные данные</h2>
+                <h2 class="quiz__title">Расчёт кухни онлайн</h2>
+                <p class="quiz__step-desc">Актуальными акциями вы сможете воспользоваться в ближайшие 30 дней!</p>
+                <div class="quiz__features">
+                  <div class="quiz__feature">
+                    
+                  </div>
+                </div>
                 <div class="quiz__calc">
-                  <QuizResult
+                  <!-- <QuizResult
                     type="kitchen"
                     :sending="sending"
                     :error="error"
                     gift="посудомоечную машину"
                     class="quiz__result"
-                  />
+                  /> -->
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -277,12 +324,10 @@
 
 <script>
 import AppButton from './base/AppButton.vue'
-import AppControl from './base/AppControl.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
-import QuizOption from './QuizOption.vue'
 import QuizPromo from './QuizPromo.vue'
-import QuizResult from './QuizResult.vue'
+// import QuizResult from './QuizResult.vue'
 import useForms from '../composition/forms'
 
 const planOptions = [
@@ -351,14 +396,14 @@ const sizeImages = [
 ]
 
 const styleOptions = [
-  { image: { name: 'minimal.jpg', alt: 'Минимализм' }, title: 'Минимализм' },
+  { image: { name: 'quiz-minimal.png', alt: 'Минимализм' }, title: 'Минимализм' },
   {
-    image: { name: 'neoclassic.jpg', alt: 'Неоклассика' },
+    image: { name: 'quiz-neoclassic.png', alt: 'Неоклассика' },
     title: 'Неоклассика'
   },
-  { image: { name: 'loft.jpg', alt: 'Лофт' }, title: 'Лофт' },
+  { image: { name: 'quiz-loft.png', alt: 'Лофт' }, title: 'Лофт' },
   {
-    image: { name: 'scandy.jpg', alt: 'Скандинавский' },
+    image: { name: 'quiz-scandy.png', alt: 'Скандинавский' },
     title: 'Скандинавский'
   }
 ]
@@ -367,12 +412,10 @@ export default {
   name: 'Quiz',
   components: {
     AppButton,
-    AppControl,
     AppIcon,
     AppTextField,
-    QuizOption,
     QuizPromo,
-    QuizResult
+    // QuizResult
   },
   setup() {
     const { sending, error, page, handleSubmit } = useForms()
@@ -390,37 +433,28 @@ export default {
       styleOptions: styleOptions,
       activeStep: this.$route.params.open ? 1 : 0,
       completedStep: 0,
-      sizeImage: 'size-I.png',
+      sizeImage: 'quiz-size-straight.png',
       values: {
         plan: '',
         addition: '',
-        sizes: [],
+        sizes: '',
+        files: [],
         construct: [],
         style: '',
         email: ''
+      },
+      errors: {
+        files: ''
       }
     }
   },
   computed: {
-    completedSizes() {
-      for (let size of this.values.sizes) {
-        if (size === '') {
-          return false
-        }
-      }
-
-      return true
-    },
-
     price() {
       const minCoef = 15
       const maxCoef = 20
       const additionPrice = 10000
 
-      const sizeSum = this.values.sizes.reduce(
-        (sum, current) => sum + +current,
-        0
-      )
+      const sizeSum = 10
       const min =
         sizeSum * 10 * minCoef + this.values.construct.length * additionPrice
       const max =
@@ -465,7 +499,10 @@ export default {
 
       if (name === 'plan') {
         this.setSizeImage(event.target.value, this.values.addition)
+        return
       }
+
+      this.goToNextStep()
     },
 
     handleDetailClick(name, value) {
@@ -482,6 +519,70 @@ export default {
       this.sizeImage = sizeImages.find(
         item => item.plan === plan && item.addition === addition
       ).image
+    },
+
+    handleFileChange(event) {
+      this.values.files = []
+      this.errors.files = ''
+
+      const inputFiles = event.target.files
+      const allowedExtensions = ['png', 'jpg', 'jpeg', 'pdf']
+
+      if (inputFiles.length > 5) {
+        event.target.value = ''
+        this.values.files = []
+        this.errors.files = 'Превышено количество файлов'
+        return
+      }
+
+      for (let i = 0; i < inputFiles.length; i++) {
+        const fileName = inputFiles[i].name
+        const fileExtension = fileName.split('.').pop()
+        const fileSize = inputFiles[i].size
+
+        if (!allowedExtensions.includes(fileExtension)) {
+          event.target.value = ''
+          this.values.files = []
+          this.errors.files = 'Неверный формат файла'
+          return
+        }
+
+        if (fileSize > 1024 * 1024 * 10) {
+          event.target.value = ''
+          this.values.files = []
+          this.errors.files = 'Превышен размер файла'
+          return
+        }
+
+        this.values.files.push(fileName)
+      }
+    },
+
+    handleFileRemove(name) {
+      const fileInput = this.$refs.fileInputRef
+
+      if (this.values.files.length === 1) {
+        fileInput.value = ''
+        this.values.files = []
+
+        return
+      }
+
+      const dt = new DataTransfer()
+      const inputFiles = fileInput.files
+      const fileNames = []
+
+      for (let i = 0; i < inputFiles.length; i++) {
+        const file = inputFiles[i]
+
+        if (file.name !== name) {
+          dt.items.add(file)
+          fileNames.push(file.name)
+        }
+      }
+
+      fileInput.files = dt.files
+      this.values.files = fileNames
     },
 
     handleRadioChange(name, event) {
@@ -799,15 +900,10 @@ export default {
   &__fields {
     margin-top: 20px;
 
-    &-group {
-      & + & {
-        margin-top: 24px;
-      }
-    }
-
     &-title {
       font-weight: 600;
-      font-size: 13px;
+      font-size: 14px;
+      line-height: 1.2;
     }
   }
 
@@ -874,6 +970,121 @@ export default {
       margin: -30px -10px -20px 10px;
       width: 152px;
     }
+  }
+
+  &__file {
+    margin-top: 30px;
+
+    &-list {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-bottom: 16px;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        padding-top: 4px;
+        border-radius: 100px;
+        flex-shrink: 0;
+        background-color: #04b991;
+      }
+
+      &-icon {
+        width: 20px;
+        height: 15px;
+      }
+
+      &-name {
+        margin-left: 8px;
+        font-size: 14px;
+        line-height: 1.2;
+      }
+    }
+
+    &-remove {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+      margin-left: 8px;
+      flex-shrink: 0;
+
+      &-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &-label {
+      display: inline-block;
+      position: relative;
+      padding-left: 60px;
+    }
+
+    &-input {
+      display: none;
+    }
+
+    &-circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 48px;
+      height: 48px;
+      padding-top: 4px;
+      border-radius: 100px;
+      background-color: #f3f4f9;
+    }
+
+    &-icon {
+      width: 21px;
+      height: 16px;
+    }
+
+    &-title {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    &-desc {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    &-error {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.2;
+      color: #ff0000;
+    }
+  }
+
+  &__step-desc {
+    font-size: 14px;
+    line-height: 1.7;
   }
 
   @include media(md) {
