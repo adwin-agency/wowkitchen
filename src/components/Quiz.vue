@@ -39,18 +39,71 @@
       >
       <input
         type="hidden"
-        name="price"
-        :value="price"
-      >
-      <input
-        type="hidden"
         name="gift"
         value="Посудомоечная машина"
       >
       <div class="quiz__screen">
-        <div class="quiz__side">
 
+        <div
+          v-if="!$_media.sm"
+          class="quiz__side"
+        >
+          <div class="container">
+            <div class="quiz__side-inner">
+              <p
+                v-if="activeStep < 4"
+                class="quiz__order"
+              >
+                {{activeStep}} / 3
+              </p>
+              <h2 class="quiz__side-title">{{stepHeading}}</h2>
+              <p
+                v-if="activeStep === 4"
+                class="quiz__side-desc"
+              >
+                Актуальными акциями вы сможете воспользоваться в ближайшие 30 дней!
+              </p>
+              <div class="quiz__completed">
+                <div
+                  v-if="activeStep === 2 || activeStep === 3"
+                  class="quiz__completed-item"
+                >
+                  <AppIcon
+                    class="quiz__completed-icon"
+                    name="circle-check"
+                  />
+                  <p class="quiz__completed-title">Планировка:</p>
+                  <p class="quiz__completed-desc">{{sizeDesc}}</p>
+                </div>
+                <div
+                  v-if="activeStep === 3"
+                  class="quiz__completed-item"
+                >
+                  <AppIcon
+                    class="quiz__completed-icon"
+                    name="circle-check"
+                  />
+                  <p class="quiz__completed-title">Габариты и конструктив</p>
+                </div>
+              </div>
+              <div
+                v-if="activeStep !== 4"
+                class="quiz__small-promo"
+              >
+                <div class="quiz__small-promo-main">
+                  <p class="quiz__small-promo-title">Посудомоечная машина — в&nbsp;подарок!</p>
+                  <p class="quiz__small-promo-desc">к каждому гарнитуру до&nbsp;{{promoDate}}</p>
+                </div>
+                <img
+                  src="/assets/img/quiz-wash-2.png"
+                  alt=""
+                  class="quiz__small-promo-img"
+                >
+              </div>
+            </div>
+          </div>
         </div>
+
         <div class="quiz__steps">
           <div
             class="quiz__steps-wrapper"
@@ -62,7 +115,10 @@
               :class="{'active': activeStep === 1}"
             >
               <div class="container">
-                <div class="quiz__step-side">
+                <div
+                  v-if="$_media.sm"
+                  class="quiz__step-side"
+                >
                   <div class="quiz__small-promo">
                     <div class="quiz__small-promo-main">
                       <p class="quiz__small-promo-title">Посудомоечная машина — в&nbsp;подарок!</p>
@@ -75,10 +131,18 @@
                     >
                   </div>
                 </div>
-                <div class="quiz__step-header">
+                <div
+                  v-if="$_media.sm"
+                  class="quiz__step-header"
+                >
                   <p class="quiz__order">1 / 3</p>
                 </div>
-                <h2 class="quiz__title">Выберите планировку</h2>
+                <h2
+                  v-if="$_media.sm"
+                  class="quiz__title"
+                >
+                  Выберите планировку
+                </h2>
                 <div class="quiz__options">
                   <input
                     type="hidden"
@@ -145,10 +209,18 @@
               :class="{'active': activeStep === 2}"
             >
               <div class="container">
-                <div class="quiz__step-header">
+                <div
+                  v-if="$_media.sm"
+                  class="quiz__step-header"
+                >
                   <p class="quiz__order">2 / 3</p>
                 </div>
-                <h2 class="quiz__title">Укажите предполагаемые габариты</h2>
+                <h2
+                  v-if="$_media.sm"
+                  class="quiz__title"
+                >
+                  Укажите предполагаемые габариты
+                </h2>
                 <div class="quiz__size">
                   <div class="quiz__area">
                     <img
@@ -156,13 +228,13 @@
                       alt
                     >
                   </div>
-                  <div class="quiz__fields">
-                    <p class="quiz__fields-title">Опишите в свободной форме предполагаемые габариты и конструктив:</p>
+                  <div class="quiz__size-fields">
+                    <p class="quiz__size-title">Опишите в свободной форме предполагаемые габариты и конструктив:</p>
                     <AppTextField
                       textarea
                       name="sizes"
                       placeholder="Укажите примерную длину гарнитура по стенам, например, угловая кухня 1,5м + 2,5м с островом со встроенной мойкой."
-                      class="quiz__field"
+                      class="quiz__size-field"
                     />
                     <div class="quiz__file">
                       <div
@@ -243,10 +315,18 @@
               :class="{'active': activeStep === 3}"
             >
               <div class="container">
-                <div class="quiz__step-header">
+                <div
+                  v-if="$_media.sm"
+                  class="quiz__step-header"
+                >
                   <p class="quiz__order">3 / 3</p>
                 </div>
-                <h2 class="quiz__title">Выберите стиль</h2>
+                <h2
+                  v-if="$_media.sm"
+                  class="quiz__title"
+                >
+                  Выберите стиль
+                </h2>
                 <div class="quiz__options">
                   <label
                     v-for="(option, index) in styleOptions"
@@ -296,21 +376,112 @@
               :class="{'active': activeStep === 4}"
             >
               <div class="container">
-                <h2 class="quiz__title">Расчёт кухни онлайн</h2>
-                <p class="quiz__step-desc">Актуальными акциями вы сможете воспользоваться в ближайшие 30 дней!</p>
-                <div class="quiz__features">
-                  <div class="quiz__feature">
-                    
+                <h2
+                  v-if="$_media.sm"
+                  class="quiz__title"
+                >
+                  Расчёт кухни онлайн
+                </h2>
+                <p
+                  v-if="$_media.sm"
+                  class="quiz__step-desc"
+                >
+                  Актуальными акциями вы сможете воспользоваться в ближайшие 30 дней!
+                </p>
+                <div class="quiz__result">
+                  <div class="quiz__features">
+                    <div class="quiz__feature">
+                      <p class="quiz__feature-title">В подарок <br><span class="quiz__feature-date">до&nbsp;{{promoDate}}</span></p>
+                      <img
+                        src="/assets/img/quiz-wash-2.png"
+                        alt=""
+                        class="quiz__feature-img"
+                      >
+                    </div>
+                    <div class="quiz__feature">
+                      <p class="quiz__feature-title">Мы закрепим скидку за вашим номером</p>
+                      <p class="quiz__feature-discount">-50%</p>
+                    </div>
+                    <div class="quiz__feature">
+                      <AppIcon
+                        class="quiz__feature-icon"
+                        name="clock2"
+                      />
+                      <p class="quiz__feature-title">Мы уже рассчитываем ваш проект и перезвоним в течение <span class="quiz__feature-time">5&nbsp;минут</span></p>
+                    </div>
                   </div>
-                </div>
-                <div class="quiz__calc">
-                  <!-- <QuizResult
-                    type="kitchen"
-                    :sending="sending"
-                    :error="error"
-                    gift="посудомоечную машину"
-                    class="quiz__result"
-                  /> -->
+                  <div class="quiz__contact">
+                    <label class="quiz__contact-item">
+                      <input
+                        class="quiz__contact-input"
+                        type="radio"
+                        name="contact"
+                        value="По телефону"
+                        checked
+                      >
+                      <span class="quiz__contact-box">
+                        <AppIcon
+                          class="quiz__contact-icon"
+                          name="phone3"
+                        />
+                        По телефону
+                      </span>
+                    </label>
+                    <label class="quiz__contact-item">
+                      <input
+                        class="quiz__contact-input"
+                        type="radio"
+                        name="contact"
+                        value="В WhatsApp"
+                      >
+                      <span class="quiz__contact-box">
+                        <AppIcon
+                          class="quiz__contact-icon"
+                          name="whatsapp"
+                        />
+                        В WhatsApp
+                      </span>
+                    </label>
+                  </div>
+                  <div class="quiz__fields">
+                    <AppTextField
+                      label="Имя"
+                      placeholder="Как к вам обращаться"
+                      type="text"
+                      name="name"
+                      required
+                      class="quiz__field"
+                    />
+                    <AppTextField
+                      label="Контактный Телефон"
+                      placeholder="+7(___)____-__-__"
+                      type="tel"
+                      name="phone"
+                      required
+                      class="quiz__field"
+                    />
+                  </div>
+                  <div class="quiz__actions">
+                    <AppButton
+                      icon="arrow"
+                      bordered
+                      size="small"
+                      class="quiz__prev"
+                      @click="goToPrevStep"
+                    />
+                    <AppButton
+                      type="submit"
+                      :title="sending ? 'Отправляем...' : 'Отправить'"
+                      size="small"
+                      class="quiz__next"
+                    />
+                    <p
+                      v-if="error"
+                      class="quiz__error"
+                    >
+                      Ошибка отправки. Попробуйте еще раз
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -327,7 +498,6 @@ import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 import AppTextField from './base/AppTextField.vue'
 import QuizPromo from './QuizPromo.vue'
-// import QuizResult from './QuizResult.vue'
 import useForms from '../composition/forms'
 
 const planOptions = [
@@ -347,56 +517,68 @@ const planOptions = [
 
 const additionDetails = ['Барная стойка', 'Остров']
 
-const sizeImages = [
+const sizeData = [
   {
     plan: 'Прямая планировка',
     addition: '',
-    image: 'quiz-size-straight.png'
+    image: 'quiz-size-straight.png',
+    desc: 'прямая'
   },
   {
     plan: 'Прямая планировка',
     addition: 'Барная стойка',
-    image: 'quiz-size-straight-bar.png'
+    image: 'quiz-size-straight-bar.png',
+    desc: 'прямая с барной стойкой'
   },
   {
     plan: 'Прямая планировка',
     addition: 'Остров',
-    image: 'quiz-size-straight-island.png'
+    image: 'quiz-size-straight-island.png',
+    desc: 'прямая с островом'
   },
   {
     plan: 'Угловая планировка',
     addition: '',
-    image: 'quiz-size-corner.png'
+    image: 'quiz-size-corner.png',
+    desc: 'угловая'
   },
   {
     plan: 'Угловая планировка',
     addition: 'Барная стойка',
-    image: 'quiz-size-corner-bar.png'
+    image: 'quiz-size-corner-bar.png',
+    desc: 'угловая с барной стойкой'
   },
   {
     plan: 'Угловая планировка',
     addition: 'Остров',
-    image: 'quiz-size-corner-island.png'
+    image: 'quiz-size-corner-island.png',
+    desc: 'угловая с островом'
   },
   {
     plan: 'П-образная планировка',
     addition: '',
-    image: 'quiz-size-shaped.png'
+    image: 'quiz-size-shaped.png',
+    desc: 'п-образная'
   },
   {
     plan: 'П-образная планировка',
     addition: 'Барная стойка',
-    image: 'quiz-size-shaped-bar.png'
+    image: 'quiz-size-shaped-bar.png',
+    desc: 'п-образная с барной стойкой'
   },
   {
     plan: 'П-образная планировка',
     addition: 'Остров',
-    image: 'quiz-size-shaped-island.png'
+    image: 'quiz-size-shaped-island.png',
+    desc: 'п-образная с островом'
   }
 ]
 
 const styleOptions = [
-  { image: { name: 'quiz-minimal.png', alt: 'Минимализм' }, title: 'Минимализм' },
+  {
+    image: { name: 'quiz-minimal.png', alt: 'Минимализм' },
+    title: 'Минимализм'
+  },
   {
     image: { name: 'quiz-neoclassic.png', alt: 'Неоклассика' },
     title: 'Неоклассика'
@@ -414,8 +596,7 @@ export default {
     AppButton,
     AppIcon,
     AppTextField,
-    QuizPromo,
-    // QuizResult
+    QuizPromo
   },
   setup() {
     const { sending, error, page, handleSubmit } = useForms()
@@ -434,14 +615,12 @@ export default {
       activeStep: this.$route.params.open ? 1 : 0,
       completedStep: 0,
       sizeImage: 'quiz-size-straight.png',
+      sizeDesc: 'прямая',
       values: {
         plan: '',
         addition: '',
-        sizes: '',
         files: [],
-        construct: [],
-        style: '',
-        email: ''
+        style: ''
       },
       errors: {
         files: ''
@@ -449,23 +628,14 @@ export default {
     }
   },
   computed: {
-    price() {
-      const minCoef = 15
-      const maxCoef = 20
-      const additionPrice = 10000
-
-      const sizeSum = 10
-      const min =
-        sizeSum * 10 * minCoef + this.values.construct.length * additionPrice
-      const max =
-        sizeSum * 10 * maxCoef + this.values.construct.length * additionPrice
-
-      return (
-        min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') +
-        ' ₽ - ' +
-        max.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') +
-        ' ₽'
-      )
+    stepHeading() {
+      return this.activeStep === 1
+        ? 'Выберите планировку'
+        : this.activeStep === 2
+        ? 'Укажите предполагаемые габариты'
+        : this.activeStep === 3
+        ? 'Выберите стиль'
+        : 'Расчет кухни онлайн'
     },
 
     promoDate() {
@@ -476,6 +646,15 @@ export default {
     success() {
       this.activeStep = 0
       this.completedStep = 0
+      this.values = {
+        plan: '',
+        addition: '',
+        files: [],
+        style: ''
+      }
+      this.errors = {
+        files: ''
+      }
     }
   },
   created() {
@@ -498,7 +677,7 @@ export default {
       this.values[name] = event.target.value
 
       if (name === 'plan') {
-        this.setSizeImage(event.target.value, this.values.addition)
+        this.setSizeData(event.target.value, this.values.addition)
         return
       }
 
@@ -511,14 +690,16 @@ export default {
       this.values[name] = newValue
 
       if (name === 'addition') {
-        this.setSizeImage(this.values.plan, newValue)
+        this.setSizeData(this.values.plan, newValue)
       }
     },
 
-    setSizeImage(plan, addition) {
-      this.sizeImage = sizeImages.find(
+    setSizeData(plan, addition) {
+      const currentSize = sizeData.find(
         item => item.plan === plan && item.addition === addition
-      ).image
+      )
+      this.sizeImage = currentSize.image
+      this.sizeDesc = currentSize.desc
     },
 
     handleFileChange(event) {
@@ -585,63 +766,6 @@ export default {
       this.values.files = fileNames
     },
 
-    handleRadioChange(name, event) {
-      if (name === 'plan') {
-        const sizeData = {
-          'Прямая планировка': { arr: [''], img: 'size-I.png' },
-          'Угловая планировка': { arr: ['', ''], img: 'size-L.png' },
-          'П-образная планировка': { arr: ['', '', ''], img: 'size-U.png' }
-        }
-
-        this.values.sizes = sizeData[event.target.value].arr
-        this.sizeImage = sizeData[event.target.value].img
-      }
-
-      this.values[name] = event.target.value
-      this.goToNextStep()
-    },
-
-    handleRadioClick(name, value, event) {
-      if (this.values[name] === value && event.target.tagName === 'INPUT') {
-        this.goToNextStep()
-      }
-    },
-
-    handleCheckRadioChange(name, event) {
-      if (event.target.checked) {
-        this.$refs[name].querySelectorAll('input').forEach(input => {
-          if (input !== event.target) {
-            input.checked = false
-          }
-        })
-
-        this.values[name] = [event.target.value]
-      } else {
-        this.values[name] = []
-      }
-    },
-
-    handleCheckboxChange(name, event) {
-      if (event.target.checked) {
-        this.values[name].push(event.target.value)
-      } else {
-        this.values[name] = this.values[name].filter(
-          item => item !== event.target.value
-        )
-      }
-    },
-
-    handleSizeInput(index, event) {
-      event.preventDefault()
-      const value = event.target.value
-
-      if (/^\d*$/.test(value)) {
-        this.values.sizes[index] = value
-      } else {
-        event.target.value = this.values.sizes[index]
-      }
-    },
-
     scrollToTop() {
       if (this.$_media.sm) {
         setTimeout(() => window.scrollTo(0, 0), 250)
@@ -661,21 +785,6 @@ export default {
       }
 
       this.activeStep++
-      this.scrollToTop()
-    },
-
-    resetQuiz() {
-      this.$refs.quizform.reset()
-      this.activeStep = 1
-      this.completedStep = 0
-      this.values = {
-        plan: '',
-        sizes: [],
-        construct: [],
-        style: '',
-        elements: [],
-        email: ''
-      }
       this.scrollToTop()
     }
   }
@@ -754,6 +863,7 @@ export default {
   &__option {
     display: block;
     margin-bottom: 15px;
+    cursor: pointer;
 
     &:last-child {
       margin-bottom: 0;
@@ -873,6 +983,7 @@ export default {
         top: 50%;
         width: 24px;
         height: 24px;
+        fill: currentColor;
         transform: translateY(-50%);
         transition: opacity 0.3s ease;
 
@@ -897,18 +1008,30 @@ export default {
     }
   }
 
-  &__fields {
+  &__size-fields {
     margin-top: 20px;
+  }
 
-    &-title {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 1.2;
-    }
+  &__size-title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  &__size-field {
+    margin-top: 14px;
+  }
+
+  &__fields {
+    margin-top: 25px;
   }
 
   &__field {
-    margin-top: 14px;
+    margin-bottom: 22px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__control {
@@ -917,6 +1040,7 @@ export default {
 
   &__actions {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 36px;
   }
 
@@ -932,9 +1056,16 @@ export default {
     flex: 1;
   }
 
+  &__error {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    color: #ff0000;
+  }
+
   &__result {
-    position: relative;
-    margin: 25px (-$container-padding) 0;
+    margin-top: 25px;
   }
 
   &__step-side {
@@ -1034,6 +1165,7 @@ export default {
       display: inline-block;
       position: relative;
       padding-left: 60px;
+      cursor: pointer;
     }
 
     &-input {
@@ -1087,6 +1219,121 @@ export default {
     line-height: 1.7;
   }
 
+  &__features {
+    margin-top: 18px;
+  }
+
+  &__feature {
+    position: relative;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    min-height: 120px;
+    padding: 20px 18px;
+    background-image: linear-gradient(
+      149.86deg,
+      #fff27b 34.51%,
+      #f8e21e 87.26%
+    );
+    overflow: hidden;
+
+    &-title {
+      padding-right: 50px;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    &-date {
+      display: inline-block;
+      margin-left: -8px;
+      border: 1px solid #04b991;
+      border-radius: 20px;
+      padding: 0 8px;
+    }
+
+    &-img {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      width: 196px;
+    }
+
+    &-discount {
+      margin-top: -6px;
+      margin-bottom: -10px;
+      text-align: right;
+      font-weight: 500;
+      font-size: 44px;
+      line-height: 1.2;
+    }
+
+    &-icon {
+      margin-left: auto;
+      margin-right: 10px;
+      margin-bottom: -30px;
+      width: 30px;
+      height: 30px;
+    }
+
+    &-time {
+      border-radius: 100px;
+      padding: 0px 5px;
+      background-color: #fff;
+    }
+  }
+
+  &__contact {
+    display: flex;
+    gap: 5px;
+    margin-top: 20px;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #f6f7f8;
+
+    &-item {
+      cursor: pointer;
+    }
+
+    &-input {
+      display: none;
+
+      &:checked {
+        & ~ #{$b}__contact-box {
+          color: #04b991;
+          background-color: #ffffff;
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+        }
+      }
+    }
+
+    &-box {
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      padding: 10px 14px;
+      color: #c5c7c9;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 1.2;
+      transition: color 0.3s ease, background-color .3s ease, box-shadow .3s ease;
+    }
+
+    &-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      fill: currentColor;
+    }
+  }
+
+  @include media(xxs) {
+    &__contact {
+      &-box {
+        font-size: 16px;
+      }
+    }
+  }
+
   @include media(md) {
     &__main {
       position: relative;
@@ -1132,7 +1379,7 @@ export default {
     }
 
     &__steps {
-      width: calc(100% - 320px);
+      width: calc(50% + 130px);
     }
 
     &__step {
@@ -1141,15 +1388,21 @@ export default {
       pointer-events: all;
 
       .container {
-        margin-right: 0;
-        padding: 0 50px;
-        max-width: calc(50% + 360px);
+        margin-left: 0;
+        padding-left: 20px;
+        max-width: 610px;
       }
     }
 
-    &__title {
-      margin-top: 0;
-      margin-bottom: 40px;
+    &__side-title {
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    &__side-desc {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.7;
     }
 
     &__options {
@@ -1162,29 +1415,19 @@ export default {
       margin-bottom: 0;
     }
 
-    &__size {
-      display: flex;
-    }
-
     &__area {
       margin: 0;
       width: 58%;
     }
 
     &__fields {
-      flex: 1;
-      margin-top: 0;
-      margin-left: 30px;
+      display: flex;
+      justify-content: space-between;
+    }
 
-      &-group {
-        & + & {
-          margin-top: 38px;
-        }
-
-        & + #{$b}__actions {
-          margin-top: 20px;
-        }
-      }
+    &__field {
+      width: calc(50% - 10px);
+      margin-bottom: 0;
     }
 
     &__result {
@@ -1208,11 +1451,66 @@ export default {
     &__side {
       display: flex;
       flex-direction: column;
-      width: 320px;
-      padding: 46px 0 30px;
-      background-image: url('~@/assets/img/quiz-side-2.jpg');
-      background-size: cover;
-      background-position: center;
+      width: calc(50% - 130px);
+      padding: 80px 0 30px;
+      background: #f3f4f9;
+
+      .container {
+        margin-right: 0;
+        max-width: 350px;
+        padding-right: 20px;
+        height: 100%;
+      }
+
+      &-inner {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+    }
+
+    &__small-promo {
+      margin-top: auto;
+    }
+
+    &__completed {
+      margin-top: 36px;
+
+      &-item {
+        position: relative;
+        margin-bottom: 36px;
+        padding-left: 20px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      &-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 15px;
+        height: 15px;
+        fill: #aca8c3;
+      }
+
+      &-title {
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      &-desc {
+        font-size: 14px;
+      }
+    }
+
+    &__features {
+      margin-top: 0;
+    }
+
+    &__error {
+      text-align: right;
     }
   }
 
@@ -1246,15 +1544,20 @@ export default {
       margin-top: 42px;
     }
 
+    &__side {
+      width: calc(50% - 290px);
+    }
+
     &__steps {
-      width: calc(100% - 424px);
+      width: calc(50% + 290px);
     }
 
     &__step {
       padding: 54px 0;
 
       .container {
-        max-width: calc(50% + 470px);
+        padding-left: 30px;
+        max-width: 930px;
       }
     }
 
@@ -1262,7 +1565,7 @@ export default {
       font-size: 13px;
     }
 
-    &__title {
+    &__side-title {
       margin-top: 3px;
       margin-bottom: 32px;
       font-size: 24px;
@@ -1271,7 +1574,6 @@ export default {
     &__options {
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 30px;
-      margin-right: 62px;
 
       &_wide {
         grid-template-columns: repeat(4, 1fr);
@@ -1284,20 +1586,26 @@ export default {
       }
     }
 
+    &__size {
+      display: flex;
+
+      &-fields {
+        flex: 1;
+        margin-top: 0;
+        margin-left: 30px;
+      }
+    }
+
     &__area {
       width: 53.5%;
     }
 
-    &__fields {
-      margin-left: 52px;
-
-      &-title {
-        margin-bottom: 18px;
-      }
+    &__contact {
+      margin-top: 30px;
     }
 
-    &__field {
-      margin-top: 14px;
+    &__fields {
+      margin-top: 20px;
     }
 
     &__actions {
@@ -1305,12 +1613,38 @@ export default {
     }
 
     &__result {
-      max-width: 1016px;
+      max-width: 740px;
     }
 
-    &__side {
-      justify-content: flex-start;
-      width: 424px;
+    &__features {
+      display: flex;
+      gap: 10px;
+    }
+
+    &__feature {
+      margin-bottom: 0;
+      width: 25.5%;
+      min-height: 178px;
+      padding: 22px;
+
+      &-title {
+        font-size: 15px;
+        padding-right: 0;
+      }
+
+      &-img {
+        top: auto;
+        bottom: -30px;
+        width: 83%;
+      }
+
+      &-discount {
+        margin-top: 36px;
+      }
+
+      &-icon {
+        margin-bottom: 20px;
+      }
     }
   }
 
@@ -1337,16 +1671,25 @@ export default {
       margin-top: 65px;
     }
 
+    &__side {
+      width: calc(50% - 440px);
+
+      .container {
+        max-width: 360px;
+        padding-right: 30px;
+      }
+    }
+
     &__steps {
-      width: calc(100% - 465px);
+      width: calc(50% + 440px);
     }
 
     &__step {
-      padding: 96px 0 110px;
+      padding: 80px 0;
 
       .container {
-        padding-right: 215px;
-        max-width: calc(50% + 560px);
+        padding-left: 40px;
+        max-width: 1240px;
       }
     }
 
@@ -1361,8 +1704,7 @@ export default {
     }
 
     &__options {
-      margin-right: 108px;
-      grid-gap: 40px;
+      grid-gap: 30px 40px;
 
       &_wide {
         margin-right: 0;
@@ -1375,36 +1717,31 @@ export default {
     }
 
     &__area {
-      width: 50%;
+      width: 48%;
+    }
+
+    &__size-fields {
+      margin-left: 40px;
+    }
+
+    &__contact {
+      margin-top: 36px;
     }
 
     &__fields {
-      margin-left: 68px;
+      margin-top: 24px;
+    }
 
+    &__file {
       &-title {
-        margin-bottom: 28px;
+        br {
+          display: none;
+        }
       }
-
-      &-group + #{$b}__actions {
-        margin-top: 40px;
-      }
-    }
-
-    &__field {
-      margin-top: 28px;
-    }
-
-    &__actions {
-      margin-top: 68px;
     }
 
     &__next {
       width: 230px;
-    }
-
-    &__side {
-      width: 465px;
-      padding: 124px 0;
     }
   }
 }
