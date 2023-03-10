@@ -417,6 +417,7 @@
                         type="radio"
                         name="contact"
                         value="По телефону"
+                        required
                         checked
                       >
                       <span class="quiz__contact-box">
@@ -433,6 +434,7 @@
                         type="radio"
                         name="contact"
                         value="В WhatsApp"
+                        required
                       >
                       <span class="quiz__contact-box">
                         <AppIcon
@@ -599,9 +601,10 @@ export default {
     QuizPromo
   },
   setup() {
-    const { sending, error, page, handleSubmit } = useForms()
+    const { sending, success, error, page, handleSubmit } = useForms()
     return {
       sending,
+      success,
       error,
       page,
       handleSubmit
