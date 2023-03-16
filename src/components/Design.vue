@@ -73,7 +73,7 @@
         <div class="design__features">
           <p class="design__slogan">Новая кухня: <br><span>с нами - легко!</span></p>
           <p class="design__feature">Замер и демонстрация <br>образцов на месте</p>
-          <p class="design__feature">3д-проект гарнитура <br>в интерьере</p>
+          <p class="design__feature">3D-проект гарнитура <br>в интерьере</p>
           <p class="design__feature">Функциональные <br>решения и планировки</p>
           <p class="design__feature">Доставка и сборка в <br>удобный вам день</p>
         </div>
