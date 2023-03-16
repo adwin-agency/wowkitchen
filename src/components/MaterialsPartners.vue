@@ -9,7 +9,6 @@
         <img src="@/assets/img/partners-lex.svg" alt="Lex" class="materials-partners__img">
         <img src="@/assets/img/partners-candy.svg" alt="Candy" class="materials-partners__img">
         <img src="@/assets/img/partners-boyard.svg" alt="Boyard" class="materials-partners__img">
-        <img src="@/assets/img/partners-blum.svg" alt="Blum" class="materials-partners__img">
       </div>
     </div>
   </div>

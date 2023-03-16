@@ -22,11 +22,6 @@
                 class="equipment__partner"
               >
               <img
-                src="@/assets/img/partners-blum.svg"
-                alt="Blum"
-                class="equipment__partner"
-              >
-              <img
                 src="@/assets/img/partners-boyard.svg"
                 alt="Boyard"
                 class="equipment__partner"
@@ -110,7 +105,7 @@ const cards = [
     image: { mobile: 'eq-facade.jpg', desktop: 'eq-facade-v.jpg' },
     title: 'Фасады',
     company: 'company-egger.png',
-    desc: 'Прочные и износостойкие из плит МДФ с ПВХ-плёнкой или пластиком от компании EGGER. Обладают повышенными показателями влагостойкости.'
+    desc: 'Прочные и износостойкие из плит МДФ с ПВХ-плёнкой от компании EGGER. Обладают повышенными показателями влагостойкости.'
   },
   {
     features: [
@@ -119,7 +114,7 @@ const cards = [
     ],
     image: { mobile: 'eq-furniture.jpg', desktop: 'eq-furniture-v.jpg' },
     title: 'Фурнитура',
-    desc: 'от лидеров отечественного и мирового рынков: Blum, Hettich, Boyard'
+    desc: 'от лидеров отечественного и мирового рынков: Hettich, Boyard'
   },
   {
     features: [

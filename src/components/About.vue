@@ -92,11 +92,6 @@
             alt="Boyard"
             class="about__partner"
           >
-          <img
-            src="@/assets/img/partners-blum.svg"
-            alt="Blum"
-            class="about__partner"
-          >
         </div>
       </div>
     </div>

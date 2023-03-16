@@ -23,13 +23,6 @@
           alt="Boyard"
           class="material-card__partner"
         >
-        <img
-          v-if="prop.partner === 'blum'"
-          src="@/assets/img/logo-blum-m.png"
-          srcset="@/assets/img/logo-blum-m.png, @/assets/img/logo-blum-m@2x.png 2x"
-          alt="Blum"
-          class="material-card__partner"
-        >
         <p
           v-if="prop.title"
           class="material-card__prop-title"
