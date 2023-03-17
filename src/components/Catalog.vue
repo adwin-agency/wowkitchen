@@ -33,6 +33,7 @@
           <button
             type="button"
             class="catalog__filters-btn"
+            :class="{'up': !sortOptions}"
             @click="openFilters"
           >
             <span class="catalog__filters-icon">
@@ -404,6 +405,10 @@ export default {
       &.is-active {
         transform: translateY($header-bar-height);
       }
+    }
+
+    &.up {
+      margin-top: -70px;
     }
   }
 
