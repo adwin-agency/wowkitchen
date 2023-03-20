@@ -136,7 +136,7 @@ export default {
 
     showQuizModal() {
       setTimeout(() => {
-        if (this.scrollLock) {
+        if (this.scrollLock || this.$route.name === 'quiz') {
           this.showQuizModal()
         } else {
           this.$store.commit('setModal', 'quiz')
