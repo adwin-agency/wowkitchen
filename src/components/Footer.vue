@@ -240,8 +240,8 @@ const menu = [
       { title: 'Вся техника', route: 'technics' },
       { title: 'Варочные панели', route: 'technics', query: { category: 'varochnye-paneli' } },
       { title: 'Духовые шкафы', route: 'technics', query: { category: 'dukhovye-shkafy' } },
-      { title: 'Холодильники', route: 'technics', query: { category: 'kholodilniki' } },
-      { title: 'Посудомоечные машины', route: 'technics', query: { category: 'posudomoechnye-mashiny' } },      
+      // { title: 'Холодильники', route: 'technics', query: { category: 'kholodilniki' } },
+      // { title: 'Посудомоечные машины', route: 'technics', query: { category: 'posudomoechnye-mashiny' } },      
       { title: 'Вытяжки', route: 'technics', query: { category: 'vytyazhki' } }
     ]
   },

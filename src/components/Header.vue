@@ -405,16 +405,16 @@ const technicsMenu = {
           query: { category: 'dukhovye-shkafy' },
           title: 'Духовые шкафы'
         },
-        {
-          path: 'technics',
-          query: { category: 'kholodilniki' },
-          title: 'Холодильники'
-        },
-        {
-          path: 'technics',
-          query: { category: 'posudomoechnye-mashiny' },
-          title: 'Посудомоечные машины'
-        },
+        // {
+        //   path: 'technics',
+        //   query: { category: 'kholodilniki' },
+        //   title: 'Холодильники'
+        // },
+        // {
+        //   path: 'technics',
+        //   query: { category: 'posudomoechnye-mashiny' },
+        //   title: 'Посудомоечные машины'
+        // },
         { path: 'technics', query: { category: 'vytyazhki' }, title: 'Вытяжки' }
       ]
     }
