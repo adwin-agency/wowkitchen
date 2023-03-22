@@ -416,7 +416,7 @@
                         class="quiz__contact-input"
                         type="radio"
                         name="contact"
-                        value="По телефону"
+                        value="phone"
                         required
                         checked
                       >
@@ -433,7 +433,7 @@
                         class="quiz__contact-input"
                         type="radio"
                         name="contact"
-                        value="В WhatsApp"
+                        value="whatsapp"
                         required
                       >
                       <span class="quiz__contact-box">
