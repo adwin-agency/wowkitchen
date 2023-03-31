@@ -42,11 +42,13 @@ export default {
   async created() {
     this.details = await api.loadDetails(this.$route)
     this.setBreadCrumbs()
+    this.tmrPush()
   },
   async beforeRouteUpdate(to) {
     this.details = null
     this.details = await api.loadDetails(to)
     this.setBreadCrumbs()
+    this.tmrPush()
   },
   methods: {
     setBreadCrumbs() {
@@ -54,6 +56,11 @@ export default {
       const crumbs = [{ path: '/wardrobes', title: 'Шкафы-купе' }, { path: '/wardrobes?category=' + info.category, title: info.category_rus }]
 
       this.$store.commit('setBreadCrumbs', crumbs)
+    },
+    tmrPush() {
+      const _tmr = window._tmr || (window._tmr = [])
+
+      _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'vk_ecom_product'});
     }
   }
 }

@@ -423,6 +423,12 @@ export default {
         this.error = false
       }
 
+      if (newModal === 'calc') {
+        const _tmr = window._tmr || (window._tmr = [])
+
+        _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'vk_ecom_cart'})
+      }
+
       if (newModal === 'calc' && this.productData.product === 'kitchen') {
         const { id, name, category } = this.productData
 

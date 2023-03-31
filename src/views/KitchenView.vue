@@ -89,6 +89,8 @@ export default {
         list: '2',
         totalvalue: this.details.info.price
       })
+
+      _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'vk_ecom_product'});
     },
     ecommercePush() {
       const { id, name, category_rus } = this.details.info

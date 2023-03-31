@@ -95,6 +95,13 @@ const api = {
       window.yaCounter34624840 && window.yaCounter34624840.reachGoal('lead')
     }
 
+    if (formType === 'calc' || formType === 'calc_wardrobe') {
+      const _tmr = window._tmr || (window._tmr = [])
+
+      _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'vk_ecom_purchase'})
+      _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'lead'})
+    }
+
     window.dataLayer = window.dataLayer || []
 
     if (formType !== 'guarantee' && formType !== 'payment' && formType !== 'review') {
