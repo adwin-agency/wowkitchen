@@ -40,7 +40,7 @@
       />
     </div>
     <div
-      v-if="shopId"
+      v-if="shopId && selectedCityCode !== 'spb'"
       class="pay-form__fields"
     >
       <AppTextField
