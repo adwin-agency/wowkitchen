@@ -123,8 +123,8 @@ export default {
         return
       }
 
-      const { name, id, category_rus } = this.info
-      this.$store.commit('setProductData', { name, id, category: 'Кухни/' + category_rus, product: 'kitchen' })
+      const { name, id, category_rus, price } = this.info
+      this.$store.commit('setProductData', { name, id, category: `Кухни/${category_rus}`, price, product: 'kitchen' })
     }
   }
 }

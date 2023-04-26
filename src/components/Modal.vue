@@ -424,30 +424,31 @@ export default {
       }
 
       if (newModal === 'calc') {
-        const _tmr = window._tmr || (window._tmr = [])
+        // const _tmr = window._tmr || (window._tmr = [])
 
-        _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'vk_ecom_cart'})
+        // _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'vk_ecom_cart'})
       }
 
       if (newModal === 'calc' && this.productData.product === 'kitchen') {
-        const { id, name, category } = this.productData
+        const { id, name, category, price } = this.productData
 
-        if (!id || !name || !category) return
+        if (!id || !name || !category || !price) return
 
         this.ecommerce = {
           id,
           name,
-          category
+          category,
+          price
         }
 
-        api.ecommerce('detail', id, name, category)
-        api.ecommerce('add', id, name, category)
+        api.ecommerce('detail', id, name, category, price)
+        api.ecommerce('add', id, name, category, price)
       }
 
       if (newModal === 'success' && this.ecommerce) {
-        const { id, name, category } = this.ecommerce
+        const { id, name, category, price } = this.ecommerce
 
-        api.ecommerce('purchase', id, name, category)
+        api.ecommerce('purchase', id, name, category, price)
         this.ecommerce = null
       }
     },

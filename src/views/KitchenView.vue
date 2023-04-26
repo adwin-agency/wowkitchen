@@ -90,12 +90,12 @@ export default {
         totalvalue: this.details.info.price
       })
 
-      _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'vk_ecom_product'});
+      // _tmr.push({ type: 'reachGoal', id: 3235784, goal: 'vk_ecom_product'});
     },
     ecommercePush() {
-      const { id, name, category_rus } = this.details.info
+      const { id, name, category_rus, price } = this.details.info
 
-      api.ecommerce('detail', id, name, 'Кухни/' + category_rus)
+      api.ecommerce('detail', id, name, `Кухни/${category_rus}`, price)
     }
   }
 }

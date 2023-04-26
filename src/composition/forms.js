@@ -84,8 +84,8 @@ export default function useForms() {
         const formType = e.target.querySelector('input[name="type"]').value
 
         if (store.state.kitchenDetails && formType !== 'calc') {
-          const { id, name, category_rus } = store.state.kitchenDetails.info
-          api.ecommerce('purchase', id, name, 'Кухни/' + category_rus)
+          const { id, name, category_rus, price } = store.state.kitchenDetails.info
+          api.ecommerce('purchase', id, name, `Кухни/${category_rus}`, price)
         }
 
       } catch {

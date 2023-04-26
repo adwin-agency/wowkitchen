@@ -235,8 +235,8 @@ export default {
     },
 
     handleBtnClick() {
-      const { name, id, category_rus } = this.info
-      this.$store.commit('setProductData', { name, id, category: 'Кухни/' + category_rus, product: 'kitchen' })
+      const { name, id, category_rus, price } = this.info
+      this.$store.commit('setProductData', { name, id, category: `Кухни/${category_rus}`, price, product: 'kitchen' })
     },
 
     setSwiper(swiper) {
@@ -246,9 +246,9 @@ export default {
     onSlideChange() {
       if (!this.swiper || this.isWatched) return
 
-      const { name, id, category_rus } = this.info
+      const { name, id, category_rus, price } = this.info
+      api.ecommerce('detail', id, name, `Кухни/${category_rus}`, price)
 
-      api.ecommerce('detail', id, name, 'Кухни/' + category_rus)
       this.isWatched = true
     }
   }
