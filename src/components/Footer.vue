@@ -54,7 +54,7 @@
             >
               Политика конфиденциальности
             </a>
-            <router-link
+            <!-- <router-link
               :to="{name: 'pay'}"
               custom
               v-slot="{href, navigate}"
@@ -66,7 +66,7 @@
                 class="footer__pay-btn"
                 @click="navigate"
               />
-            </router-link>
+            </router-link> -->
             <div class="footer__payment">
               <AppIcon
                 name="visa-color"

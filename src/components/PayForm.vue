@@ -221,7 +221,8 @@ export default {
       )
     },
     shopId() {
-      return this.cities[this.selectedCityCode]?.shop_id
+      return false
+      // return this.cities[this.selectedCityCode]?.shop_id
     },
     phone() {
       return this.cities[this.selectedCityCode]?.phone
