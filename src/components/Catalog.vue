@@ -10,6 +10,7 @@
           :groups="filterGroups"
           class="catalog__filters"
           :class="{'is-active': activeFilters}"
+          @change="changeFiltersLength"
           @close="closeFilters"
         />
       </div>
@@ -188,15 +189,13 @@ export default {
   data() {
     return {
       activeFilters: false,
+      filtersLength: 0,
       catalogType: 'grid',
       fixedFiltersBtn: false,
       activeFixedFiltersBtn: false
     }
   },
   computed: {
-    filtersLength() {
-      return Object.keys(this.$route.query).filter((i) => i !== 'page').length
-    },
     isPlaceholder() {
       return !this.cards.length || (this.loading && this.$_mobile)
     },
@@ -255,6 +254,10 @@ export default {
     closeFilters() {
       this.activeFilters = false
       this.$store.commit('setActiveFilters', false)
+    },
+
+    changeFiltersLength(value) {
+      this.filtersLength = value
     },
 
     changeCatalogType(type) {

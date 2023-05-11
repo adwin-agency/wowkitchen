@@ -88,35 +88,25 @@
       >
       </button>
     </div>
-    <!-- <AppButton
-      v-if="$_media.sm"
-      :title="`Показать результаты${resultLength !== null ? ` (${resultLength})` : ''}`"
-      class="filters__btn"
-      @click="applyFilters"
-    /> -->
   </div>
 </template>
 
 <script>
-// import AppButton from './base/AppButton.vue'
 import AppIcon from './base/AppIcon.vue'
 
 export default {
   name: 'Filters',
   components: {
-    // AppButton,
     AppIcon
   },
   props: {
     categories: Array,
     groups: Array
   },
-  emits: ['apply', 'close'],
+  emits: ['change', 'close'],
   data() {
     return {
-      selectedOptions: {},
-      activeOptions: {},
-      resultLength: null
+      activeOptions: {}
     }
   },
   computed: {
@@ -125,10 +115,14 @@ export default {
 
       if (this.groups) {
         for (let key in this.activeOptions) {
-          const groupItems = this.groups.find((item) => item.id === key).items
-          const title = groupItems.find((item) => item.value === this.activeOptions[key]).title
+          const groupItems = this.groups.find(item => item.id === key).items
+          const option = groupItems.find(
+            item => item.value === this.activeOptions[key]
+          )
 
-          arr.push({ group: key, title: title })
+          if (option) {
+            arr.push({ group: key, title: option.title })
+          }
         }
       }
 
@@ -147,15 +141,20 @@ export default {
     initActiveOptions() {
       const query = this.$route.query
 
-      this.activeOptions = {}
+      const activeOptions = {}
 
       for (let key in query) {
-        if (key !== 'page') {
-          this.activeOptions[key] = query[key]
+        if (this.categories?.find(item => item.value === query[key])) {
+          activeOptions[key] = query[key]
+        }
+
+        if (this.groups?.find(item => item.id === key && item.items.find(i => i.value === query[key]))) {
+          activeOptions[key] = query[key]
         }
       }
 
-      this.selectedOptions = { ...this.activeOptions }
+      this.activeOptions = { ...activeOptions }
+      this.$emit('change', Object.keys(activeOptions).length)
     },
 
     toggleCategory(category) {
@@ -169,38 +168,7 @@ export default {
         this.activeOptions.category = category
       }
 
-      // if (this.$_media.sm) {
-      //   this.getResultLength()
-      //   return
-      // }
-
       this.applyFilters()
-    },
-
-    async getResultLength() {
-      const query = { ...this.activeOptions }
-      let search = []
-
-      for (let key in query) {
-        search.push(`${key}=${query[key]}`)
-      }
-
-      search = search.join('&')
-
-      if (search) {
-        search = '?' + search
-      }
-
-      let routeName = this.$route.name
-
-      if (routeName === 'wardrobes') {
-        routeName = 'closets'
-      }
-
-      const response = await fetch(`${this.$_basepath}/local/templates/wow/api/${routeName}.php${search}`)
-      const responseJson = await response.json()
-
-      this.resultLength = responseJson.goods.length
     },
 
     toggleTag(group, value) {
@@ -220,11 +188,6 @@ export default {
         this.activeOptions[group] = value
       }
 
-      // if (this.$_media.sm) {
-      //   this.getResultLength()
-      //   return
-      // }
-
       this.applyFilters()
     },
 
@@ -235,21 +198,17 @@ export default {
 
     resetTags() {
       this.activeOptions = {}
-      // this.getResultLength()
       this.applyFilters()
     },
 
     applyFilters() {
-      const query = { category: this.activeCategory, ...this.activeOptions }
+      const query = { ...this.activeOptions }
 
       this.$router.push({ name: this.$route.name, query: query })
-      this.selectedOptions = { ...this.activeOptions }
-      this.$emit('apply', Object.keys(this.activeOptions).length)
       this.$emit('close')
     },
 
     closeFilters() {
-      this.activeOptions = { ...this.selectedOptions }
       this.$emit('close')
     }
   }
