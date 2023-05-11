@@ -203,3 +203,10 @@ picture, img {
   border-radius: inherit;
   background-color: $color-green;
 }
+
+.comagic-widget,
+.comagic-c-sitephone-label,
+.comagic-c-consultant-label,
+.comagic-c-invite {
+  display: none !important;
+}
