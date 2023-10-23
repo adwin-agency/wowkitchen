@@ -367,7 +367,7 @@ export default {
   },
   data() {
     return {
-      activeSelects: this.$_media.sm,
+      activeSelects: this.$_media?.sm,
       settings: settings,
       style: 'minimal',
       category: 'straight',

@@ -48,7 +48,7 @@
           </nav>
           <div class="footer__main-footer">
             <a
-              href="/policy.pdf"
+              :href="policy"
               class="footer__policy"
               target="_blank"
             >
@@ -192,16 +192,7 @@
             >
               Реквизиты
             </p>
-            <p
-              ref="requisites"
-              class="footer__requisites-desc"
-            >
-              ООО "СФЕРА"<br><br>
-              ИНН: 7810738800<br>
-              КПП: 781001001<br>
-              ОГРН: 1187847265484<br>
-              ОКПО: 33210876
-            </p>
+            <p class="footer__requisites-desc" ref="requisites" v-html="getRequisitesText(cityCode)"></p>
           </div>
           <p v-if="$_media.sm" class="footer__copyright">вся информация защищена авторским правом и любое использование и копирование запрещено <span>{{currentYear}} ©</span></p>
         </div>
@@ -281,6 +272,12 @@ export default {
     cityName() {
       return this.$store.state.cities[this.$store.state.activeCity]?.name
     },
+    cityCode() {
+      return this.$store.state.cities[this.$store.state.activeCity]?.code
+    },
+    policy(){
+      return this.$store.state.cities[this.$store.state?.activeCity]?.policy
+    },
     cityPhone() {
       return this.$store.state.cities[this.$store.state.activeCity]?.phone
     },
@@ -351,6 +348,30 @@ export default {
     handleSocialClick(eventName) {
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({ event: eventName })
+    },
+
+    getRequisitesText(cityCode) {
+      if (cityCode === 'spb') {
+        return `
+          ООО "СФЕРА"<br><br>
+          ИНН: 7810738800<br>
+          КПП: 781001001<br>
+          ОГРН: 1187847265484<br>
+          Расчетный счет: 40702810032060008615<br>
+          Корреспондентский счет: 30101810600000000786<br>
+          Банк: 044030786<br>
+        `;
+      } else {
+        return `
+          ООО "Анатрес"<br><br>
+          ИНН: 7725391072<br>
+          КПП: 772501001<br>
+          ОГРН: 1177746899747<br>
+          Расчетный счет: 40702810701500013837<br>
+          Корреспондентский счет: 30101810745374525104s<br>
+          Банк: 044525104<br>
+        `;
+      }
     }
   }
 }

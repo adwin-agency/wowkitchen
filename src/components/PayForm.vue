@@ -152,7 +152,7 @@
         </p>
         <p class="pay-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с
           <a
-            href="/policy.pdf"
+            :href="policy"
             target="_blank"
           >Политикой конфиденциальности</a>
         </p>
@@ -226,7 +226,10 @@ export default {
     },
     phone() {
       return this.cities[this.selectedCityCode]?.phone
-    }
+    },
+    policy(){
+      return this.$store.state.cities[this.$store.state?.activeCity]?.policy
+    },
   },
   methods: {
     handleCityChange(e) {

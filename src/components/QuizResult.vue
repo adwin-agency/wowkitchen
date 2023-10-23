@@ -77,14 +77,9 @@
           class="quiz-result__error"
         >
           Ошибка отправки. Попробуйте еще раз
-        </p>
+        </p>  
         <p class="quiz-result__note">Нажимая кнопку "Отправить», вы соглашаетесь с 
-          <a
-            href="/policy.pdf"
-            target="_blank"
-          >
-            Политикой конфиденциальности
-          </a>
+          <!-- <a :href="policy" target="_blank">Политикой конфиденциальности</a> -->
         </p>
       </div>
     </div>
@@ -109,7 +104,12 @@ export default {
     error: Boolean,
     gift: String,
     type: String
-  }
+  },
+  // computed: {
+  //   policy(){
+  //     return this.$store.state.cities[this.$store.state?.activeCity]?.policy
+  //   },
+  // }
 }
 </script>
 

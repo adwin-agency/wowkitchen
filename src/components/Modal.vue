@@ -88,7 +88,7 @@
             Ошибка отправки. Попробуйте еще раз
           </p>
           <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a
-              href="/policy.pdf"
+              :href="policy"
               target="_blank"
             >Политикой конфиденциальности</a></p>
           <button
@@ -211,7 +211,7 @@
             Ошибка отправки. Попробуйте еще раз
           </p>
           <p class="modal__policy">Нажимая кнопку "Отправить», вы соглашаетесь с <a
-              href="/policy.pdf"
+              :href="policy"
               target="_blank"
             >Политикой конфиденциальности</a></p>
           <button
@@ -400,7 +400,10 @@ export default {
     },
     promoDate() {
       return this.$store.getters.mainPromoDate
-    }
+    },
+    policy(){
+      return this.$store.state.cities[this.$store.state.activeCity]?.policy
+    },
   },
   watch: {
     modal(newModal) {

@@ -45,7 +45,7 @@
     >
       Ошибка отправки. Попробуйте еще раз
     </p>
-    <p class="design-form__note">Нажимая на кнопку "Пригласить дизайнера", вы{{'\xa0'}}соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
+    <p class="design-form__note">Нажимая на кнопку "Пригласить дизайнера", вы{{'\xa0'}}соглашаетесь с <a :href="policy" target="_blank">Политикой конфиденциальности</a></p>
   </form>
 </template>
 
@@ -68,6 +68,11 @@ export default {
       page,
       handleSubmit
     }
+  },
+  computed:{
+    policy(){
+      return this.$store.state.cities[this.$store.state?.activeCity]?.policy
+    },
   }
 }
 </script>

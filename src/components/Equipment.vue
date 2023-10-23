@@ -114,7 +114,7 @@ const cards = [
     ],
     image: { mobile: 'eq-furniture.jpg', desktop: 'eq-furniture-v.jpg' },
     title: 'Фурнитура',
-    desc: 'от лидеров отечественного и мирового рынков: Hettich, Boyard'
+    desc: 'от лидеров отечественного и мирового рынков: Hettich, Boyard. Петли с доводчиками входят в стоимость'
   },
   {
     features: [

@@ -117,7 +117,9 @@
             >
               Ошибка отправки. Попробуйте еще раз
             </p>
-            <p class="payment-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с <a href="/policy.pdf" target="_blank">Политикой конфиденциальности</a></p>
+            <p class="payment-form__policy">Нажимая кнопку «Оплатить», вы соглашаетесь с 
+              <a :href="policy" target="_blank">Политикой конфиденциальности</a>
+            </p>
           </div>
           <p
             v-if="error && !$_media.sm"
@@ -213,7 +215,10 @@ export default {
     },
     phone() {
       return this.$store.state.cities[this.activeCity]?.phone
-    }
+    },
+    policy(){
+      return this.$store.state.cities[this.$store.state?.activeCity]?.policy
+    },
   },
   methods: {
     handleCityChange(e) {

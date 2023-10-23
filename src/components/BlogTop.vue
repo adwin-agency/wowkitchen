@@ -26,7 +26,7 @@
           <div class="blog-top__side">
             <p class="blog-top__title">{{ topTitle }}</p>
             <Swiper
-              v-if="$_media.sm"
+              v-if="$_media?.sm"
               slides-per-view="auto"
               :space-between="10"
               class="blog-top__slider"

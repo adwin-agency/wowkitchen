@@ -140,7 +140,7 @@
             >
               Ошибка отправки. Попробуйте еще раз
             </p>
-            <p class="guarantee__policy">Нажимая кнопку "Отправить", вы соглашаетесь с условиями <a href="/policy.pdf" target="_blank">Политики конфиденциальности</a></p>
+            <p class="guarantee__policy">Нажимая кнопку "Отправить", вы соглашаетесь с условиями <a :href="policy" target="_blank">Политики конфиденциальности</a></p>
           </div>
         </form>
       </div>
@@ -296,6 +296,11 @@ export default {
         this.fileName = name
       }
     }
+  },
+  computed:{
+    policy(){
+      return this.$store.state.cities[this.$store.state?.activeCity]?.policy
+    },
   }
 }
 </script>
